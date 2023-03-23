@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('password');
             $table->string('Photo');
             $table->integer('Cin');
-            $table->enum("sex",["Man","Woman"]);
+            $table->enum("sex", ["Man", "Woman"]);
+            $table->date("Birth_day");
             $table->integer('password_token')->nullable();
             $table->timestamp('password_token_send_at')->nullable();
             $table->foreignId("classe_id");
