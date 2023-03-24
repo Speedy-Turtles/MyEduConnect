@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\VerifyMail;
 use App\Models\Role;
 use App\Models\RoleUser;
 use App\Models\User;
+use App\Notifications\VerifyEmail;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -33,7 +37,6 @@ class RegisterController extends Controller
             "classe_id"=>$request->classe_id
         ]);
 
-
         $role=new Role();
         $role->Role_name=$request->Role_name;
         $role->save();
@@ -43,6 +46,8 @@ class RegisterController extends Controller
         $role_user->role_id=$role->id;
         $role_user->save();
 
+        Mail::to($request->email)->send(new VerifyMail($user));
+        //$user->markEmailAsVerified();
         return response()->json(['data'=>"user created"],200);
     }
 }
