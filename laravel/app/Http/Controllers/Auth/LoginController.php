@@ -11,10 +11,12 @@ class LoginController extends Controller
 {
     public function Login(Request $request){
         if(Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
+
             $authUser=Auth::user();
             if (!$authUser->hasVerifiedEmail()) {
                 return response()->json(['data' => "Your email is not verified", 'status' => "email"], 401);
             }
+
             $user=User::where('id',$authUser->id)->with('roles')->first();
             $verify["Isetudiant"]=false;
             $verify["Isenseignant"]=false;
@@ -61,11 +63,15 @@ class LoginController extends Controller
                     $verify["Istechnicien"]=true;
                 }
             }
+
             $verify["token"]=$user->createToken("api_token")->plainTextToken;
             $verify["user"]=$user;
             return response()->json(["data"=>$verify],200);
+
         }else{
+
             return response()->json(["data"=>"User Not Found"],404);
+
         }
     }
 }
