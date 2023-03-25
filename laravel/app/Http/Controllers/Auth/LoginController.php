@@ -63,9 +63,9 @@ class LoginController extends Controller
             }
             $verify["token"]=$user->createToken("api_token")->plainTextToken;
             $verify["user"]=$user;
-            return response()->json(["data"=>$verify]);
+            return response()->json(["data"=>$verify],200);
         }else{
-            return response()->json(["data"=>"User Not Found"]);
+            return response()->json(["data"=>"User Not Found"],404);
         }
     }
 }
