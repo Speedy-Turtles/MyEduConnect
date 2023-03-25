@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Http\Request;
@@ -23,6 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(["prefix"=>"/auth"],function(){
     Route::post('/signup',[RegisterController::class,'Signup']);
+    Route::post('/login',[LoginController::class,'Login']);
     Route::get('/verifyEmail/{email}',[VerifyEmailController::class,'VerifyEmail']);
     Route::get("/RenvoyerLink/{email}",[VerifyEmailController::class,'renvoyer']);
 });
