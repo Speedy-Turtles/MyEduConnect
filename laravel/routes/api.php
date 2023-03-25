@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\RestPassword\ForgotPasswordController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,5 +28,6 @@ Route::group(["prefix"=>"/auth"],function(){
     Route::post('/login',[LoginController::class,'Login']);
     Route::get('/verifyEmail/{email}',[VerifyEmailController::class,'VerifyEmail']);
     Route::get("/RenvoyerLink/{email}",[VerifyEmailController::class,'renvoyer']);
+    Route::post("/forgotPassword/{email}",[ForgotPasswordController::class,'ForgotPassword']);
 });
 
