@@ -22,7 +22,7 @@ class RegisterController extends Controller
        if ($request->hasFile('photo')) {
             $file_name = time() . '_' .$request->photo->getClientOriginalName();
             $image=$request->file('photo')->storeAs('users',$file_name,'public');
-            $image_name='/storage'.$image;
+            $image_name='/storage/'.$image;
         }else{
             $image_name=$request->firstname[0].''.$request->lastname[0];
         }
