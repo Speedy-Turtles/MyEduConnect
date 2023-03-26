@@ -3,22 +3,24 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreRequest;
 use App\Mail\VerifyMail;
 use App\Models\Role;
 use App\Models\RoleUser;
 use App\Models\User;
 use App\Notifications\VerifyEmail;
+use Dotenv\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
-    public function Signup(Request $request)
+    public function Signup(StoreRequest $request)
     {
 
-        if ($request->hasFile('photo')) {
-            $file_name = time() . '_' . $request->photo->getClientOriginalName();
+       if ($request->hasFile('photo')) {
+            $file_name = time() . '_' .$request->photo->getClientOriginalName();
             $image=$request->file('photo')->storeAs('users',$file_name,'public');
             $image_name='/storage'.$image;
         }else{
@@ -33,8 +35,9 @@ class RegisterController extends Controller
             "Cin"=>$request->cin,
             "sex"=>$request->sex,
             "photo"=>$image_name,
+            "num_tlf"=>$request->num_tlf,
             "Birth_day"=>$request->birth_day,
-            "classe_id"=>$request->classe_id
+            "classe_id"=>$request->classe_id ? $request->classe_id : null
         ]);
 
         $role=new Role();
@@ -50,4 +53,6 @@ class RegisterController extends Controller
         //$user->markEmailAsVerified();
         return response()->json(['data'=>"user created"],200);
     }
+
+
 }
