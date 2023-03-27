@@ -20,4 +20,21 @@ class ForgotPasswordController extends Controller
         Mail::to($email)->send(new SendTokenPassword($token));
         return response()->json(["data"=>"Code Send To Your Email successfully"],200);
    }
+
+   public function ChangerPassword(Request $request){
+    $user=User::where("email",$request->email)->where("password_token",$request->token)->first();
+    if($user){
+       if($user->password_token_send_at > now()->addHour()){
+         return response()->json(["data"=>"Token Expired"],404);
+        }
+        $user->update([
+            "password"=>bcrypt($request->password),
+            "password_token_send_at"=>null,
+            "password_token"=>null
+        ]);
+        return response()->json(["data"=>"Password Changed With success"],200);
+    }else{
+        return response()->json(["data"=>"Email Or Token not found"],404);
+    }
+   }
 }
