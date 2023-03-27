@@ -26,7 +26,7 @@ export default {
 
 <style scoped>
 #app{
-  background: #FFF9EB;
+  /* background: #FFF9EB; */
   margin: 0;
   padding: 0;
   box-sizing: border-box;
