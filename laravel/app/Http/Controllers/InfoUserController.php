@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
+use App\Models\RoleUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -21,4 +23,13 @@ class InfoUserController extends Controller
             ]);
         }
     }
+
+
+    public function ActiveUser($id){
+        $user=RoleUser::where('user_id',$id)->update(['status'=>1]);
+        return response()->json([
+            "data"=>$user,
+        ],200);
+    }
+
 }
