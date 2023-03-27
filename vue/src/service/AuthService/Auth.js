@@ -45,6 +45,12 @@ export default{
     },
     VerifyEmail(email){
         return axios.get("auth/verifyEmail/"+email);
+    },
+    forgotPassword(email){
+        return axios.post("auth/forgotPassword/"+email);
+    },
+    changerPassword(data){
+        return axios.post("auth/ChangerPassword",data);
     }
 
 }
