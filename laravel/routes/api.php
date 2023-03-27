@@ -36,6 +36,8 @@ Route::group(["prefix"=>"/auth"],function(){
 });
 
 
+Route::post('/active/{id}',[InfoUserController::class,"ActiveUser"]);
+
 Route::group(["prefix"=>"/classe"],function(){
      Route::get("/classesBySpecialite/{id}",[GestionClasseController::class,"getClasseForSpecialte"]);
  });
