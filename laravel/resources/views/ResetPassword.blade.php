@@ -4,7 +4,7 @@
  <p style="font-size: 30px;text-align: center">
     {{$token}}
  </p>
-    <x-mail::button url="{{env('APP_FRONTEND')}}/pageHome" color="error">
+    <x-mail::button url="{{env('APP_FRONTEND')}}/ChangePassword" color="error">
          Change Password
     </x-mail::button>
  @endcomponent
