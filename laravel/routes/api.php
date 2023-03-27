@@ -32,7 +32,9 @@ Route::group(["prefix"=>"/auth"],function(){
     Route::get('/verifyEmail/{email}',[VerifyEmailController::class,'VerifyEmail']);
     Route::get("/RenvoyerLink/{email}",[VerifyEmailController::class,'renvoyer']);
     Route::post("/forgotPassword/{email}",[ForgotPasswordController::class,'ForgotPassword']);
+    Route::post("/ChangerPassword",[ForgotPasswordController::class,'ChangerPassword']);
     Route::get("/Existmail/{email}",[InfoUserController::class,'testExistEmail']);
+    Route::get("/testExistToken/{code}",[InfoUserController::class,'testExistToken']);
 });
 
 
@@ -44,4 +46,8 @@ Route::group(["prefix"=>"/classe"],function(){
 
  Route::group(["prefix"=>"/specialte"],function(){
     Route::get("/Allspecialte",[GestionSpecialiteController::class,"getSpecialte"]);
+});
+
+Route::middleware("auth:sanctum")->group(function(){
+    // utiliser dans controller $request()->user()->id  grace a interceptors dans vue js
 });
