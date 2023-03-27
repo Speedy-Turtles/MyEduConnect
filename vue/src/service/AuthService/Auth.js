@@ -1,5 +1,6 @@
 import axios from "axios";
 import  "@/plugins/axios";
+import {AuthUser} from "@/store/Store.js";
 
 export default{
 
@@ -23,6 +24,27 @@ export default{
         };
         console.log(user);
         return axios.post("auth/signup",data,config)
+    },
+
+    async login(email,password){
+        const store=AuthUser();
+        const res=await axios.post("auth/login",{email,password});
+        const data=res.data.data;
+       // console.log(data);
+        if(res.status==200){
+            store.login(data.token,data.user,data.Isadmin,
+                data.Istechnicien,data.Isetudiant,data.IsChefDepartement
+                );
+        }else{
+            store.logout();
+        }
+    },
+
+    RenvoyerEmail(email){
+        return axios.get("auth/RenvoyerLink/"+email);
+    },
+    VerifyEmail(email){
+        return axios.get("auth/verifyEmail/"+email);
     }
 
 }
