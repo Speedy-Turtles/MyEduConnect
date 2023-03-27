@@ -1,7 +1,7 @@
 <template>
     <div data-aos="fade-right" class="forgot_interface" >
       <v-container class="mt-1 py-5" fluid>
-         <v-card class="mt-2 card" elavation="3">
+         <v-card  style="height:100%" class="mt-2 card" elavation="3">
             <v-row >
                <v-col>
                   <v-toolbar class="mb-4">

@@ -1,11 +1,11 @@
 import Vue from 'vue'
-
-
 import VueRouter from 'vue-router'
-
 import HomeView from '../views/HomeView.vue'
-
-
+import signup from "../views/Auth/SignUpView.vue"
+import signin from "../views/Auth/LoginView.vue"
+import forgotPassword from "../views/Auth/ForgotPassword/ForgotPasswordView.vue"
+import ChangePassword from "../views/Auth/ForgotPassword/ChangePasswordView.vue"
+import EtudiantView from "../views/etudiant/EtudiantView.vue"
 Vue.use(VueRouter)
 
 const routes = [
@@ -35,6 +35,11 @@ const routes = [
     component: ChangePassword
   },
   {
+    path:'/etudiant',
+    name:'etudiant',
+    component:EtudiantView
+  },
+  {
     path: '/about',
     name: 'about',
     // route level code-splitting
@@ -42,12 +47,7 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
-  {
-    path:'/etudiant',
-    name:'etudiant',
-    component:EtudiantView
-  }
-
+ 
 ]
 
 const router = new VueRouter({
