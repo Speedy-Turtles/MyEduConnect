@@ -6,9 +6,9 @@
     please confirm your emails address.
 </p>
  @component('mail::panel')
- <p style="text-align:center">  Lien de Verification </p>
+ <p style="text-align:center">Lien de Verification</p>
       <br>
-    <x-mail::button url="{{env('APP_FRONTEND')}}/pageHome?email={{$user->email}}" color="success">
+    <x-mail::button url="{{env('APP_FRONTEND')}}/signin?email={{($user->email)}}" color="success">
         Verify Now
     </x-mail::button>
  @endcomponent
