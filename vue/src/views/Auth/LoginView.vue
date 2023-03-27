@@ -48,7 +48,8 @@
                                  placeholder="Enter Password"
                              ></v-text-field>
                              <div class="mb-5">
-                                  <p  color="#4F5BD8" style="color:#2B3277;font-weight:bold;">Forgot Password ?</p>   
+                                  <p  color="#4F5BD8" style="color:#2B3277;font-weight:bold;">
+                                    <router-link to="/forgotpassword">Forgot Password ?</router-link>  </p>   
                              </div>
                              <hr color="#2B3277" size="1px" class="mb-3">
                              <div class="float-end">

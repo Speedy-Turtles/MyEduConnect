@@ -211,7 +211,7 @@
                 :error-messages="classe_error"
                 item-text="nom"
                 item-value="id"
-                label="chose Your Specialite"
+                label="chose Your Classe"
             ></v-select>
           </div>
         <v-divider></v-divider>
