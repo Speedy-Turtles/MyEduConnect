@@ -24,6 +24,20 @@ class InfoUserController extends Controller
         }
     }
 
+    public function testExistToken(String $token){
+        $user=User::where("password_token",$token)->first();
+        if($user){
+            return response()->json([
+                "data"=>"Exist",
+                "success"=>false
+            ],201);
+        }else{
+            return response()->json([
+                "data"=>"not Exist",
+                "success"=>true
+            ]);
+        }
+    }
 
     public function ActiveUser($id){
         $user=RoleUser::where('user_id',$id)->update(['status'=>1]);
