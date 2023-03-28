@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('specialites', function (Blueprint $table) {
             $table->id();
             $table->String("type");
+            $table->integer("niveau");
             $table->timestamps();
         });
     }
