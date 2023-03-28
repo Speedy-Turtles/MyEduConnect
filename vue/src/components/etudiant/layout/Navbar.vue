@@ -1,6 +1,6 @@
 <template>
     <div class="navbar">
-        <v-toolbar app  class="toolbar px-5">
+         <v-toolbar app  class="toolbar px-5" >
             <v-toolbar-side-icon   class="hidden-md-and-up"></v-toolbar-side-icon>
             <!-- --------------------menu-------------------------- -->
             <v-menu offset-y >
@@ -18,12 +18,13 @@
                     </v-btn>
                 </template>
                 <v-list>
+                    
                     <v-list-item
                     v-for="link in links"
                     :key="link.titre"
                     >
                         <v-list-item-title>
-                            <span router to="">{{link.titre}}</span>
+                            <v-btn plain router :to="link.route">{{link.titre}}</v-btn>
                         </v-list-item-title>
                     </v-list-item>
                 </v-list>
@@ -32,7 +33,7 @@
 
                 <!-- --------------------titre-------------------------- -->
                 <v-toolbar-title class="mr-5 hidden-xs-only hidden-md-only">
-                    <img src="../../../public/etudiant/images/logo-no-background.svg" alt="" width="100px" srcset="">
+                    <img src="../../../../public/etudiant/images/logo-makeiteasy-no-background.svg" alt="" width="100px" srcset="">
                 </v-toolbar-title>
                 <!-- --------------------titre/-------------------------- -->
 
@@ -49,6 +50,7 @@
                             v-on="on"
                             id="btn-links"
                             class="black--text"
+                            router :to="link.route"
                             >
                             <v-icon class="px-3">{{ link.icon }}</v-icon>
                             {{ link.titre }}
@@ -90,7 +92,7 @@
                      >
 
                         <v-avatar size="43px">
-                            <img src="../../../public/etudiant/images/avatar.png" alt="" srcset="">
+                            <img src="../../../../public/etudiant/images/avatar.png" alt="" srcset="">
                         </v-avatar>
                      </v-btn>
                     </template>
@@ -149,9 +151,8 @@
                 </v-menu>
                      
                 <!-- --------------------items/-------------------------- -->
-        </v-toolbar>
+        </v-toolbar> 
     </div>
-    <!-- <v-icon color="primary" size="35px">mdi-account-outline</v-icon> -->
 </template>
 <script>
 
@@ -159,17 +160,18 @@
         data(){
             return{
                 links:[
-                    {titre:'Document',route:'',desc:'Check Documents',icon:'mdi-table-edit'},
-                    {titre:'Forum',route:'',desc:'Go to Forum',icon:'mdi-comment-text-outline'},
-                    {titre:'Club',route:'',desc:'Enjoy Clubs',icon:'mdi-star-outline'},
-                    {titre:'Help Desk',route:'',desc:'How Can We help You !',icon:'mdi-wrench'}
+                    {titre:'home',link:'home',desc:'Home',icon:'mdi-home',route:'/etudiant'},
+                    {titre:'Document',link:'document',desc:'Check Documents',icon:'mdi-table-edit',route:'/etudiant/document'},
+                    {titre:'Forum',link:'forum',desc:'Go to Forum',icon:'mdi-comment-text-outline',route:'/etudiant/forum'},
+                    {titre:'Club',link:'club',desc:'Enjoy Clubs',icon:'mdi-star-outline',route:'/etudiant/club'},
+                    {titre:'Help',link:'help',desc:'How Can We help You !',icon:'mdi-wrench',route:'/etudiant/help'}
                 ],
-                messages:10
+                messages:10,
+                
                
             }
         },
        methods:{
-        
        }
     }
 
@@ -201,7 +203,10 @@ font-style: italic;
 font-variant: small-caps;
 text-transform: uppercase;
 }
-.v-toolbar__content{
-    height: 70px;
+.toolbar{
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+   
 }
 </style>
