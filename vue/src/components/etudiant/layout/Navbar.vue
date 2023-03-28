@@ -1,6 +1,7 @@
 <template>
     <div class="navbar">
          <v-toolbar app  class="toolbar px-5" >
+            <a type="hidden" href=""></a>
             <v-toolbar-side-icon   class="hidden-md-and-up"></v-toolbar-side-icon>
             <!-- --------------------menu-------------------------- -->
             <v-menu offset-y >
