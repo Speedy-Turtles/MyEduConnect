@@ -419,7 +419,7 @@ export default{
                  {id:5,image:require("../../assets/iterfaces/interface_chef.png"),titre:"Interface Technicien",
                  description:"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non neque aliquam eius!"},
                 ],
-            role:['ensignat','etudiant',"chefDepartment","Technicien"],
+            role:['ensignant','etudiant',"chefDepartment","Technicien"],
             logo:require("../../assets/Logo_app/logo-no-background.png")
         }
     },
