@@ -2,6 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import EtudiantView from '../views/etudiant/EtudiantView'
+import DocumentView from '../views/etudiant/DocumentView'
+import ForumView from '../views/etudiant/ForumView'
+import ClubView from '../views/etudiant/ClubView'
+import HelpView from '../views/etudiant/HelpView'
 
 Vue.use(VueRouter)
 
@@ -23,7 +27,27 @@ const routes = [
     path:'/etudiant',
     name:'etudiant',
     component:EtudiantView
-  }
+  },
+  {
+    path:'/etudiant/document',
+    name:'document',
+    component:DocumentView
+  },
+  {
+    path:'/etudiant/forum',
+    name:'forum',
+    component:ForumView
+  },
+  {
+    path:'/etudiant/club',
+    name:'club',
+    component:ClubView
+  },
+  {
+    path:'/etudiant/help',
+    name:'help',
+    component:HelpView
+  },
 
 ]
 
