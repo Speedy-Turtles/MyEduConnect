@@ -11,6 +11,7 @@
                         </div>
                         <p class="p2">{{ p2 }}</p>
                     <p class="p1 hidden-sm-and-down">{{ p1 }}</p>
+                    <v-btn @click="GenerPdf()">Download pdf</v-btn>
                 </v-flex>
                 <v-flex xs12 md6 sm12 xl4>
                     <img  v-if="selected" :src="selected"   id="img"  alt="" width="100%" height="350px" >
@@ -84,8 +85,7 @@
             :timeout="timeout"
             color="green--text"
             >
-            Welcome User !
-
+            Welcome {{store.user['FirstName']}} !
             <template v-slot:action="{ attrs }">
                 <v-btn
                 color="red"
@@ -97,7 +97,7 @@
                 </v-btn>
             </template>
             </v-snackbar>
-            
+          
         </div>
         
     </div>
@@ -105,9 +105,15 @@
 
 </template>
 <script>
- 
+import jsPDF from 'jspdf';
+import 'jspdf-autotable'
+import {AuthUser} from "@/store/Store.js";
+import {AmiriRegular} from "@/assets/fontArabic/amiri.js";
 export default {
-   
+    setup(){
+        const store=AuthUser();
+        return{store}
+      },
 data(){
     return{
         p1:' This platform is designed to facilitate communication and collaboration among students, thereby creating a sense of community and fostering academic success. In addition, Myeduconnect offers a wide range of resources and tools that are specifically tailored to the needs of college students, such as study guides, course materials, and career advice. ',
@@ -123,12 +129,9 @@ data(){
             {titre:'Document',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../public/etudiant/images/document.png')},
             {titre:'Forums',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../public/etudiant/images/forum.png')},
             {titre:'Clubs   ',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../public/etudiant/images/club.png')},
-            
-
         ],
         snackbar:false,
         timeout:3000
-        
     }
 },
 props:['photos'],
@@ -136,16 +139,27 @@ methods:{
     randomPhoto(imgs){
         return imgs[Math.floor(Math.random()*this.photos.length)]
     },
-    
+    GenerPdf(){
+                    const doc = new jsPDF();
+                    doc.addFileToVFS('Amiri-Regular.ttf',AmiriRegular);
+                    doc.addFont('Amiri-Regular.ttf', 'Amiri', 'normal');
+                    doc.setFont('Amiri');
+                    doc.text('الجمهورية التونسية',158,10);
+                    doc.text('وزارة التعليم العالي و البحث العلمي',158,15);
+                    doc.text('الادارة العامة للدراسات التكنولوجية ',158,20);
+                    doc.text('المعهد العالي للدراسات التكنولوجية ببنزرت',158,25)
+                    doc.text('الجمهورية التونسية',158,10);
+                    doc.save(`tets.pdf`);    
+    }
 },
 created(){
     this.selected=this.randomPhoto(this.photos)
     this.snackbar=true
-   
 }
 }
 </script>
 <style>
+
 .p2{
 font-family: Verdana, Geneva, sans-serif;
 font-size: 30px;
