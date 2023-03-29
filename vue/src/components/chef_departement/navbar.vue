@@ -38,7 +38,7 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
 .v-toolbar{
     position: fixed;
     width: 100%;

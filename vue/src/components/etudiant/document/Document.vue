@@ -82,7 +82,7 @@ export default {
     },
 }
 </script>
-<style>
+<style scoped>
     .v-card{
         max-width: 351px;
         height: 420px;     

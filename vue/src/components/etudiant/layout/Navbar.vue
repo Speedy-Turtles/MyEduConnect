@@ -178,7 +178,7 @@
     }
 
 </script>
-<style>
+<style scoped>
 #demoFont {
 font-family: "Montserrat", sans-serif;
 font-size: 21px;

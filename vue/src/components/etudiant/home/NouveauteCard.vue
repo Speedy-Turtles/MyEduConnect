@@ -47,7 +47,7 @@ export default {
 
 }
 </script>
-<style>
+<style scoped>
 #card{
     border: 0.25px solid rgb(213, 211, 211);
     margin-top: 20px;

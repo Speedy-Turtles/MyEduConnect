@@ -53,7 +53,7 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
 body{
     height: 40000px;
 }
