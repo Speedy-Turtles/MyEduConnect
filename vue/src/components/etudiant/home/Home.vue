@@ -150,7 +150,7 @@ created(){
 }
 }
 </script>
-<style>
+<style scoped>
 .p2{
 font-family: Verdana, Geneva, sans-serif;
 font-size: 30px;

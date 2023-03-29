@@ -32,7 +32,7 @@
     }
 
 </script>
-<style>
+<style scoped>
 .footer1{
     background-color:#5094df ;
     height: auto;
