@@ -20,10 +20,12 @@ return new class extends Migration
             $table->string('password');
             $table->string('Photo');
             $table->integer('Cin');
-            $table->enum("sex",["Man","Woman"]);
+            $table->enum("sex", ["Man", "Woman"]);
+            $table->date("Birth_day");
+            $table->string('num_tlf');
             $table->integer('password_token')->nullable();
             $table->timestamp('password_token_send_at')->nullable();
-            $table->foreignId("classe_id");
+            $table->foreignId("classe_id")->nullable();
             $table->foreign("classe_id")->references("id")->on("classes")->onDelete("cascade");
             $table->rememberToken();
             $table->timestamps();
