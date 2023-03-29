@@ -1,11 +1,21 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+<<<<<<< HEAD
 import signup from "../views/Auth/SignUpView.vue"
 import signin from "../views/Auth/LoginView.vue"
 import forgotPassword from "../views/Auth/ForgotPassword/ForgotPasswordView.vue"
 import ChangePassword from "../views/Auth/ForgotPassword/ChangePasswordView.vue"
 import EtudiantView from "../views/etudiant/EtudiantView.vue"
 import dashboardView from '../views/chef_departement/dashboardView.vue'
+=======
+import HomeView from '../views/HomeView.vue'
+import EtudiantView from '../views/etudiant/EtudiantView'
+import DocumentView from '../views/etudiant/DocumentView'
+import ForumView from '../views/etudiant/ForumView'
+import ClubView from '../views/etudiant/ClubView'
+import HelpView from '../views/etudiant/HelpView'
+
+>>>>>>> etudiants_branch
 Vue.use(VueRouter)
 
 const routes = [
@@ -53,7 +63,35 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
+<<<<<<< HEAD
  
+=======
+  {
+    path:'/etudiant',
+    name:'etudiant',
+    component:EtudiantView
+  },
+  {
+    path:'/etudiant/document',
+    name:'document',
+    component:DocumentView
+  },
+  {
+    path:'/etudiant/forum',
+    name:'forum',
+    component:ForumView
+  },
+  {
+    path:'/etudiant/club',
+    name:'club',
+    component:ClubView
+  },
+  {
+    path:'/etudiant/help',
+    name:'help',
+    component:HelpView
+  },
+>>>>>>> etudiants_branch
 
 ]
 
