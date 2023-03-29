@@ -8,7 +8,10 @@ export default{
   },
   TestExistcode(code){
     return axios.get("auth/testExistToken/"+code);
- }  
+  },
+  GetNiveau(){
+   return axios.get("/getNiveau");
+  }
 
 
 
