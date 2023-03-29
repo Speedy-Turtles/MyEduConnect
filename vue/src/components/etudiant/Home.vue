@@ -109,7 +109,14 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable'
 import {AuthUser} from "@/store/Store.js";
 import {AmiriRegular} from "@/assets/fontArabic/amiri.js";
+import infouser from "@/service/UserInfo/userinfo.js"
 export default {
+    mounted(){
+        infouser.GetNiveau().then((res)=>{
+            this.niveau=res.data.data.specialite['niveau'];
+            this.classe_current=res.data.data.nom;
+        })
+    },
     setup(){
         const store=AuthUser();
         return{store}
@@ -119,6 +126,8 @@ data(){
         p1:' This platform is designed to facilitate communication and collaboration among students, thereby creating a sense of community and fostering academic success. In addition, Myeduconnect offers a wide range of resources and tools that are specifically tailored to the needs of college students, such as study guides, course materials, and career advice. ',
         p2:' is a website that caters specifically to college students .',
         selected:null,
+        classe_current:"",
+        niveau:0,
         acteurs:[
             {person:'Etudiants',nombre:'+50',icon:''},
             {person:'Enseignants',nombre:'+20',icon:''},
@@ -140,16 +149,34 @@ methods:{
         return imgs[Math.floor(Math.random()*this.photos.length)]
     },
     GenerPdf(){
+                    var niveau="";
+                    if(this.niveau==1){
+                        niveau="الاولة";
+                    }else if(this.niveau==2){
+                        niveau="الثانية";
+                    }else{
+                        niveau="الثالثة";
+                    }
                     const doc = new jsPDF();
                     doc.addFileToVFS('Amiri-Regular.ttf',AmiriRegular);
                     doc.addFont('Amiri-Regular.ttf', 'Amiri', 'normal');
                     doc.setFont('Amiri');
                     doc.text('الجمهورية التونسية',158,10);
-                    doc.text('وزارة التعليم العالي و البحث العلمي',158,15);
-                    doc.text('الادارة العامة للدراسات التكنولوجية ',158,20);
-                    doc.text('المعهد العالي للدراسات التكنولوجية ببنزرت',158,25)
-                    doc.text('الجمهورية التونسية',158,10);
-                    doc.save(`tets.pdf`);    
+                    doc.text('وزارة التعليم العالي و البحث العلمي',140,20);
+                    doc.text('الادارة العامة للدراسات التكنولوجية ',140,30);
+                    doc.text('المعهد العالي للدراسات التكنولوجية ببنزرت',100,40,{align:'center'})
+                    doc.setFontSize(20);
+                    doc.text('شهادة حضور',100,50,{align:'center'});
+                    doc.text('2023 - 2022',100,60,{align:'center'});
+                    doc.setFontSize(18);
+                    doc.text(`يشهد الكاتب العام للمعهد للدراسات التكنولوجية ببنزرت ان ${this.store.user['sex']=="Man" ? 'الطالب ' : 'الطالبة' }`,65,75);
+                    doc.text(`${this.store.user['FirstName']} : الاسم`,170,90);
+                    doc.text(`${this.store.user['LastName']} : اللقب`,170,100);
+                    doc.text(`${this.store.user['Birth_day']} : المولود في`,143,110);
+                    doc.text(`ب  تونس`,120,110);
+                    doc.text(`${this.store.user['Cin']} : صاحب بطاقة تعريف وطنية رقم`,102,120);
+                    doc.text(` ${this.classe_current} ${this.store.user['sex']=="Man" ? 'مرسم ' : 'مرسمة' } بالسنة  : ${ niveau } ,  الفوج `,120,130);
+                    doc.save(`${this.store.user['Cin']}.pdf`);    
     }
 },
 created(){

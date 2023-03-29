@@ -32,6 +32,7 @@
 
                 <!-- --------------------titre-------------------------- -->
                 <v-toolbar-title class="mr-5 hidden-xs-only hidden-md-only">
+                    
                     <img src="../../../public/etudiant/images/logo-no-background.svg" alt="" width="100px" srcset="">
                 </v-toolbar-title>
                 <!-- --------------------titre/-------------------------- -->
@@ -86,11 +87,9 @@
                     <template v-slot:activator="{ on, attrs }">
                     <v-btn  flat plain v-bind="attrs"
                      v-on="on"
-                     
                      >
-
                         <v-avatar size="43px">
-                            <img src="../../../public/etudiant/images/avatar.png" alt="" srcset="">
+                            <img :src="'http://localhost:8000'+store.user['Photo']" alt="" srcset="">
                         </v-avatar>
                      </v-btn>
                     </template>
@@ -101,9 +100,8 @@
                                 plain
                                 block
                                 class="py-3"
-
                             >
-                            User
+                            {{store.user['FirstName']}}
                             </v-btn>
                         </v-list-item-title>
                      </v-list-item>
@@ -140,7 +138,7 @@
                                 plain
                             >
                                 <v-icon class="pa-2">mdi-logout</v-icon>
-                                <span class="">log out</span>
+                                <span  @click="logout()">log out</span>
                             </v-btn>
                         </v-list-item-action>
                         
@@ -153,9 +151,14 @@
     </div>
     <!-- <v-icon color="primary" size="35px">mdi-account-outline</v-icon> -->
 </template>
-<script>
 
+<script>
+import {AuthUser} from "@/store/Store.js"
     export default {
+        setup(){
+            const store=AuthUser();
+            return{store}
+        },
         data(){
             return{
                 links:[
@@ -165,11 +168,13 @@
                     {titre:'Help Desk',route:'',desc:'How Can We help You !',icon:'mdi-wrench'}
                 ],
                 messages:10
-               
             }
         },
        methods:{
-        
+        logout(){
+            this.store.logout();
+            this.$router.push({name:'signin'});
+        }
        }
     }
 
