@@ -6,6 +6,13 @@ import forgotPassword from "../views/Auth/ForgotPassword/ForgotPasswordView.vue"
 import ChangePassword from "../views/Auth/ForgotPassword/ChangePasswordView.vue"
 import EtudiantView from "../views/etudiant/EtudiantView.vue"
 import dashboardView from '../views/chef_departement/dashboardView.vue'
+import HomeView from '../views/HomeView.vue'
+import EtudiantView from '../views/etudiant/EtudiantView'
+import DocumentView from '../views/etudiant/DocumentView'
+import ForumView from '../views/etudiant/ForumView'
+import ClubView from '../views/etudiant/ClubView'
+import HelpView from '../views/etudiant/HelpView'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -35,10 +42,30 @@ const routes = [
     name: 'ChangePassword',
     component: ChangePassword
   },
-  {
+   {
     path:'/etudiant',
     name:'etudiant',
     component:EtudiantView
+  },
+  {
+    path:'/etudiant/document',
+    name:'document',
+    component:DocumentView
+  },
+  {
+    path:'/etudiant/forum',
+    name:'forum',
+    component:ForumView
+  },
+  {
+    path:'/etudiant/club',
+    name:'club',
+    component:ClubView
+  },
+  {
+    path:'/etudiant/help',
+    name:'help',
+    component:HelpView
   },
   {
     path: '/chef_departement',
@@ -53,8 +80,6 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
- 
-
 ]
 
 const router = new VueRouter({

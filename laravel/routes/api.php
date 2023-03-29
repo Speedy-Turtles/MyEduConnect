@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\RestPassword\ForgotPasswordController;
@@ -7,6 +8,8 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\GestionClasseController;
 use App\Http\Controllers\GestionSpecialiteController;
 use App\Http\Controllers\InfoUserController;
+use App\Http\Controllers\Document\DocumentController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +51,11 @@ Route::group(["prefix"=>"/classe"],function(){
     Route::get("/Allspecialte",[GestionSpecialiteController::class,"getSpecialte"]);
 });
 
+
+
 Route::middleware("auth:sanctum")->group(function(){
+    Route::group(['prefix'=>'/documents'],function(){
+        Route::get('/',[DocumentController::class,'AllDocuments']);
+    });
     // utiliser dans controller $request()->user()->id  grace a interceptors dans vue js
 });
