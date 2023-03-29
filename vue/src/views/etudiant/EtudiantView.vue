@@ -1,6 +1,4 @@
 <template>
-    <v-app>
-        
             <div class="etudiant">
                 <nav>
                     <div class="navbar">
@@ -10,14 +8,11 @@
                 <main>
                     <Home :photos="photos"></Home>
                     <NouveauteCard />
-                    <Document  class="mt-5"></Document>
                 </main>
                 <footer>
                     <Footer></Footer>
                 </footer>
                 </div>
-       
-    </v-app>
 </template>
 <script>
 import Navbar from '@/components/etudiant/layout/Navbar.vue'

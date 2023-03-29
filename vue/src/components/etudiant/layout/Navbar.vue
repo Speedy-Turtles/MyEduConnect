@@ -1,13 +1,13 @@
 <template>
     <div class="navbar">
-         <v-toolbar app  class="toolbar px-5" >
+         <v-toolbar   class="toolbar px-5" >
+            
             <a type="hidden" href=""></a>
-            <v-toolbar-side-icon   class="hidden-md-and-up"></v-toolbar-side-icon>
             <!-- --------------------menu-------------------------- -->
             <v-menu offset-y >
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn
-                    flat
+                    
                     v-bind="attrs"
                     v-on="on"
                     plain
@@ -87,7 +87,7 @@
 
                 <v-menu offset-y>
                     <template v-slot:activator="{ on, attrs }">
-                    <v-btn  flat plain v-bind="attrs"
+                    <v-btn   plain v-bind="attrs"
                      v-on="on"
                      
                      >
@@ -158,6 +158,7 @@
 <script>
 
     export default {
+        name:'Navbar',
         data(){
             return{
                 links:[

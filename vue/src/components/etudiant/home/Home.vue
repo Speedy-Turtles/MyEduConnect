@@ -227,7 +227,7 @@ font-variant: small-caps;
   text-transform: uppercase;
 }
 .p-iset{
-    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 font-size: 30px;
 letter-spacing: 2px;
 word-spacing: 2px;
@@ -239,7 +239,7 @@ font-variant: normal;
 text-transform: none;
 }
 .v-card{
-    height: 250px;
+    height: 150px;
 }
 .fonction-desc{
     font-size: 19px;

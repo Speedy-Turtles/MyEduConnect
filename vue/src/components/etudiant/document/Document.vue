@@ -34,16 +34,19 @@
                                 </v-list-item-content>
                                 </v-list-item>
                                 <v-list-item>
-                                    <v-checkbox
-                                    label="Francais"
+                                    <v-radio-group
+                                    v-model="row"
+                                    row
                                     >
-                                        
-                                    </v-checkbox>
-                                    <v-checkbox
-                                    label="Arabe"
-                                    >
-                                        
-                                    </v-checkbox>
+                                        <v-radio
+                                            label="Français"
+                                            value="Français"
+                                        ></v-radio>
+                                        <v-radio
+                                            label="Arabe"
+                                            value="Arabe"
+                                        ></v-radio>
+                                    </v-radio-group>
                                 </v-list-item>
                                 <v-card-actions>
                                 <v-btn
@@ -64,6 +67,7 @@
 </template>
 <script>
 export default {
+   name:'Document',
     data: () => ({
       loading: false,
       selection: 1,
