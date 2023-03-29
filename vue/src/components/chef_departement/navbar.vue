@@ -1,6 +1,6 @@
 <template>
     <div>
-    <v-toolbar elevation="4" rounded>
+    <v-toolbar elevation="4" rounded fixed>
         <img src="../../assets/logo-no-background.svg" width="100px" alt="">
         <v-spacer></v-spacer>
         <v-menu offset-y>
@@ -39,6 +39,10 @@ export default {
 }
 </script>
 <style>
+.v-toolbar{
+    position: fixed;
+    width: 100%;
+}
 .notification{
     cursor: pointer;
 }
