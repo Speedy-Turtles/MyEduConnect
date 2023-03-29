@@ -4,7 +4,6 @@ import signup from "../views/Auth/SignUpView.vue"
 import signin from "../views/Auth/LoginView.vue"
 import forgotPassword from "../views/Auth/ForgotPassword/ForgotPasswordView.vue"
 import ChangePassword from "../views/Auth/ForgotPassword/ChangePasswordView.vue"
-import EtudiantView from "../views/etudiant/EtudiantView.vue"
 import dashboardView from '../views/chef_departement/dashboardView.vue'
 import HomeView from '../views/HomeView.vue'
 import EtudiantView from '../views/etudiant/EtudiantView'
