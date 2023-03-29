@@ -53,10 +53,8 @@ export default {
     }
 }
 </script>
-<style>
-body{
-    height: 40000px;
-}
+<style scoped>
+
 .nav-drawer {
     background-color: #525fe1 !important;
     height: 95% !important;

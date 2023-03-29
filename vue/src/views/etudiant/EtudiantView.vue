@@ -1,18 +1,18 @@
 <template>
             <div class="etudiant">
-                <nav>
+                <nav >
                     <div class="navbar">
                         <Navbar></Navbar>
                     </div>
                 </nav>
-                <main>
+                <main >
                     <Home :photos="photos"></Home>
                     <NouveauteCard />
                 </main>
-                <footer>
+                <footer >
                     <Footer></Footer>
                 </footer>
-                </div>
+            </div>
 </template>
 <script>
 import Navbar from '@/components/etudiant/layout/Navbar.vue'
@@ -48,4 +48,8 @@ export default {
 }
 </script>
 <style>
+.etudiant{
+   overflow: hidden;
+    
+}
 </style>
