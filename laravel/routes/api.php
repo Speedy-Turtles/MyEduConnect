@@ -1,8 +1,4 @@
 <?php
-
-<<<<<<< HEAD
-=======
-
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\RestPassword\ForgotPasswordController;
@@ -11,8 +7,6 @@ use App\Http\Controllers\GestionClasseController;
 use App\Http\Controllers\GestionSpecialiteController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\Document\DocumentController;
-
->>>>>>> 32c2aac4ad67b5962f0caef35b7810691e77ba8e
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,8 +24,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-<<<<<<< HEAD
-=======
 
 
 Route::group(["prefix"=>"/auth"],function(){
@@ -64,4 +56,3 @@ Route::middleware("auth:sanctum")->group(function(){
     });
     // utiliser dans controller $request()->user()->id  grace a interceptors dans vue js
 });
->>>>>>> 32c2aac4ad67b5962f0caef35b7810691e77ba8e
