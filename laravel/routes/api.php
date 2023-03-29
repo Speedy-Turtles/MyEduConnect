@@ -49,5 +49,6 @@ Route::group(["prefix"=>"/classe"],function(){
 });
 
 Route::middleware("auth:sanctum")->group(function(){
+    Route::get("/getNiveau",[InfoUserController::class,"GetNiveauUser"]);
     // utiliser dans controller $request()->user()->id  grace a interceptors dans vue js
 });
