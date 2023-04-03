@@ -254,7 +254,9 @@
             this.loading=true;
               loginService.login(this.email,this.password).then((res)=>{
                 this.loading=false;
-                console.log(this.store.Isetudiant);
+                if(this.store.Isetudiant==true){
+                   this.$router.push({name:"etudiant"});
+                }
               }).catch((error)=>{
                 this.loading=false;
                 this.message_error=error.response.data.data;

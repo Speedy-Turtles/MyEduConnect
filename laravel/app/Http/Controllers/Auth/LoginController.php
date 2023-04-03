@@ -14,7 +14,7 @@ class LoginController extends Controller
 
             $authUser=Auth::user();
             if (!$authUser->hasVerifiedEmail()) {
-                return response()->json(['data' => "Your email is not verified", 'status' => "email"], 401);
+                return response()->json(['data' => "Your email is not verified", 'status' => "email"], 404);
             }
 
             $user=User::where('id',$authUser->id)->with('roles')->first();
@@ -24,11 +24,11 @@ class LoginController extends Controller
             $verify["Istechnicien"]=false;
             $verify["Isadmin"]=false;
 
-            if($user->roles->contains("Role_name","chefDepartement")){
+            if($user->roles->contains("Role_name","chefDepartment")){
                 if($user->roles->first()->pivot->status==0){
-                    return response()->json(['data' => "Your account not actived"], 401);
+                    return response()->json(['data' => "Your account not actived"], 404);
                 }else if($user->roles->first()->pivot->status==2){
-                    return response()->json(['data' => "Your account Rejected"], 401);
+                    return response()->json(['data' => "Your account Rejected"], 404);
                 }else{
                     $verify["IsChefDepartement"]=true;
                 }
@@ -36,9 +36,9 @@ class LoginController extends Controller
 
             if($user->roles->contains("Role_name","etudiant")){
                 if($user->roles->first()->pivot->status==0){
-                    return response()->json(['data' => "Your account not actived"], 401);
+                    return response()->json(['data' => "Your account not actived"], 404);
                 }else if($user->roles->first()->pivot->status==2){
-                    return response()->json(['data' => "Your account Rejected"], 401);
+                    return response()->json(['data' => "Your account Rejected"], 404);
                 }else{
                     $verify["Isetudiant"]=true;
                 }
@@ -46,19 +46,19 @@ class LoginController extends Controller
 
             if($user->roles->contains("Role_name","ensignant")){
                 if($user->roles->first()->pivot->status==0){
-                    return response()->json(['data' => "Your account not actived"], 401);
+                    return response()->json(['data' => "Your account not actived"], 404);
                 }else if($user->roles->first()->pivot->status==2){
-                    return response()->json(['data' => "Your account Rejected"], 401);
+                    return response()->json(['data' => "Your account Rejected"], 404);
                 }else{
                     $verify["Isenseignant"]=true;
                 }
             }
 
-            if($user->roles->contains("Role_name","technicien")){
+            if($user->roles->contains("Role_name","Technicien")){
                 if($user->roles->first()->pivot->status==0){
-                    return response()->json(['data' => "Your account not actived"], 401);
+                    return response()->json(['data' => "Your account not actived"], 404);
                 }else if($user->roles->first()->pivot->status==2){
-                    return response()->json(['data' => "Your account Rejected"], 401);
+                    return response()->json(['data' => "Your account Rejected"], 404);
                 }else{
                     $verify["Istechnicien"]=true;
                 }

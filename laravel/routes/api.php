@@ -48,11 +48,18 @@ Route::group(["prefix"=>"/classe"],function(){
     Route::get("/Allspecialte",[GestionSpecialiteController::class,"getSpecialte"]);
 });
 
-
-
 Route::middleware("auth:sanctum")->group(function(){
+
+    Route::get("/getNiveau",[InfoUserController::class,"GetNiveauUser"]);
+
     Route::group(['prefix'=>'/documents'],function(){
         Route::get('/',[DocumentController::class,'AllDocuments']);
+        Route::post('/addDemande',[DocumentController::class,'addDemande']);
+        Route::get('/getAlldemande',[DocumentController::class,'getAlldemande']);
+        Route::post('/AccepterDocument',[DocumentController::class,'AccepterDocument']);
+        Route::post('/initailiser_demande',[DocumentController::class,'initailiser_demande']);
+
     });
+
     // utiliser dans controller $request()->user()->id  grace a interceptors dans vue js
 });

@@ -89,11 +89,9 @@
                     <template v-slot:activator="{ on, attrs }">
                     <v-btn   plain v-bind="attrs"
                      v-on="on"
-                     
                      >
-
                         <v-avatar size="43px">
-                            <img src="../../../../public/etudiant/images/avatar.png" alt="" srcset="">
+                            <img :src="'http://localhost:8000'+store.user['Photo']" alt="" srcset="">
                         </v-avatar>
                      </v-btn>
                     </template>
@@ -104,9 +102,8 @@
                                 plain
                                 block
                                 class="py-3"
-
                             >
-                            User
+                            {{store.user['FirstName']}}
                             </v-btn>
                         </v-list-item-title>
                      </v-list-item>
@@ -143,7 +140,7 @@
                                 plain
                             >
                                 <v-icon class="pa-2">mdi-logout</v-icon>
-                                <span class="">log out</span>
+                                <span  @click="logout()">log out</span>
                             </v-btn>
                         </v-list-item-action>
                         
@@ -155,9 +152,14 @@
         </v-toolbar> 
     </div>
 </template>
-<script>
 
+<script>
+import {AuthUser} from "@/store/Store.js"
     export default {
+        setup(){
+            const store=AuthUser();
+            return{store}
+        },
         name:'Navbar',
         data(){
             return{
@@ -168,14 +170,17 @@
                     {titre:'Club',link:'club',desc:'Enjoy Clubs',icon:'mdi-star-outline',route:'/etudiant/club'},
                     {titre:'Help',link:'help',desc:'How Can We help You !',icon:'mdi-wrench',route:'/etudiant/help'}
                 ],
-                messages:10,
-                
-               
+                messages:10
             }
         },
        methods:{
-       }
-    }
+        logout(){
+            this.store.logout();
+            this.$router.push({name:'signin'});
+        }
+                 
+         }
+ }
 
 </script>
 <style scoped>

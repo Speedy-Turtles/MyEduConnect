@@ -11,6 +11,7 @@
                         </div>
                         <p class="p2">{{ p2 }}</p>
                     <p class="p1 hidden-sm-and-down">{{ p1 }}</p>
+                    <v-btn @click="GenerPdf()">Download pdf</v-btn>
                 </v-flex>
                 <v-flex xs12 md6 sm12 xl4 data-aos="fade-right">
                     <img  v-if="selected" :src="selected"   id="img"  alt="" width="100%" height="350px" >
@@ -53,8 +54,8 @@
                             <v-card
                                 class="mx-auto"
                                 max-width="344"
+                                height="100%"
                                 elevation="7"
-                                
                                 shaped
                                 data-aos="fade-down"
                                 
@@ -64,8 +65,6 @@
                                 <v-list-item-avatar
                                 tile
                                 size="70"
-                                
-                                
                             > <img :src="fonction.avatar" alt="" srcset="" >
                             <v-list-item-title class="text-h6 mb-1">
                                    <strong> {{fonction.titre}}</strong>
@@ -89,8 +88,7 @@
             :timeout="timeout"
             color="green--text"
             >
-            Welcome User !
-
+            Welcome {{store.user['FirstName']}} !
             <template v-slot:action="{ attrs }">
                 <v-btn
                 color="red"
@@ -102,7 +100,7 @@
                 </v-btn>
             </template>
             </v-snackbar>
-            
+          
         </div>
         
     </div>
@@ -110,14 +108,26 @@
 
 </template>
 <script>
- 
+import {AuthUser} from "@/store/Store.js";
+
 export default {
-   
+    
+    mounted(){
+      
+    },
+    setup(){
+        const store=AuthUser();
+        return{store}
+      },
 data(){
     return{
         p1:' This platform is designed to facilitate communication and collaboration among students, thereby creating a sense of community and fostering academic success. In addition, Myeduconnect offers a wide range of resources and tools that are specifically tailored to the needs of college students, such as study guides, course materials, and career advice. ',
         p2:' is a website that caters specifically to college students .',
         selected:null,
+        langDocument:"ar",
+        classe_current:"",
+        spec:"",
+        niveau:0,
         acteurs:[
             {person:'Etudiants',nombre:'+50',icon:''},
             {person:'Enseignants',nombre:'+20',icon:''},
@@ -128,29 +138,28 @@ data(){
             {titre:'Document',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/document.png')},
             {titre:'Forums',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/forum.png')},
             {titre:'Clubs   ',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/club.png')},
-            
-
         ],
         snackbar:false,
         timeout:3000
-        
     }
 },
 props:['photos'],
 methods:{
+    translate(prop){
+         return(this[this.langDocument][prop]);
+    },
     randomPhoto(imgs){
         return imgs[Math.floor(Math.random()*this.photos.length)]
     },
-    
+   
 },
 created(){
     this.selected=this.randomPhoto(this.photos)
     this.snackbar=true
-   
 }
 }
 </script>
-<style scoped>
+<style>
 .p2{
 font-family: Verdana, Geneva, sans-serif;
 font-size: 30px;
