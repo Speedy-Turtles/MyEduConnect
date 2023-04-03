@@ -1,0 +1,26 @@
+<template>
+    <div>
+        <navbar/>
+        <navigationDrawer current-page="neauveuate"/>
+        <div class="main_content">
+        
+        </div>
+    </div>
+</template>
+<script>
+import navbar from '@/components/chef_departement/navbar.vue';
+import navigationDrawer from '@/components/chef_departement/navigationDrawer.vue';
+
+    export default{
+        components:{
+            navbar,
+            navigationDrawer
+        }
+    }
+</script>
+<style>
+.main_content{
+    margin-left: 20%;
+    margin-top: 5%;
+}
+</style>
