@@ -54,8 +54,8 @@
                             <v-card
                                 class="mx-auto"
                                 max-width="344"
+                                height="100%"
                                 elevation="7"
-                                
                                 shaped
                                 data-aos="fade-down"
                                 
@@ -65,8 +65,6 @@
                                 <v-list-item-avatar
                                 tile
                                 size="70"
-                                
-                                
                             > <img :src="fonction.avatar" alt="" srcset="" >
                             <v-list-item-title class="text-h6 mb-1">
                                    <strong> {{fonction.titre}}</strong>
@@ -146,15 +144,9 @@ data(){
             {person:'Technecien',nombre:'+10',icon:''}
         ],
         fonctions:[
-
-            {titre:'Document',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../public/etudiant/images/document.png')},
-            {titre:'Forums',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../public/etudiant/images/forum.png')},
-            {titre:'Clubs   ',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../public/etudiant/images/club.png')},
-
             {titre:'Document',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/document.png')},
             {titre:'Forums',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/forum.png')},
             {titre:'Clubs   ',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/club.png')},
-            
         ],
         snackbar:false,
         timeout:3000

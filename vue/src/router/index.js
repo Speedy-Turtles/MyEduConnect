@@ -47,11 +47,6 @@ const routes = [{
         component: ChangePassword
     },
     {
-        path: '/etudiant',
-        name: 'etudiant',
-        component: EtudiantView
-    },
-    {
         path: '/chef_departement',
         name: 'dashboard',
         component: dashboardView
