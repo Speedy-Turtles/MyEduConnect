@@ -17,7 +17,7 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
 .main{
    height: auto;
 }

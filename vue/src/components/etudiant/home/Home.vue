@@ -11,7 +11,6 @@
                         </div>
                         <p class="p2">{{ p2 }}</p>
                     <p class="p1 hidden-sm-and-down">{{ p1 }}</p>
-                    <v-btn @click="GenerPdf()">Download pdf</v-btn>
                 </v-flex>
                 <v-flex xs12 md6 sm12 xl4 data-aos="fade-right">
                     <img  v-if="selected" :src="selected"   id="img"  alt="" width="100%" height="350px" >
@@ -159,7 +158,7 @@ created(){
 }
 }
 </script>
-<style>
+<style scoped>
 .p2{
 font-family: Verdana, Geneva, sans-serif;
 font-size: 30px;
