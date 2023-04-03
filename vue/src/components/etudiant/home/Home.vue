@@ -108,21 +108,12 @@
 
 </template>
 <script>
-import jsPDF from 'jspdf';
-import fr from "@/languages/fr.js"
-import ar from "@/languages/ar.js"
-import 'jspdf-autotable'
 import {AuthUser} from "@/store/Store.js";
-import {AmiriRegular} from "@/assets/fontArabic/amiri.js";
-import infouser from "@/service/UserInfo/userinfo.js"
+
 export default {
-    mixins:[ar,fr],
+    
     mounted(){
-        infouser.GetNiveau().then((res)=>{
-            this.niveau=res.data.data.specialite['niveau'];
-            this.classe_current=res.data.data.nom;
-            this.spec=res.data.data.specialite.type;
-        })
+      
     },
     setup(){
         const store=AuthUser();
@@ -160,59 +151,7 @@ methods:{
     randomPhoto(imgs){
         return imgs[Math.floor(Math.random()*this.photos.length)]
     },
-    GenerPdf(){
-                    var niveau="";
-                    if(this.niveau==1){
-                        niveau=this.langDocument=="ar" ? "الاولة" : "premiere";
-                    }else if(this.niveau==2){
-                        niveau=this.langDocument=="ar" ? "الثانية" : "deuxieme" ;
-                    }else{
-                        niveau=this.langDocument=="ar" ? "الثالثة" : "troisime" ;
-                    }
-                    var attestation="الاجازة في تكنولوجيات الاعلامية";
-                    var specialite_current="";
-                    if(this.spec=="dsi"){
-                        specialite_current=this.langDocument=="ar" ? "تطوير نضام المعلومات" : "DSI";
-                    }else if(this.spec=="rsi"){
-                        specialite_current=this.langDocument=="ar" ? "الثانية" : "RSi" ;
-                    }else{
-                        specialite_current=this.langDocument=="ar" ? "الثالثة" : "SEM" ;
-                    }
-                    const doc = new jsPDF();
-                    doc.addFileToVFS('Amiri-Regular.ttf',AmiriRegular);
-                    doc.addFont('Amiri-Regular.ttf', 'Amiri', 'normal');
-                    doc.setFont('Amiri');
-                    doc.text(this.translate('الجمهورية'),158,10);
-                    doc.text(this.translate('وزارة'),140,20);
-                    doc.text(this.translate('الادارة'),140,30);
-                    doc.text(this.translate('المعهد'),100,40,{align:'center'})
-                    doc.setFontSize(20);
-                    doc.text(this.translate('شهادة'),100,50,{align:'center'});
-                    doc.text('2023 - 2022',100,60,{align:'center'});
-                    doc.setFontSize(18);
-                    doc.text(`${this.translate("يشهد")} ${this.store.user['sex']=="Man" ?  `${this.translate('الطالب')}` :  `${this.translate('الطالبة')}` }`,65,75);
-                    doc.text(`${this.store.user['FirstName']} : ${this.translate('الاسم')}`,170,90);
-                    doc.text(`${this.store.user['LastName']} : ${this.translate("اللقب")}`,170,100);
-                    doc.text(`${this.store.user['Birth_day']} : ${this.translate("المولود")}`,143,110);
-                    doc.text(this.translate("ب  تونس"),120,110);
-                    doc.text(`${this.store.user['Cin']} : ${this.translate("بطاقة")}`,102,120);
-                    doc.text(`${this.classe_current} ${this.store.user['sex']=="Man" ? `${this.translate('مرسم')}` : `${this.translate('مرسمة')}` } ${this.translate('بالسنة')}  : ${ niveau } ,  ${this.translate('الفوج')} `,123,130);
-                    doc.text(`${this.store.user['Birth_day']} : ${this.translate("المولود")}`,143,110);
-                    doc.text( this.translate('الاجازة') +' :'+attestation,111,141);
-                    doc.text( this.translate('الاختصاص') +' :'+specialite_current,128,151);
-                    doc.text(this.translate('رقم')+' : '+ Math.ceil(Math.random(999999,99999999)),172,161);
-                    doc.text(`${this.translate('تواصل')} ${this.store.user['sex']=="Man" ? `${this.translate('دراسته')}` : `${this.translate('دراستها')}`} ${this.translate("بانتضام")}`,92,175);
-                    doc.text(`${this.translate('سلمت')} ${this.store.user['sex']=="Man" ? `${this.translate('المعني')}` : `${this.translate('المعنية')}`} ${this.translate("بالامر")}`,68,185);
-                    doc.text(this.translate("بنزرت") + ' '+ (new Date().getFullYear())+'/'+(new Date().getMonth()+1)+"/"+(new Date().getDate()),10,201);
-                    doc.text(this.translate("الكاتب"),20,213);
-                    doc.text(this.translate("كمال"),18,222);
-                    doc.setDrawColor(0, 0, 0);
-                    doc.line(10, 240, 200, 240);//x,r,w,r
-                    doc.setFontSize(12)
-                    doc.text(this.translate("مركب"),115,248);
-                    doc.text(this.translate("الهاتف"),111,255);
-                    doc.save(`${this.store.user['Cin']}.pdf`);    
-    }
+   
 },
 created(){
     this.selected=this.randomPhoto(this.photos)
