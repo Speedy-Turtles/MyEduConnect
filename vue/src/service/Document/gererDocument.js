@@ -8,7 +8,20 @@ export default{
 
   addDocument(doc){
     return axios.post('/documents/addDemande',doc);
-  }
+  },
+
+  getAlldemande(){
+    return axios.get("/documents/getAlldemande");
+  },
+
+  AccepterDocument(doc){
+    return axios.post("/documents/AccepterDocument",doc);
+  },
+
+  initailiser_demande(doc){
+    return axios.post("/documents/initailiser_demande",doc);
+  },
+
 
 
 }
