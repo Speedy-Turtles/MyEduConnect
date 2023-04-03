@@ -1,13 +1,25 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import signup from "../views/Auth/SignUpView.vue"
 import signin from "../views/Auth/LoginView.vue"
 import forgotPassword from "../views/Auth/ForgotPassword/ForgotPasswordView.vue"
 import ChangePassword from "../views/Auth/ForgotPassword/ChangePasswordView.vue"
-import EtudiantView from "../views/etudiant/EtudiantView.vue"
+import dashboardView from '../views/chef_departement/dashboardChefDepartementView.vue'
+import gererDemandeView from '../views/chef_departement/gererDemandeView.vue'
+import gererEnseignatView from '../views/chef_departement/gererEnseignatView.vue'
+import gererEtudiantView from '../views/chef_departement/gererEtudiantView.vue'
+import gererNeaveauteView from '../views/chef_departement/gererNeaveauteView.vue'
+import gererSpecialiteView from '../views/chef_departement/gererSpecialiteView.vue'
+import HomeView from '../views/HomeView.vue'
+import EtudiantView from '../views/etudiant/EtudiantView'
+import DocumentView from '../views/etudiant/DocumentView'
+import ForumView from '../views/etudiant/ForumView'
+import ClubView from '../views/etudiant/ClubView'
+import HelpView from '../views/etudiant/HelpView'
+
 Vue.use(VueRouter)
 
+<<<<<<< HEAD
 const routes = [
   {
     path: '/',
@@ -49,12 +61,120 @@ const routes = [
   },
   
  
+=======
+const routes = [{
+        path: '/',
+        name: 'home',
+        component: HomeView
+    },
+    {
+        path: '/signup',
+        name: 'signup',
+        component: signup
+    },
+    {
+        path: '/signin',
+        name: 'signin',
+        component: signin
+    },
+
+    {
+        path: '/forgotpassword',
+        name: 'forgotpassword',
+        component: forgotPassword
+    },
+    {
+        path: '/ChangePassword',
+        name: 'ChangePassword',
+        component: ChangePassword
+    },
+    {
+        path: '/etudiant',
+        name: 'etudiant',
+        component: EtudiantView
+    },
+    {
+        path: '/chef_departement',
+        name: 'dashboard',
+        component: dashboardView
+    }, {
+        path: '/chef_departement/gererdemande',
+        name: 'gererDemande',
+        component: gererDemandeView
+    }, {
+        path: '/chef_departement/gererenseignat',
+        name: 'gererEnseignat',
+        component: gererEnseignatView
+    }, {
+        path: '/chef_departement/gereretudiant',
+        name: 'gererEtudiant',
+        component: gererEtudiantView
+    }, {
+        path: '/chef_departement/gererneaveaute',
+        name: 'gererNeaveaute',
+        component: gererNeaveauteView
+    },
+    {
+        path: '/chef_departement/gererspecialite',
+        name: 'gererspecialite',
+        component: gererSpecialiteView
+    },
+    {
+        path: '/about',
+        name: 'about',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import ( /* webpackChunkName: "about" */ '../views/AboutView.vue')
+    },
+    {
+        path: '/etudiant',
+        name: 'etudiant',
+        component: EtudiantView
+    },
+    {
+        path: '/etudiant/document',
+        name: 'document',
+        component: DocumentView
+    },
+    {
+        path: '/etudiant/forum',
+        name: 'forum',
+        component: ForumView
+    },
+    {
+        path: '/etudiant/club',
+        name: 'club',
+        component: ClubView
+    },
+    {
+        path: '/etudiant/help',
+        name: 'help',
+        component: HelpView
+    },
+    {
+        path: '/chef_departement',
+        name: 'dashboard',
+        component: dashboardView
+    },
+    {
+        path: '/about',
+        name: 'about',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import ( /* webpackChunkName: "about" */ '../views/AboutView.vue')
+    },
+
+>>>>>>> 4dd0444eaa83fc359fbfafaf5ed440c80bc1c8a3
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes
 })
 
 export default router

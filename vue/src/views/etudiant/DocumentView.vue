@@ -1,0 +1,25 @@
+<template>
+    <div class="document">
+
+            <Navbar></Navbar>
+            <div class="main">
+                <Document></Document>
+            </div>
+            <Footer></Footer>
+    </div>
+</template>
+<script>
+import Navbar from '@/components/etudiant/layout/Navbar.vue'
+import Footer from '@/components/etudiant/layout/Footer.vue'
+import Document from '@/components/etudiant/document/Document.vue'
+export default {
+    components:{
+        Navbar,Footer,Document
+    }
+}
+</script>
+<style>
+.main{
+   height: auto;
+}
+</style>

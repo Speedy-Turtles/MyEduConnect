@@ -2,7 +2,7 @@
     <div class="main">
         <v-container class="py-5">
             <v-layout row wrap class="py-5 justify-space-around" >
-                <v-flex xs12 md6 sm12  xl6 class="px-5" >
+                <v-flex xs12 md6 sm12  xl6 class="px-5" data-aos="fade-left">
                     
                         <div class="title">
                             <span class="title-word title-word-1">My</span>
@@ -13,7 +13,7 @@
                     <p class="p1 hidden-sm-and-down">{{ p1 }}</p>
                     <v-btn @click="GenerPdf()">Download pdf</v-btn>
                 </v-flex>
-                <v-flex xs12 md6 sm12 xl4>
+                <v-flex xs12 md6 sm12 xl4 data-aos="fade-right">
                     <img  v-if="selected" :src="selected"   id="img"  alt="" width="100%" height="350px" >
                 </v-flex>
             </v-layout>
@@ -23,7 +23,10 @@
                     <v-container>
                             <div class="content">
                                 <v-layout row wrap class="justify-content-center">
-                                    <v-flex xl3 lg3 md3 sm6 xs6   class="pa-5" v-for="acteur in acteurs" :key="acteur.person"><h3 class="white--text justify-center">{{acteur.person}}</h3> <span align-center class="white--text">{{acteur.nombre}}</span></v-flex>
+                                    <v-flex xl3 lg3 md3 sm6 xs6   class="pa-5" v-for="acteur in acteurs" :key="acteur.person">
+                                        <h3 class="white--text justify-center">{{acteur.person}}</h3>
+                                        <h6 class="white--text">{{ acteur.nombre }}</h6>
+                                    </v-flex>
                                 </v-layout>
                             </div>
                     </v-container>
@@ -39,13 +42,14 @@
                             <p class="p-iset">L'Institut Supérieur des Etudes Technologiques de Bizerte</p>
                             <v-layout row>
                                     <v-flex xl8 lg6 md6 sm12 xs12 class="pt-5"><p>Un Institut supérieur des études technologiques est un institut universitaire tunisien</p></v-flex>
-                                    <v-flex xl4 lg6 md6 sm12 xs12 class="hidden-sm-and-down"><img src="../../../public/etudiant/images/logoiset.png" width="100%" height="150px"></v-flex>
+                                    <v-flex xl4 lg6 md6 sm12 xs12 class="hidden-sm-and-down"><img src="../../../../public/etudiant/images/logoiset.png" width="100%" height="150px"></v-flex>
                             </v-layout>
                         </div>
                     </v-flex>
                
                     <v-flex xl2 lg3 md4 sm6 xs12 class="pa-5" v-for="fonction in fonctions "
-                                :key="fonction.titre">
+                                :key="fonction.titre"
+                                >
                             <!-- -------------------card------------------------ -->
                             <v-card
                                 class="mx-auto"
@@ -53,6 +57,7 @@
                                 elevation="7"
                                 
                                 shaped
+                                data-aos="fade-down"
                                 
                             >
                             <v-list-item three-line>
@@ -141,9 +146,17 @@ data(){
             {person:'Technecien',nombre:'+10',icon:''}
         ],
         fonctions:[
+<<<<<<< HEAD:vue/src/components/etudiant/Home.vue
             {titre:'Document',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../public/etudiant/images/document.png')},
             {titre:'Forums',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../public/etudiant/images/forum.png')},
             {titre:'Clubs   ',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../public/etudiant/images/club.png')},
+=======
+            {titre:'Document',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/document.png')},
+            {titre:'Forums',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/forum.png')},
+            {titre:'Clubs   ',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/club.png')},
+            
+
+>>>>>>> 4dd0444eaa83fc359fbfafaf5ed440c80bc1c8a3:vue/src/components/etudiant/home/Home.vue
         ],
         snackbar:false,
         timeout:3000
@@ -217,8 +230,12 @@ created(){
 }
 }
 </script>
+<<<<<<< HEAD:vue/src/components/etudiant/Home.vue
 <style>
 
+=======
+<style scoped>
+>>>>>>> 4dd0444eaa83fc359fbfafaf5ed440c80bc1c8a3:vue/src/components/etudiant/home/Home.vue
 .p2{
 font-family: Verdana, Geneva, sans-serif;
 font-size: 30px;
@@ -228,6 +245,9 @@ text-decoration: none solid rgb(68, 68, 68);
 font-style: normal;
 font-variant: small-caps;
 
+}
+h6{
+    margin-left: 82px;
 }
 .p1{
 font-family: Verdana, Geneva, sans-serif;
@@ -292,7 +312,7 @@ font-variant: small-caps;
   text-transform: uppercase;
 }
 .p-iset{
-    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 font-size: 30px;
 letter-spacing: 2px;
 word-spacing: 2px;
@@ -304,7 +324,7 @@ font-variant: normal;
 text-transform: none;
 }
 .v-card{
-    height: 250px;
+    height: 150px;
 }
 .fonction-desc{
     font-size: 19px;

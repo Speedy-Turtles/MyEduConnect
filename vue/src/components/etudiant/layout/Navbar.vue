@@ -1,12 +1,13 @@
 <template>
     <div class="navbar">
-        <v-toolbar app  class="toolbar px-5">
-            <v-toolbar-side-icon   class="hidden-md-and-up"></v-toolbar-side-icon>
+         <v-toolbar   class="toolbar px-5" >
+            
+            <a type="hidden" href=""></a>
             <!-- --------------------menu-------------------------- -->
             <v-menu offset-y >
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn
-                    flat
+                    
                     v-bind="attrs"
                     v-on="on"
                     plain
@@ -18,12 +19,13 @@
                     </v-btn>
                 </template>
                 <v-list>
+                    
                     <v-list-item
                     v-for="link in links"
                     :key="link.titre"
                     >
                         <v-list-item-title>
-                            <span router to="">{{link.titre}}</span>
+                            <v-btn plain router :to="link.route">{{link.titre}}</v-btn>
                         </v-list-item-title>
                     </v-list-item>
                 </v-list>
@@ -32,8 +34,12 @@
 
                 <!-- --------------------titre-------------------------- -->
                 <v-toolbar-title class="mr-5 hidden-xs-only hidden-md-only">
+<<<<<<< HEAD:vue/src/components/etudiant/Navbar.vue
                     
                     <img src="../../../public/etudiant/images/logo-no-background.svg" alt="" width="100px" srcset="">
+=======
+                    <img src="../../../../public/etudiant/images/logo-makeiteasy-no-background.svg" alt="" width="100px" srcset="">
+>>>>>>> 4dd0444eaa83fc359fbfafaf5ed440c80bc1c8a3:vue/src/components/etudiant/layout/Navbar.vue
                 </v-toolbar-title>
                 <!-- --------------------titre/-------------------------- -->
 
@@ -50,6 +56,7 @@
                             v-on="on"
                             id="btn-links"
                             class="black--text"
+                            router :to="link.route"
                             >
                             <v-icon class="px-3">{{ link.icon }}</v-icon>
                             {{ link.titre }}
@@ -85,11 +92,15 @@
 
                 <v-menu offset-y>
                     <template v-slot:activator="{ on, attrs }">
-                    <v-btn  flat plain v-bind="attrs"
+                    <v-btn   plain v-bind="attrs"
                      v-on="on"
                      >
                         <v-avatar size="43px">
+<<<<<<< HEAD:vue/src/components/etudiant/Navbar.vue
                             <img :src="'http://localhost:8000'+store.user['Photo']" alt="" srcset="">
+=======
+                            <img src="../../../../public/etudiant/images/avatar.png" alt="" srcset="">
+>>>>>>> 4dd0444eaa83fc359fbfafaf5ed440c80bc1c8a3:vue/src/components/etudiant/layout/Navbar.vue
                         </v-avatar>
                      </v-btn>
                     </template>
@@ -147,26 +158,31 @@
                 </v-menu>
                      
                 <!-- --------------------items/-------------------------- -->
-        </v-toolbar>
+        </v-toolbar> 
     </div>
-    <!-- <v-icon color="primary" size="35px">mdi-account-outline</v-icon> -->
 </template>
 
 <script>
 import {AuthUser} from "@/store/Store.js"
     export default {
+<<<<<<< HEAD:vue/src/components/etudiant/Navbar.vue
         setup(){
             const store=AuthUser();
             return{store}
         },
+=======
+        name:'Navbar',
+>>>>>>> 4dd0444eaa83fc359fbfafaf5ed440c80bc1c8a3:vue/src/components/etudiant/layout/Navbar.vue
         data(){
             return{
                 links:[
-                    {titre:'Document',route:'',desc:'Check Documents',icon:'mdi-table-edit'},
-                    {titre:'Forum',route:'',desc:'Go to Forum',icon:'mdi-comment-text-outline'},
-                    {titre:'Club',route:'',desc:'Enjoy Clubs',icon:'mdi-star-outline'},
-                    {titre:'Help Desk',route:'',desc:'How Can We help You !',icon:'mdi-wrench'}
+                    {titre:'home',link:'home',desc:'Home',icon:'mdi-home',route:'/etudiant'},
+                    {titre:'Document',link:'document',desc:'Check Documents',icon:'mdi-table-edit',route:'/etudiant/document'},
+                    {titre:'Forum',link:'forum',desc:'Go to Forum',icon:'mdi-comment-text-outline',route:'/etudiant/forum'},
+                    {titre:'Club',link:'club',desc:'Enjoy Clubs',icon:'mdi-star-outline',route:'/etudiant/club'},
+                    {titre:'Help',link:'help',desc:'How Can We help You !',icon:'mdi-wrench',route:'/etudiant/help'}
                 ],
+<<<<<<< HEAD:vue/src/components/etudiant/Navbar.vue
                 messages:10
             }
         },
@@ -175,11 +191,19 @@ import {AuthUser} from "@/store/Store.js"
             this.store.logout();
             this.$router.push({name:'signin'});
         }
+=======
+                messages:10,
+                
+               
+            }
+        },
+       methods:{
+>>>>>>> 4dd0444eaa83fc359fbfafaf5ed440c80bc1c8a3:vue/src/components/etudiant/layout/Navbar.vue
        }
     }
 
 </script>
-<style>
+<style scoped>
 #demoFont {
 font-family: "Montserrat", sans-serif;
 font-size: 21px;
@@ -206,7 +230,10 @@ font-style: italic;
 font-variant: small-caps;
 text-transform: uppercase;
 }
-.v-toolbar__content{
-    height: 70px;
+.toolbar{
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+   
 }
 </style>
