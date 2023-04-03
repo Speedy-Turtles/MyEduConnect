@@ -34,12 +34,7 @@
 
                 <!-- --------------------titre-------------------------- -->
                 <v-toolbar-title class="mr-5 hidden-xs-only hidden-md-only">
-<<<<<<< HEAD:vue/src/components/etudiant/Navbar.vue
-                    
-                    <img src="../../../public/etudiant/images/logo-no-background.svg" alt="" width="100px" srcset="">
-=======
                     <img src="../../../../public/etudiant/images/logo-makeiteasy-no-background.svg" alt="" width="100px" srcset="">
->>>>>>> 4dd0444eaa83fc359fbfafaf5ed440c80bc1c8a3:vue/src/components/etudiant/layout/Navbar.vue
                 </v-toolbar-title>
                 <!-- --------------------titre/-------------------------- -->
 
@@ -96,11 +91,7 @@
                      v-on="on"
                      >
                         <v-avatar size="43px">
-<<<<<<< HEAD:vue/src/components/etudiant/Navbar.vue
                             <img :src="'http://localhost:8000'+store.user['Photo']" alt="" srcset="">
-=======
-                            <img src="../../../../public/etudiant/images/avatar.png" alt="" srcset="">
->>>>>>> 4dd0444eaa83fc359fbfafaf5ed440c80bc1c8a3:vue/src/components/etudiant/layout/Navbar.vue
                         </v-avatar>
                      </v-btn>
                     </template>
@@ -165,14 +156,11 @@
 <script>
 import {AuthUser} from "@/store/Store.js"
     export default {
-<<<<<<< HEAD:vue/src/components/etudiant/Navbar.vue
         setup(){
             const store=AuthUser();
             return{store}
         },
-=======
         name:'Navbar',
->>>>>>> 4dd0444eaa83fc359fbfafaf5ed440c80bc1c8a3:vue/src/components/etudiant/layout/Navbar.vue
         data(){
             return{
                 links:[
@@ -182,7 +170,6 @@ import {AuthUser} from "@/store/Store.js"
                     {titre:'Club',link:'club',desc:'Enjoy Clubs',icon:'mdi-star-outline',route:'/etudiant/club'},
                     {titre:'Help',link:'help',desc:'How Can We help You !',icon:'mdi-wrench',route:'/etudiant/help'}
                 ],
-<<<<<<< HEAD:vue/src/components/etudiant/Navbar.vue
                 messages:10
             }
         },
@@ -191,16 +178,9 @@ import {AuthUser} from "@/store/Store.js"
             this.store.logout();
             this.$router.push({name:'signin'});
         }
-=======
-                messages:10,
-                
-               
-            }
-        },
-       methods:{
->>>>>>> 4dd0444eaa83fc359fbfafaf5ed440c80bc1c8a3:vue/src/components/etudiant/layout/Navbar.vue
-       }
-    }
+                 
+         }
+ }
 
 </script>
 <style scoped>

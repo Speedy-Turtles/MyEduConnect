@@ -19,49 +19,7 @@ import HelpView from '../views/etudiant/HelpView'
 
 Vue.use(VueRouter)
 
-<<<<<<< HEAD
-const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/signup',
-    name: 'signup',
-    component: signup
-  },
-  {
-    path: '/signin',
-    name: 'signin',
-    component: signin
-  },
-  {
-    path: '/forgotpassword',
-    name: 'forgotpassword',
-    component: forgotPassword
-  },
-  {
-    path: '/ChangePassword',
-    name: 'ChangePassword',
-    component: ChangePassword
-  },
-  {
-    path:'/etudiant',
-    name:'etudiant',
-    component:EtudiantView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  },
-  
- 
-=======
+
 const routes = [{
         path: '/',
         name: 'home',
@@ -168,7 +126,6 @@ const routes = [{
             import ( /* webpackChunkName: "about" */ '../views/AboutView.vue')
     },
 
->>>>>>> 4dd0444eaa83fc359fbfafaf5ed440c80bc1c8a3
 ]
 
 const router = new VueRouter({

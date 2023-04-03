@@ -11,12 +11,9 @@
     "aos": "^2.3.4",
     "chart.js": "^4.2.1",
     "core-js": "^3.8.3",
-<<<<<<< HEAD
     "fontsource-amiri": "^4.0.0",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.28",
-=======
->>>>>>> 4dd0444eaa83fc359fbfafaf5ed440c80bc1c8a3
     "pinia": "^2.0.33",
     "vue": "^2.6.14",
     "vue-chartjs": "^5.2.0",

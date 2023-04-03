@@ -146,17 +146,15 @@ data(){
             {person:'Technecien',nombre:'+10',icon:''}
         ],
         fonctions:[
-<<<<<<< HEAD:vue/src/components/etudiant/Home.vue
+
             {titre:'Document',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../public/etudiant/images/document.png')},
             {titre:'Forums',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../public/etudiant/images/forum.png')},
             {titre:'Clubs   ',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../public/etudiant/images/club.png')},
-=======
+
             {titre:'Document',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/document.png')},
             {titre:'Forums',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/forum.png')},
             {titre:'Clubs   ',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/club.png')},
             
-
->>>>>>> 4dd0444eaa83fc359fbfafaf5ed440c80bc1c8a3:vue/src/components/etudiant/home/Home.vue
         ],
         snackbar:false,
         timeout:3000
@@ -230,12 +228,10 @@ created(){
 }
 }
 </script>
-<<<<<<< HEAD:vue/src/components/etudiant/Home.vue
-<style>
 
-=======
+
+
 <style scoped>
->>>>>>> 4dd0444eaa83fc359fbfafaf5ed440c80bc1c8a3:vue/src/components/etudiant/home/Home.vue
 .p2{
 font-family: Verdana, Geneva, sans-serif;
 font-size: 30px;
