@@ -48,6 +48,8 @@ Route::group(["prefix"=>"/classe"],function(){
     Route::get("/Allspecialte",[GestionSpecialiteController::class,"getSpecialte"]);
 });
 
+Route::get("/show_etud",[InfoUserController::class,"show_etudiant"]);
+
 Route::middleware("auth:sanctum")->group(function(){
 
     Route::get("/getNiveau",[InfoUserController::class,"GetNiveauUser"]);

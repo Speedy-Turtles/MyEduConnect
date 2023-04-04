@@ -66,4 +66,19 @@ class InfoUserController extends Controller
         ],200);
     }
 
+    public function show_etudiant(){
+
+         // without fields roles
+        $user=User::whereHas('roles',function($query){
+            $query->where('Role_name','etudiant')->where('status',1);
+        })->get();
+
+         // with fields roles
+        $users = User::whereHas('roles', function ($query) {
+            $query->where('Role_name', 'etudiant')->where('status',1);
+        })->with('roles')->get();
+
+        return response()->json(['data'=>$users],200);
+    }
+
 }
