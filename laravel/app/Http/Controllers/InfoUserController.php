@@ -66,4 +66,6 @@ class InfoUserController extends Controller
         ],200);
     }
 
+
+
 }
