@@ -46,17 +46,6 @@ class InfoUserController extends Controller
         return response()->json([
             "data"=>$classe,
         ],200);
-        /*if($user){
-            return response()->json([
-                "data"=>"Exist",
-                "success"=>false
-            ],201);
-        }else{
-            return response()->json([
-                "data"=>"not Exist",
-                "success"=>true
-            ]);
-        }*/
     }
 
     public function ActiveUser($id){
