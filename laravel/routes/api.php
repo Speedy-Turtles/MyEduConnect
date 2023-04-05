@@ -7,6 +7,7 @@ use App\Http\Controllers\GestionClasseController;
 use App\Http\Controllers\GestionSpecialiteController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\Document\DocumentController;
+use App\Http\Controllers\proffesors\UsersProffesorsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -56,6 +57,10 @@ Route::middleware("auth:sanctum")->group(function(){
         Route::get('/',[DocumentController::class,'AllDocuments']);
         Route::post('/addDemande',[DocumentController::class,'addDemande']);
     });
-
     // utiliser dans controller $request()->user()->id  grace a interceptors dans vue js
+});
+
+Route::group(['prefix'=>'/proffesors'],function(){
+    Route::get('/accepted',[UsersProffesorsController::class,'acceptedProffesors']);
+    Route::get('/pending',[UsersProffesorsController::class,'pendingRequests']);
 });
