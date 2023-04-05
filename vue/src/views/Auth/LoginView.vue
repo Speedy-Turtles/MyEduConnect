@@ -256,6 +256,8 @@
                 this.loading=false;
                 if(this.store.Isetudiant==true){
                    this.$router.push({name:"etudiant"});
+                }else if(this.store.Ischef==true){
+                   this.$router.push({name:"dashboardChef"});
                 }
               }).catch((error)=>{
                 this.loading=false;
