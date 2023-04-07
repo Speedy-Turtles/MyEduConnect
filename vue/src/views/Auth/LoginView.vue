@@ -9,9 +9,11 @@
                             <img :src="logo" width="100px" alt="logo_app">
                       </v-toolbar-title>
                       <v-spacer></v-spacer>
+                      <router-link to="/">
                         <v-btn dense >
-                         <v-icon color="#4F5BD8">mdi-home</v-icon>  
+                           <v-icon color="#4F5BD8">mdi-home</v-icon>  
                         </v-btn>
+                      </router-link>
                    </v-toolbar>
                    <div class="mx-5 px-5 mt-5 py-5" style="margin-top:15% !important">
                     <div  v-if="message!=''">
