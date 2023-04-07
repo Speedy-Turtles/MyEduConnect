@@ -96,7 +96,7 @@ export default {
 }
 </script>
 <style scoped>
-.v-toolbar {
+.v-toolbar{
     position: fixed;
     width: 100%;
     z-index: 20000;

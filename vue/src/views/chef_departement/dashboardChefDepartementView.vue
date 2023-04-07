@@ -43,7 +43,7 @@ import navigationDrawer from '@/components/chef_departement/navigationDrawer.vue
         }
     }
 </script>
-<style>
+<style scoped>
 .main_content{
    margin-left: 20%!important;
    margin-top: 7%!important;

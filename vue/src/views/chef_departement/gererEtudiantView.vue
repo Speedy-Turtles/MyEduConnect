@@ -96,7 +96,7 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
 .main_content {
     margin-left: 20%;
     margin-top: 5%;

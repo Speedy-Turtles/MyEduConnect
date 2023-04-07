@@ -74,6 +74,9 @@ export default {
 }
 </script>
 <style scoped>
+body{
+    height: 40000px;
+}
 .nav-drawer {
     background-color: #525fe1 !important;
     height: 95% !important;
