@@ -1,148 +1,157 @@
 <template>
-    <div>
-        <navbar/>
-        <navigationDrawer current-page="demande"/>
-        <div class="main_content">
-            <v-row style="margin-bottom: 2%;"><h1 :center-active="true" class="text-center">les demandes passé</h1></v-row>
-            <template>
-  <v-data-table
-    :headers="headers"
-    :items="desserts"
-    class="elevation-1"
-  >
-    <template v-slot:item.calories="{ item }">
-      <v-chip
-        :color="getColor(item.calories)"
-        dark
-      >
-        {{ item.calories }}
-      </v-chip>
-    </template>
-  </v-data-table>
-</template>
-        </div>
+  <div>
+    <navbar />
+    <navigationDrawer current-page="demande" />
+    <div class="main_content">
+      <v-row>
+        <v-col align="center" justify="center">
+          <v-btn text :loading="loader" disabled color="blue-grey" class="ma-2 white--text">
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-ccontainer v-if="demandes.length==0">
+                <v-row align="center" justify="center">
+                  <h1 style="text-align=center;color: #3f51b5;">Oops ! there's no data available</h1>
+                </v-row>
+              </v-ccontainer>
+      <div v-if="loader == false && demandes.length!=0">
+        <v-row style="margin-bottom: 2%;" align="center">
+          <h1>les demandes de de document passé</h1>
+        </v-row>
+        <v-simple-table height="300px">
+          <template v-slot:default>
+            <thead>
+              <tr>
+                <th class="text-left">
+                  type demande
+                </th>
+                <th class="text-left">
+                  user
+                </th>
+                <th class="text-left">
+                  nombre acquis
+                </th>
+                <th class="text-left">
+                  langue
+                </th>
+                <th class="text-left">
+                  etat
+                </th>
+                <th class="text-left">
+                  operation
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="demande in demandes" :key="demande.id">
+                <td>{{ demande.document.Type }}</td>
+                <td>{{ demande.user.FirstName + " " + demande.user.LastName }}</td>
+                <td>{{ demande.nombre }}</td>
+                <td>{{ demande.Langue }}</td>
+                <td> <v-chip color="orange">pending</v-chip></td>
+                <td>
+                  <v-row>
+                    <v-col>
+                      <v-btn color="green" @click="accepterDemandes(demande)"
+                        :loading="loaderAcceptBtn"><v-icon>mdi-check</v-icon></v-btn>
+                    </v-col>
+                    <v-col>
+                      <v-btn color="red" @click="RefuserDemande(demande)" :loading="loaderRefuseBtn"><v-icon>mdi-cancel</v-icon></v-btn>
+                    </v-col>
+                  </v-row>
+                </td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+      </div>
     </div>
+    <v-snackbar v-model="snackbar" :timeout="timeout" :color="color">
+      {{ text }}
+      <template v-slot:action="{ attrs }">
+        <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+  </div>
 </template>
 <script>
 import navbar from '@/components/chef_departement/navbar.vue';
 import navigationDrawer from '@/components/chef_departement/navigationDrawer.vue';
+import gererDocument from '@/service/Document/gererDocument.js'
 
-    export default{
-        components:{
-            navbar,
-            navigationDrawer
-        },
-        data () {
-      return {
-        headers: [
-          {
-            text: 'Dessert (100g serving)',
-            align: 'start',
-            sortable: false,
-            value: 'name',
-          },
-          { text: 'Calories', value: 'calories' },
-          { text: 'Fat (g)', value: 'fat' },
-          { text: 'Carbs (g)', value: 'carbs' },
-          { text: 'Protein (g)', value: 'protein' },
-          { text: 'Iron (%)', value: 'iron' },
-        ],
-        desserts: [
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: 1,
-          },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3,
-            iron: 1,
-          },
-          {
-            name: 'Eclair',
-            calories: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0,
-            iron: 7,
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-            iron: 8,
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-            fat: 16.0,
-            carbs: 49,
-            protein: 3.9,
-            iron: 16,
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-            fat: 0.0,
-            carbs: 94,
-            protein: 0.0,
-            iron: 0,
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-            fat: 0.2,
-            carbs: 98,
-            protein: 0,
-            iron: 2,
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-            fat: 3.2,
-            carbs: 87,
-            protein: 6.5,
-            iron: 45,
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9,
-            iron: 22,
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7,
-            iron: 6,
-          },
-        ],
-      }
-    },
-    methods: {
-      getColor (calories) {
-        if (calories > 400) return 'red'
-        else if (calories > 200) return 'orange'
-        else return 'green'
-      },
-    },
+export default {
+  components: {
+    navbar,
+    navigationDrawer
+  },
+  created() {
+    this.getDemandes();
+  },
+  data() {
+    return {
+      demandes: [],
+      snackbar: false,
+      text: '',
+      timeout: 2000,
+      color: '',
+      loader: false,
+      loaderAcceptBtn: false,
+      loaderRefuseBtn: false,
     }
+  },
+  methods: {
+    getDemandes() {
+      this.loader = true;
+      gererDocument.getChefAllDepartment().then(response => {
+        this.demandes = response.data.data;
+        console.log(this.demandes);
+        this.loader = false;
+      })
+    },
+    accepterDemandes(demande) {
+      this.loaderAcceptBtn = true;
+      let doc = {
+        "id_user": demande.user.id,
+        "docId": demande.document.id,
+      }
+      gererDocument.AccepterChefDocument(doc).then(response => {
+        this.loaderAcceptBtn = false;
+        this.color = "green";
+        this.snackbar = true;
+        this.text = "request accepted with success";
+        this.getDemandes();
+      }).catch(e=>{
+          this.color="red";
+        this.snackbar=true;
+        this.text = "there was an error submiting your request";
+      })
+    },
+    RefuserDemande(demande) {
+      this.loaderRefuseBtn = true;
+      let doc = {
+        "id_user": demande.user.id,
+        "docId": demande.document.id,
+      }
+      gererDocument.ReffuserChefDoccument(doc).then(response => {
+        this.loaderRefuseBtn = false;
+        this.color = "green";
+        this.snackbar = true;
+        this.text = "request accepted with success";
+        this.getDemandes();
+      }).catch(e=>{
+          this.color="red";
+          this.snackbar=true;
+          this.text = "there was an error submiting your request";
+      })
+    }
+  }
+}
 </script>
 <style scoped>
-.main_content{
-    margin-left: 20%;
-    margin-top: 5%;
+.main_content {
+  margin-left: 20%;
+  margin-top: 5%;
 }
 </style>
