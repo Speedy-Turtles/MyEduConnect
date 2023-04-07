@@ -16,6 +16,7 @@ import DocumentView from '../views/etudiant/DocumentView'
 import ForumView from '../views/etudiant/ForumView'
 import ClubView from '../views/etudiant/ClubView'
 import HelpView from '../views/etudiant/HelpView'
+import dashboardAdminView from "../views/Admin/DashboardView.vue"
 
 Vue.use(VueRouter)
 
@@ -110,6 +111,11 @@ const routes = [{
         path: '/chef_departement',
         name: 'dashboard',
         component: dashboardView
+    },
+    {
+        path: '/dashboardAdminView',
+        name: 'dashboardAdminView',
+        component: dashboardAdminView
     },
     {
         path: '/about',
