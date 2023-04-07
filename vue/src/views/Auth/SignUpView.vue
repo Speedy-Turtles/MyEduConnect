@@ -370,6 +370,7 @@ export default{
                         return true;
                     }
                     const response=await service_info.TestExistEmail(val);
+                    console.log(response)
                     return response.data.success;
                 }
              },

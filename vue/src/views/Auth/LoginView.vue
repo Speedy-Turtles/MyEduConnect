@@ -260,6 +260,7 @@
               }).catch((error)=>{
                 this.loading=false;
                 this.message_error=error.response.data.data;
+                
                 if(error.response.data.status=="email"){
                     this.btn_renvoyer=true;
                 }
