@@ -22,20 +22,16 @@
             <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn plain v-bind="attrs" v-on="on">
-                        <v-avatar v-if="store.user['Photo'].indexOf('storage')!=-1" size="43px">
-                            <img :src="'http://localhost:8000'+store.user['Photo']" alt="" srcset="">
-                         </v-avatar>
-
-                         <v-avatar color="primary" v-else size="43px">
-                             <span class="white--text">{{ store.user['Photo'] }}</span>
-                         </v-avatar>
+                        <v-avatar size="43px">
+                            <img src="../../assets/DSC_6972 (1).jpg" alt="">
+                        </v-avatar>
                     </v-btn>
                 </template>
                 <v-list>
                     <v-list-item>
                         <v-list-item-title>
                             <v-btn plain block class="py-3">
-                                User
+                                {{store.user['FirstName']}}
                             </v-btn>
                         </v-list-item-title>
                     </v-list-item>
@@ -64,7 +60,7 @@
                     <v-list-item>
 
                         <v-list-item-action>
-                            <v-btn plain>
+                            <v-btn plain @click="logout()">
                                 <v-icon class="pa-2">mdi-logout</v-icon>
                                 <span class="">log out</span>
                             </v-btn>
@@ -74,16 +70,29 @@
                 </v-list>
             </v-menu>
         </v-toolbar>
+        
     </div>
+    
 </template>
 <script>
+import {AuthUser} from "@/store/Store.js"
 export default {
     name: 'navbar',
+    setup(){
+            const store=AuthUser();
+            return{store}
+        },
     data() {
         return {
 
         }
-    }
+    },
+    methods:{
+        logout(){
+            this.store.logout();
+            this.$router.push({name:'signin'});
+        }
+        }
 }
 </script>
 <style scoped>

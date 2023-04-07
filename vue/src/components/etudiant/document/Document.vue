@@ -58,7 +58,6 @@
                                     </v-radio-group>
                                 </v-list-item>
                                 <!-- <button @click="accepterdemande(document.id)">Accepter demande </button> -->
-                              
                                 <v-card-actions v-if="test && test.etat==0">
                                     <v-btn
                                         outlined
