@@ -6,7 +6,7 @@ export const AuthUser = defineStore('auth', ()=> {
     const token=ref(localStorage.getItem('token')??null);
     const user=ref(JSON.parse(localStorage.getItem('user')??null));
     const isAuth=ref(localStorage.getItem('token')&&localStorage.getItem('user'));
-    const IsAdmin=ref(localStorage.getItem('isAdmin')??false);
+    const IsAdmin=ref(localStorage.getItem('IsAdmin')??false);
     const IsTechnicien=ref(localStorage.getItem('IsTechnicien')??false);
     const Isetudiant=ref(localStorage.getItem('Isetudiant')??false);
     const Ischef=ref(localStorage.getItem('Ischef')??false);
@@ -29,7 +29,7 @@ export const AuthUser = defineStore('auth', ()=> {
         Ischef.value=ische;
         Isetudiant.value=isetud;
         localStorage.setItem('token',t);
-        localStorage.setItem('isAdmin',idadm);
+        localStorage.setItem('IsAdmin',idadm);
         localStorage.setItem('IsTechnicien',istech);
         localStorage.setItem('Ischef',ische);
         localStorage.setItem('Isetudiant',isetud);
@@ -45,7 +45,7 @@ export const AuthUser = defineStore('auth', ()=> {
         Ischef.value=false;
         Isetudiant.value=false;
         localStorage.removeItem('token');
-        localStorage.removeItem('isAdmin');
+        localStorage.removeItem('IsAdmin');
         localStorage.removeItem('IsTechnicien');
         localStorage.removeItem('Ischef');
         localStorage.removeItem('Isetudiant');

@@ -256,6 +256,8 @@
                 this.loading=false;
                 if(this.store.Isetudiant==true){
                    this.$router.push({name:"etudiant"});
+                }else if(this.store.IsAdmin==true){
+                   this.$router.push({name:"dashboardAdminView"});
                 }
               }).catch((error)=>{
                 this.loading=false;

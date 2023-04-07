@@ -31,7 +31,7 @@ export default {
         const res = await axios.post("auth/login", { email, password });
         const data = res.data.data;
         if (res.status == 200) {
-            store.login(data.token, data.user, data.Isadmin,
+            store.login(data.token, data.user, data.IsAdmin,
                 data.Istechnicien, data.Isetudiant, data.IsChefDepartement
             );
         } else {

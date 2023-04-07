@@ -50,7 +50,7 @@ export default{
           this.$emit("changreetat", this.etatsidbar);
       },
       changerView(data){
-        this.$emit('changerView',data);
+          this.$emit('changerView',data);
       }
   }, 
 }
