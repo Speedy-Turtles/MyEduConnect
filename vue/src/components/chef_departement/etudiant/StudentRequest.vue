@@ -1,7 +1,7 @@
 <template>
     <v-col cols="md-4">
         <v-card class="mx-auto" max-width="400" v-show="!loader">
-          <v-img src="../../../../public/etudiant/images/avatar.png" height="250"></v-img>
+          <v-img :src="'http://localhost:8000'+PendingRequest.Photo" height="250"></v-img>
           <v-card-title>{{PendingRequest.LastName + " " + PendingRequest.FirstName}}</v-card-title>
           <v-card-text>
             <v-row>
