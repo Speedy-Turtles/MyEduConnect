@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div id="home">
     <div>
-      <Navbar />
+      <Navbar @GetSelectTab="GetSelectTab"  />
     </div>
     <v-main>
-      <Content>
+      <Content :selectTab="selectTab" >
       </Content>
     </v-main>
     <footer>
@@ -20,6 +20,16 @@ import Content from "@/components/home/Content.vue"
 import Footer from "@/components/home/Footer.vue"
 export default {
   name: 'Home',
+  data(){
+    return{
+       selectTab:''
+    }
+  },
+  methods:{
+    GetSelectTab(a){
+      this.selectTab=a;
+    }
+  },
   components: {
     Navbar,
     Content,
@@ -27,3 +37,10 @@ export default {
   },
 }
 </script>
+
+
+<style scoped>
+#home{
+   scroll-behavior: smooth;
+}
+</style>
