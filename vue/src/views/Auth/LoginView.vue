@@ -258,6 +258,8 @@
                 this.loading=false;
                 if(this.store.Isetudiant==true){
                    this.$router.push({name:"etudiant"});
+                }else if(this.store.isAdmin==true){
+                  this.$router.push({name:"etudiant"});
                 }
               }).catch((error)=>{
                 this.loading=false;

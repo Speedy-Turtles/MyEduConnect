@@ -59,7 +59,6 @@ Route::middleware("auth:sanctum")->group(function(){
         Route::get('/getAlldemande',[DocumentController::class,'getAlldemande']);
         Route::post('/AccepterDocument',[DocumentController::class,'AccepterDocument']);
         Route::post('/initailiser_demande',[DocumentController::class,'initailiser_demande']);
-
     });
 
     // utiliser dans controller $request()->user()->id  grace a interceptors dans vue js
