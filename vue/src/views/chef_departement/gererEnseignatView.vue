@@ -1,20 +1,17 @@
 <template>
     <div>
         <navbar />
-        {{ pendingRequests.length }}
-        {{ AcceptedProffesors.length }}
         <navigationDrawer current-page="enseignatns" />
         <div class="main_content">
-
             <v-card elavation="2">
                 <v-row>
-                    <v-btn color="success" @click="currentProf = 'accepted'">accepted proffesors</v-btn>
-                    <v-btn color="orange" @click="currentProf = 'pending'">pending requests</v-btn>
+                    <v-btn  @click="currentProf = 'accepted'" :class="[currentProf == 'accepted' ? 'active' : 'success']">accepted proffesors</v-btn>
+                    <v-btn @click="currentProf = 'pending'" :class="[currentProf == 'pending' ? 'active' : 'orange']">pending requests</v-btn>
                 </v-row>
             </v-card>
             <v-row>
-                <v-col>
-            <v-btn text align="center" justify="center" :loading="loader" :disabled="loader" color="blue-grey"
+                <v-col align="center" justify="center">
+            <v-btn text  :loading="loader" disabled color="blue-grey"
                 class="ma-2 white--text">
             </v-btn>
         </v-col>
@@ -25,7 +22,7 @@
                         <v-row align="center" justify="center" v-for="pendingRequest in pendingRequests"
                             :key="pendingRequest.id">
                             <proffesorCard :loaderaccept="loaderaccept" :pendingRequest="pendingRequest" @accept-user="acceptUser"
-                                @refuse-user="refuseUser"></proffesorCard>
+                                @refuse-user="refuseUser" />
                         </v-row>
                     </v-container>
                 </div>
@@ -43,8 +40,7 @@
                     <v-container fluid>
                         <v-row align="center" justify="center" v-for="AcceptedProffesor in AcceptedProffesors"
                             :key="AcceptedProffesor.id">
-                            <AcceptedProffesor :AcceptedProffesor="AcceptedProffesor" @refuse-user="refuseUser">
-                            </AcceptedProffesor>
+                            <AcceptedProffesor :AcceptedProffesor="AcceptedProffesor" @refuse-user="refuseUser"/>
                         </v-row>
                     </v-container>
                 </div>
@@ -90,7 +86,7 @@ export default {
     },
     data() {
         return {
-            currentProf: 'pending',
+            currentProf: 'accepted',
             pendingRequests: [],
             AcceptedProffesors: [],
             snackbar: false,
@@ -151,5 +147,9 @@ export default {
 .v-card__title {
     font-size: 1.5em;
     font-weight: bold;
+} 
+.active{
+    background-color: #3f51b5 !important;
+    color: white !important;
 }
 </style>

@@ -3,12 +3,24 @@
         <navbar />
         <navigationDrawer current-page="etudiant" />
         <div class="main_content">
+            <v-row>
+                <v-col align="center" justify="center">
+            <v-btn text  :loading="loader" :disabled="loader" color="blue-grey"
+                class="ma-2 white--text">
+            </v-btn>
+        </v-col>
+        </v-row>
             <div>
-                <v-container fluid>
-                    <v-row align="center" justify="center" v-for="PendingRequest in PendingRequests"
-                        :key="PendingRequest.id">
+                <v-container fluid v-if="PendingRequests.length!=0">
+                    <v-row align="center" justify="center" v-for="PendingRequest in PendingRequests" :key="PendingRequest.id">
                         <StudentRequest :pending-request="PendingRequest" @accept-user="acceptUser"
                             @refuse-user="refuseUser" />
+                    </v-row>
+                </v-container>
+                <v-container fluid v-else>
+                    <v-row align="center" justify="center">
+                        <h1 align="center">there's no pending request from students right now</h1>
+                        <v-img src="../../../public/chef_departement/Student stress-cuate.svg"></v-img>
                     </v-row>
                 </v-container>
             </div>
@@ -46,13 +58,16 @@ export default {
             snackbar:false,
             color:'',
             text:'',
+            loader:false,
         }
     },
     methods: {
         getPendingRequest() {
+            this.loader=true;
             gestionEtudiant.getPendingRequests().then(response => {
                 console.log(response.data.data);
                 this.PendingRequests = response.data.data;
+                this.loader=false;
             })
         },
         acceptUser(id) {
