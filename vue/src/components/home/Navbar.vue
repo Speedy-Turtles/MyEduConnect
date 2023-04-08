@@ -39,9 +39,6 @@ export default {
         }
     },  
     methods:{
-        click(a){
-             document.getElementById(`${a}`)?.scrollIntoView({behavior: 'smooth'});
-        }
     },
     components: {
     },
