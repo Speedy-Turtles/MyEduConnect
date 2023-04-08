@@ -175,8 +175,6 @@ h6{
 font-family: Verdana, Geneva, sans-serif;
 font-size: 15px;
 text-align: justify;
-
-
 color: #000000;
 font-weight: 400;
 text-decoration: none solid rgb(68, 68, 68);
