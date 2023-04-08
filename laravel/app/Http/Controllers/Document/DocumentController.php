@@ -60,7 +60,4 @@ class DocumentController extends Controller
         $demandes=Demande::where('user_id',$request->user()->id)->where('document_id',$request->docId)->update(['etat'=>-1]);
         return response()->json(['data'=>$demandes],200);
     }
-
-
-
 }

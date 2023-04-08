@@ -3,6 +3,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\RestPassword\ForgotPasswordController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Document\ChefDepartementDocument;
+use App\Http\Controllers\Document\DemandesController;
 use App\Http\Controllers\GestionClasseController;
 use App\Http\Controllers\GestionSpecialiteController;
 use App\Http\Controllers\InfoUserController;
@@ -64,7 +66,11 @@ Route::middleware("auth:sanctum")->group(function(){
     });
     // utiliser dans controller $request()->user()->id  grace a interceptors dans vue js
 });
-
+Route::group(['prefix'=>'/documents/demandes'],function(){
+    Route::get('/pending',[DemandesController::class,'getAllDemandes']);
+    Route::put('/AccepterDocument',[DemandesController::class,'AccepterDocument']);
+    Route::put('/ReffuserDoccument',[DemandesController::class,'ReffuserDoccument']);
+});
 Route::group(['prefix'=>'/proffesors'],function(){
     Route::get('/accepted',[UsersProffesorsController::class,'acceptedProffesors']);
     Route::get('/pending',[UsersProffesorsController::class,'pendingRequests']);
