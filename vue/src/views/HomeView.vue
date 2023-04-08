@@ -1,34 +1,27 @@
 <template>
   <div id="home">
     <div>
-      <Navbar @GetSelectTab="GetSelectTab"  />
+      <Navbar/>
     </div>
-    <v-main>
-      <Content :selectTab="selectTab" >
+    <main>
+      <Content>
       </Content>
-    </v-main>
-    <footer>
-      <Footer>
-      </Footer>
-    </footer>
+    </main>
+      <Footer></Footer>
   </div>
 </template>
 
 <script>
 import Navbar from "@/components/home/Navbar.vue"
 import Content from "@/components/home/Content.vue"
-import Footer from "@/components/home/Footer.vue"
+import Footer from "@/components/etudiant/layout/Footer.vue"
 export default {
   name: 'Home',
   data(){
     return{
-       selectTab:''
     }
   },
   methods:{
-    GetSelectTab(a){
-      this.selectTab=a;
-    }
   },
   components: {
     Navbar,
@@ -40,7 +33,8 @@ export default {
 
 
 <style scoped>
-#home{
-   scroll-behavior: smooth;
+
+*{
+    scroll-behavior: smooth;
 }
 </style>
