@@ -5,6 +5,9 @@ export default {
     getSpecialte() {
         return axios.get("specialte/Allspecialte");
     },
+    searchSpecialite($search) {
+        return axios.get("specialte/Allspecialte?search=" + $search);
+    },
     addSpecialite(specialite) {
         return axios.post("specialte/addSpecialite", specialite);
     },

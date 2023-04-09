@@ -7,11 +7,21 @@ use Illuminate\Http\Request;
 
 class GestionSpecialiteController extends Controller
 {
-    public function getSpecialte()
+    public function getSpecialte(Request $request)
     {
+        $search=$request->search;
+        if(isset($search)){
+        $sepecialtes = Specialite::where("type","Like","%". $search ."%")->with('classes')->get();
+        if($sepecialtes){
+        return response()->json(["data" => $sepecialtes], 200);
+        }else{
+            return response()->json(["data" => []], 404);
+        }
+    }else{
         $sepecialtes = Specialite::with('classes')->get();
         return response()->json(["data" => $sepecialtes], 200);
     }
+}
     public function addSpecialite(Request $request)
     {
         $specialite = Specialite::create([

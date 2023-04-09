@@ -14,15 +14,15 @@
                     </v-btn>
                 </v-col>
             </v-row>
-            <v-container v-if="Specialites.length == 0 && currentProf == 'list'">
+            <v-container v-if="Specialites.length == 0 && currentProf == 'list' && searchTest==false">
                 <v-row align="center" justify="center">
                     <h1 style="text-align=center;color: #3f51b5;">Oops ! there's no data available</h1>
                 </v-row>
             </v-container>
-            <div v-if="loader == false && Specialites.length != 0 && currentProf == 'list'">
+            <div v-if="(loader == false && Specialites.length != 0 && currentProf == 'list') || searchTest==true">
                 <v-simple-table height="300px">
                     <template v-slot:default>
-                        <v-text-field v-model="search" label="Search Specialite" class="mx-4"></v-text-field>
+                        <v-text-field v-model="search" label="Search Specialite" class="mx-4" @input="searchSpecialite()"></v-text-field>
                         <thead>
                             <tr>
                                 <th class="text-left">
@@ -46,6 +46,7 @@
                                 </th>
                             </tr>
                         </thead>
+                        
                         <tbody>
                             <tr v-for="Specialite in Specialites" :key="Specialite.id">
                                 <td>{{ Specialite.id }}</td>
@@ -68,6 +69,11 @@
                                     </v-row>
                                 </td>
                             </tr>
+                        </tbody>
+                        <tbody v-if="searchTest==true">
+                            <v-row>
+                                <h1 color="red">{{ alertSearch }}</h1>
+                            </v-row>
                         </tbody>
                     </template>
                 </v-simple-table>
@@ -210,6 +216,9 @@ export default {
             name: '',
             niveau: null,
             AddLoader: false,
+            searchTest:false,
+            alertSearch:'there are no specialities with that name',
+            search:'',
         }
     },
     methods: {
@@ -319,7 +328,23 @@ export default {
                     this.color = "red";
                 })
             }
-        }
+        },
+        searchSpecialite(){
+            gestionspecialite.searchSpecialite(this.search).then(response=>{
+                this.Specialites=response.data.data;
+                console.log(this.Specialites);
+                if(this.Specialites.length==0){
+                    this.searchTest=true;
+                    console.log(this.searchTest);
+                }else{
+                    this.searchTest=false;
+                }
+            }).catch((error)=>{
+                this.snackbar = true;
+                this.text = "there was a problem submiting your request";
+                this.color = "red";
+            })
+        },
     },
 }
 </script>
