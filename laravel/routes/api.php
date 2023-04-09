@@ -50,6 +50,8 @@ Route::group(["prefix"=>"/classe"],function(){
 
  Route::group(["prefix"=>"/specialte"],function(){
     Route::get("/Allspecialte",[GestionSpecialiteController::class,"getSpecialte"]);
+    Route::post("/addSpecialite",[GestionSpecialiteController::class,"addSpecialite"]);
+    Route::delete("/deleteSpecialite/{id}",[GestionSpecialiteController::class,"DeleteSpecialite"]);
 });
 
 
