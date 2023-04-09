@@ -176,7 +176,6 @@ export default {
         return {
             valid2: false,
             deleteId: null,
-            loaderUpdate:false,
             valid: true,
             dialog: false,
             cureentPage: "specialite",
@@ -185,11 +184,11 @@ export default {
             snackbar: false,
             editSpecailite: null,
             text: '',
-            edit: false,
             timeout: 2000,
             color: '',
             loaderAcceptBtn: false,
             loaderRefuseBtn: false,
+            loaderUpdate: false,
             page: 1,
             search: '',
             currentProf: "list",
@@ -273,13 +272,10 @@ export default {
                 this.editSpecailite = response.data.data;
                 console.log(this.editSpecailite);
                 if (this.editSpecailite.niveau == 1) {
-                    console.log("aa");
                     this.editSpecailite.niveau = "tronc commun";
                 } else if (this.editSpecailite.niveau == 2) {
-                    console.log("aa");
                     this.editSpecailite.niveau = 'deuxieme anne';
                 } else {
-                    console.log("aa");
                     this.editSpecailite.niveau = 'troisieme anne';
                 }
                 this.loaderAcceptBtn = false;
@@ -302,18 +298,18 @@ export default {
                     this.editSpecailite.niveau = 3;
                 }
                 gestionspecialite.updateSpecialite(this.editSpecailite.id, this.editSpecailite).then(response => {
-                    this.loaderUpdate=false;
+                    this.loaderUpdate = false;
                     this.currentProf = "list";
                     this.snackbar = true;
                     this.text = "speciality updated succesfully";
-                    this.color="green";
-                    this.editSpecailite=null;
+                    this.color = "green";
+                    this.editSpecailite = null;
                     this.getAllSpecialite();
-                }).then((error)=>{
-                    this.snackbar=true;
-                    this.loaderUpdate=false;
-                    this.text="there was a problem submiting your request";
-                    this.color="red";
+                }).catch((error) => {
+                    this.snackbar = true;
+                    this.loaderUpdate = false;
+                    this.text = "there was a problem submiting your request";
+                    this.color = "red";
                 })
             }
         }
@@ -339,4 +335,5 @@ export default {
         margin-left: 5%;
         margin-top: 10%;
     }
-}</style>
+}
+</style>
