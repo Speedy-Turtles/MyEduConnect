@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\RestPassword\ForgotPasswordController;
@@ -49,6 +51,10 @@ Route::group(["prefix"=>"/classe"],function(){
 });
 
 Route::get("/show_etud",[InfoUserController::class,"show_etudiant"]);
+
+Route::group(['prefix'=>"/admin"],function(){
+    Route::get('/getstat',[AdminController::class,'GetStatistique']);
+});
 
 Route::middleware("auth:sanctum")->group(function(){
 
