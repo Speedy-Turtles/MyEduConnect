@@ -9,7 +9,7 @@ class GestionSpecialiteController extends Controller
 {
     public function getSpecialte()
     {
-        $sepecialtes = Specialite::All();
+        $sepecialtes = Specialite::with('classes')->get();
         return response()->json(["data" => $sepecialtes], 200);
     }
     public function addSpecialite(Request $request)
@@ -28,7 +28,10 @@ class GestionSpecialiteController extends Controller
     public function DeleteSpecialite($id){
         $specialite=Specialite::find($id);
         if($specialite){
-            $specialite::with('classes')
+        Specialite::where('id',$id)->with('classes')->delete();
+        Specialite::where('id',$id)->delete();
+        return response()->json(["data"=>"specialite deleted succesfully"],200);
         }
+        return response()->json(["data"=>"specialite not found"],404);
     }
 }
