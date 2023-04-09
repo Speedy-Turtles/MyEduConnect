@@ -34,4 +34,22 @@ class GestionSpecialiteController extends Controller
         }
         return response()->json(["data"=>"specialite not found"],404);
     }
+    public function getElementById($id){
+        $specialite=Specialite::find($id);
+        if($specialite){
+            return response()->json(["data"=>$specialite],200);
+        }
+        return response()->json(["data"=>"specialite not found"],404);
+    }
+    public function updateSpecialite(Request $request,$id){
+        $specialite=Specialite::find($id);
+        if($specialite){
+            Specialite::whereId($id)->update([
+                'type'=>$request->type,
+                'niveau'=>$request->niveau
+        ]);
+            return response()->json(["data"=>"data updated succesfully"],200);
+        }
+        return response()->json(["data"=>"specialite not found"],404);
+    }
 }
