@@ -7,7 +7,10 @@
       <Content>
       </Content>
     </main>
+    <footer>
       <Footer></Footer>
+    </footer>
+      
   </div>
 </template>
 
@@ -30,10 +33,10 @@ export default {
   },
 }
 </script>
-
-
 <style scoped>
-
+#home{
+  overflow: hidden;
+}
 *{
     scroll-behavior: smooth;
 }
