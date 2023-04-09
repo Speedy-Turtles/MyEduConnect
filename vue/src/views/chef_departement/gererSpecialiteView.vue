@@ -5,18 +5,18 @@
         <div class="main_content">
             <v-row>
                 <v-col align="center" justify="center">
-                    <v-btn text :loading="loader" disabled color="blue-grey" class="ma-2 white--text">
+                    <v-btn v-if="currentProf == 'list'" text :loading="loader" disabled color="blue-grey"
+                        class="ma-2 white--text">
                     </v-btn>
                 </v-col>
             </v-row>
-            <v-container v-if="Specialites.length == 0">
+            <v-container v-if="Specialites.length == 0 && currentProf == 'list'">
                 <v-row align="center" justify="center">
                     <h1 style="text-align=center;color: #3f51b5;">Oops ! there's no data available</h1>
                 </v-row>
             </v-container>
-            <div v-if="loader == false && Specialites.length != 0">
+            <div v-if="loader == false && Specialites.length != 0 && currentProf == 'list'">
                 <v-simple-table height="300px">
-
                     <template v-slot:default>
                         <v-text-field v-model="search" label="Search Specialite" class="mx-4"></v-text-field>
                         <thead>
@@ -37,7 +37,8 @@
                                     operation
                                 </th>
                                 <th>
-                                    <v-btn color="#3f51b5" text-color="white"><v-icon>mdi-plus</v-icon></v-btn>
+                                    <v-btn @click="currentProf = 'add'" color="#3f51b5"
+                                        text-color="white"><v-icon>mdi-plus</v-icon></v-btn>
                                 </th>
                             </tr>
                         </thead>
@@ -65,19 +66,40 @@
                                 </td>
                             </tr>
                         </tbody>
-                        </template>
+                    </template>
                 </v-simple-table>
             </div>
+            <div class="add-specialite" v-if="currentProf == 'add'">
+                <template>
+                    <v-card elavation="4" height="450">
+                        <v-btn color="#525fe1" @click="currentProf = 'list'"><v-icon>mdi-arrow-left</v-icon> back to
+                            dashboard</v-btn>
+                        <v-card-title class="text-center">add a speciality</v-card-title>
+                        <v-card-body>
+                            <v-sheet width="500" class="mx-auto">
+                                <v-form validate-on="submit" method="post" ref="form" v-model="valid"
+                                    @submit.prevent="addSpeciality()">
+                                    <v-label>speciaity name</v-label>
+                                    <v-text-field v-model="name" :counter="10" :rules="nameRules" required></v-text-field>
+                                    <v-label>niveau</v-label>
+                                    <v-select :items="niveaux" v-model="niveau" :rules="niveauRules" required></v-select>
+                                    <v-btn type="submit" class="float-right" color="#525fe1" :disabled="!valid" :loading="AddLoader">add a speciality</v-btn>
+                                </v-form>
+                            </v-sheet>
+                        </v-card-body>
+                    </v-card>
+                </template>
+            </div>
         </div>
-        <template class="text-center" v-if="Specialites.length!=0">
-                            <v-row align="center" justify="center" style="margin-top: 5%;margin-left: 6%;">
-                            <v-card elavation="4">
-                                <div class="text-center">
-                                    <v-pagination v-model="page" :length="Specialites.length"></v-pagination>
-                                </div>
-                            </v-card>
-                        </v-row>
-                        </template>
+        <template class="text-center" v-if="Specialites.length != 0 && currentProf == 'list'">
+            <v-row align="center" justify="center" style="margin-top: 5%;margin-left: 6%;">
+                <v-card elavation="4">
+                    <div class="text-center">
+                        <v-pagination v-model="page" :length="Specialites.length"></v-pagination>
+                    </div>
+                </v-card>
+            </v-row>
+        </template>
         <v-snackbar v-model="snackbar" :timeout="timeout" :color="color">
             {{ text }}
             <template v-slot:action="{ attrs }">
@@ -102,6 +124,7 @@ export default {
     },
     data() {
         return {
+            valid:true,
             cureentPage: "specialite",
             Specialites: [],
             loader: false,
@@ -111,11 +134,22 @@ export default {
             color: '',
             loaderAcceptBtn: false,
             loaderRefuseBtn: false,
-            page:1,
+            page: 1,
+            currentProf: "list",
+            niveaux: ['tronc commun', 'deuxieme anne', 'troisieme anne'],
+            nameRules: [
+                v => !!v || 'Name is required',
+                v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+            ],
+            niveauRules: [
+                v => !!v || 'Niveau is required',
+            ],
+            name:'',
+            niveau:null,
+            AddLoader:false,
         }
     },
     methods: {
-
         getAllSpecialite() {
             this.loader = true;
             gestionspecialite.getSpecialte().then(response => {
@@ -123,9 +157,40 @@ export default {
                 this.Specialites = response.data.data;
                 this.loader = false;
             })
+        },
+        addSpeciality() {
+            this.AddLoader=true;
+            this.$refs.form.validate();
+            if(this.valid==true){
+            if(this.niveau=="tronc commun"){
+                this.niveau=1;
+            }else if(this.niveau=='deuxieme anne'){
+                this.niveau=2;
+            }else{
+                this.niveau=3;
+            }
+            let specialite={
+                "type":this.name,
+                "niveau":this.niveau
+            }
+            gestionspecialite.addSpecialite(specialite).then(response=>{
+                this.AddLoader=false;
+                this.snackbar=true;
+                this.text="speciality added succesfully";
+                this.color="green";
+                this.name='';
+                this.niveau=null;
+                this.currentProf="list";
+                this.getAllSpecialite();
+            }).catch((error)=>{
+                this.snackbar=true;
+                this.text="there's was an error submitting your request";
+                this.color="red";
+            })
+            }
         }
+        },
     }
-}
 </script>
 <style scoped>
 .main_content {
