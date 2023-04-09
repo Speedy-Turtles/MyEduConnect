@@ -3,9 +3,9 @@
         <navbar />
         <navigationDrawer :current-page="cureentPage" />
         <div class="main_content">
-            <v-row> <v-col>
+            <v-row v-if="currentProf=='list'"> <v-col>
                     <v-btn @click="currentProf = 'add'" color="#3f51b5" class="float-right"
-                        text-color="white"><v-icon>mdi-plus</v-icon></v-btn>
+                        text-color="white"><v-icon>mdi-plus</v-icon>add specialite</v-btn>
                 </v-col></v-row>
             <v-row>
                 <v-col align="center" justify="center">
@@ -14,7 +14,6 @@
                     </v-btn>
                 </v-col>
             </v-row>
-
             <v-container v-if="Specialites.length == 0 && currentProf == 'list'">
                 <v-row align="center" justify="center">
                     <h1 style="text-align=center;color: #3f51b5;">Oops ! there's no data available</h1>
@@ -109,8 +108,16 @@
                                     <v-label>niveau</v-label>
                                     <v-select :items="niveaux" v-model="editSpecailite.niveau" :rules="niveauRules"
                                         required></v-select>
+                                        <v-row>
+                                            <v-col>
                                     <v-btn type="submit" class="float-right" color="#525fe1" :disabled="!valid2"
                                         :loading="loaderUpdate">update speciality</v-btn>
+                                    </v-col>
+                                    <v-col>
+                                        <v-btn class="float-right" color="secondary" @click="currentProf='list'"
+                                        >cancel</v-btn>
+                                    </v-col>
+                                    </v-row>
                                 </v-form>
                             </v-sheet>
                         </v-card-body>
