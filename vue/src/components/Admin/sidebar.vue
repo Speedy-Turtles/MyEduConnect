@@ -8,7 +8,7 @@
                </div>
           </li>
             <li>
-              <a  @click="changerView('test')"  href="#" :class="ViewCurrent=='test' ? 'active' : ''">
+              <a  @click="changerView('stat')"  href="#" :class="ViewCurrent=='stat' ? 'active' : ''">
                   <v-icon  class="icon">mdi-home</v-icon>
                   <span :class=" small ? 'none_btn_open_close_sidebar' : ''"  class="nav-item">test</span>
                  </a>
