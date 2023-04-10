@@ -32,7 +32,7 @@ export default {
         const data = res.data.data;
         if (res.status == 200) {
             store.login(data.token, data.user, data.IsAdmin,
-                data.Istechnicien, data.Isetudiant, data.IsChefDepartement
+                data.Istechnicien, data.Isetudiant, data.IsChefDepartement,data.Isenseignant
             );
         } else {
             store.logout();
