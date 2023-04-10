@@ -45,7 +45,7 @@ class GestionSpecialiteController extends Controller
         return response()->json(["data"=>"specialite not found"],404);
     }
     public function getElementById($id){
-        $specialite=Specialite::find($id);
+        $specialite=Specialite::where('id',$id)->with('classes')->get();
         if($specialite){
             return response()->json(["data"=>$specialite],200);
         }

@@ -16,7 +16,7 @@ import DocumentView from '../views/etudiant/DocumentView'
 import ForumView from '../views/etudiant/ForumView'
 import ClubView from '../views/etudiant/ClubView'
 import HelpView from '../views/etudiant/HelpView'
-
+import gererClassesView from '../views/chef_departement/gererClassesView.vue'
 Vue.use(VueRouter)
 
 
@@ -71,6 +71,11 @@ const routes = [{
         path: '/chef_departement/gererspecialite',
         name: 'gererspecialite',
         component: gererSpecialiteView
+    },
+    {
+        path: '/specialite/:id',
+        name: 'gererClasses',
+        component: gererClassesView
     },
     {
         path: '/about',
