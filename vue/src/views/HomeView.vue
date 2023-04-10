@@ -1,11 +1,10 @@
 <template>
-  <div id="home">
-    <div>
+  <div class="home">
+    <nav>
       <Navbar/>
-    </div>
+    </nav>
     <main>
-      <Content>
-      </Content>
+      <Content></Content>
     </main>
       <Footer></Footer>
   </div>
@@ -33,8 +32,15 @@ export default {
 
 
 <style scoped>
-
+body{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 *{
     scroll-behavior: smooth;
+}
+.home{
+  overflow: hidden;
 }
 </style>

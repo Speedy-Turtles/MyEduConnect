@@ -4,7 +4,7 @@
          <v-toolbar   class="toolbar">
             <a type="hidden" href=""></a>
                 <!-- --------------------titre-------------------------- -->
-                <v-toolbar-title class="mr-5">
+                <v-toolbar-title class="mr-5 hidden-xs-only" >
                     <img src="../../../public/images/logo-no-background.svg" alt="" width="110px" srcset="">
                 </v-toolbar-title>
                 <!-- --------------------titre/-------------------------- -->
