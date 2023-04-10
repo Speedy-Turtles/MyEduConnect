@@ -1,7 +1,7 @@
 <template>
     <div class="mt-5 py-5 ">
-            <div class="row container-fluid">
-              <div   v-for="dat in All_data" :key="dat.id"   class="col-lg-3">
+            <div class="content">
+              <div  v-for="dat in All_data" :key="dat.id" >
                 <v-skeleton-loader v-if="loading"  
                         max-width="180"
                         type="card"
@@ -162,7 +162,30 @@ export default defineComponent({
 </script>
 
 <style scoped >
-  .chart {
+.content{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 25px;
+}
+
+@media screen and (max-width:950px){
+  .content{
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+    grid-gap: 25px;
+  }
+  
+}
+
+@media screen and (max-width:530px){
+  .content{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 25px;
+    text-align: center;
+  }
+}
+.chart {
     height: 50vh;
     width: 30vw;
   }
