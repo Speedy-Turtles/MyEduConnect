@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classe;
+use App\Models\Notification;
 use App\Models\Role;
 use App\Models\RoleUser;
 use App\Models\User;
@@ -55,6 +56,23 @@ class InfoUserController extends Controller
         ],200);
     }
 
+    public function getnotif(Request $request){
+        $notifyet=Notification::where("id_recu",$request->user()->id)->where('etat',0)->get();
+        $Allnotif=Notification::where("id_recu",$request->user()->id)->get();
+        $data['notifyet']= $notifyet;
+        $data['Allnotif']= $Allnotif;
+        return response()->json([
+            "data"=>$data
+        ],200);
+    }
+
+    public function ShowNotif(Request $request){
+        $notif=Notification::where('id_recu',$request->user()->id)->update(['etat'=>1]);
+        return response()->json([
+            "data"=>$notif,
+        ],200);
+    }
+
     public function show_etudiant(){
 
          // without fields roles
@@ -68,6 +86,15 @@ class InfoUserController extends Controller
         })->with('roles')->get();
 
         return response()->json(['data'=>$users],200);
+    }
+
+    public function GetUser(int $id){
+        $user=User::find($id);
+        if($user){
+            return response()->json(['data'=>$user],200);
+        }else{
+            return response()->json(['data'=>"Not Found"],404);
+        }
     }
 
 }
