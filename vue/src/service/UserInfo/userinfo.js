@@ -11,6 +11,9 @@ export default{
   },
   GetNiveau(){
    return axios.get("/getNiveau");
+  },
+  GetUser(id){
+    return axios.get("GetUser/"+id);
   }
 
 
