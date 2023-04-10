@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\VoteController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\RestPassword\ForgotPasswordController;
@@ -54,13 +55,25 @@ Route::get("/show_etud",[InfoUserController::class,"show_etudiant"]);
 
 Route::group(['prefix'=>"/admin"],function(){
     Route::get('/getstat',[AdminController::class,'GetStatistique']);
+    Route::post('/StartVote',[VoteController::class,'StartVote']);
+    Route::get('/test_Vote',[VoteController::class,'test_Vote']);
 });
 
 Route::middleware("auth:sanctum")->group(function(){
 
-    Route::get("/getNiveau",[InfoUserController::class,"GetNiveauUser"]);
-
-    Route::group(['prefix'=>'/documents'],function(){
+        Route::get("/getNiveau",[InfoUserController::class,"GetNiveauUser"]);
+        Route::get("notif/getnotif",[InfoUserController::class,"getnotif"]);
+        Route::post('notif/ShowNotif',[InfoUserController::class,"ShowNotif"]);
+        Route::post('vote/AddUserNominated_Session',[VoteController::class,"AddUserNominated_Session"]);
+        Route::get('vote/CheckUserNomanated',[VoteController::class,"CheckUserNomanated"]);
+        Route::get('vote/checkUserVoted/{id}',[VoteController::class,"checkUserVoted"]);
+        Route::get('vote/ListNominated',[VoteController::class,"ListNominated"]);
+        Route::post("vote/AddVote",[VoteController::class,"AddVote"]);
+        Route::delete("vote/Annuler/{id}",[VoteController::class,"Annuler"]);
+        Route::post("vote/suspende/{id}",[VoteController::class,"suspende"]);
+        Route::get('GetUser/{id}',[InfoUserController::class,"GetUser"]);
+        Route::get('vote/NombreVoted/{id}',[VoteController::class,"NombreVoted"]);
+        Route::group(['prefix'=>'/documents'],function(){
         Route::get('/',[DocumentController::class,'AllDocuments']);
         Route::post('/addDemande',[DocumentController::class,'addDemande']);
         Route::get('/getAlldemande',[DocumentController::class,'getAlldemande']);
