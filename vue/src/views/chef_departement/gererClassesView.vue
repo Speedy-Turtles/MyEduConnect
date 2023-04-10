@@ -2,7 +2,7 @@
     <div>
         <v-container fluid class="allContent"></v-container>
         <template>
-        <v-card elavation="4" style="margin-top: 2%;margin-left: 3%;" class="content">
+        <v-card elavation="4" style="margin-top: 2%;margin-left: 4%;" class="content">
             <v-card-title class="text-center" color="">
                 <h1 class="text-center">gestion de classe de specialite {{ RecenetSpecialite.type }}</h1>
             </v-card-title>
@@ -13,27 +13,43 @@
                             <span class="white--text text-h5">{{ RecenetSpecialite.type }}</span>
                         </v-avatar>
                     </v-list-item-avatar>
-
                     <v-list-item-title>{{ RecenetSpecialite.type }}</v-list-item-title>
-
                     <v-btn icon @click.stop="mini = !mini">
                         <v-icon>mdi-chevron-left</v-icon>
                     </v-btn>
                 </v-list-item>
-
                 <v-divider></v-divider>
-
                 <v-list dense>
-                    <v-list-item v-for="item in items" :key="item.title" link>
+                    <v-list-item link>
                         <v-list-item-icon>
-                            <v-icon>{{ item.icon }}</v-icon>
+                            <v-icon>mdi-format-list-bulleted</v-icon>
                         </v-list-item-icon>
                         <v-list-item-content>
-                            <v-list-item-title>{{ item.title }}</v-list-item-title>
+                            <v-list-item-title>classes list</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
+                    
+                    <v-list-item link>
+                        <v-list-item-icon>
+                            <v-icon>mdi-plus</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>add classes</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                <router-link class="text-decoration-none" to="/chef_departement/gererspecialite">
+                    <v-list-item link>
+                        <v-list-item-icon>
+                            <v-icon>mdi-arrow-left</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>back to specialite List</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </router-link>
                 </v-list>
             </v-navigation-drawer>
+            <v-content>
             <v-text-field label="Search classes" class="mx-4"></v-text-field>
             <v-simple-table height="300px">
                 <template v-slot:default>
@@ -45,14 +61,27 @@
                             <th class="text-left">
                                 nom classe
                             </th>
+                            <th>opeartion</th>
                         </tr>
-                        <tr v-for="classe in classes" :key="classe.id">
+                        <tr v-for="classe in classes" :key="classe.id" v-if="loader==false">
                         <td>{{ classe.id }}</td>
                         <td>{{ classe.nom }}</td>
+                        <td>
+                            <v-row>
+                                        <v-col>
+                                            <v-btn color="#3f51b5" :loading="loaderAcceptBtn"><v-icon>mdi-pen</v-icon></v-btn>
+                                        </v-col>
+                                        <v-col>
+                                            <v-btn color="#ffcf59"><v-icon>mdi-delete</v-icon></v-btn>
+                                        </v-col>
+                                    </v-row>
+                        </td>
+                        <v-divider></v-divider>
                         </tr>
                     </thead>
                 </template>
             </v-simple-table>
+        </v-content>
         </v-card>
     </template>
         <v-snackbar v-model="snackbar" :timeout="timeout" :color="color">
@@ -85,6 +114,7 @@ export default {
             text: '',
             color: '',
             timeout: 2000,
+            loader:false,
         }
     },
     created() {
