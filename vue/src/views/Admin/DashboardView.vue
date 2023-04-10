@@ -2,8 +2,6 @@
     <div :class="small ? 'small' : 'large'" id="dashboard">
          <div class="sidebar_position">
             <sidebarVue
-               @changerView="changerView"
-               :ViewCurrent="ViewCurrent"
                :etatsidbar="etatsidbar"
                @changreetat="changreetat"
                :small="small"
@@ -11,10 +9,16 @@
           </div>
           <transition name="fade" mode="out-in">
             <div :class="etatsidbar == true ? 'content close ' : 'content'">
-                 <HeaderDashboard :ViewCurrent="ViewCurrent"></HeaderDashboard>
-                <div  class="ma-5 pa-5 " id="home">
-                    <div  v-if="ViewCurrent=='stat'">
+                 <HeaderDashboard ></HeaderDashboard>
+                <div  class="ma-5 pa-5" id="home">
+                    <div v-if="store.view=='stat' ">
                           <statistique></statistique>
+                    </div>
+                    <div  v-else-if="store.view=='vote'">
+                        <Vote></Vote>
+                    </div>
+                    <div  v-else>
+                       <statistique></statistique>
                     </div>
                 </div>
             </div>
@@ -26,8 +30,13 @@
 import statistique from '@/components/Admin/statistique.vue';
 import HeaderDashboard from '@/components/Admin/HeaderDashboard.vue';
 import sidebarVue from '../../components/Admin/sidebar.vue'
-
-export default {
+import Vote from '@/components/Admin/Vote.vue';
+import {CurentView} from "@/store/StoreView.js";
+export default{
+  setup(){
+    const store=CurentView();
+    return {store}
+  },
     name:'dashboard',
     data(){
         return{
@@ -35,7 +44,6 @@ export default {
             show_all: true,
             snackbar: false,
             snackbar: false,
-            ViewCurrent: "stat",
             snackbar_edit: false,
             small:false,
         }
@@ -57,15 +65,12 @@ export default {
                         this.etatsidbar = false;
                }
       }, 
-        changerView(data){
-            this.ViewCurrent=data;
-        },
         changreetat(etat){
             this.etatsidbar=etat;
         }
     },
     components:{
-       sidebarVue,HeaderDashboard,statistique
+       sidebarVue,HeaderDashboard,statistique,Vote
     },
  
 };
@@ -96,5 +101,7 @@ export default {
   .small .content{
         margin-left: 0px !important;
   }
+
+
 
 </style>
