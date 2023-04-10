@@ -40,10 +40,6 @@
                                 <th>
                                     operation
                                 </th>
-                                <th>
-                                    <v-btn @click="currentProf = 'add'" color="#3f51b5"
-                                        text-color="white"><v-icon>mdi-plus</v-icon></v-btn>
-                                </th>
                             </tr>
                         </thead>
                         
@@ -64,7 +60,7 @@
                                                 @click="dialog = true; deleteId = Specialite.id"><v-icon>mdi-delete</v-icon></v-btn>
                                         </v-col>
                                         <v-col>
-                                            <v-btn color="#a6cd49"><v-icon>mdi-information-outline</v-icon></v-btn>
+                                            <router-link :to="{name:'gererClasses', params:{id:Specialite.id} }" class="text-decoration-none"><v-btn color="#a6cd49"><v-icon>mdi-information-outline</v-icon></v-btn></router-link>
                                         </v-col>
                                     </v-row>
                                 </td>
