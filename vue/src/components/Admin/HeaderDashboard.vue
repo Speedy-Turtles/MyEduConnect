@@ -4,25 +4,26 @@
             <v-row>
               <h2>
                 <span style="color: #5094df">{{
-                  ViewCurrent.toUpperCase().substring(0, ViewCurrent.length - 3)
+                  (store_view.getView).toUpperCase().substring(0, (store_view.getView).length - 3)
                 }}</span
                 >{{
-                  ViewCurrent.toUpperCase().substring(
-                    ViewCurrent.length,
-                    ViewCurrent.length - 3
+                  (store_view.getView).toUpperCase().substring(
+                    (store_view.getView).length,
+                    (store_view.getView).length - 3
                   )
                 }}
               </h2>
               <v-spacer></v-spacer>
-
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
                  <v-btn
                  plain
                  v-bind="attrs"
                  v-on="on"
-                 >
-                    <v-icon >mdi-bell</v-icon>s
+                 > 
+                   <v-badge content="4" color="green">
+                    <v-icon >mdi-bell</v-icon>
+                  </v-badge>
                  </v-btn>
                 </template>
                 <v-list>
@@ -32,7 +33,6 @@
                     </v-list-item>
                 </v-list>
             </v-menu>
-
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
                  <v-btn
@@ -55,8 +55,6 @@
                     </v-list-item>
                 </v-list>
             </v-menu>
-
-        
               </v-row>
         </v-container>
     </div>
@@ -64,14 +62,13 @@
 
 <script>
 import {AuthUser} from "@/store/Store.js";
+import {CurentView} from "@/store/StoreView.js";
 export default {
   setup(){
-     const store =AuthUser();
-     return {store};
+    const store = AuthUser();
+     const store_view = CurentView();
+     return {store,store_view};
   },
-    props:{
-         ViewCurrent:String
-    },
 };
 
 </script>
