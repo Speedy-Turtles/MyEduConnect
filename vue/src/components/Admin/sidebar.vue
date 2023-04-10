@@ -8,15 +8,15 @@
                </div>
           </li>
             <li>
-              <a  @click="changerView('stat')"  href="#" :class="ViewCurrent=='stat' ? 'active' : ''">
+              <a  @click="changerView('stat')"  href="#" :class="store.view=='stat' ? 'active' : ''">
                   <v-icon  class="icon">mdi-home</v-icon>
                   <span :class=" small ? 'none_btn_open_close_sidebar' : ''"  class="nav-item">test</span>
                  </a>
               </li>
                <li>
-                  <a @click="changerView('test1')" href="#" :class="ViewCurrent=='test1' ? 'active' : ''">
-                     <v-icon  class="icon"  >mdi-home</v-icon>
-                     <span  :class=" small ? 'none_btn_open_close_sidebar' : ''" class="nav-item">test1</span>
+                  <a @click="changerView('vote')" href="#" :class="store.view=='vote' ? 'active' : ''">
+                     <v-icon  class="icon" >mdi-vote</v-icon>
+                     <span  :class=" small ? 'none_btn_open_close_sidebar' : ''" class="nav-item">vote</span>
                  </a>
               </li>
           <li class="btn_open_close"  :class="etatsidbar==true ? 'close' : '' ">
@@ -29,14 +29,16 @@
   </nav>
 </div>
 </template>
-
 <script>
-
+import {CurentView} from "@/store/StoreView.js";
 export default{
+  setup(){
+    const store=CurentView();
+    return {store}
+  },
   name:"sidebar",
   props:{
       etatsidbar:Boolean,
-      ViewCurrent:String,
       small:Boolean
   },
   data(){
@@ -50,7 +52,8 @@ export default{
           this.$emit("changreetat", this.etatsidbar);
       },
       changerView(data){
-          this.$emit('changerView',data);
+        this.store.suppView();
+        this.store.setView(data);
       }
   }, 
 }
