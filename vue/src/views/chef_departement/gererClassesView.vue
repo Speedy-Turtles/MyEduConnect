@@ -20,7 +20,7 @@
                     </v-list-item>
                     <v-divider></v-divider>
                     <v-list dense>
-                        <v-list-item link @click="currentProf='list'">
+                        <v-list-item link @click="currentProf = 'list'">
                             <v-list-item-icon>
                                 <v-icon>mdi-format-list-bulleted</v-icon>
                             </v-list-item-icon>
@@ -28,8 +28,7 @@
                                 <v-list-item-title>classes list</v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
-
-                        <v-list-item link @click="currentProf='add'">
+                        <v-list-item link @click="currentProf = 'add'">
                             <v-list-item-icon>
                                 <v-icon>mdi-plus</v-icon>
                             </v-list-item-icon>
@@ -65,29 +64,34 @@
                                 </tr>
                                 <tr v-for="classe in classes" :key="classe.id" v-if="loader == false">
                                     <td>{{ classe.id }}</td>
-                                    <td v-if="update=='update'+classe.id">
-                                        <v-form method="post" @submit.prevent="UpdateClasse(classe.id)" ref="form2" v-model="valid2">
-                                        <v-text-field label="classe name" class="mx-4" v-model="updateName" :rules="nameRules"></v-text-field>
+                                    <td v-if="update == 'update' + classe.id">
+                                        <v-form method="post" @submit.prevent="UpdateClasse(classe.id)" ref="form2"
+                                            v-model="valid2">
+                                            <v-text-field label="classe name" class="mx-4" v-model="updateName"
+                                                :rules="nameRules"></v-text-field>
                                         </v-form>
                                     </td>
                                     <td v-else>{{ classe.nom }}</td>
                                     <td>
                                         <v-row>
                                             <v-col>
-                                                <v-btn color="#3f51b5" @click="updateName=classe.nom;update='update'+classe.id"><v-icon>mdi-pen</v-icon></v-btn>
+                                                <v-btn color="#3f51b5"
+                                                    @click="updateName = classe.nom; update = 'update' + classe.id"><v-icon>mdi-pen</v-icon></v-btn>
                                             </v-col>
                                             <v-col>
-                                                <v-btn color="#ffcf59" @click.stop="dialog = true;choosenDelete=classe.id"><v-icon>mdi-delete</v-icon></v-btn>
+                                                <v-btn color="#ffcf59"
+                                                    @click.stop="dialog = true; choosenDelete = classe.id"><v-icon>mdi-delete</v-icon></v-btn>
                                             </v-col>
                                         </v-row>
                                     </td>
                                     <v-divider></v-divider>
                                 </tr>
-                                <tr v-if="currentProf=='add' || classes.length==0">
+                                <tr v-if="currentProf == 'add' || classes.length == 0">
                                     <td></td>
                                     <td>
                                         <v-form method="post" @submit.prevent="addClasse()" ref="form" v-model="valid">
-                                        <v-text-field label="classe name" class="mx-4" v-model="nom" :rules="nameRules"></v-text-field>
+                                            <v-text-field label="classe name" class="mx-4" v-model="nom"
+                                                :rules="nameRules"></v-text-field>
                                         </v-form>
                                     </td>
                                 </tr>
@@ -95,8 +99,8 @@
                         </template>
                     </v-simple-table>
                 </v-content>
-                <v-content v-if="currentProf=='add'">
-                        
+                <v-content v-if="currentProf == 'add'">
+
                 </v-content>
             </v-card>
             <template>
@@ -136,8 +140,8 @@ import gestionclasse from '@/service/classe/gestionclasse';
 export default {
     data() {
         return {
-            valid2:true,
-            valid:true,
+            valid2: true,
+            valid: true,
             idSpecialite: null,
             drawer: true,
             items: [
@@ -154,12 +158,12 @@ export default {
             timeout: 2000,
             loader: false,
             dialog: false,
-            choosenDelete:null,
-            loaderDelete:false,
-            currentProf:'',
-            nom:'',
-            updateName:'',
-            update:'',
+            choosenDelete: null,
+            loaderDelete: false,
+            currentProf: '',
+            nom: '',
+            updateName: '',
+            update: '',
             nameRules: [
                 v => !!v || 'Name is required',
                 v => (v && v.length <= 10) || 'Name must be less than 10 characters',
@@ -187,60 +191,60 @@ export default {
                 this.color = "red";
             })
         },
-        DeleteClasse(){
-            this.loaderDelete=true;
-            gestionclasse.DeleteClasse(this.choosenDelete).then(response=>{
-                this.loaderDelete=false;
-                this.snackbar=true;
-                this.text="classe deleted succesfully";
-                this.color="green";
+        DeleteClasse() {
+            this.loaderDelete = true;
+            gestionclasse.DeleteClasse(this.choosenDelete).then(response => {
+                this.loaderDelete = false;
+                this.snackbar = true;
+                this.text = "classe deleted succesfully";
+                this.color = "green";
                 this.getClasses();
-                this.dialog=false;
-            }).catch((error)=>{
-                this.snackbar=true;
-                this.text="an error have been come proccesing your request";
-                this.color="red";
+                this.dialog = false;
+            }).catch((error) => {
+                this.snackbar = true;
+                this.text = "an error have been come proccesing your request";
+                this.color = "red";
             })
         },
-        addClasse(){
+        addClasse() {
             this.$refs.form.validate();
-            if(this.valid==true){
-            let classe={
-                nom:this.nom,
-                specialite_id:this.idSpecialite
+            if (this.valid == true) {
+                let classe = {
+                    nom: this.nom,
+                    specialite_id: this.idSpecialite
+                }
+                gestionclasse.AddClasse(classe).then(response => {
+                    this.snackbar = true;
+                    this.text = "classe added succesfully";
+                    this.color = "green";
+                    this.nom = '';
+                    this.currentProf = 'list';
+                    this.getClasses();
+                }).catch((error) => {
+                    this.snackbar = true;
+                    this.text = "there was an error submitting your request";
+                    this.color = "red";
+                })
             }
-            gestionclasse.AddClasse(classe).then(response=>{
-                this.snackbar=true;
-                this.text="classe added succesfully";
-                this.color="green";
-                this.nom='';
-                this.currentProf='list';
-                this.getClasses();
-            }).catch((error)=>{
-                this.snackbar=true;
-                this.text="there was an error submitting your request";
-                this.color="red";
-            })
-        }
         },
-        UpdateClasse(id){
-            if(this.valid2==true){
-            let classe={
-                nom:this.updateName,
+        UpdateClasse(id) {
+            if (this.valid2 == true) {
+                let classe = {
+                    nom: this.updateName,
+                }
+                gestionclasse.updateClasse(id, classe).then(response => {
+                    this.snackbar = true;
+                    this.text = "classe updated succesfully";
+                    this.color = "green";
+                    this.updateName = '';
+                    this.update = '';
+                    this.getClasses();
+                }).catch((error) => {
+                    this.snackbar = true;
+                    this.text = "there was an error submitting your request";
+                    this.color = "red";
+                })
             }
-            gestionclasse.updateClasse(id,classe).then(response=>{
-                this.snackbar=true;
-                this.text="classe updated succesfully";
-                this.color="green";
-                this.updateName='';
-                this.update='';
-                this.getClasses();
-            }).catch((error)=>{
-                this.snackbar=true;
-                this.text="there was an error submitting your request";
-                this.color="red";
-            })
-        }
         }
     }
 }
@@ -261,5 +265,4 @@ export default {
     z-index: 1;
     height: 100vh;
     width: 100vw;
-}
-</style>
+}</style>
