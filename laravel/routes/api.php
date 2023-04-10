@@ -45,10 +45,14 @@ Route::group(["prefix"=>"/auth"],function(){
 Route::post('/active/{id}',[InfoUserController::class,"ActiveUser"]);
 
 Route::group(["prefix"=>"/classe"],function(){
-     Route::get("/classesBySpecialite/{id}",[GestionClasseController::class,"getClasseForSpecialte"]);
- });
+    Route::get("/classesBySpecialite/{id}",[GestionClasseController::class,"getClasseForSpecialte"]);
+    Route::delete("/delete/{id}",[GestionClasseController::class,"DeleteClasse"]);
+    Route::post("/AddClasse/",[GestionClasseController::class,"AddClasse"]);
+    Route::get("/getClasse/{id}",[GestionClasseController::class,"getClasseByid"]);
+    Route::put("/updateClasse/{id}",[GestionClasseController::class,"updateClasse"]);
+});
 
- Route::group(["prefix"=>"/specialte"],function(){
+Route::group(["prefix"=>"/specialte"],function(){
     Route::get("/Allspecialte",[GestionSpecialiteController::class,"getSpecialte"]);
     Route::post("/addSpecialite",[GestionSpecialiteController::class,"addSpecialite"]);
     Route::delete("/deleteSpecialite/{id}",[GestionSpecialiteController::class,"DeleteSpecialite"]);
