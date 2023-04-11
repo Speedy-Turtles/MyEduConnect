@@ -99,9 +99,6 @@
                         </template>
                     </v-simple-table>
                 </v-content>
-                <v-content v-if="currentProf == 'add'">
-
-                </v-content>
             </v-card>
             <template>
                 <v-row justify="center">

@@ -9,6 +9,7 @@ use App\Http\Controllers\GestionClasseController;
 use App\Http\Controllers\GestionSpecialiteController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\Document\DocumentController;
+use App\Http\Controllers\nouveauteController;
 use App\Http\Controllers\proffesors\usersEtudiantContoroller;
 use App\Http\Controllers\proffesors\UsersProffesorsController;
 use Illuminate\Http\Request;
@@ -60,6 +61,13 @@ Route::group(["prefix"=>"/specialte"],function(){
     Route::put("/updateSpecialite/{id}",[GestionSpecialiteController::class,"updateSpecialite"]);
 });
 
+Route::group(["prefix"=>"/nouveaute"],function(){
+    Route::get("/Allnouveaute",[nouveauteController::class,"getAllNouveaute"]);
+    Route::post("/addnouveaute",[nouveauteController::class,"addNouveaute"]);
+    Route::delete("/deletenouveaute/{id}",[nouveauteController::class,"DeleteNouveaute"]);
+    Route::get("/getnouveauteById/{id}",[nouveauteController::class,"getNouveauteById"]);
+    Route::put("/updatenouveaute/{id}",[nouveauteController::class,"updateNouveaute"]);
+});
 
 Route::middleware("auth:sanctum")->group(function(){
 
