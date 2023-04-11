@@ -17,13 +17,13 @@ class nouveauteController extends Controller
     }
     public function addnouveaute(Request $request)
     {
-        $imagePath = public_path($request->photo);
+        /*$imagePath = public_path($request->photo);
         $imageData = file_get_contents($imagePath);
-        $photo = base64_encode($imageData);
+        $photo = base64_encode($imageData);*/
         $nouveaute = nouveaute::create([
             "titre" => $request->titre,
             "descripition" => $request->descripition,
-            "photo"=>$photo,
+            "photo"=>$request->photo,
         ]);
         $nouveaute->save();
         if ($nouveaute == null) {
@@ -37,6 +37,25 @@ class nouveauteController extends Controller
         if($nouveaute!=null){
             $nouveaute->delete();
             return response()->json(["data"=>"neveautly deleted succesfully"],200);
+        }
+        return response()->json(["data"=>"neveautly not found"],404);
+    }
+    public function getnouveauteById($id){
+        $nouveaute=nouveaute::find($id);
+        if($nouveaute!=null){
+            return response()->json(["data"=>$nouveaute],200);
+        }
+        return response()->json(["data"=>"neveautly not found"],404);
+    }
+    public function updateNouveaute($id,Request $request){
+        $nouveaute=nouveaute::find($id);
+        if($nouveaute!=null){
+            $nouveaute->update([
+                'titre'=>$request->titre,
+                'descripition'=>$request->descripition,
+                'photo'=>$request->photo
+        ]);
+        return response()->json(["data"=>"neveautly updated succesfully"],200);
         }
         return response()->json(["data"=>"neveautly not found"],404);
     }
