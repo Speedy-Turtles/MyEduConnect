@@ -5,8 +5,8 @@ export default{
     AddUserNominated_Session(id){
         return axios.post("vote/AddUserNominated_Session",id)
     },
-    checkUser(){
-        return axios.get("vote/CheckUserNomanated");
+    checkUser(id){
+        return axios.get("vote/CheckUserNomanated/"+id);
     },
     ListNominated(){
         return axios.get("vote/ListNominated");
@@ -21,9 +21,24 @@ export default{
         return axios.get("vote/NombreVoted/"+id);
     },
     annuler(id){
-        return axios.delete("vote/Annuler/"+id);
+        return axios.put("vote/Annuler/"+id);
     },
     suspende(id){
-        return axios.post("vote/suspende/"+id);
+        return axios.put("vote/suspende/"+id);
+    },
+    deleteSession(id){
+        return axios.delete("vote/deleteSession/"+id);
+    },
+    getSessionTerminer(){
+        return axios.get("vote/GetSessionTerminer");
+    },
+    getUserNomanitedByIdSession(id){
+        return axios.get("vote/getUserNomanitedByIdSession/"+id);
+    },
+    getUserVoted(){
+        return axios.get("vote/getUserVoted");
+    },
+    getUserNominated(){
+        return axios.get('vote/getUserNominated');
     }
 }

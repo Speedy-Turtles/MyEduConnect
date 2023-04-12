@@ -49,6 +49,7 @@ export default{
         }
     },
     mounted() {
+     
         window.addEventListener('resize', this.onresize);
     },
     methods:{
@@ -66,6 +67,8 @@ export default{
                }
       }, 
         changreetat(etat){
+           /* let test=new SpeechSynthesisUtterance("welcome");
+            speechSynthesis.speak(test);*/
             this.etatsidbar=etat;
         }
     },

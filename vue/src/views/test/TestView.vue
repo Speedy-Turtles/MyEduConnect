@@ -3,9 +3,9 @@
         <v-menu  class="mt-5" offset-y>
             <template v-slot:activator="{ on, attrs }">
              <v-btn
-             plain
-             v-bind="attrs"
-             v-on="on"
+                plain
+                v-bind="attrs"
+                v-on="on"
              > 
                <v-badge  :content="notif_yet.length ? notif_yet.length : '0'" color="green">
                 <v-icon @click="ShowAllNotif()" >mdi-bell</v-icon>
@@ -23,10 +23,17 @@
                 </v-list-item>
             </v-list>
         </v-menu>
-        <div > 
+        <div v-if="session==''">
+          <v-alert class="text-center"   border="top"
+              color="red lighten-2"
+              dark>
+                No Session
+           </v-alert>
+       </div>
+        <div v-else> 
+          <div class="row">
+            <div class="col-lg-4" v-for="data in session" :key="data.id">
             <v-card
-                :disabled="session['etat']==0 ? true : false"
-                v-if="session"
                 class="mx-auto"
                 color="#26c6da"
                 dark
@@ -39,22 +46,36 @@
               >
                 mdi-vote
               </v-icon>
-              <span class="text-h6 font-weight-light">{{session['Titre_Vote']}}</span>
+              <span class="text-h6 font-weight-light">{{data['Titre_Vote']}}</span>
               <v-spacer></v-spacer>
             </v-card-title>
             <v-card-text class="text-h5 font-weight-bold">
-              Date Debut: {{ session['DateDebut'] }}
+              Date Debut: {{ data['DateDebut'] }}
             </v-card-text>
             <v-card-text class="text-h5 font-weight-bold">
-              Date Fin: {{ session['DateFin'] }}
+              Date Fin: {{ data['DateFin'] }}
             </v-card-text>
+            <v-card-text>
+            <p style="display: none;">
+              {{ index_nominated = UserNominated.findIndex((v)=>v.iduser==store.user['id'] &&
+                v.vote_session_id==data['id']) }}
+                {{ index_voted = UserVoted.findIndex((v)=>v.iduser==store.user['id'] &&
+                v.vote_session_id==data['id']) }}
+            </p>
+           </v-card-text>
             <v-card-actions>
               <v-list-item  class="grow text-center">
-                    <v-btn :disabled="checkUserNominated" @click="nominated(session.id)" class="primary mx-2">Nominated</v-btn>
-                    <v-btn  :disabled="checkUserVoted" @click="dialog=true" class="info">Vote</v-btn>
+                    <v-btn  :disabled="index_nominated!=-1 ? true : false"   @click="nominated(data.id)" :loading="votedLoading" class="primary mx-2">Nominated</v-btn>
+                    <v-btn  :disabled="index_voted!=-1 ? true : false ||  data['etat']==0 " :loading="dialog_nominated" @click="getListNominated(data['id'])" class="info">Vote</v-btn>
               </v-list-item>
-            <v-dialog
-              v-model="dialog"
+
+            </v-card-actions>
+          </v-card>
+          </div>
+          </div>
+          </div>
+          <v-dialog
+              v-model="dialog_nominated"
               scrollable
               max-width="300px"
             >
@@ -67,8 +88,8 @@
                     v-model="SelectNominated"
                     column
                   >
-                  <div v-for="( list ) in ListNominated" :key="list.id">
-                    <v-toolbar v-for="user in list.users" :key="user.id" class="mb-4" >
+                  <div v-for=" user  in ListNominated" :key="user['id']">
+                    <v-toolbar  >
                         <v-toolbar-title>
                             <v-radio 
                                 :label="user['FirstName']"
@@ -106,13 +127,14 @@
                   <v-btn
                     color="blue darken-1"
                     text
-                    @click="dialog = false"
+                    @click="dialog_nominated = false"
                   >
                     Close
                   </v-btn>
                   <v-btn
                     color="blue darken-1"
                     text
+                    :loading="loading_vote"
                     @click="AddVote()"
                   >
                     Vote
@@ -120,40 +142,36 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
-
-        <v-dialog
-            v-if="selectUserMoreInfo!=''"
-            v-model="dialog2"
-            persistent
-            max-width="290"
-          >
-            <v-card>
-              <v-card-title class="text-h5 text-center">
-                <v-avatar v-if="selectUserMoreInfo['Photo'].indexOf('storage')==-1" >
-                    <span>{{selectUserMoreInfo['Photo']}}</span>
-                </v-avatar>
-                <v-avatar v-else >
-                  <img :src="'http://127.0.0.1:8000'+selectUserMoreInfo['Photo']" alt="">
-                </v-avatar>
-              </v-card-title>
-              <v-card-text class="text-h5">FirstName :{{ selectUserMoreInfo['FirstName'] }}</v-card-text>
-              <v-card-text class="text-h5">LastName :{{selectUserMoreInfo['LastName'] }}</v-card-text>
-              <v-card-text class="text-h5">Email :{{selectUserMoreInfo['email'] }}</v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                  color="green darken-1"
-                  text
-                  @click="refreshDialog2()"
-                >
-                  Close
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+          <!-- <v-dialog
+          v-if="selectUserMoreInfo!=''"
+          v-model="dialog2"
+          persistent
+          max-width="290"
+        >
+          <v-card>
+            <v-card-title class="text-h5 text-center">
+              <v-avatar v-if="selectUserMoreInfo['Photo'].indexOf('storage')==-1" >
+                  <span>{{selectUserMoreInfo['Photo']}}</span>
+              </v-avatar>
+              <v-avatar v-else >
+                <img :src="'http://127.0.0.1:8000'+selectUserMoreInfo['Photo']" alt="">
+              </v-avatar>
+            </v-card-title>
+            <v-card-text class="text-h5">FirstName :{{ selectUserMoreInfo['FirstName'] }}</v-card-text>
+            <v-card-text class="text-h5">LastName :{{selectUserMoreInfo['LastName'] }}</v-card-text>
+            <v-card-text class="text-h5">Email :{{selectUserMoreInfo['email'] }}</v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="green darken-1"
+                text
+                @click="refreshDialog2()"
+              >
+                Close
+              </v-btn>
             </v-card-actions>
           </v-card>
-          </div>
+        </v-dialog> -->
     </div>
 </template>
 <script>
@@ -175,33 +193,43 @@ export default{
         return{store}
     },
     mounted(){
+        this.allSession();
+
+        service_vote.getUserNominated().then((res)=>{
+            for(let i=0;i<(res.data.data).length;i++){
+                this.UserNominated.push({iduser:res.data.data[i].user_id,vote_session_id:res.data.data[i].vote_session_id});
+            }
+        })
+
+        service_vote.getUserVoted().then((res)=>{
+          for(let i=0;i<(res.data.data).length;i++){
+                this.UserVoted.push({iduser:res.data.data[i].user_id,vote_session_id:res.data.data[i].vote_session_id});
+            }
+        })
+
         service_notif.getnotif().then((res)=>{
             this.All_notif=res.data.data.Allnotif;
             this.notif_yet=res.data.data.notifyet;
         })
 
-        service_admin.test_Vote().then((res)=>{
-          this.CheckSession=res.data.status;
-          this.session=res.data.data;
-          this.checkuservoted(this.session['id']);  
-       })
-
-       service_vote.checkUser().then((res)=>{
+       /*service_vote.checkUser().then((res)=>{
            this.checkUserNominated=res.data.status;
-       })
+       })*/
        
        service_vote.ListNominated().then((res)=>{
            this.ListNominated=res.data.data;
        })
-
-      
-
     },
     data(){
         return{
+            loading_vote:false,
             CheckSession:false,
-            checkUserNominated:false,
+            UserNominated:[],
+            UserVoted:[],
+            dialog_nominated:false,
             session:[],
+            idsession:"",
+            votedLoading:false,
             session_id:'',
             dialog:false,
             SelectNominated:'',
@@ -214,14 +242,22 @@ export default{
         }
     },
     methods:{
+      allSession(){
+        service_admin.test_Vote().then((res)=>{
+          this.CheckSession=res.data.status;
+          this.session=res.data.data;
+       })
+      },
         ShowAllNotif(){
             servcie_notif.shownotif().then((res)=>{
                 console.log(res.data.data);
             })
         },
         nominated(id){
+            this.votedLoading=true;
             service_vote.AddUserNominated_Session({idsession:id}).then((res)=>{
-                console.log(res.data.data);
+                this.votedLoading=false;
+                this.allSession();
             })
         },
         refreshDialog2(){
@@ -239,16 +275,28 @@ export default{
             if(this.$v.SelectNominated.$invalid){
                 return;
             }
-           service_vote.addvote({session_id:this.session['id'],id_nominated:this.SelectNominated}).then((res)=>{
+            this.loading_vote=true;
+           service_vote.addvote({session_id:this.idsession,id_nominated:this.SelectNominated}).then((res)=>{
               console.log(res.data.data);
+              this.loading_vote=false;
+              this.dialog_nominated=false;
+              this.idsession="";
            })
         },
         checkuservoted(id){
             service_vote.checkUserVoted(id).then((res)=>{
                 this.checkUserVoted=res.data.status;
             })
+        },
+        getListNominated(id){
+          service_vote.getUserNomanitedByIdSession(id).then((res)=>{
+            this.ListNominated=res.data.data[0]['users'];
+            this.dialog_nominated=true;
+            this.idsession=res.data.data[0]['id'];
+          }).catch((error)=>{
+            console.log(error.response);
+          })
         }
-
     },
     computed:{
         nominated_error(){

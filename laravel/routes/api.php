@@ -58,29 +58,41 @@ Route::group(['prefix'=>"/admin"],function(){
     Route::post('/StartVote',[VoteController::class,'StartVote']);
     Route::get('/test_Vote',[VoteController::class,'test_Vote']);
 });
+Route::get('GetUser/{id}',[InfoUserController::class,"GetUser"]);
 
 Route::middleware("auth:sanctum")->group(function(){
 
         Route::get("/getNiveau",[InfoUserController::class,"GetNiveauUser"]);
-        Route::get("notif/getnotif",[InfoUserController::class,"getnotif"]);
-        Route::post('notif/ShowNotif',[InfoUserController::class,"ShowNotif"]);
-        Route::post('vote/AddUserNominated_Session',[VoteController::class,"AddUserNominated_Session"]);
-        Route::get('vote/CheckUserNomanated',[VoteController::class,"CheckUserNomanated"]);
-        Route::get('vote/checkUserVoted/{id}',[VoteController::class,"checkUserVoted"]);
-        Route::get('vote/ListNominated',[VoteController::class,"ListNominated"]);
-        Route::post("vote/AddVote",[VoteController::class,"AddVote"]);
-        Route::delete("vote/Annuler/{id}",[VoteController::class,"Annuler"]);
-        Route::post("vote/suspende/{id}",[VoteController::class,"suspende"]);
-        Route::get('GetUser/{id}',[InfoUserController::class,"GetUser"]);
-        Route::get('vote/NombreVoted/{id}',[VoteController::class,"NombreVoted"]);
-        Route::group(['prefix'=>'/documents'],function(){
-        Route::get('/',[DocumentController::class,'AllDocuments']);
-        Route::post('/addDemande',[DocumentController::class,'addDemande']);
-        Route::get('/getAlldemande',[DocumentController::class,'getAlldemande']);
-        Route::post('/AccepterDocument',[DocumentController::class,'AccepterDocument']);
-        Route::post('/initailiser_demande',[DocumentController::class,'initailiser_demande']);
 
-    });
+        Route::group(['prefix'=>"notif/"],function(){
+            Route::get("getnotif",[InfoUserController::class,"getnotif"]);
+            Route::post('ShowNotif',[InfoUserController::class,"ShowNotif"]);
+        });
+
+        Route::group(['prefix'=>"vote/"],function(){
+            Route::post('AddUserNominated_Session',[VoteController::class,"AddUserNominated_Session"]);
+           /* Route::get('CheckUserNomanated/{id}',[VoteController::class,"CheckUserNomanated"]);
+            Route::get('checkUserVoted/{id}',[VoteController::class,"checkUserVoted"]);*/
+            Route::get('ListNominated',[VoteController::class,"ListNominated"]);
+            Route::post("AddVote",[VoteController::class,"AddVote"]);
+            Route::put("Annuler/{id}",[VoteController::class,"Annuler"]);
+            Route::put("suspende/{id}",[VoteController::class,"suspende"]);
+            Route::delete("deleteSession/{id}",[VoteController::class,"deleteSession"]);
+            Route::get('NombreVoted/{id}',[VoteController::class,"NombreVoted"]);
+            Route::get('GetSessionTerminer',[VoteController::class,"GetSessionTerminer"]);
+            Route::get('getUserVoted',[VoteController::class,"getUserVoted"]);
+            Route::get('getUserNomanitedByIdSession/{id}',[VoteController::class,"getUserNomanitedByIdSession"]);
+            Route::get("getUserNominated",[VoteController::class,"getUserNominated"]);
+            Route::get("getUserVoted",[VoteController::class,"getUserVoted"]);
+        });
+
+        Route::group(['prefix'=>'/documents'],function(){
+            Route::get('/',[DocumentController::class,'AllDocuments']);
+            Route::post('/addDemande',[DocumentController::class,'addDemande']);
+            Route::get('/getAlldemande',[DocumentController::class,'getAlldemande']);
+            Route::post('/AccepterDocument',[DocumentController::class,'AccepterDocument']);
+            Route::post('/initailiser_demande',[DocumentController::class,'initailiser_demande']);
+        });
 
     // utiliser dans controller $request()->user()->id  grace a interceptors dans vue js
 });
