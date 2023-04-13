@@ -142,36 +142,6 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
-          <!-- <v-dialog
-          v-if="selectUserMoreInfo!=''"
-          v-model="dialog2"
-          persistent
-          max-width="290"
-        >
-          <v-card>
-            <v-card-title class="text-h5 text-center">
-              <v-avatar v-if="selectUserMoreInfo['Photo'].indexOf('storage')==-1" >
-                  <span>{{selectUserMoreInfo['Photo']}}</span>
-              </v-avatar>
-              <v-avatar v-else >
-                <img :src="'http://127.0.0.1:8000'+selectUserMoreInfo['Photo']" alt="">
-              </v-avatar>
-            </v-card-title>
-            <v-card-text class="text-h5">FirstName :{{ selectUserMoreInfo['FirstName'] }}</v-card-text>
-            <v-card-text class="text-h5">LastName :{{selectUserMoreInfo['LastName'] }}</v-card-text>
-            <v-card-text class="text-h5">Email :{{selectUserMoreInfo['email'] }}</v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                color="green darken-1"
-                text
-                @click="refreshDialog2()"
-              >
-                Close
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog> -->
     </div>
 </template>
 <script>

@@ -13,4 +13,9 @@ class VoteSession extends Model
     public function users(){
         return  $this->belongsToMany(User::class,'user_nominateds');
     }
+
+    public function votes(){
+        return $this->hasMany(Votes::class);
+    }
+
 }

@@ -84,6 +84,8 @@ Route::middleware("auth:sanctum")->group(function(){
             Route::get('getUserNomanitedByIdSession/{id}',[VoteController::class,"getUserNomanitedByIdSession"]);
             Route::get("getUserNominated",[VoteController::class,"getUserNominated"]);
             Route::get("getUserVoted",[VoteController::class,"getUserVoted"]);
+            Route::get("CountNbrVote/{id}",[VoteController::class,"CountNbrVote"]);
+            Route::put("CloseVote/{id}",[VoteController::class,"CloseVote"]);
         });
 
         Route::group(['prefix'=>'/documents'],function(){

@@ -41,7 +41,7 @@ class VoteController extends Controller
     }
 
     public function test_Vote(){
-        $vote=VoteSession::where("etat",1)->orWhere("etat",0)->get();
+        $vote=VoteSession::where("etat",1)->orWhere("etat",0)->withCount("votes")->get();
         if($vote){
             return response()->json(['data'=>$vote,'status'=>true]);
         }else{
@@ -120,8 +120,19 @@ class VoteController extends Controller
         return response()->json(['data'=>"Not Found"],404);
     }
 
+    public function CloseVote(int $id){
+        $check_session=VoteSession::find($id);
+        if($check_session){
+            $check_session->update([
+                'etat'=>3
+            ]);
+            return response()->json(['data'=>"Finished with success"],200);
+        }
+        return response()->json(['data'=>"Not Found"],404);
+    }
+
     public function GetSessionTerminer(){
-        $session=VoteSession::where("etat",2)->orWhere("etat",3)->get();
+        $session=VoteSession::where("etat",2)->orWhere("etat",3)->with("votes")->withCount("votes.user_nominated")->get();
         return response()->json(['data'=>$session],200);
     }
 
@@ -157,6 +168,11 @@ class VoteController extends Controller
     public function getUserVoted(Request $request){
         $user_Votes=Votes::where("user_id",$request->user()->id)->get();
         return response()->json(['data'=>$user_Votes],200);
+    }
+
+    public function CountNbrVote(int $id){
+        $nbr_votes=Votes::where("vote_session_id",$id)->count();
+        return response()->json(['data'=>$nbr_votes],200);
     }
 
 }

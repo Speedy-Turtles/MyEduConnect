@@ -8,8 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Votes extends Model
 {
     use HasFactory;
+
     public function users(){
-        return  $this->hasMany(User::class);
+        return  $this->belongsToMany(User::class);
+    }
+
+    public function votesSessions(){
+        return $this->belongsTo(VoteSession::class);
+    }
+
+    public function user_nominated(){
+        return $this->belongsTo(User::class,"user_nominated_id");
     }
 
 }

@@ -26,6 +26,9 @@ export default{
     suspende(id){
         return axios.put("vote/suspende/"+id);
     },
+    TermenierSession(id){
+        return axios.put("vote/CloseVote/"+id);
+    },
     deleteSession(id){
         return axios.delete("vote/deleteSession/"+id);
     },
@@ -40,5 +43,8 @@ export default{
     },
     getUserNominated(){
         return axios.get('vote/getUserNominated');
+    },
+    CountNbrVote(id){
+        return axios.get('vote/CountNbrVote/'+id);
     }
 }

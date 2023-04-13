@@ -147,9 +147,6 @@
              <p>
               Date Fin: {{ data['DateFin'] }}
              </p>
-            <!-- <p>
-              Rest : {{   new Date(data['DateFin']).getDay() -  new Date(data['DateDebut']).getDay()  }} Days
-            </p> -->
             <p>
                <v-btn @click="getListNominated(data['id'])" color="warning">List Nominated</v-btn>
             </p>
@@ -158,6 +155,7 @@
             <v-list-item class="grow">
               <v-chip @click="Suspende(data['id'])" color="info" class="mx-1">{{data['etat']==1 ? 'suspended' : 'Start Vote'}}</v-chip>
               <v-chip @click="annuler(data['id'])" color="red" class="mx-1">Reject</v-chip>
+              <v-chip @click="Terminer(data['id'])" color="primary" class="mx-1">Finished</v-chip>
               <v-row
                 align="center"
                 justify="end"
@@ -165,7 +163,9 @@
                 <v-icon class="mr-1">
                   mdi-account
                 </v-icon>
-                <span class="subheading">{{countnbrVoted}}</span>
+                <span class="subheading">
+                  {{ data['votes_count'] }} 
+                </span>
               </v-row>
             </v-list-item>
           </v-card-actions>
@@ -295,7 +295,7 @@ export default{
       service_admin.test_Vote().then((res)=>{
           this.CheckSession=res.data.status;
           this.session=res.data.data;
-          //this.count(this.session['id']);
+          this.countNbrVote();
       });
       service_vote.getSessionTerminer().then((res)=>{
         this.voteTerminer=res.data.data;
@@ -341,6 +341,11 @@ export default{
         }
     },
     methods:{
+        Terminer(id){
+          service_vote.TermenierSession(id).then((res)=>{
+             console.log(res.data.data);
+          })
+        },
         startNewVote(){
           this.$v.form.$touch();
             if(this.$v.form.$invalid){
@@ -386,7 +391,7 @@ export default{
           }).catch((error)=>{
             console.log(error.response);
           })
-        }
+        },
     },
     computed:{
       titre_error(){
