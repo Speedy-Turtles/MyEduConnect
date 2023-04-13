@@ -40,6 +40,10 @@
                                 <th>
                                     operation
                                 </th>
+                                <th>
+                                    <v-btn @click="currentProf = 'add'" color="#3f51b5"
+                                    text-color="white"><v-icon>mdi-plus</v-icon></v-btn><!--testi itha table feregh ana button tafycheh -->
+                                </th>
                             </tr>
                         </thead>
                         

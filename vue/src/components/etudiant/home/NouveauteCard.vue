@@ -8,7 +8,6 @@
                     <img src="../../../../public/etudiant/images/logoiset.png" alt="" width="200px" height="200px" >  
                 </v-container>
             </v-flex>
-           
 
             <v-flex xl8 md9  xs12 class="pa-5" >
                     <v-layout row>
@@ -29,7 +28,6 @@
                                     </v-flex>
                                 </v-layout>
                                     
-                                
                             </v-flex>
                         </v-layout>
                         <v-layout row>

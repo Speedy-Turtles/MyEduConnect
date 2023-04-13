@@ -3,9 +3,6 @@
         <v-container fluid class="allContent"></v-container>
         <template>
             <v-card elavation="4" style="margin-top: 2%;margin-left: 4%;" class="content">
-                <v-card-title class="text-center" color="">
-                    <h1 class="text-center">gestion de classe de specialite {{ RecenetSpecialite.type }}</h1>
-                </v-card-title>
                 <v-navigation-drawer v-model="drawer" :mini-variant.sync="mini" permanent app>
                     <v-list-item class="px-2">
                         <v-list-item-avatar>
@@ -49,6 +46,9 @@
                     </v-list>
                 </v-navigation-drawer>
                 <v-content>
+                    <v-card-title class="text-center" color="">
+                        <h1 class="text-center">gestion de classe de specialite {{ RecenetSpecialite.type }}</h1>
+                    </v-card-title>
                     <v-text-field label="Search classes" class="mx-4"></v-text-field>
                     <v-simple-table height="300px">
                         <template v-slot:default>
@@ -76,7 +76,7 @@
                                         <v-row>
                                             <v-col>
                                                 <v-btn color="#3f51b5"
-                                                    @click="updateName = classe.nom; update = 'update' + classe.id"><v-icon>mdi-pen</v-icon></v-btn>
+                                                    @click="updateName = classe.nom;update = 'update' + classe.id"><v-icon>mdi-pen</v-icon></v-btn>
                                             </v-col>
                                             <v-col>
                                                 <v-btn color="#ffcf59"
@@ -170,12 +170,13 @@ export default {
     created() {
         this.idSpecialite = this.$route.params.id;
         this.getSpecialiteByid();
+        console.log(this.RecenetSpecialite);
         this.getClasses();
     },
     methods: {
         getSpecialiteByid() {
             gestionspecilate.getSpecialiteByid(this.idSpecialite).then(response => {
-                this.RecenetSpecialite = response.data.data[0];
+                this.RecenetSpecialite = response.data.data;
             })
         },
         getClasses() {
@@ -259,7 +260,8 @@ export default {
 
 .content {
     position: relative;
-    z-index: 1;
+    z-index: 100;
     height: 100vh;
     width: 100vw;
-}</style>
+}
+</style>
