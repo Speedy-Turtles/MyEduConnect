@@ -1,29 +1,27 @@
 <template>
     <div id="tab1">
-        <v-app-bar app fixed class="align-center"  color="white" height="100" elevate-on-scroll scroll-target="#scrolling-techniques-7">
-            <v-toolbar-title class="mt-5 ms-5">
-                <img src="../../../public/images/logo-no-background.svg" alt="" width="150px" srcset="">
-            </v-toolbar-title>
+        <div class="navbar">
+         <v-toolbar   class="toolbar">
+            <a type="hidden" href=""></a>
+                <!-- --------------------titre-------------------------- -->
+                <v-toolbar-title class="mr-5 hidden-sm-and-down">
+                    <img src="../../../public/images/logo-no-background.svg" alt="" width="110px" srcset="">
+                </v-toolbar-title>
+                <!-- --------------------titre/-------------------------- -->
+                <v-spacer></v-spacer>
+                <v-container>
+                    <div class="btns float-end">
+                        <v-btn outlined rounded color="#ffcf59" class="me-5" :to="links[0].route">
+                        {{ links[0].title }} 
+                        </v-btn>
 
-            <v-spacer></v-spacer>
-            <router-link style="text-decoration: none;" to="signin">
-            <v-btn outlined rounded color="#ffcf59" class="me-5">
-                 SIGN IN 
-            </v-btn>
-             </router-link>
-             <router-link style="text-decoration: none;" to="signup">
-                <v-btn elevation="0" rounded color="#ffcf59" class="me-5" dark>
-                    SIGN UP 
-                </v-btn>
-             </router-link> 
-            <template v-slot:extension>
-                <v-tabs centered slider-color="yellow">
-                    <v-tab @click="click('tab1')">Tab 1</v-tab>
-                    <v-tab @click="click('tab2')">Tab 2</v-tab>
-                    <v-tab @click="click('tab3')">Tab 3</v-tab>
-                </v-tabs>
-            </template>
-        </v-app-bar>
+                        <v-btn elevation="0" rounded color="#ffcf59" class="me-5 p-y5" dark :to="links[1].route">
+                            {{ links[1].title }}  
+                        </v-btn> 
+                    </div>
+                </v-container>
+        </v-toolbar> 
+    </div>
     </div>
 </template>
 
@@ -34,15 +32,22 @@
 export default {
     data(){
         return{
-        
+            links:[
+            {title:'SIGN IN',route:'signin'},
+            {title:'SIGN UP',route:'signup'}
+        ]
         }
-    },
+    },  
     methods:{
-        click(a){
-             document.getElementById(`${a}`)?.scrollIntoView({behavior: 'smooth'});
-        }
     },
     components: {
     },
 }
 </script>
+<style scoped>
+.toolbar{
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+}
+</style>
