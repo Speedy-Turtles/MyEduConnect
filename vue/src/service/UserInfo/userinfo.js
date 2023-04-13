@@ -18,5 +18,8 @@ export default{
   },
   ActiveUser(id, status) {
     return axios.post('/active/' + id, status);
-  }
+  },
+  ActiveUser(id, status) {
+       return axios.post('/active/' + id, status);
+  } 
 }

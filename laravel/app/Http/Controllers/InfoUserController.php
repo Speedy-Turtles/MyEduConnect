@@ -56,6 +56,7 @@ class InfoUserController extends Controller
         ],200);
     }
 
+
     public function getnotif(Request $request){
         $notifyet=Notification::where("id_recu",$request->user()->id)->where('etat',0)->get();
         $Allnotif=Notification::where("id_recu",$request->user()->id)->get();

@@ -55,6 +55,7 @@ Route::group(["prefix"=>"/classe"],function(){
     Route::get("/Allspecialte",[GestionSpecialiteController::class,"getSpecialte"]);
 });
 
+
 Route::get("/show_etud",[InfoUserController::class,"show_etudiant"]);
 
 Route::group(['prefix'=>"/admin"],function(){
@@ -83,6 +84,7 @@ Route::middleware("auth:sanctum")->group(function(){
             Route::post('ShowNotif',[InfoUserController::class,"ShowNotif"]);
         });
 
+
         Route::group(['prefix'=>"vote/"],function(){
             Route::post('AddUserNominated_Session',[VoteController::class,"AddUserNominated_Session"]);
            /* Route::get('CheckUserNomanated/{id}',[VoteController::class,"CheckUserNomanated"]);
@@ -110,6 +112,14 @@ Route::middleware("auth:sanctum")->group(function(){
             Route::post('/initailiser_demande',[DocumentController::class,'initailiser_demande']);
         });
 
+
+    Route::group(['prefix'=>'/documents'],function(){
+        Route::get('/',[DocumentController::class,'AllDocuments']);
+        Route::post('/addDemande',[DocumentController::class,'addDemande']);
+        Route::get('/getAlldemande',[DocumentController::class,'getAlldemande']);
+        Route::post('/AccepterDocument',[DocumentController::class,'AccepterDocument']);
+        Route::post('/initailiser_demande',[DocumentController::class,'initailiser_demande']);
+    });
     // utiliser dans controller $request()->user()->id  grace a interceptors dans vue js
 });
 Route::group(['prefix'=>'/documents/demandes'],function(){
