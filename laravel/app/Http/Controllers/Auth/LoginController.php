@@ -64,6 +64,10 @@ class LoginController extends Controller
                 }
             }
 
+            if($user->roles->contains("Role_name","Admin")){
+                    $verify["IsAdmin"]=true;
+            }
+
             $verify["token"]=$user->createToken("api_token")->plainTextToken;
             $verify["user"]=$user;
             return response()->json(["data"=>$verify],200);
