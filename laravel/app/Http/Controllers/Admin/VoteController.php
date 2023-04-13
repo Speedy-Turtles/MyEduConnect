@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreVoteSession;
 use App\Models\Notification;
+use App\Models\Role;
+use App\Models\RoleUser;
 use App\Models\User;
 use App\Models\user_nominated;
 use App\Models\Votes;
@@ -115,25 +117,108 @@ class VoteController extends Controller
             $check_session->update([
                 'etat'=>2
             ]);
-            return response()->json(['data'=>"delete with success"],200);
+            return response()->json(['data'=>"Annuler with success"],200);
         }
         return response()->json(['data'=>"Not Found"],404);
     }
 
     public function CloseVote(int $id){
+
         $check_session=VoteSession::find($id);
         if($check_session){
             $check_session->update([
                 'etat'=>3
             ]);
+            $session=VoteSession::where("etat",2)->orWhere("etat",3)->get();
+            $votes=[];
+            foreach($session as $value){
+                $votes[]=Votes::where("vote_session_id",$value->id)->with("user_nominated")->get()->groupBy("user_nominated_id")
+                ->map(function($item) use ($value){
+                    return[
+                        "session"=>$value,
+                        "user_nominated"=>$item[0]->user_nominated,
+                        "votes"=>$item->count()
+                    ];
+                })->sortByDesc("votes")->values()->all();
+            }
+
+            foreach($votes[0] as $value){
+
+                if($value['session']->etat==3){
+                    $checkExist=Role::where("Role_name","chefDepartment")->First();
+
+                    if(!$checkExist){
+                        $role=new Role();
+                        $role->Role_name="chefDepartment";
+                        $role->save();
+                    }
+
+                    $role_user=new RoleUser();
+                    $role_user->user_id=$value['user_nominated']->id;
+                    $role_user->role_id=$checkExist ? $checkExist->id : $role->id;
+                    $role_user->status=1;
+                    $role_user->save();
+
+                    $admin=User::whereHas('roles',function($query){
+                        $query->where("Role_name","Admin");
+                    })->first();
+
+                    $notif=new Notification();
+                    $notif->id_envoi=$admin->id;
+                    $notif->id_recu=$value['user_nominated']->id;
+                    $notif->message='You Have Been voted to be new Chef Deperment"'.$value['session']->Titre_Vote.'';
+                    $notif->save();
+
+                }
+            }
             return response()->json(['data'=>"Finished with success"],200);
         }
         return response()->json(['data'=>"Not Found"],404);
     }
 
+
+
     public function GetSessionTerminer(){
-        $session=VoteSession::where("etat",2)->orWhere("etat",3)->with("votes")->withCount("votes.user_nominated")->get();
-        return response()->json(['data'=>$session],200);
+
+        $session=VoteSession::where("etat",2)->orWhere("etat",3)->get();
+        $votes=[];
+        foreach($session as $value){
+            $votes[]=Votes::where("vote_session_id",$value->id)->with("user_nominated")->get()->groupBy("user_nominated_id")
+            ->map(function($item) use ($value){
+                return[
+                    "session"=>$value,
+                    "user_nominated"=>$item[0]->user_nominated,
+                    "votes"=>$item->count()
+                ];
+            })->sortByDesc("votes")->values()->all()[0];
+        }
+
+/* foreach($votes[0] as $value){
+
+            if($value['session']->etat==3){
+                $role=new Role();
+                $role->Role_name="chefDepartment";
+                $role->save();
+
+                $role_user=new RoleUser();
+                $role_user->user_id=$value['user_nominated']->id;
+                $role_user->role_id=$role->id;
+                $role_user->save();
+
+                $admin=User::whereHas('roles',function($query){
+                    $query->where("Role_name","Admin");
+                })->first();
+
+                $notif=new Notification();
+                $notif->id_envoi=$admin->id;
+                $notif->id_recu=$value['user_nominated']->id;
+                $notif->message='You Have Been voted to be new Chef Deperment"'.$value['session']->Titre_Vote.'';
+                $notif->save();
+
+            }
+        }
+*/
+       return response()->json(['data'=>$votes],200);
     }
 
     public function suspende(int $id){
@@ -154,8 +239,6 @@ class VoteController extends Controller
     }
 
     public function getUserNomanitedByIdSession($idsession){
-       /* $vote=VoteSession::whereHas("users",function($query) use ($idsession){
-        })->with("users")->where("id"$idsession)->get();*/
         $vote=VoteSession::with("users")->where("id",$idsession)->get();
         return response()->json(['data'=>$vote],200);
     }

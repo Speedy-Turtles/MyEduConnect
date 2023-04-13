@@ -250,13 +250,13 @@
               </tr>
             </tbody>
             <tbody v-else>
-              <tr v-for="vote in voteTerminer" :key="vote.id">
-                  <td class="text-center">{{vote['id']}}</td>
-                  <td class="text-center" >{{vote['Titre_Vote']}}</td>
-                  <td v-if="vote['etat']==2" class="text-center" > <v-chip color="red" style="color:#fff">Vote Rejected</v-chip> </td>
-                  <td v-else class="text-center" >Talel</td>
+              <tr v-for="vote in voteTerminer" :key="vote.session['id']">
+                  <td class="text-center">{{vote.session['id']}}</td>
+                  <td class="text-center" >{{vote.session['Titre_Vote']}}</td>
+                  <td v-if="vote.session['etat']==2" class="text-center" > <v-chip color="red" style="color:#fff">Vote Rejected</v-chip> </td>
+                  <td v-else class="text-center" >{{vote.user_nominated['FirstName']}}</td>
                   <td  class="text-center" >
-                     <v-btn @click="deleteSession(vote['id'])" style="color:#fff" color="red">Delete</v-btn>
+                     <v-btn @click="deleteSession(vote.session['id'])" style="color:#fff" color="red">Delete</v-btn>
                   </td>
               </tr>
             </tbody>
@@ -295,7 +295,6 @@ export default{
       service_admin.test_Vote().then((res)=>{
           this.CheckSession=res.data.status;
           this.session=res.data.data;
-          this.countNbrVote();
       });
       service_vote.getSessionTerminer().then((res)=>{
         this.voteTerminer=res.data.data;
