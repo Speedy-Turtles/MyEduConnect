@@ -1,8 +1,8 @@
 import axios from "axios";
-import  "@/plugins/axios";
+import "@/plugins/axios";
 
-export default{
-    ClassesBySpecialte(id){
-        return axios.get("classe/classesBySpecialite/"+id);
+export default {
+    ClassesBySpecialte(id, status) {
+        return axios.get("classe/classesBySpecialite/" + id, status);
     }
 }

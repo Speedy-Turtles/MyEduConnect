@@ -23,8 +23,7 @@
                             <div class="content">
                                 <v-layout row wrap class="justify-content-center">
                                     <v-flex xl3 lg3 md3 sm6 xs6   class="pa-5" v-for="acteur in acteurs" :key="acteur.person">
-                                        <h3 class="white--text justify-center">{{acteur.person}}</h3>
-                                        <h6 class="white--text">{{ acteur.nombre }}</h6>
+                                        <h3 class="white--text justify-center">{{acteur.person}}  {{ acteur.nombre }}</h3>
                                     </v-flex>
                                 </v-layout>
                             </div>
@@ -176,8 +175,6 @@ h6{
 font-family: Verdana, Geneva, sans-serif;
 font-size: 15px;
 text-align: justify;
-
-
 color: #000000;
 font-weight: 400;
 text-decoration: none solid rgb(68, 68, 68);

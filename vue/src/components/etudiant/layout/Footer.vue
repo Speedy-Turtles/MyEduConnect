@@ -9,14 +9,13 @@
                     </v-layout>
                     <v-layout>
                         <a href="#">
-                            <v-btn class="button float-right">
+                            <v-btn class="button float-right mr-5">
                                 <v-icon>mdi-arrow-up</v-icon>
                             </v-btn>
                         </a>
                     </v-layout>
                     
-                </v-container>
-                
+                </v-container>   
             </div>
     </div>
 
@@ -69,7 +68,7 @@ h3{
 }
 .button{
     position: absolute;
-    left: 94%;
+    left: 90%;
     bottom: 20px;
     position: fixed;
     z-index: 999;

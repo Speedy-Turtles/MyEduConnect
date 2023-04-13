@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import  "@/plugins/axios";
 
 export default{
@@ -15,7 +16,7 @@ export default{
   GetUser(id){
     return axios.get("GetUser/"+id);
   }
-
-
-
+  ActiveUser(id, status) {
+       return axios.post('/active/' + id, status);
+  } 
 }

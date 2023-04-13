@@ -31,7 +31,7 @@
                     <v-list-item>
                         <v-list-item-title>
                             <v-btn plain block class="py-3">
-                                User
+                                {{store.user['FirstName']}}
                             </v-btn>
                         </v-list-item-title>
                     </v-list-item>
@@ -60,7 +60,7 @@
                     <v-list-item>
 
                         <v-list-item-action>
-                            <v-btn plain>
+                            <v-btn plain @click="logout()">
                                 <v-icon class="pa-2">mdi-logout</v-icon>
                                 <span class="">log out</span>
                             </v-btn>
@@ -70,16 +70,29 @@
                 </v-list>
             </v-menu>
         </v-toolbar>
+        
     </div>
+    
 </template>
 <script>
+import {AuthUser} from "@/store/Store.js"
 export default {
     name: 'navbar',
+    setup(){
+            const store=AuthUser();
+            return{store}
+        },
     data() {
         return {
 
         }
-    }
+    },
+    methods:{
+        logout(){
+            this.store.logout();
+            this.$router.push({name:'signin'});
+        }
+        }
 }
 </script>
 <style scoped>

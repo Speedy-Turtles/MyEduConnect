@@ -50,7 +50,7 @@ const routes = [{
     },
     {
         path: '/chef_departement',
-        name: 'dashboard',
+        name: 'dashboardChef',
         component: dashboardView
     }, {
         path: '/chef_departement/gererdemande',

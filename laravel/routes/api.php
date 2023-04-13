@@ -6,10 +6,14 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\RestPassword\ForgotPasswordController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Document\ChefDepartementDocument;
+use App\Http\Controllers\Document\DemandesController;
 use App\Http\Controllers\GestionClasseController;
 use App\Http\Controllers\GestionSpecialiteController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\Document\DocumentController;
+use App\Http\Controllers\proffesors\usersEtudiantContoroller;
+use App\Http\Controllers\proffesors\UsersProffesorsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +55,7 @@ Route::group(["prefix"=>"/classe"],function(){
     Route::get("/Allspecialte",[GestionSpecialiteController::class,"getSpecialte"]);
 });
 
+
 Route::get("/show_etud",[InfoUserController::class,"show_etudiant"]);
 
 Route::group(['prefix'=>"/admin"],function(){
@@ -68,6 +73,7 @@ Route::middleware("auth:sanctum")->group(function(){
             Route::get("getnotif",[InfoUserController::class,"getnotif"]);
             Route::post('ShowNotif',[InfoUserController::class,"ShowNotif"]);
         });
+
 
         Route::group(['prefix'=>"vote/"],function(){
             Route::post('AddUserNominated_Session',[VoteController::class,"AddUserNominated_Session"]);
@@ -96,5 +102,28 @@ Route::middleware("auth:sanctum")->group(function(){
             Route::post('/initailiser_demande',[DocumentController::class,'initailiser_demande']);
         });
 
+
+    Route::group(['prefix'=>'/documents'],function(){
+        Route::get('/',[DocumentController::class,'AllDocuments']);
+        Route::post('/addDemande',[DocumentController::class,'addDemande']);
+        Route::get('/getAlldemande',[DocumentController::class,'getAlldemande']);
+        Route::post('/AccepterDocument',[DocumentController::class,'AccepterDocument']);
+        Route::post('/initailiser_demande',[DocumentController::class,'initailiser_demande']);
+    });
+
     // utiliser dans controller $request()->user()->id  grace a interceptors dans vue js
 });
+Route::group(['prefix'=>'/documents/demandes'],function(){
+    Route::get('/pending',[DemandesController::class,'getAllDemandes']);
+    Route::put('/AccepterDocument',[DemandesController::class,'AccepterDocument']);
+    Route::put('/ReffuserDoccument',[DemandesController::class,'ReffuserDoccument']);
+});
+Route::group(['prefix'=>'/proffesors'],function(){
+    Route::get('/accepted',[UsersProffesorsController::class,'acceptedProffesors']);
+    Route::get('/pending',[UsersProffesorsController::class,'pendingRequests']);
+});
+Route::group(['prefix'=>'/proffesors/students'],function(){
+    Route::get('/accepted',[usersEtudiantContoroller::class,'acceptedStudents']);
+    Route::get('/pending',[usersEtudiantContoroller::class,'pendingRequests']);
+});
+

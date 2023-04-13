@@ -49,12 +49,13 @@ class InfoUserController extends Controller
         ],200);
     }
 
-    public function ActiveUser($id){
-        $user=RoleUser::where('user_id',$id)->update(['status'=>1]);
+    public function ActiveUser($id,Request $request){
+        $user=RoleUser::where('user_id',$id)->update(['status'=>$request->status]);
         return response()->json([
             "data"=>$user,
         ],200);
     }
+
 
     public function getnotif(Request $request){
         $notifyet=Notification::where("id_recu",$request->user()->id)->where('etat',0)->get();
