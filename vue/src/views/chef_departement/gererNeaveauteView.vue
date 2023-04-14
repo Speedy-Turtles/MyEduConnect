@@ -84,6 +84,7 @@
                             <v-text-field label="neauvautly title" :counter="30" v-model="titleUpdate"></v-text-field>
                             <v-textarea v-model="descriptionUpdate" clearable clear-icon="mdi-close-circle"
                                 label="neauvautly description" :counter="255"></v-textarea>
+                                <v-text>recent photo : </v-text>
                             <v-img :src="updatedNeauvtly.photo" height="150" width="150"></v-img>
                             <v-file-input accept="image/*" v-model="photoUpdate"
                                 label="update neaveautly image"></v-file-input>
@@ -195,6 +196,9 @@ export default {
                     this.snackbar = true;
                     this.text = "neauvautly added succesfully";
                     this.color = "green";
+                    this.title='';
+                    this.description='';
+                    this.photo=[];
                     this.getNeavaute();
                     this.loaderAdd = false;
                     this.currentProf = "list";
@@ -249,6 +253,10 @@ export default {
                         this.snackbar = true;
                         this.text = "neauvautly updated succesfully";
                         this.color = "green";
+                        this.titleUpdate='';
+                        this.descriptionUpdate='';
+                        this.photoUpdate=[];
+                        this.updatedNeauvtly=null;
                         this.getNeavaute();
                         this.loaderUpdate = false;
                         this.currentProf = "list";
@@ -269,6 +277,10 @@ export default {
                         this.snackbar = true;
                         this.text = "neauvautly updated succesfully";
                         this.color = "green";
+                        this.titleUpdate='';
+                        this.descriptionUpdate='';
+                        this.photoUpdate=[];
+                        this.updatedNeauvtly=null;
                         this.getNeavaute();
                         this.loaderUpdate = false;
                         this.currentProf = "list";
