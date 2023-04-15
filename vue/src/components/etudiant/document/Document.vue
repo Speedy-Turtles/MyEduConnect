@@ -128,14 +128,14 @@ export default {
         loading_demander:false,
         loading_download:false,
         loading2: false,
-        langDocument:"ar",
+        langDocument:"fr",
         loading3: false,
         All_demandes:[],
         selection: 1,
         classe_current:"",
         spec:"",
         niveau:0,
-        select_langue:"Arabe",
+        select_langue:"Francais",
     }),
 
     methods: {
@@ -204,59 +204,57 @@ export default {
                     doc.text(this.translate("الهاتف"),111,255);
                     doc.save(`${this.store.user['Cin']}.pdf`);    
         },
-        // generePrsenceFrancais(){
-        //     var niveau="";
-        //         if(this.niveau==1){
-        //              niveau=this.langDocument=="premiere";
-        //             }else if(this.niveau==2){
-        //                 niveau=this.langDocument=="deuxieme" ;
-        //             }else{
-        //                 niveau=this.langDocument=="troisime" ;
-        //             }
-        //             var attestation="الاجازة في تكنولوجيات الاعلامية";
-        //             var specialite_current="";
-        //             if(this.spec=="dsi"){
-        //                 specialite_current=this.langDocument=="DSI";
-        //             }else if(this.spec=="rsi"){
-        //                 specialite_current=this.langDocument=="RSi" ;
-        //             }else{
-        //                 specialite_current=this.langDocument=="SEM" ;
-        //             }
-        //             const doc = new jsPDF();
-        //             doc.addFileToVFS('Amiri-Regular.ttf',AmiriRegular);
-        //             doc.addFont('Amiri-Regular.ttf', 'Amiri', 'normal');
-        //             doc.setFont('Amiri');
-        //             doc.text(this.translate('الجمهورية'),158,10);
-        //             doc.text(this.translate('وزارة'),140,20);
-        //             doc.text(this.translate('الادارة'),140,30);
-        //             doc.text(this.translate('المعهد'),100,40,{align:'center'})
-        //             doc.setFontSize(20);
-        //             doc.text(this.translate('شهادة'),100,50,{align:'center'});
-        //             doc.text('2023 - 2022',100,60,{align:'center'});
-        //             doc.setFontSize(18);
-        //             doc.text(`${this.translate("يشهد")} ${this.store.user['sex']=="Man" ?  `${this.translate('الطالب')}` :  `${this.translate('الطالبة')}` }`,65,75);
-        //             doc.text(`${this.store.user['FirstName']} : ${this.translate('الاسم')}`,170,90);
-        //             doc.text(`${this.store.user['LastName']} : ${this.translate("اللقب")}`,170,100);
-        //             doc.text(`${this.store.user['Birth_day']} : ${this.translate("المولود")}`,143,110);
-        //             doc.text(this.translate("ب  تونس"),120,110);
-        //             doc.text(`${this.store.user['Cin']} : ${this.translate("بطاقة")}`,102,120);
-        //             doc.text(`${this.classe_current} ${this.store.user['sex']=="Man" ? `${this.translate('مرسم')}` : `${this.translate('مرسمة')}` } ${this.translate('بالسنة')}  : ${ niveau } ,  ${this.translate('الفوج')} `,123,130);
-        //             doc.text(`${this.store.user['Birth_day']} : ${this.translate("المولود")}`,143,110);
-        //             doc.text( this.translate('الاجازة') +' :'+attestation,111,141);
-        //             doc.text( this.translate('الاختصاص') +' :'+specialite_current,128,151);
-        //             doc.text(this.translate('رقم')+' : '+ Math.ceil(Math.random(999999,99999999)),172,161);
-        //             doc.text(`${this.translate('تواصل')} ${this.store.user['sex']=="Man" ? `${this.translate('دراسته')}` : `${this.translate('دراستها')}`} ${this.translate("بانتضام")}`,92,175);
-        //             doc.text(`${this.translate('سلمت')} ${this.store.user['sex']=="Man" ? `${this.translate('المعني')}` : `${this.translate('المعنية')}`} ${this.translate("بالامر")}`,68,185);
-        //             doc.text(this.translate("بنزرت") + ' '+ (new Date().getFullYear())+'/'+(new Date().getMonth()+1)+"/"+(new Date().getDate()),10,201);
-        //             doc.text(this.translate("الكاتب"),20,213);
-        //             doc.text(this.translate("كمال"),18,222);
-        //             doc.setDrawColor(0, 0, 0);
-        //             doc.line(10, 240, 200, 240);//x,r,w,r
-        //             doc.setFontSize(12)
-        //             doc.text(this.translate("مركب"),115,248);
-        //             doc.text(this.translate("الهاتف"),111,255);
-        //             doc.save(`${this.store.user['Cin']}.pdf`);
-        // },
+        generePrsenceFrancais(){
+            var niveau="";
+                if(this.niveau==1){
+                     niveau=this.langDocument=="premiere";
+                    }else if(this.niveau==2){
+                        niveau=this.langDocument=="deuxieme" ;
+                    }else{
+                        niveau=this.langDocument=="troisime" ;
+                    }
+                    var attestation="الاجازة في تكنولوجيات الاعلامية";
+                    var specialite_current="";
+                    if(this.spec=="dsi"){
+                        specialite_current=this.langDocument=="DSI";
+                    }else if(this.spec=="rsi"){
+                        specialite_current=this.langDocument=="RSi" ;
+                    }else{
+                        specialite_current=this.langDocument=="SEM" ;
+                    }
+                    const doc = new jsPDF();
+                    doc.addFileToVFS('Amiri-Regular.ttf',AmiriRegular);
+                    doc.addFont('Amiri-Regular.ttf', 'Amiri', 'normal');
+                    doc.setFont('Amiri');
+                    doc.text(this.translate('الجمهورية'),5,10);
+                    doc.text(this.translate('وزارة'),5,20,{align:'justify'});
+                    doc.text(this.translate('الادارة'),5,30);
+                    doc.text(this.translate('المعهد'),100,40,{align:'center'})
+                    doc.setFontSize(20);
+                    doc.text(this.translate('شهادة'),100,50,{align:'center'});
+                    doc.text('2023 - 2022',100,60,{align:'center'});
+                    doc.setFontSize(18);
+                    doc.text(`${this.translate("يشهد")} ${this.store.user['sex']=="Man" ?  `${this.translate('الطالب')}` :  `${this.translate('الطالبة')}` }`,3,75);
+                    doc.text(`${this.translate('الاسم')}: ${this.store.user['FirstName']} `,5,90);
+                    doc.text(`${this.translate("اللقب")}:${this.store.user['LastName']} `,5,100);
+                    doc.text(`${this.translate("بطاقة")}:${this.store.user['Cin']}`,5,120);
+                    doc.text(`${this.store.user['sex']=="Man" ? `${this.translate('مرسم')}` : `${this.translate('مرسمة')}` } ${this.translate('بالسنة')}  ${this.classe_current} : ${ niveau } ,  ${this.translate('الفوج')} `,5,130);
+                    doc.text(`${this.translate("المولود")}:${this.store.user['Birth_day']},${this.translate("ب  تونس")}`,5,110);
+                    doc.text( this.translate('الاجازة') +' :'+attestation,5,141);
+                    doc.text( this.translate('الاختصاص') +' :'+specialite_current,5,151);
+                    doc.text(this.translate('رقم')+' : '+ Math.ceil(Math.random(999999,99999999)),5,161);
+                    doc.text(`${this.translate('تواصل')} ${this.store.user['sex']=="Man" ? `${this.translate('دراسته')}` : `${this.translate('دراستها')}`} ${this.translate("بانتضام")}`,5,175);
+                    doc.text(`${this.translate('سلمت')} ${this.store.user['sex']=="Man" ? `${this.translate('المعني')}` : `${this.translate('المعنية')}`} ${this.translate("بالامر")}`,5,185);
+                    doc.text(this.translate("بنزرت") + ' '+ (new Date().getFullYear())+'/'+(new Date().getMonth()+1)+"/"+(new Date().getDate()),5,201);
+                    doc.text(this.translate("الكاتب"),5,213);
+                    doc.text(this.translate("كمال"),5,222);
+                    doc.setDrawColor(0, 0, 0);
+                    doc.line(10, 240, 200, 240);//x,r,w,r
+                    doc.setFontSize(12)
+                    doc.text(this.translate("مركب"),5,248);
+                    doc.text(this.translate("الهاتف"),5,255);
+                    doc.save(`${this.store.user['Cin']}.pdf`);
+        },
         inittialiser_demande(id){
             this.loading_download=true;
             service_doc.initailiser_demande({docId:id}).then((res)=>{
@@ -271,7 +269,7 @@ export default {
         GenerPdf(type,id){
            
             if(type=="Attestation"){
-                this.generePrsenceArab();
+                this.generePrsenceFrancais();
                 // if(select_langue=='Arab')
                 // this.generePrsenceArab();
                 // else{
@@ -293,7 +291,7 @@ export default {
          },
         init_demande(){
             service_doc.getAlldemande().then((res)=>{
-                 for(let i=0;i<(res.data.data).length;i++){
+                 for(let i=0;i<(res.data.data)?.length;i++){
                      this.All_demandes.push({iddoc:res.data.data[i].document_id,etat:res.data.data[i].etat,nombre:res.data.data[i].nombre});
                  }
                  console.log(this.All_demandes);
@@ -327,6 +325,6 @@ export default {
 <style scoped>
     .v-card{
         max-width: 351px;
-        height: 420px;     
+        height: 420px; 
     }
 </style>
