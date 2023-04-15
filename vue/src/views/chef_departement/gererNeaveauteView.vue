@@ -12,11 +12,12 @@
                 </v-tab>
             </v-tabs>
             <v-row>
-               
+
             </v-row>
-            <v-container  style="margin-top: 3%!important;">
+            <v-container style="margin-top: 3%!important;">
                 <v-row class="md-6">
-                    <v-text-field label="Search neavautes" class="mx-4" @input="searchNeauvate()" v-model="search"></v-text-field>
+                    <v-text-field label="Search neavautes" class="mx-4" @input="searchNeauvate()"
+                        v-model="search"></v-text-field>
                 </v-row>
                 <v-col align="center" justify="center">
                     <v-btn v-if="loader == true" text :loading="loader" disabled color="blue-grey" class="ma-2 white--text">
@@ -24,8 +25,8 @@
                 </v-col>
                 <v-row v-if="noData">
                     <v-col align="center" justify="center">
-                    <h4> no data found</h4>
-                </v-col>
+                        <h4> no data found</h4>
+                    </v-col>
                 </v-row>
                 <v-row md="6" v-if="loader == false && currentProf == 'list'">
                     <v-col md="6" class="b-5" v-for="neauv in neavautes" style="margin-bottom: 3%;" :key="neauv.id">
@@ -62,7 +63,9 @@
                         </v-card>
                     </v-col>
                 </v-row>
-                <v-pagination v-model="page" :length="neavautes.length"></v-pagination>
+                <v-row v-if="currentProf=='list'" align="center" justify="center">
+                    <v-pagination v-model="page" :length="totalPages" :disabled="loading" :hide-disabled="true" @input="getNeavaute"></v-pagination>
+                </v-row>
             </v-container>
             <v-container v-if="currentProf == 'add'">
                 <v-card elavation="4">
@@ -94,10 +97,11 @@
                             <v-text-field label="neauvautly title" :counter="30" v-model="titleUpdate"></v-text-field>
                             <v-textarea v-model="descriptionUpdate" clearable clear-icon="mdi-close-circle"
                                 label="neauvautly description" :counter="255"></v-textarea>
-                                <v-text>recent photo : </v-text>
+                            <v-text>recent photo : </v-text>
                             <v-img :src="updatedNeauvtly.photo" height="150" width="150"></v-img>
                             <v-file-input accept="image/*" v-model="photoUpdate"
                                 label="update neaveautly image"></v-file-input>
+
                             <v-btn type="submit" block class="mt-2" color="primary" :loading="loaderUpdate">update
                                 neauvautly</v-btn>
                         </v-form>
@@ -174,8 +178,9 @@ export default {
             description: '',
             photo: [],
             updatedNeauvtly: null,
-            search:'',
-            page:1,
+            search: '',
+            page: 1,
+            totalPages: 0,
         }
     },
     created() {
@@ -189,10 +194,21 @@ export default {
         },
         getNeavaute() {
             this.loader = true;
-            gererNeavaute.getNeavaute().then(response => {
-                this.neavautes = response.data.data;
+            gererNeavaute.getNeavaute(this.page).then(response => {
+                this.neavautes = response.data.data.data;
+                console.log(response.data);
+                this.totalPages = response.data.data.last_page;
                 this.loader = false;
             })
+        },
+        base64() {
+            const file = document.querySelector("#file").files[0];
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                this.formdata.file_food = reader.result;
+
+            };
+            reader.readAsDataURL(file);
         },
         addNeauvte() {
             let neauvautly = {
@@ -209,9 +225,9 @@ export default {
                     this.snackbar = true;
                     this.text = "neauvautly added succesfully";
                     this.color = "green";
-                    this.title='';
-                    this.description='';
-                    this.photo=[];
+                    this.title = '';
+                    this.description = '';
+                    this.photo = [];
                     this.getNeavaute();
                     this.loaderAdd = false;
                     this.currentProf = "list";
@@ -252,7 +268,7 @@ export default {
 
         },
         updateNeauvtly() {
-            if (this.photoUpdate.length!=0) {
+            if (this.photoUpdate.length != 0) {
                 let neauvautly = {
                     'titre': this.titleUpdate,
                     'descripition': this.descriptionUpdate,
@@ -262,14 +278,14 @@ export default {
                 fileReader.onload = () => {
                     this.loaderUpdate = true;
                     neauvautly.photo = fileReader.result;
-                    gererNeavaute.updateNeavaute(this.updatedNeauvtly.id,neauvautly).then(response => {
+                    gererNeavaute.updateNeavaute(this.updatedNeauvtly.id, neauvautly).then(response => {
                         this.snackbar = true;
                         this.text = "neauvautly updated succesfully";
                         this.color = "green";
-                        this.titleUpdate='';
-                        this.descriptionUpdate='';
-                        this.photoUpdate=[];
-                        this.updatedNeauvtly=null;
+                        this.titleUpdate = '';
+                        this.descriptionUpdate = '';
+                        this.photoUpdate = [];
+                        this.updatedNeauvtly = null;
                         this.getNeavaute();
                         this.loaderUpdate = false;
                         this.currentProf = "list";
@@ -280,41 +296,41 @@ export default {
                     })
                 };
                 fileReader.readAsDataURL(this.photoUpdate);
-            }else{
+            } else {
                 let neauvautly = {
                     'titre': this.titleUpdate,
                     'descripition': this.descriptionUpdate,
                     'photo': this.updatedNeauvtly.photo,
                 }
-                gererNeavaute.updateNeavaute(this.updatedNeauvtly.id,neauvautly).then(response => {
-                        this.snackbar = true;
-                        this.text = "neauvautly updated succesfully";
-                        this.color = "green";
-                        this.titleUpdate='';
-                        this.descriptionUpdate='';
-                        this.photoUpdate=[];
-                        this.updatedNeauvtly=null;
-                        this.getNeavaute();
-                        this.loaderUpdate = false;
-                        this.currentProf = "list";
-                    }).catch((error) => {
-                        this.snackbar = true;
-                        this.text = 'there was an error submitting your request';
-                        this.color = 'red';
-                    })
+                gererNeavaute.updateNeavaute(this.updatedNeauvtly.id, neauvautly).then(response => {
+                    this.snackbar = true;
+                    this.text = "neauvautly updated succesfully";
+                    this.color = "green";
+                    this.titleUpdate = '';
+                    this.descriptionUpdate = '';
+                    this.photoUpdate = [];
+                    this.updatedNeauvtly = null;
+                    this.getNeavaute();
+                    this.loaderUpdate = false;
+                    this.currentProf = "list";
+                }).catch((error) => {
+                    this.snackbar = true;
+                    this.text = 'there was an error submitting your request';
+                    this.color = 'red';
+                })
             }
         },
-        searchNeauvate(){
-            this.loader=true;
-            gererNeavaute.searchNeavaute(this.search).then(response=>{
-            this.loader=false;
-            this.neavautes=response.data.data;
+        searchNeauvate() {
+            this.loader = true;
+            gererNeavaute.searchNeavaute(this.search).then(response => {
+                this.loader = false;
+                this.neavautes = response.data.data;
             })
         }
     },
-    computed:{
-        noData(){
-            return this.neavautes.length==0 ? true : false;
+    computed: {
+        noData() {
+            return this.neavautes.length == 0 ? true : false;
         }
     }
 }
@@ -323,4 +339,5 @@ export default {
 .main_content {
     margin-left: 20%;
     margin-top: 5%;
-}</style>
+}
+</style>

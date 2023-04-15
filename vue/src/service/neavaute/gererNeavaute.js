@@ -2,8 +2,8 @@ import axios from "axios";
 import "@/plugins/axios";
 
 export default {
-    getNeavaute() {
-        return axios.get('/nouveaute/Allnouveaute');
+    getNeavaute(page) {
+        return axios.get('/nouveaute/Allnouveaute?page=' + page);
     },
     addNeavaute(nouveaute) {
         return axios.post('/nouveaute/addnouveaute', nouveaute);

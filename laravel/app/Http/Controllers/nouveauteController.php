@@ -13,7 +13,7 @@ class nouveauteController extends Controller
         if (isset($search)) {
             $nouveautes = nouveaute::where("titre", "Like", "%" . $search . "%")->get();
         } else {
-            $nouveautes = nouveaute::all();
+            $nouveautes = nouveaute::paginate(2);
         }
         if (!empty($nouveautes)) {
             return response()->json(["data" => $nouveautes], 200);
