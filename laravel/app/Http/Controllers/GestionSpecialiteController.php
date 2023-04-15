@@ -11,14 +11,14 @@ class GestionSpecialiteController extends Controller
     {
         $search=$request->search;
         if(isset($search)){
-        $sepecialtes = Specialite::where("type","Like","%". $search ."%")->with('classes')->get();
+        $sepecialtes = Specialite::where("type","Like","%". $search ."%")->with('classes')->paginate(2);
         if($sepecialtes){
         return response()->json(["data" => $sepecialtes], 200);
         }else{
             return response()->json(["data" => []], 404);
         }
     }else{
-        $sepecialtes = Specialite::with('classes')->get();
+        $sepecialtes = Specialite::with('classes')->paginate(2);
         return response()->json(["data" => $sepecialtes], 200);
     }
 }

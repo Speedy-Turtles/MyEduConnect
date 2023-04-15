@@ -2,11 +2,11 @@ import axios from "axios";
 import "@/plugins/axios";
 
 export default {
-    getSpecialte() {
-        return axios.get("specialte/Allspecialte");
+    getSpecialte(page) {
+        return axios.get("specialte/Allspecialte?page=" + page);
     },
-    searchSpecialite($search) {
-        return axios.get("specialte/Allspecialte?search=" + $search);
+    searchSpecialite($search, page) {
+        return axios.get("specialte/Allspecialte?search=" + $search + "&page=" + page);
     },
     addSpecialite(specialite) {
         return axios.post("specialte/addSpecialite", specialite);
