@@ -322,9 +322,10 @@ export default {
         },
         searchNeauvate() {
             this.loader = true;
-            gererNeavaute.searchNeavaute(this.search).then(response => {
+            gererNeavaute.searchNeavaute(this.search,this.page).then(response => {
                 this.loader = false;
-                this.neavautes = response.data.data;
+                this.neavautes = response.data.data.data;
+                this.totalPages = response.data.data.last_page;
             })
         }
     },

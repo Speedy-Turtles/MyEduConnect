@@ -17,7 +17,7 @@ export default {
     updateNeavaute(id, nouveaute) {
         return axios.put('/nouveaute/updatenouveaute/' + id, nouveaute);
     },
-    searchNeavaute(search) {
-        return axios.get('/nouveaute/Allnouveaute?search=' + search);
+    searchNeavaute(search, page) {
+        return axios.get('/nouveaute/Allnouveaute?search=' + search + '&page=' + page);
     }
 }
