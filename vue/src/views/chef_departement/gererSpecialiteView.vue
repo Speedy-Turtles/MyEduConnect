@@ -14,15 +14,16 @@
                     </v-btn>
                 </v-col>
             </v-row>
-            <v-container v-if="Specialites.length == 0 && currentProf == 'list' && searchTest==false">
+            <v-container v-if="Specialites.length == 0 && currentProf == 'list'">
                 <v-row align="center" justify="center">
                     <h1 style="text-align=center;color: #3f51b5;">Oops ! there's no data available</h1>
                 </v-row>
             </v-container>
-            <div v-if="(loader == false && Specialites.length != 0 && currentProf == 'list') || searchTest==true">
+            <div v-if="currentProf == 'list'">
+                <v-text-field v-model="search" label="Search Specialite" class="mx-4" @input="searchSpecialite()"></v-text-field>
                 <v-simple-table height="300px">
                     <template v-slot:default>
-                        <v-text-field v-model="search" label="Search Specialite" class="mx-4" @input="searchSpecialite()"></v-text-field>
+                        
                         <thead>
                             <tr>
                                 <th class="text-left">
@@ -47,12 +48,17 @@
                             </tr>
                         </thead>
                         
-                        <tbody>
+                        <tbody v-if="loader==false">
+                            <tr v-if="noData">
+                    <td align="center" justify="center">
+                        <h4> no data found</h4>
+                    </td>
+                        </tr>
                             <tr v-for="Specialite in Specialites" :key="Specialite.id">
                                 <td>{{ Specialite.id }}</td>
                                 <td>{{ Specialite.type }}</td>
                                 <td>{{ Specialite.niveau }}</td>
-                                <td></td>
+                                <td>{{ Specialite.classes.length }}</td>
                                 <td>
                                     <v-row>
                                         <v-col>
@@ -69,11 +75,6 @@
                                     </v-row>
                                 </td>
                             </tr>
-                        </tbody>
-                        <tbody v-if="searchTest==true">
-                            <v-row>
-                                <h1 color="red">{{ alertSearch }}</h1>
-                            </v-row>
                         </tbody>
                     </template>
                 </v-simple-table>
@@ -135,7 +136,7 @@
             <v-row align="center" justify="center" style="margin-top: 5%;margin-left: 6%;">
                 <v-card elavation="4">
                     <div class="text-center">
-                        <v-pagination v-model="page" :length="Specialites.length"></v-pagination>
+                        <v-pagination v-model="page" :length="totalPages" :disabled="loading" :hide-disabled="true" @input="getAllSpecialite"></v-pagination>
                     </div>
                 </v-card>
             </v-row>
@@ -216,17 +217,18 @@ export default {
             name: '',
             niveau: null,
             AddLoader: false,
-            searchTest:false,
-            alertSearch:'there are no specialities with that name',
             search:'',
+            page:1,
+            totalPages:0,
         }
     },
     methods: {
         getAllSpecialite() {
             this.loader = true;
-            gestionspecialite.getSpecialte().then(response => {
+            gestionspecialite.getSpecialte(this.page).then(response => {
                 console.log(response.data);
-                this.Specialites = response.data.data;
+                this.Specialites = response.data.data.data;
+                this.totalPages = response.data.data.last_page;
                 this.loader = false;
             })
         },
@@ -330,15 +332,10 @@ export default {
             }
         },
         searchSpecialite(){
-            gestionspecialite.searchSpecialite(this.search).then(response=>{
-                this.Specialites=response.data.data;
+            gestionspecialite.searchSpecialite(this.search,this.page).then(response=>{
+                this.Specialites=response.data.data.data;
+                this.totalPages = response.data.data.last_page;
                 console.log(this.Specialites);
-                if(this.Specialites.length==0){
-                    this.searchTest=true;
-                    console.log(this.searchTest);
-                }else{
-                    this.searchTest=false;
-                }
             }).catch((error)=>{
                 this.snackbar = true;
                 this.text = "there was a problem submiting your request";
@@ -346,6 +343,11 @@ export default {
             })
         },
     },
+    computed: {
+        noData() {
+            return this.Specialites.length == 0 ? true : false;
+        }
+    }
 }
 </script>
 <style scoped>
