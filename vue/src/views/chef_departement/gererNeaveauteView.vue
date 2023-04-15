@@ -12,13 +12,22 @@
                 </v-tab>
             </v-tabs>
             <v-row>
+               
+            </v-row>
+            <v-container  style="margin-top: 3%!important;">
+                <v-row class="md-6">
+                    <v-text-field label="Search neavautes" class="mx-4" @input="searchNeauvate()" v-model="search"></v-text-field>
+                </v-row>
                 <v-col align="center" justify="center">
                     <v-btn v-if="loader == true" text :loading="loader" disabled color="blue-grey" class="ma-2 white--text">
                     </v-btn>
                 </v-col>
-            </v-row>
-            <v-container v-if="loader == false && currentProf == 'list'" style="margin-top: 3%!important;">
-                <v-row md="6">
+                <v-row v-if="noData">
+                    <v-col align="center" justify="center">
+                    <h4> no data found</h4>
+                </v-col>
+                </v-row>
+                <v-row md="6" v-if="loader == false && currentProf == 'list'">
                     <v-col md="6" class="b-5" v-for="neauv in neavautes" style="margin-bottom: 3%;" :key="neauv.id">
                         <v-card>
                             <v-row md="6">
@@ -53,6 +62,7 @@
                         </v-card>
                     </v-col>
                 </v-row>
+                <v-pagination v-model="page" :length="neavautes.length"></v-pagination>
             </v-container>
             <v-container v-if="currentProf == 'add'">
                 <v-card elavation="4">
@@ -126,6 +136,7 @@
                 </v-row>
             </template>
         </div>
+
     </div>
 </template>
 
@@ -163,6 +174,8 @@ export default {
             description: '',
             photo: [],
             updatedNeauvtly: null,
+            search:'',
+            page:1,
         }
     },
     created() {
@@ -291,6 +304,18 @@ export default {
                     })
             }
         },
+        searchNeauvate(){
+            this.loader=true;
+            gererNeavaute.searchNeavaute(this.search).then(response=>{
+            this.loader=false;
+            this.neavautes=response.data.data;
+            })
+        }
+    },
+    computed:{
+        noData(){
+            return this.neavautes.length==0 ? true : false;
+        }
     }
 }
 </script>
