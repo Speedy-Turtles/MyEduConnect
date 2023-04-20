@@ -1,12 +1,6 @@
 <template>
     <aside class="nav-drawer" id="navDrawer">
         <div class="justify-center">
-            <v-list-item class="px-2">
-                <v-list-item-avatar>
-                    <v-img src="../../assets/DSC_6972 (1).jpg" class="avatar"></v-img>
-                </v-list-item-avatar>
-                <v-list-item-title class="hidden_description">Hkimi Mohamed Amin</v-list-item-title>
-            </v-list-item>
         </div>
         <ul>
             <router-link class="link" to="/chef_departement/"><v-list-item class="justify-center"><v-btn rounded
@@ -50,11 +44,16 @@
 </template>
 
 <script>
+import {AuthUser} from "@/store/Store.js"
 export default {
     name: 'navigationDrawer',
     props: [
         'currentPage',
     ],
+    setup(){
+            const store=AuthUser();
+            return{store}
+    },
     data() {
         return {
             currentIcon: 'mdi-arrow-left'

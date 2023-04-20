@@ -12,6 +12,7 @@ use App\Http\Controllers\GestionClasseController;
 use App\Http\Controllers\GestionSpecialiteController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\Document\DocumentController;
+use App\Http\Controllers\nouveauteController;
 use App\Http\Controllers\proffesors\usersEtudiantContoroller;
 use App\Http\Controllers\proffesors\UsersProffesorsController;
 use Illuminate\Http\Request;
@@ -48,13 +49,28 @@ Route::group(["prefix"=>"/auth"],function(){
 Route::post('/active/{id}',[InfoUserController::class,"ActiveUser"]);
 
 Route::group(["prefix"=>"/classe"],function(){
-     Route::get("/classesBySpecialite/{id}",[GestionClasseController::class,"getClasseForSpecialte"]);
- });
-
- Route::group(["prefix"=>"/specialte"],function(){
-    Route::get("/Allspecialte",[GestionSpecialiteController::class,"getSpecialte"]);
+    Route::get("/classesBySpecialite/{id}",[GestionClasseController::class,"getClasseForSpecialte"]);
+    Route::delete("/delete/{id}",[GestionClasseController::class,"DeleteClasse"]);
+    Route::post("/AddClasse/",[GestionClasseController::class,"AddClasse"]);
+    Route::get("/getClasse/{id}",[GestionClasseController::class,"getClasseByid"]);
+    Route::put("/updateClasse/{id}",[GestionClasseController::class,"updateClasse"]);
 });
 
+Route::group(["prefix"=>"/specialte"],function(){
+    Route::get("/Allspecialte",[GestionSpecialiteController::class,"getSpecialte"]);
+    Route::post("/addSpecialite",[GestionSpecialiteController::class,"addSpecialite"]);
+    Route::delete("/deleteSpecialite/{id}",[GestionSpecialiteController::class,"DeleteSpecialite"]);
+    Route::get("/getSpecialiteById/{id}",[GestionSpecialiteController::class,"getElementById"]);
+    Route::put("/updateSpecialite/{id}",[GestionSpecialiteController::class,"updateSpecialite"]);
+});
+
+Route::group(["prefix"=>"/nouveaute"],function(){
+    Route::get("/Allnouveaute",[nouveauteController::class,"getAllNouveaute"]);
+    Route::post("/addnouveaute",[nouveauteController::class,"addNouveaute"]);
+    Route::delete("/deletenouveaute/{id}",[nouveauteController::class,"DeleteNouveaute"]);
+    Route::get("/getnouveauteById/{id}",[nouveauteController::class,"getNouveauteById"]);
+    Route::put("/updatenouveaute/{id}",[nouveauteController::class,"updateNouveaute"]);
+});
 
 Route::get("/show_etud",[InfoUserController::class,"show_etudiant"]);
 

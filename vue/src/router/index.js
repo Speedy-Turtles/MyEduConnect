@@ -16,9 +16,9 @@ import DocumentView from '../views/etudiant/DocumentView'
 import ForumView from '../views/etudiant/ForumView'
 import ClubView from '../views/etudiant/ClubView'
 import HelpView from '../views/etudiant/HelpView'
+import gererClassesView from '../views/chef_departement/gererClassesView.vue'
 import dashboardAdminView from "../views/Admin/DashboardView.vue"
 import testView from "../views/test/TestView.vue"
-
 Vue.use(VueRouter)
 
 
@@ -73,6 +73,20 @@ const routes = [{
         path: '/chef_departement/gererspecialite',
         name: 'gererspecialite',
         component: gererSpecialiteView
+    },
+    {
+        path: '/specialite/:id',
+        name: 'gererClasses',
+        component: gererClassesView
+    },
+    {
+        path: '/about',
+        name: 'about',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import ( /* webpackChunkName: "about" */ '../views/AboutView.vue')
     },
     {
         path: '/etudiant',
