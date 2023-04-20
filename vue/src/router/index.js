@@ -17,6 +17,8 @@ import ForumView from '../views/etudiant/ForumView'
 import ClubView from '../views/etudiant/ClubView'
 import HelpView from '../views/etudiant/HelpView'
 import gererClassesView from '../views/chef_departement/gererClassesView.vue'
+import dashboardAdminView from "../views/Admin/DashboardView.vue"
+import testView from "../views/test/TestView.vue"
 Vue.use(VueRouter)
 
 
@@ -112,9 +114,14 @@ const routes = [{
         component: HelpView
     },
     {
-        path: '/chef_departement',
-        name: 'dashboard',
-        component: dashboardView
+        path: '/dashboardAdminView',
+        name: 'dashboardAdminView',
+        component: dashboardAdminView
+    },
+    {
+        path: '/testView',
+        name: 'testView',
+        component: testView
     },
     {
         path: '/about',
