@@ -16,7 +16,7 @@ import DocumentView from '../views/etudiant/DocumentView'
 import ForumView from '../views/etudiant/ForumView'
 import ClubView from '../views/etudiant/ClubView'
 import HelpView from '../views/etudiant/HelpView'
-import gererClassesView from '../views/chef_departement/gererClassesView.vue'
+
 Vue.use(VueRouter)
 
 
@@ -73,11 +73,6 @@ const routes = [{
         component: gererSpecialiteView
     },
     {
-        path: '/specialite/:id',
-        name: 'gererClasses',
-        component: gererClassesView
-    },
-    {
         path: '/about',
         name: 'about',
         // route level code-splitting
@@ -112,9 +107,14 @@ const routes = [{
         component: HelpView
     },
     {
-        path: '/chef_departement',
-        name: 'dashboard',
-        component: dashboardView
+        path: '/dashboardAdminView',
+        name: 'dashboardAdminView',
+        component: dashboardAdminView
+    },
+    {
+        path: '/testView',
+        name: 'testView',
+        component: testView
     },
     {
         path: '/about',

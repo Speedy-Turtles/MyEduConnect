@@ -1,10 +1,11 @@
 <template>
     <div>
-        <v-container  class=" fluid mt-5 py-5">
+        <v-container  class=" fluid mt-5 py-5 sec1">
             <!-- ------------------section 1 ------------------------------------>
-                <v-container class="py-4">
+            <div class="sec1">
+                <v-container class="py-4 ">
                     <v-layout flex wrap class="py-4" >
-                        <v-flex xl6 lg6 md6 sm12 xs12>
+                        <v-flex xl6 lg6 md6 sm12 xs12 data-aos="fade-right">
                             <div class="title">
                                 <span class="title-word title-word-1">My</span>
                                 <span class="title-word title-word-2">Edu</span>
@@ -13,59 +14,69 @@
                             <p class="p1">{{ p1 }}</p>
                             <p class="p2 hidden-sm-and-down">{{ p2 }}</p>
                         </v-flex>
-                        <v-flex xl6 lg6 md6 sm12 xs12>
+                        <v-flex xl6 lg6 md6 sm12 xs12 data-aos="fade-left">
                             <img id="im1" src="../../../public/images/person-studying.png" width="500px">
                         </v-flex>
                     </v-layout>
                 </v-container>
+            </div>
+               
             <!-- ------------------ /section 1 ------------------------------------>
         </v-container>
  
         <!-- ------------------section 2 ------------------------------------>
-        <v-container  class=" fluid mt-5 py-5">
-                <v-container class="py-4">
-                    <v-layout flex wrap class="py-4" >
-                        <v-flex xl6 lg6 md6 sm12 xs12>
-                            <img id="im2" src="../../../public/images/person-managing-it-settings.png" width="500px" class="px-5">
-                        </v-flex>
-                        <v-flex xl6 lg6 md6 sm12 xs12 >
-                            <p class="p1">{{ p4 }}</p>
-                            <p class="p2 hidden-sm-and-down">{{ p3 }}</p>
-                        </v-flex>
-                        
-                    </v-layout>
-                </v-container>
-        </v-container>
+        <div class="sec2">
+            <v-container  class=" fluid mt-5 py-5">
+                    <v-container class="py-4">
+                        <v-layout flex wrap class="py-4" >
+                            <v-flex xl6 lg6 md6 sm12 xs12 data-aos="fade-right">
+                                <img id="im2" src="../../../public/images/person-managing-it-settings.png" width="500px" class="px-5">
+                            </v-flex>
+                            <v-flex xl6 lg6 md6 sm12 xs12 data-aos="fade-left">
+                                <p class="p1">{{ p4 }}</p>
+                                <p class="p2 hidden-sm-and-down">{{ p3 }}</p>
+                            </v-flex>
+                            
+                        </v-layout>
+                    </v-container>
+            </v-container>
+        </div>
         <div class="line1">
         </div>
         <!-- ------------------ /section 2 ------------------------------------>
 
 
         <!-- ------------------section 3 ------------------------------------>
-        <v-container>
-            <v-layout flex wrap>
-                <v-flex xl4 lg4 md4 sm6 xs12 v-for="card in cards" :key="card.title" class="px-5">
-                    <h2 class="align-center" id="h2">{{ card.title }}</h2>
-                    <p id="p" class="">{{ card.p }}</p>
-                </v-flex>
-            </v-layout>
-        </v-container>
+        <div class="sec3">
+            <v-container>
+                <v-layout flex wrap>
+                    <v-flex xl4 lg4 md4 sm6 xs12 v-for="card in cards" :key="card.title" class="px-5" data-aos="fade-down">
+                        <h2 class="align-center" id="h2">{{ card.title }}</h2>
+                        <p id="p" class="">{{ card.p }}</p>
+                    </v-flex>
+                </v-layout>
+            </v-container>
+        </div>
+        
         <!-- ------------------ /section 3 ------------------------------------>
 
 
         <!-- ------------------ equipe ------------------------------------>
-        <v-container>
-            <div class="pa-4 text-center rounded-0">
-                <v-layout flex wrap class="mt-5 py-5">
-                    <v-flex xl3 lg3 md6 sm6 xs12 class="mt-5 py-5" v-for="equipe in equipes" :key="equipe.name">
-                        <v-avatar size="150">
-                            <v-img :src="equipe.image" contain></v-img>
-                        </v-avatar>
-                        <p class=" py-5">{{equipe.name}}</p>
-                    </v-flex>
-                </v-layout>
-            </div>
-        </v-container>
+        <div class="equipe">
+            <v-container>
+                <div class="pa-4 text-center rounded-0">
+                    <v-layout flex wrap class="mt-5 py-5">
+                        <v-flex xl3 lg3 md6 sm6 xs12 class="mt-5 py-5" v-for="equipe in equipes" :key="equipe.name" data-aos="fade-down">
+                            <v-avatar size="150">
+                                <v-img :src="equipe.image" contain></v-img>
+                            </v-avatar>
+                            <p class=" py-5">{{equipe.name}}</p>
+                        </v-flex>
+                    </v-layout>
+                </div>
+            </v-container>
+        </div>
+        
         <!-- ------------------ /equipe ------------------------------------>
     </div>
     
@@ -191,4 +202,15 @@ font-variant: small-caps;
     text-transform: none;
     text-align:justify;
 }
+.sec2,.sec3{
+    margin-top: 100px;
+    margin-bottom: 200px;
+}
+.sec1{
+    margin-top: 100px;
+}
+.equipe{
+    margin-bottom: 100px;
+}
+
 </style>

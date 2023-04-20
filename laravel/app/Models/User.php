@@ -62,4 +62,12 @@ class User extends Authenticatable
         return $this->hasMany(Demande::class);
     }
 
+    public function VoteSessions(){
+        return  $this->belongsToMany(VoteSession::class,'user_nominateds');
+    }
+
+    public function votes(){
+        return  $this->hasMany(Votes::class,'votes');
+    }
+
 }
