@@ -118,6 +118,11 @@ const routes = [{
         component: dashboardAdminView
     },
     {
+        path: '/specialite/:id',
+        name: 'gererClasses',
+        component: gererClassesView
+    },
+    {
         path: '/testView',
         name: 'testView',
         component: testView
