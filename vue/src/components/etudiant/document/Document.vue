@@ -41,7 +41,7 @@
                                     <v-list-item-subtitle>Nombre Dispo : {{document.NombreDispo}}</v-list-item-subtitle>
                                     <v-list-item-subtitle>Nombre Available : {{!test ? 0 : test?.nombre}}</v-list-item-subtitle>
                                 </v-list-item-content>
-                                {{ document.id }}
+                                
                                 </v-list-item>
                                 <v-list-item>
                                     <v-radio-group
@@ -50,12 +50,12 @@
                                     >
                                         <v-radio
                                             label="Français"
-                                            value="Français"
+                                            value="f"
 
                                         ></v-radio>
                                         <v-radio
                                             label="Arabe"
-                                            value="Arabe"
+                                            value="a"
                                         ></v-radio>
                                     </v-radio-group>
                                 </v-list-item>
@@ -128,14 +128,14 @@ export default {
         loading_demander:false,
         loading_download:false,
         loading2: false,
-        langDocument:"fr",
+        langDocument:"",
         loading3: false,
         All_demandes:[],
         selection: 1,
         classe_current:"",
         spec:"",
         niveau:0,
-        select_langue:"Francais",
+        select_langue:"",
     }),
 
     methods: {
@@ -213,7 +213,7 @@ export default {
                     }else{
                         niveau=this.langDocument=="troisime" ;
                     }
-                    var attestation="الاجازة في تكنولوجيات الاعلامية";
+                    var attestation="Licence en technologie de l'information";
                     var specialite_current="";
                     if(this.spec=="dsi"){
                         specialite_current=this.langDocument=="DSI";
@@ -269,18 +269,21 @@ export default {
         GenerPdf(type,id){
            
             if(type=="Attestation"){
-                this.generePrsenceFrancais();
-                // if(select_langue=='Arab')
-                // this.generePrsenceArab();
-                // else{
-                //     this.generePrsenceFrancais(); 
-                // }
+                if(this.select_langue==='a'){
+                    this.langDocument="ar"
+                    this.generePrsenceArab();
+                }
+                else{
+                    this.langDocument="fr";
+                    this.generePrsenceFrancais();
+                }
             }else if(type=="Stage"){
                 const doc = new jsPDF();
                 doc.text("hello",40,450)
                 doc.save("type.pdf");
             }
             this.inittialiser_demande(id);
+            console.log(this.langDocument);
           },   
          
         init_doc(){
@@ -294,7 +297,6 @@ export default {
                  for(let i=0;i<(res.data.data)?.length;i++){
                      this.All_demandes.push({iddoc:res.data.data[i].document_id,etat:res.data.data[i].etat,nombre:res.data.data[i].nombre});
                  }
-                 console.log(this.All_demandes);
                  
             })
         },
@@ -327,4 +329,5 @@ export default {
         max-width: 351px;
         height: 420px; 
     }
+    
 </style>
