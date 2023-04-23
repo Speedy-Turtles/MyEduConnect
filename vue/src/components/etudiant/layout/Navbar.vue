@@ -1,6 +1,6 @@
 <template>
     <div class="navbar">
-         <v-toolbar   class="toolbar px-5" >
+         <v-toolbar  class="toolbar px-5" >
             
             <a type="hidden" href=""></a>
             <!-- --------------------menu-------------------------- -->
@@ -129,21 +129,9 @@
                                 <span class="">personal info </span>
                             </v-btn>
                         </v-list-item-action>
-                        
                     </v-list-item>
 
-                    <v-list-item >
-                        <v-list-item-action>
-                            <v-btn
-                                plain
-                            >
-                                <v-icon class="pa-2">mdi-logout</v-icon>
-                                <span  @click="logout()">log out</span>
-                            </v-btn>
-                        </v-list-item-action>
-                    </v-list-item>
-
-                    <v-list-item v-if="store.Ischef">
+                    <v-list-item v-if="store.Ischef==true">
                         <v-list-item-action>
                             <v-btn
                                 plain
@@ -154,6 +142,17 @@
                                         switch
                                     </v-btn>
                                 </span>
+                            </v-btn>
+                        </v-list-item-action>
+                    </v-list-item>
+
+                    <v-list-item >
+                        <v-list-item-action>
+                            <v-btn
+                                plain
+                            >
+                                <v-icon class="pa-2">mdi-logout</v-icon>
+                                <span  @click="logout()">log out</span>
                             </v-btn>
                         </v-list-item-action>
                     </v-list-item>
@@ -186,7 +185,7 @@ import {AuthUser} from "@/store/Store.js"
                 links_ensignat:[
                     {titre:'home',link:'home',desc:'Home',icon:'mdi-home',route:'/etudiant'},
                     {titre:'Forum',link:'forum',desc:'Go to Forum',icon:'mdi-comment-text-outline',route:'/etudiant/forum'},
-                    {titre:'vote',link:'vote',desc:'chose your chef',icon:' mdi-vote',route:'/etudiant/club'},
+                    {titre:'vote',link:'vote',desc:'chose your chef',icon:' mdi-vote',route:'/etudiant/vote'},
                     {titre:'Help',link:'help',desc:'How Can We help You !',icon:'mdi-wrench',route:'/etudiant/help'}
                 ],
                 messages:10
