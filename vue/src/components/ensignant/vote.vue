@@ -1,6 +1,6 @@
 <template>
     <div style="height:88vh;padding:35px" class="mt-5 p-5">
-        <v-menu  class="mt-5 py-5" offset-y>
+        <!-- <v-menu  class="mt-5 py-5" offset-y>
             <template v-slot:activator="{ on, attrs }">
              <v-btn
                 plain
@@ -20,7 +20,7 @@
                 </v-list-item-title>
                 </v-list-item>
             </v-list>
-        </v-menu>
+        </v-menu> -->
         <div v-if="loader==false">
           <v-progress-circular
           indeterminate
