@@ -16,9 +16,6 @@ import DocumentView from '../views/etudiant/DocumentView'
 import ForumView from '../views/etudiant/ForumView'
 import ClubView from '../views/etudiant/ClubView'
 import HelpView from '../views/etudiant/HelpView'
-
-
-
 import gererClassesView from '../views/chef_departement/gererClassesView.vue'
 import dashboardAdminView from "../views/Admin/DashboardView.vue"
 import testView from "../views/test/TestView.vue"

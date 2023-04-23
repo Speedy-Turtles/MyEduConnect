@@ -19,9 +19,8 @@
                     </v-btn>
                 </template>
                 <v-list>
-                    
                     <v-list-item
-                    v-for="link in links"
+                    v-for="link in links_ensignat"
                     :key="link.titre"
                     >
                         <v-list-item-title>
@@ -37,13 +36,9 @@
                     <img src="../../../../public/etudiant/images/logo-makeiteasy-no-background.svg" alt="" width="100px" srcset="">
                 </v-toolbar-title>
                 <!-- --------------------titre/-------------------------- -->
-
-
-                <!-- --------------------items-------------------------- -->
-                <v-toolbar-items class="hidden-sm-and-down">
-
+                <v-toolbar-items  class="hidden-sm-and-down">
                     <!-- --------------------tooltips-------------------------- -->
-                    <v-tooltip bottom v-for="link in links" :key="link.titre">
+                    <v-tooltip bottom v-for="link in (store.Isens ? links_ensignat : link)" :key="link.titre">
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn
                             plain
@@ -137,8 +132,7 @@
                         
                     </v-list-item>
 
-                    <v-list-item>
-                        
+                    <v-list-item >
                         <v-list-item-action>
                             <v-btn
                                 plain
@@ -147,8 +141,23 @@
                                 <span  @click="logout()">log out</span>
                             </v-btn>
                         </v-list-item-action>
-                        
                     </v-list-item>
+
+                    <v-list-item v-if="store.Ischef">
+                        <v-list-item-action>
+                            <v-btn
+                                plain
+                            >
+                                <v-icon class="pa-2">mdi-swap-horizontal</v-icon>
+                                <span >
+                                    <v-btn router to="/chef_departement">
+                                        switch
+                                    </v-btn>
+                                </span>
+                            </v-btn>
+                        </v-list-item-action>
+                    </v-list-item>
+
                     </v-list>
                 </v-menu>
                      
@@ -174,6 +183,12 @@ import {AuthUser} from "@/store/Store.js"
                     {titre:'Club',link:'club',desc:'Enjoy Clubs',icon:'mdi-star-outline',route:'/etudiant/club'},
                     {titre:'Help',link:'help',desc:'How Can We help You !',icon:'mdi-wrench',route:'/etudiant/help'}
                 ],
+                links_ensignat:[
+                    {titre:'home',link:'home',desc:'Home',icon:'mdi-home',route:'/etudiant'},
+                    {titre:'Forum',link:'forum',desc:'Go to Forum',icon:'mdi-comment-text-outline',route:'/etudiant/forum'},
+                    {titre:'vote',link:'vote',desc:'chose your chef',icon:' mdi-vote',route:'/etudiant/club'},
+                    {titre:'Help',link:'help',desc:'How Can We help You !',icon:'mdi-wrench',route:'/etudiant/help'}
+                ],
                 messages:10
             }
         },
@@ -181,9 +196,8 @@ import {AuthUser} from "@/store/Store.js"
         logout(){
             this.store.logout();
             this.$router.push({name:'signin'});
-        }
-                 
          }
+      }
  }
 
 </script>

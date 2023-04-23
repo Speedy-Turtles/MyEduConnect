@@ -258,14 +258,10 @@
                 this.loading=false;
                 if(this.store.Isetudiant==true){
                    this.$router.push({name:"etudiant"});
-                }else if(this.store.Ischef==true){
-                   this.$router.push({name:"dashboardChef"});
                 }else if(this.store.IsAdmin==true){
                    this.$router.push({name:"dashboardAdminView"});
                 }else if(this.store.Isens==true){
-                  this.$router.push({name:"testView"});
-                }else if(this.store.Ischef==true){
-                   this.$router.push({name:"dashboardChef"});
+                  this.$router.push({name:"etudiant"});
                 }
               }).catch((error)=>{
                 this.loading=false;
@@ -286,7 +282,7 @@
             loginService.RenvoyerEmail(this.email_renvoyer).then((res)=>{
                 this.loading=false;
                 this.dialog_renvoyer=false;
-                this.message="Link Verfy Send With Success";
+                this.message="Link Verify Send With Success";
                 setTimeout(()=>this.message="",3000);
             }).catch((error)=>{
                 console.log(error);

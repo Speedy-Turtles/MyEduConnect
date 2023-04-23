@@ -67,6 +67,15 @@
                         </v-list-item-action>
 
                     </v-list-item>
+
+                    <v-list-item>
+                        <v-list-item-action>
+                            <v-btn plain >
+                                <v-icon class="pa-2">mdi-swap-horizontal</v-icon>
+                                <v-btn text router to="/etudiant" >SWITCH</v-btn>
+                            </v-btn>
+                        </v-list-item-action>
+                    </v-list-item>
                 </v-list>
             </v-menu>
         </v-toolbar>
