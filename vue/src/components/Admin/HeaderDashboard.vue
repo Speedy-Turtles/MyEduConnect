@@ -54,6 +54,17 @@
                     <v-list-item-title>{{store.user['FirstName']}}</v-list-item-title>
                     </v-list-item>
                 </v-list>
+
+                <v-list-item>
+
+                  <v-list-item-action>
+                      <v-btn plain @click="logout()">
+                          <v-icon class="pa-2">mdi-logout</v-icon>
+                          <span class="">log out</span>
+                      </v-btn>
+                  </v-list-item-action>
+
+              </v-list-item>
             </v-menu>
               </v-row>
         </v-container>
@@ -69,6 +80,12 @@ export default {
      const store_view = CurentView();
      return {store,store_view};
   },
+  methods:{
+    logout(){
+            this.store.logout();
+            this.$router.push({name:'signin'});
+        }
+  }
 };
 
 </script>
