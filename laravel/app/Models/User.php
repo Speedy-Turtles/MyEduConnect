@@ -61,5 +61,8 @@ class User extends Authenticatable
     public function demandes(){
         return $this->hasMany(Demande::class);
     }
+    public function salles(){
+        return $this->belongsToMany(Role::class,"emploi")->withPivot(['id']);
+    }
 
 }
