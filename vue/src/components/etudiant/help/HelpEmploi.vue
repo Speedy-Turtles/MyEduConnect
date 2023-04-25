@@ -31,7 +31,7 @@
                      </v-select>
                   </v-flex>
                   <v-flex xl3 md3 lg3 sm6 xs12 class="pa-5">
-                     <button>
+                     <button id="search">
                         <div class="svg-wrapper-1">
                            <div class="svg-wrapper">
                               <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -73,9 +73,10 @@
                </template>
             </v-simple-table>
          </div>
-            <v-btn color="blue darken-1 mt-10 float-end pa-5">
-               Generate Emploi
-            </v-btn>
+         <button class="cssbuttons-io-button float-end mt-10">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z"></path></svg>
+            <span>Download</span>
+         </button>
          </div>
             <!-- --------------------------------------Emploi/------------------------------ -->
       </v-container>
@@ -144,7 +145,8 @@
   opacity: 1;
   width: 300px;
 }
-button {
+
+#search {
   font-family: inherit;
   font-size: 15px;
   background: royalblue;
@@ -159,31 +161,31 @@ button {
   transition: all 0.2s;
 }
 
-button span {
+#search span {
   display: block;
   margin-left: 0.3em;
   transition: all 0.3s ease-in-out;
 }
 
-button svg {
+#search svg {
   display: block;
   transform-origin: center center;
   transition: transform 0.3s ease-in-out;
 }
 
-button:hover .svg-wrapper {
+#search:hover .svg-wrapper {
   animation: fly-1 0.6s ease-in-out infinite alternate;
 }
 
-button:hover svg {
+#search:hover svg {
   transform: translateX(1.2em) rotate(45deg) scale(1.1);
 }
 
-button:hover span {
+#search:hover span {
   transform: translateX(5em);
 }
 
-button:active {
+#search:active {
   transform: scale(0.95);
 }
 
@@ -197,7 +199,33 @@ button:active {
   }
 }
 
+.cssbuttons-io-button {
+  display: flex;
+  align-items: center;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 17px;
+  padding: 0.8em 1.5em 0.8em 1.2em;
+  color: white;
+  background: #ad5389;
+  background: linear-gradient(0deg, rgba(77,54,208,1) 0%, rgba(132,116,254,1) 100%);
+  border: none;
+  box-shadow: 0 0.7em 1.5em -0.5em #4d36d0be;
+  letter-spacing: 0.05em;
+  border-radius: 20em;
+}
 
+.cssbuttons-io-button svg {
+  margin-right: 8px;
+}
+
+.cssbuttons-io-button:hover {
+  box-shadow: 0 0.5em 1.5em -0.5em #4d36d0be;
+}
+
+.cssbuttons-io-button:active {
+  box-shadow: 0 0.3em 1em -0.5em #4d36d0be;
+}
 
 
  </style>
