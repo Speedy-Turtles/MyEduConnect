@@ -4,7 +4,9 @@
             
             <a type="hidden" href=""></a>
             <!-- --------------------menu-------------------------- -->
-            <v-menu offset-y >
+            <v-menu offset-y transition="slide-x-transition" 
+             right
+            >
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn
                     
@@ -63,7 +65,9 @@
                      <!-- --------------------tooltips/-------------------------- -->
                 </v-toolbar-items>
                 <v-spacer></v-spacer>
-                <v-menu offset-y>
+                <v-menu offset-y
+                
+                >
                     <template v-slot:activator="{ on, attrs }">
                      <v-btn
                      plain
@@ -103,7 +107,10 @@
                     </v-list>
                 </v-menu>
 
-                <v-menu offset-y>
+                <v-menu offset-y 
+                transition="slide-x-transition" 
+                left
+                >
                     <template v-slot:activator="{ on, attrs }">
                     <v-btn   plain v-bind="attrs"
                      v-on="on"
