@@ -5,7 +5,9 @@
             <div class="main">
                 <Document></Document>
             </div>
-            <Footer></Footer>
+            <footer>
+                <Footer></Footer>
+            </footer>
     </div>
 </template>
 <script>
@@ -21,5 +23,8 @@ export default {
 <style scoped>
 .main{
    height: auto;
+}
+.document{
+    overflow: hidden;
 }
 </style>
