@@ -10,7 +10,7 @@
             </v-flex>
             <v-flex xl8 md9  xs12 class="pa-5" >
                     <v-layout row>
-                        <v-flex class="pa-5"><h1>Document</h1></v-flex>
+                        <v-flex class="pa-5"><h1 class="titre">Document</h1></v-flex>
                     </v-layout>
                     <v-layout row wrap>
                         <v-flex class="py-5 mt-5" v-if="loding_page==false">
@@ -21,7 +21,7 @@
                                 ></v-progress-circular>
                                 </div>
                         </v-flex>
-                        <v-flex v-else xl6 md6 sm12 xs12 v-for="document in All_Document " :key="document.id">
+                        <v-flex  xl6 md6 sm12 xs12 v-for="document in All_Document " :key="document.id">
                             <v-card
                                 :loading="loading1"
                                 class="mx-auto mb-4"
@@ -329,5 +329,19 @@ export default {
         max-width: 351px;
         height: 420px; 
     }
+    /* .titre{
+        margin-top: 50px;
+   color: #444444;
+   font-family: Georgia, serif;
+   font-size: 30px;
+   letter-spacing: 2px;
+   word-spacing: 2px;
+   color: #000000;
+   font-weight: normal;
+   text-decoration: none;
+   font-style: normal;
+   font-variant: normal;
+   text-transform: none;
+ } */
     
 </style>
