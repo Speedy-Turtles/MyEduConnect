@@ -24,7 +24,7 @@ class LoginController extends Controller
             $verify["Istechnicien"]=false;
             $verify["Isadmin"]=false;
 
-            if($user->roles->contains("Role_name","chefDepartment")){
+           /* if($user->roles->contains("Role_name","chefDepartment")){
                 if($user->roles->first()->pivot->status==0){
                     return response()->json(['data' => "Your account not actived"], 404);
                 }else if($user->roles->first()->pivot->status==2){
@@ -32,7 +32,7 @@ class LoginController extends Controller
                 }else{
                     $verify["IsChefDepartement"]=true;
                 }
-            }
+            } */
 
             if($user->roles->contains("Role_name","etudiant")){
                 if($user->roles->first()->pivot->status==0){
@@ -50,6 +50,9 @@ class LoginController extends Controller
                 }else if($user->roles->first()->pivot->status==2){
                     return response()->json(['data' => "Your account Rejected"], 404);
                 }else{
+                    if($user->roles->contains("Role_name","chefDepartment")){
+                        $verify["IsChefDepartement"]=true;
+                    }
                     $verify["Isenseignant"]=true;
                 }
             }
