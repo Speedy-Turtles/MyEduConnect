@@ -33,7 +33,7 @@ class DocumentController extends Controller
       $notif->etat=0;
       $notif->save();
       if($demandes_check){
-            $demandes=Demande::where('user_id',$request->user()->id)->where('document_id',$request->document_id)->update(['etat'=>0]);
+            $demandes=Demande::where('user_id',$request->user()->id)->where('document_id',$request->document_id)->update(['etat'=>0,'Langue'=>$request->langue]);
             return response()->json(['data'=>$demandes],201);
        }else{
             $demande=new Demande();
