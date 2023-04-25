@@ -20,6 +20,6 @@ export default {
 </script>
 <style scoped>
 main{
-    height: 175vh;
+    height: 185vh;
  }
 </style>
