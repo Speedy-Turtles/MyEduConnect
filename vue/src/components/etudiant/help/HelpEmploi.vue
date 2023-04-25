@@ -5,7 +5,8 @@
          
          <div class="serach">
                <v-layout flex wrap>
-                  <v-flex xl4 md4 lg4 sm12 xs12 class="pa-5">
+
+                  <v-flex xl3 md3 lg3 sm6 xs12 class="pa-5">
                      <div class="container-input">
                         <input type="text" placeholder="Search By Name" name="text" class="input">
                         <svg fill="#000000" width="20px" height="20px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
@@ -13,7 +14,7 @@
                         </svg>
                      </div>
                   </v-flex>
-                  <v-flex xl4 md4 lg4 sm6 xs12>
+                  <v-flex xl3 md3 lg3 sm6 xs12>
                      <v-select
                      class="mr-5 pa-5"
                      :items="jours"
@@ -21,13 +22,26 @@
                      
                      ></v-select>
                   </v-flex>
-                  <v-flex xl4 md4 lg4 sm6 xs12>
+                  <v-flex xl3 md3 lg3 sm6 xs12>
                      <v-select
                      class="mr-5 pa-5"
                      :items="seances2"
                      label="Session"
                      >
                      </v-select>
+                  </v-flex>
+                  <v-flex xl3 md3 lg3 sm6 xs12 class="pa-5">
+                     <button>
+                        <div class="svg-wrapper-1">
+                           <div class="svg-wrapper">
+                              <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M0 0h24v24H0z" fill="none"></path>
+                              <path d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z" fill="currentColor"></path>
+                              </svg>
+                           </div>
+                        </div>
+                        <span>Search</span>
+                     </button>
                   </v-flex>
                </v-layout>
          </div>
@@ -109,10 +123,14 @@
   width: 170px;
   padding: 10px 0px 10px 40px;
   border-radius: 9999px;
-  border: solid 1px #333;
+  border: solid 1px #5094df;
   transition: all .2s ease-in-out;
   outline: none;
   opacity: 0.8;
+ 
+}
+.input::placeholder{
+   color: #525fe1;
 }
 
 .container-input svg {
@@ -126,6 +144,59 @@
   opacity: 1;
   width: 300px;
 }
+button {
+  font-family: inherit;
+  font-size: 15px;
+  background: royalblue;
+  color: white;
+  padding: 0.7em 1em;
+  padding-left: 0.9em;
+  display: flex;
+  align-items: center;
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.2s;
+}
+
+button span {
+  display: block;
+  margin-left: 0.3em;
+  transition: all 0.3s ease-in-out;
+}
+
+button svg {
+  display: block;
+  transform-origin: center center;
+  transition: transform 0.3s ease-in-out;
+}
+
+button:hover .svg-wrapper {
+  animation: fly-1 0.6s ease-in-out infinite alternate;
+}
+
+button:hover svg {
+  transform: translateX(1.2em) rotate(45deg) scale(1.1);
+}
+
+button:hover span {
+  transform: translateX(5em);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+@keyframes fly-1 {
+  from {
+    transform: translateY(0.1em);
+  }
+
+  to {
+    transform: translateY(-0.1em);
+  }
+}
+
 
 
 
