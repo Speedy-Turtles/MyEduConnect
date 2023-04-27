@@ -4,10 +4,20 @@
         <navigationDrawer current-page="enseignatns" />
         <div class="main_content">
             <v-card elavation="2">
-                <v-row>
-                    <v-btn  @click="currentProf = 'accepted'" :class="[currentProf == 'accepted' ? 'active' : 'success']">accepted proffesors</v-btn>
-                    <v-btn @click="currentProf = 'pending'" :class="[currentProf == 'pending' ? 'active' : 'orange']">pending requests</v-btn>
-                </v-row>
+                <v-row align="center" justify="center">
+                <v-tabs elavation="4">
+                    <v-col>
+                    <v-tab>
+                    <v-btn text  @click="currentProf = 'accepted'" :class="[currentProf == 'accepted' ? 'active' : 'yellow']">accepted proffesors</v-btn>
+                </v-tab>
+            </v-col>
+            <v-col>
+                <v-tab>
+                    <v-btn text @click="currentProf = 'pending'" :class="[currentProf == 'pending' ? 'active' : 'yellow']">pending requests</v-btn>
+                </v-tab>
+            </v-col>
+                </v-tabs>
+            </v-row>
             </v-card>
             <v-row>
                 <v-col align="center" justify="center">

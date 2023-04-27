@@ -226,9 +226,9 @@
                  description:"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non neque aliquam eius!"},
                  {id:2,image:require("../../assets/iterfaces/interfaceEtudiant.png"),titre:"Interface Etudiant",
                  description:"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non neque aliquam eius!"},
-                 {id:3,image:require("../../assets/iterfaces/interface_chef.png"),titre:"Interface Ensignat",
+                 {id:3,image:require("../../assets/iterfaces/interface_ens.png"),titre:"Interface Ensignat",
                  description:"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non neque aliquam eius!"},
-                 {id:4,image:require("../../assets/iterfaces/interface_chef.png"),titre:"Interface Admin",
+                 {id:4,image:require("../../assets/iterfaces/interface_admin.png"),titre:"Interface Admin",
                  description:"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non neque aliquam eius!"},
                  {id:5,image:require("../../assets/iterfaces/interface_chef.png"),titre:"Interface Technicien",
                  description:"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non neque aliquam eius!"},
@@ -258,13 +258,10 @@
                 this.loading=false;
                 if(this.store.Isetudiant==true){
                    this.$router.push({name:"etudiant"});
-
-                }else if(this.store.isAdmin==true){
+                }else if(this.store.IsAdmin==true){
+                   this.$router.push({name:"dashboardAdminView"});
+                }else if(this.store.Isens==true){
                   this.$router.push({name:"etudiant"});
-
-                }else if(this.store.Ischef==true){
-                   this.$router.push({name:"dashboardChef"});
-
                 }
               }).catch((error)=>{
                 this.loading=false;
@@ -285,7 +282,7 @@
             loginService.RenvoyerEmail(this.email_renvoyer).then((res)=>{
                 this.loading=false;
                 this.dialog_renvoyer=false;
-                this.message="Link Verfy Send With Success";
+                this.message="Link Verify Send With Success";
                 setTimeout(()=>this.message="",3000);
             }).catch((error)=>{
                 console.log(error);

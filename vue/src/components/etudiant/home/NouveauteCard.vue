@@ -8,13 +8,12 @@
                     <img src="../../../../public/etudiant/images/logoiset.png" alt="" width="200px" height="200px" >  
                 </v-container>
             </v-flex>
-           
 
             <v-flex xl8 md9  xs12 class="pa-5" >
                     <v-layout row>
                         <v-flex class="pa-5"><h1>Novelty</h1></v-flex>
                     </v-layout>
-                    <div id="card" v-for="i in 5" data-aos="fade-down">
+                    <div id="card" v-for="i in 5" data-aos="fade-down" :key="i">
                         <v-layout row wrap >
                             <v-flex xl4 md3 sm4 xs12 class=""><img src="../../../../public/etudiant/images/p1.png" width="150px" alt="" srcset=""></v-flex>
                             <v-flex xl8 md9 sm8 xs12 class="card_title">
@@ -29,7 +28,6 @@
                                     </v-flex>
                                 </v-layout>
                                     
-                                
                             </v-flex>
                         </v-layout>
                         <v-layout row>

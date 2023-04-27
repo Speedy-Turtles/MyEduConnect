@@ -4,7 +4,11 @@
          <v-toolbar   class="toolbar">
             <a type="hidden" href=""></a>
                 <!-- --------------------titre-------------------------- -->
+
                 <v-toolbar-title class="mr-5 hidden-xs-only" >
+
+                <v-toolbar-title class="mr-5 hidden-sm-and-down">
+
                     <img src="../../../public/images/logo-no-background.svg" alt="" width="110px" srcset="">
                 </v-toolbar-title>
                 <!-- --------------------titre/-------------------------- -->
@@ -39,9 +43,6 @@ export default {
         }
     },  
     methods:{
-        click(a){
-             document.getElementById(`${a}`)?.scrollIntoView({behavior: 'smooth'});
-        }
     },
     components: {
     },
