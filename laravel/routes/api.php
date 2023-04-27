@@ -136,6 +136,10 @@ Route::middleware("auth:sanctum")->group(function(){
         Route::post('/AccepterDocument',[DocumentController::class,'AccepterDocument']);
         Route::post('/initailiser_demande',[DocumentController::class,'initailiser_demande']);
     });
+    Route::get("/notif",[DocumentController::class,'getNotifs']);
+    Route::get("/notifNotSeen",[DocumentController::class,'getNotifsNotSeen']);
+    Route::post("/editnotif",[DocumentController::class,'changerEtat']);
+    Route::delete("/deleteAllNotif",[DocumentController::class,'clearNotif']);
     // utiliser dans controller $request()->user()->id  grace a interceptors dans vue js
 });
 Route::group(['prefix'=>'/documents/demandes'],function(){

@@ -7,7 +7,7 @@ export default {
     },
 
     addDocument(doc) {
-        return axios.post('/documents/addDemande', doc);
+        return axios.post('/documents/addDemande',doc);
     },
 
     getAlldemande() {

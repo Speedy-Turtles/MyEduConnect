@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Document;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Document\DB;
 use App\Models\Document;
 use App\Models\Demande;
 use App\Models\Notification;
@@ -10,6 +11,7 @@ use App\Models\Role;
 use App\Models\RoleUser;
 use App\Models\User;
 use Illuminate\Http\Request;
+
 
 class DocumentController extends Controller
 {
@@ -19,6 +21,7 @@ class DocumentController extends Controller
     }
 
     public function addDemande(Request $request){
+
       $demandes_check=Demande::where('user_id',$request->user()->id)->where('document_id',$request->document_id)->first();
       $nom=Document::where('id',$request->document_id)->first();
       $id_chef = User::whereHas('roles', function($query){
@@ -31,7 +34,7 @@ class DocumentController extends Controller
       $notif->etat=0;
       $notif->save();
       if($demandes_check){
-            $demandes=Demande::where('user_id',$request->user()->id)->where('document_id',$request->document_id)->update(['etat'=>0]);
+            $demandes=Demande::where('user_id',$request->user()->id)->where('document_id',$request->document_id)->update(['etat'=>0,'Langue'=>$request->langue]);
             return response()->json(['data'=>$demandes],201);
        }else{
             $demande=new Demande();
@@ -61,4 +64,36 @@ class DocumentController extends Controller
         $demandes=Demande::where('user_id',$request->user()->id)->where('document_id',$request->docId)->update(['etat'=>-1]);
         return response()->json(['data'=>$demandes],200);
     }
+    public function getNotifs(Request $request){
+        $notifs=Notification::where('id_recu',$request->user()->id)->get();
+        if(!$notifs){
+            return response()->json("No Notifcations available");
+        }else{
+            return response()->json(['data'=>$notifs,200]);
+        }
+    }
+
+    public function getNotifsNotSeen(Request $request){
+        $notifs=Notification::where('id_recu',$request->user()->id)->where('etat',0)->get();
+        if(!$notifs){
+            return response()->json("No Notifcations available");
+        }else{
+            return response()->json(['data'=>$notifs,200]);
+        }
+    }
+
+    public function changerEtat(Request $request){
+        Notification::where('id_recu',$request->user()->id)
+        ->where('etat',0)
+        ->update([
+            'etat'=>1
+        ]);
+    }
+
+    public function clearNotif(Request $request){
+        Notification::where('id_recu',$request->user()->id)
+        ->delete();
+    }
+
+
 }
