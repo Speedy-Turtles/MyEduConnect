@@ -23,7 +23,7 @@
                 <v-list>
                    
                     <v-list-item
-                    v-for="link in (store.Isens==true ? links_ensignat : links)"
+                    v-for="link in links_ensignat"
                     :key="link.titre"
                     >
                         <v-list-item-title>
@@ -41,7 +41,7 @@
                 <!-- --------------------titre/-------------------------- -->
                 <v-toolbar-items  class="hidden-sm-and-down">
                     <!-- --------------------tooltips-------------------------- -->
-                    <v-tooltip bottom v-for="link in (store.Isens==true ? links_ensignat : links)" :key="link.titre">
+                    <v-tooltip bottom v-for="link in (store.Isens ? links_ensignat : link)" :key="link.titre">
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn
                             plain
