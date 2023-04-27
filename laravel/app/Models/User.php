@@ -61,5 +61,7 @@ class User extends Authenticatable
     public function demandes(){
         return $this->hasMany(Demande::class);
     }
-
+    public function emplois(){
+        return $this->belongsToMany(Emploi::class);
+    }
 }

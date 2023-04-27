@@ -76,5 +76,6 @@ h3{
 }
 *{
     scroll-behavior: smooth;
+    overflow: hidden;
 }
 </style>

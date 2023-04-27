@@ -4,7 +4,9 @@
             
             <a type="hidden" href=""></a>
             <!-- --------------------menu-------------------------- -->
-            <v-menu offset-y >
+            <v-menu offset-y transition="slide-x-transition" 
+             right
+            >
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn
                     
@@ -63,29 +65,52 @@
                      <!-- --------------------tooltips/-------------------------- -->
                 </v-toolbar-items>
                 <v-spacer></v-spacer>
-                <v-menu offset-y>
+                <v-menu offset-y
+                
+                >
                     <template v-slot:activator="{ on, attrs }">
                      <v-btn
                      plain
                      v-bind="attrs"
                      v-on="on"
-                     
+                     @click="chagerEtatNotif"
                      >
                         <v-icon size="35px">mdi-bell</v-icon>
-                        <v-badge color="red" :content="messages"
-                        :value="messages"></v-badge>
+                        <v-badge color="red" :content="getNbrNotifNotSeen"
+                        v-if="getNbrNotifNotSeen!=0"
+                        :values="getNbrNotifNotSeen"
+                        ></v-badge>
                      </v-btn>
                     </template>
                     <v-list>
+                    <v-list-item v-if="notifications.length==0" class="mt-5">
+                        <v-list-item-title>No notifications !</v-list-item-title>
+                    </v-list-item>
                     <v-list-item
-                    
+                        v-for="notif in notifications" :key="notif.id"
+                        v-else
                     >
-                        <v-list-item-title>Notifications</v-list-item-title>
+                        <v-list-item-title>{{ notif.msg }}</v-list-item-title>
+                        </v-list-item>
+                        <v-list-item class="mt-5">
+                            <v-btn 
+                            plain
+                            v-if="notifications.length!=0"
+                            @click="deleteAllNotif()"
+                            >
+                                <v-list-item-title class="red--text"> 
+                                    
+                                    Clear All<v-icon class="pa-1 red--text">mdi-delete</v-icon>
+                                </v-list-item-title>
+                            </v-btn>
                         </v-list-item>
                     </v-list>
                 </v-menu>
 
-                <v-menu offset-y>
+                <v-menu offset-y 
+                transition="slide-x-transition" 
+                left
+                >
                     <template v-slot:activator="{ on, attrs }">
                     <v-btn   plain v-bind="attrs"
                      v-on="on"
@@ -142,9 +167,10 @@
                         <v-list-item-action>
                             <v-btn
                                 plain
+                                @click="logout()"
                             >
                                 <v-icon class="pa-2">mdi-logout</v-icon>
-                                <span  @click="logout()">log out</span>
+                                <span >log out</span>
                             </v-btn>
                         </v-list-item-action>
                         
@@ -159,6 +185,7 @@
 
 <script>
 import {AuthUser} from "@/store/Store.js"
+import gererNotifEtud from "@/service/NotifEtudiant/gererNotifEtud"
     export default {
         setup(){
             const store=AuthUser();
@@ -174,17 +201,56 @@ import {AuthUser} from "@/store/Store.js"
                     {titre:'Club',link:'club',desc:'Enjoy Clubs',icon:'mdi-star-outline',route:'/etudiant/club'},
                     {titre:'Help',link:'help',desc:'How Can We help You !',icon:'mdi-wrench',route:'/etudiant/help'}
                 ],
-                messages:10
+                notifications:[],
+                notificationNotSeen:[],
+
             }
         },
        methods:{
         logout(){
             this.store.logout();
             this.$router.push({name:'signin'});
-        }
-                 
+        },
+        getNotifs(){
+            gererNotifEtud.getNotifEtud().then((res)=>{
+                for(let i=0;i<(res.data.data).length;i++){
+                    this.notifications.push({idNotif:res.data.data[i].id,msg:res.data.data[i].message,etat:res.data.data[i].etat})
+                }
+            }
+            )
+        },
+        deleteAllNotif(){
+            gererNotifEtud.deleteAllNotif().then((res)=>{
+                this.notifications=[];
+                this.notificationNotSeen=[];
+            })
+        },
+        chagerEtatNotif(){
+            gererNotifEtud.updateNotif();
+        },
+        getNotifsNotSeen(){
+            gererNotifEtud.getNotifNotSeen().then((res)=>{
+                for(let i=0;i<(res.data.data).length;i++){
+                    this.notificationNotSeen.push({idNotif:res.data.data[i].id,msg:res.data.data[i].message,etat:res.data.data[i].etat})
+                }
+            })
+         },
+        },
+         created(){
+            this.getNotifs();
+            this.getNotifsNotSeen();
+         },
+         computed:{
+            getNbrNotif(){
+                const nbrNotif=this.notifications.length
+                return nbrNotif;
+            },
+            getNbrNotifNotSeen(){
+                    const nbrNotifNotSeen=this.notificationNotSeen.length
+                    return nbrNotifNotSeen;
+            }
+         }   
          }
- }
 
 </script>
 <style scoped>
