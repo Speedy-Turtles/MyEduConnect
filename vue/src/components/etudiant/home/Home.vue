@@ -107,7 +107,7 @@
 </template>
 <script>
 import {AuthUser} from "@/store/Store.js";
-
+import userinfo from "@/service/UserInfo/userinfo";
 export default {
     
     mounted(){
@@ -149,11 +149,26 @@ methods:{
     randomPhoto(imgs){
         return imgs[Math.floor(Math.random()*this.photos.length)]
     },
+    greeting(){
+        if(this.store.user['welcome_field']==0){
+            let test=new SpeechSynthesisUtterance("welcome");
+            speechSynthesis.speak(test);
+            setTimeout(() => {
+                userinfo.updateWelcome().then((res)=>{
+                    console.log(res)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+            }, 3000);
+        }
+    }
    
 },
 created(){
     this.selected=this.randomPhoto(this.photos)
     this.snackbar=true
+    this.greeting()
+
 }
 }
 </script>
