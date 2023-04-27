@@ -107,7 +107,6 @@
 </template>
 <script>
 import {AuthUser} from "@/store/Store.js";
-
 export default {
     
     mounted(){
