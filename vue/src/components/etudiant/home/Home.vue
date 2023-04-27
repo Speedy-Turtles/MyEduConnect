@@ -1,3 +1,4 @@
+
 <template>
     <div class="main">
         <v-container class="py-5">
@@ -257,9 +258,4 @@ text-transform: none;
     margin-bottom: 50px;
     margin-top: 50px;
     clip-path: polygon(0 5%, 100% 0, 100% 100%, 100% 100%, 100% 100%, 0 93%, 0 21%);
-
-
-
-
 }
-</style>

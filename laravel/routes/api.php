@@ -85,7 +85,7 @@ Route::get('GetUser/{id}',[InfoUserController::class,"GetUser"]);
 Route::middleware("auth:sanctum")->group(function(){
 
         Route::get("/getNiveau",[InfoUserController::class,"GetNiveauUser"]);
-
+        Route::post("/welcome",[InfoUserController::class,"updateWelcome"]);
 
     Route::group(['prefix'=>'/documents'],function(){
         Route::get('/',[DocumentController::class,'AllDocuments']);
