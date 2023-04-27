@@ -77,13 +77,14 @@
                         ></v-badge>
                      </v-btn>
                     </template>
-                    <v-list>
-                    <v-list-item v-if="notifications.length==0" class="mt-5">
+                    <v-list v-if="notifications.length==0">
+                    <v-list-item  class="mt-5">
                         <v-list-item-title>No notifications !</v-list-item-title>
                     </v-list-item>
+                   </v-list>
+                    <v-list v-else>
                     <v-list-item
                         v-for="notif in notifications" :key="notif.id"
-                        v-else
                     >
                         <v-list-item-title>{{ notif.msg }}</v-list-item-title>
                         </v-list-item>
@@ -269,12 +270,7 @@ import gererNotifEtud from "@/service/NotifEtudiant/gererNotifEtud"
                     return nbrNotifNotSeen;
             }
          }   
-         }
-
-         }
-      }
  }
-
 
 </script>
 <style scoped>
