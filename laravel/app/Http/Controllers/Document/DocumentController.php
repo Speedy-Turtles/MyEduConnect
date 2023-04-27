@@ -24,11 +24,12 @@ class DocumentController extends Controller
 
       $demandes_check=Demande::where('user_id',$request->user()->id)->where('document_id',$request->document_id)->first();
       $nom=Document::where('id',$request->document_id)->first();
-      $user_role=Role::where("Role_name","chefDepartment")->first();
-      $id_chef=RoleUser::where('role_id',$user_role->id)->first();
+      $id_chef = User::whereHas('roles', function($query){
+         $query->where('Role_name', 'chefDepartment');
+      })->first();
       $notif=new Notification();
       $notif->id_envoi=$request->user()->id;
-      $notif->id_recu=$id_chef->user_id;
+      $notif->id_recu=$id_chef->id;
       $notif->message=$request->user()->FirstName .' demande document '.$nom->Type;
       $notif->etat=0;
       $notif->save();
