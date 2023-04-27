@@ -27,6 +27,7 @@ return new class extends Migration
             $table->timestamp('password_token_send_at')->nullable();
             $table->foreignId("classe_id")->nullable();
             $table->foreign("classe_id")->references("id")->on("classes")->onDelete("cascade");
+            $table->boolean("welcome_field")->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
