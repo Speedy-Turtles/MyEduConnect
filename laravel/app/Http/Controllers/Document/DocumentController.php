@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 class DocumentController extends Controller
 {
     public function AllDocuments(){
-        $documents=Document::get();
+        $documents=Document::with('demandes')->get();
         return response()->json(['data'=>$documents],200);
     }
 
