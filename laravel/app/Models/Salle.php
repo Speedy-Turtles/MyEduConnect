@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Salle extends Model
 {
-    public function users(){
-        return $this->belongsToMany(Role::class,"emploi")->withPivot(['id']);
+    public function emplois(){
+        return $this->belongsToMany(Emploi::class);
     }
     use HasFactory;
 }

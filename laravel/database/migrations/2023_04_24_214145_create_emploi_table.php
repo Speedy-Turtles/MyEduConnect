@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("user_id");
             $table->foreign("user_id")->references('id')->on("users")->onDelete("cascade");
+            $table->unsignedBigInteger("salle_id");
+            $table->foreign("salle_id")->references('id')->on("salles")->onDelete("cascade");
             $table->string('jour');
             $table->integer('numero_seance')->nullable();
             $table->string('classe');
