@@ -303,7 +303,8 @@ export default{
     name:"signup",
     created(){
         service_specilate.getSpecialte().then((response)=>{
-             this.specialtes=response.data.data;
+             this.specialtes=response.data.data.data;
+             console.log(this.specialtes)
         })
     },
     validations:{
