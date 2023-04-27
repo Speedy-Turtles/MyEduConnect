@@ -108,6 +108,7 @@
 <script>
 import {AuthUser} from "@/store/Store.js";
 import userinfo from "@/service/UserInfo/userinfo";
+
 export default {
     
     mounted(){
@@ -151,7 +152,7 @@ methods:{
     },
     greeting(){
         if(this.store.user['welcome_field']==0){
-            let test=new SpeechSynthesisUtterance("welcome");
+            let test=new SpeechSynthesisUtterance("welcome"+this.store.user['FirstName']);
             speechSynthesis.speak(test);
             setTimeout(() => {
                 userinfo.updateWelcome().then((res)=>{
@@ -159,7 +160,7 @@ methods:{
                 }).catch((err)=>{
                     console.log(err)
                 })
-            }, 3000);
+            }, 1000);
         }
     }
    
