@@ -21,5 +21,8 @@ export default{
   },
   ActiveUser(id, status) {
        return axios.post('/active/' + id, status);
-  } 
+  }, 
+  updateWelcome(){
+    return axios.post('/welcome');
+  }
 }
