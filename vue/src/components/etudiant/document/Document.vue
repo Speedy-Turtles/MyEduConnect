@@ -59,7 +59,7 @@
                                         ></v-radio>
                                     </v-radio-group>
                                 </v-list-item>
-                                <!-- <button @click="accepterdemande(document.id)">Accepter demande </button> -->
+                                <button @click="accepterdemande(document.id)">Accepter demande </button>
                                 <v-card-actions v-if="test && test.etat==0">
                                     <v-btn
                                         outlined
@@ -75,7 +75,7 @@
                                     rounded
                                     :loading="loading_download"
                                     color="success"
-                                    @click="GenerPdf((document.Type).split(' ')[0],document.id)"
+                                    @click="GenerPdf((document.Type).split(' ')[0],document.id,document.demandes[0].Langue)"
                                 >
                                     Download 
                                 </v-btn>
@@ -115,6 +115,7 @@ export default {
         this.init_demande();
         this.init_doc();
         this.info_perosnnel();
+
    },
    setup(){
         const store=AuthUser();
@@ -266,10 +267,10 @@ export default {
                  this.$router.go();
             })
           },
-        GenerPdf(type,id){
-           
+        GenerPdf(type,id,langue){
+           console.log(langue)
             if(type=="Attestation"){
-                if(this.select_langue==='a'){
+                if(langue==='a'){
                     this.langDocument="ar"
                     this.generePrsenceArab();
                 }
@@ -290,6 +291,7 @@ export default {
             service_doc.getAllDocment().then((res)=>{
                 this.All_Document=res.data.data;
                 this.loding_page=true;
+                // console.log(this.All_Document[0].demandes[0].Langue)
             });
          },
         init_demande(){
