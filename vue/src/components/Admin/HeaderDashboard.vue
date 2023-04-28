@@ -25,9 +25,8 @@
                    @click="chagerEtatNotif"
                    >
                       <v-icon size="35px">mdi-bell</v-icon>
-                      <v-badge color="red" :content="getNbrNotifNotSeen"
-                      v-if="getNbrNotifNotSeen!=0"
-                      :values="getNbrNotifNotSeen"
+                      <v-badge color="red" :content="getNbrNotifNotSeen!=0 ? getNbrNotifNotSeen : '0'"
+
                       ></v-badge>
                    </v-btn>
                    

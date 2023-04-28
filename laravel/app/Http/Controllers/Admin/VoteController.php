@@ -192,6 +192,7 @@ class VoteController extends Controller
                 ];
             })->sortByDesc("votes")->values()->all()[0];
         }
+        return response()->json(['data'=>$votes],200);
 
 /* foreach($votes[0] as $value){
 
@@ -218,7 +219,7 @@ class VoteController extends Controller
             }
         }
 */
-       return response()->json(['data'=>$votes],200);
+
     }
 
     public function suspende(int $id){
