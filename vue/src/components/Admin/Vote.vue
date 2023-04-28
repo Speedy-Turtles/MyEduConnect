@@ -342,6 +342,7 @@ export default{
     methods:{
         Terminer(id){
           service_vote.TermenierSession(id).then((res)=>{
+            this.$router.go();
              console.log(res.data.data);
           })
         },
@@ -370,16 +371,19 @@ export default{
         },
         Suspende(id){
           service_vote.suspende(id).then((res)=>{
+              this.$router.go();
              console.log(res.data);
           })
         },
         annuler(id){
           service_vote.annuler(id).then((res)=>{
+            this.$router.go();
              console.log(res.data);
           })
         },
         deleteSession(id){
           service_vote.deleteSession(id).then((res)=>{
+            this.$router.go();
              this.snackbar_delete=true;
           })
         },
