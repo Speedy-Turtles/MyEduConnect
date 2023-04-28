@@ -80,7 +80,6 @@
             <!-- --------------------------------------section-3/------------------------->
         </v-container>
         <div class="text-center" v-if="snackbar">
-
             <v-snackbar
             v-model="snackbar"
             :timeout="timeout"
@@ -98,12 +97,9 @@
                 </v-btn>
             </template>
             </v-snackbar>
-          
         </div>
-        
     </div>
    
-
 </template>
 <script>
 import {AuthUser} from "@/store/Store.js";
