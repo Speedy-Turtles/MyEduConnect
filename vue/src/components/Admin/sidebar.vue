@@ -10,7 +10,7 @@
             <li>
               <a  @click="changerView('stat')"  href="#" :class="store.view=='stat' ? 'active' : ''">
                   <v-icon  class="icon">mdi-home</v-icon>
-                  <span :class=" small ? 'none_btn_open_close_sidebar' : ''"  class="nav-item">test</span>
+                  <span :class=" small ? 'none_btn_open_close_sidebar' : ''"  class="nav-item">Statistique</span>
                  </a>
               </li>
                <li>
