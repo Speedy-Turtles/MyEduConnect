@@ -17,9 +17,9 @@
                     <div  v-else-if="store.view=='vote'">
                         <Vote></Vote>
                     </div>
-                    <div  v-else>
-                       <statistique></statistique>
-                    </div>
+                    <div  v-else-if="store.view=='edit'">
+                       <modifierProfil></modifierProfil>
+                  </div>
                 </div>
             </div>
         </transition>
@@ -31,6 +31,7 @@ import userinfo from "@/service/UserInfo/userinfo";
 import statistique from '@/components/Admin/statistique.vue';
 import HeaderDashboard from '@/components/Admin/HeaderDashboard.vue';
 import sidebarVue from '../../components/Admin/sidebar.vue'
+import modifierProfil from "@/components/EditProfil/ModifierProfil.vue";
 import Vote from '@/components/Admin/Vote.vue';
 import {CurentView} from "@/store/StoreView.js";
 import {AuthUser} from "@/store/Store.js";
@@ -89,7 +90,7 @@ export default{
       }
     },
     components:{
-       sidebarVue,HeaderDashboard,statistique,Vote
+       sidebarVue,HeaderDashboard,statistique,Vote,modifierProfil
     },
  
 };

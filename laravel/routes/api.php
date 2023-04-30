@@ -12,6 +12,7 @@ use App\Http\Controllers\GestionClasseController;
 use App\Http\Controllers\GestionSpecialiteController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\Document\DocumentController;
+use App\Http\Controllers\EditProfil\EditController;
 use App\Http\Controllers\nouveauteController;
 use App\Http\Controllers\proffesors\usersEtudiantContoroller;
 use App\Http\Controllers\proffesors\UsersProffesorsController;
@@ -84,6 +85,12 @@ Route::get('GetUser/{id}',[InfoUserController::class,"GetUser"]);
 
 Route::middleware("auth:sanctum")->group(function(){
 
+
+    Route::get('getUserAuthentifie',[InfoUserController::class,"getUserAuthentifie"]);
+
+    Route::group(["prefix"=>"/edit"],function(){
+        Route::post("/uploadPhoto",[EditController::class,"editPhoto"]);
+    });
         Route::get("/getNiveau",[InfoUserController::class,"GetNiveauUser"]);
         Route::post("/welcome",[InfoUserController::class,"updateWelcome"]);
 

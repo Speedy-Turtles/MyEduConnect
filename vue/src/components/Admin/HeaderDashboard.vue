@@ -72,11 +72,19 @@
                  </v-btn>
                 </template>
                 <v-list>
-                <v-list-item
+                <v-list-item class="text-center"
                 >
                     <v-list-item-title>{{store.user['FirstName']}}</v-list-item-title>
                     </v-list-item>
                 </v-list>
+                <v-list-item>
+                    <v-list-item-action>
+                        <v-btn plain @click="changerView('edit')">
+                            <v-icon class="pa-2">mdi-account-cog</v-icon>
+                            <span class="">Setting</span>
+                        </v-btn>
+                    </v-list-item-action>
+                </v-list-item>
                 <v-list-item>
                   <v-list-item-action>
                       <v-btn plain @click="logout()">
@@ -101,7 +109,7 @@ export default {
             this.getNotifsNotSeen();
          },
   setup(){
-    const store = AuthUser();
+     const store = AuthUser();
      const store_view = CurentView();
      return {store,store_view};
   },
@@ -112,6 +120,10 @@ export default {
     }
   },
   methods:{
+      changerView(data){
+        this.store_view.suppView();
+        this.store_view.setView(data);
+      },
        logout(){
             this.store_view.suppView();
             this.store.logout();

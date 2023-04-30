@@ -48,8 +48,8 @@ export default{
   },
   methods:{
       changer(){
-          this.etatsidbar=this.etatsidbar==true ? false : true;
-          this.$emit("changreetat", this.etatsidbar);
+           let etat=this.etatsidbar==true ? false : true;
+          this.$emit("changreetat", etat);
       },
       changerView(data){
         this.store.suppView();
