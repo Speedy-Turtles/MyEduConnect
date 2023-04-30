@@ -12,5 +12,20 @@ export default{
             },
         };
         return axios.post("edit/uploadPhoto",data,config);
+    },
+    EditInfoPersonnel(user){
+        return axios.put("edit/EditInfoPersonnel",user);
+    },
+    CheckPassword(password){
+        return axios.get("edit/CheckPassword/"+password);
+    },
+    ChangerPasswordActuel(password){
+        return axios.put("edit/ChangerPasswordActuel/"+password);
+    },
+    SendChangedEmail(email){
+        return axios.get("edit/SendChangedEmail/"+email);
+    },
+    updateEmail(data){
+        return axios.put("edit/updateEmail",data);
     }
 }
