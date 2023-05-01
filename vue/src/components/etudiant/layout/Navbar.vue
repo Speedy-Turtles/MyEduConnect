@@ -23,11 +23,11 @@
                 <v-list>
                    
                     <v-list-item
-                    v-for="link in (store.Isens==true ? links_ensignat : links)"
+                    v-for="link in (!test_idetudiant || store.Isetudiant=='false' ? links_ensignat : links)"
                     :key="link.titre"
                     >
                         <v-list-item-title>
-                            <v-btn plain router :to="link.route">{{link.titre}}</v-btn>
+                            <v-btn plain router :to="link.route">{{link.titre}} </v-btn>
                         </v-list-item-title>
                     </v-list-item>
                 </v-list>
@@ -41,7 +41,7 @@
                 <!-- --------------------titre/-------------------------- -->
                 <v-toolbar-items  class="hidden-sm-and-down">
                     <!-- --------------------tooltips-------------------------- -->
-                    <v-tooltip bottom v-for="link in (store.Isens==true ? links_ensignat : links)" :key="link.titre">
+                    <v-tooltip bottom v-for="link in (!test_idetudiant || store.Isetudiant=='false'  ? links_ensignat : links)" :key="link.titre">
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn
                             plain
@@ -52,7 +52,7 @@
                             router :to="link.route"
                             >
                             <v-icon class="px-3">{{ link.icon }}</v-icon>
-                            {{ link.titre }}
+                            {{ link.titre }} 
                             </v-btn>
                         </template>
                         <span>{{ link.desc  }}</span>
@@ -159,7 +159,7 @@
                         </v-list-item-action>
                     </v-list-item>
 
-                    <v-list-item v-if="store.Ischef==true">
+                    <v-list-item v-if="test_ischef==true || store.Ischef=='true'">
                         <v-list-item-action>
                             <v-btn
                                 plain
@@ -216,14 +216,15 @@ import gererNotifEtud from "@/service/NotifEtudiant/gererNotifEtud"
                 notifications:[],
                 notificationNotSeen:[],
 
-
                 links_ensignat:[
                     {titre:'home',link:'home',desc:'Home',icon:'mdi-home',route:'/etudiant'},
                     {titre:'Forum',link:'forum',desc:'Go to Forum',icon:'mdi-comment-text-outline',route:'/etudiant/forum'},
                     {titre:'vote',link:'vote',desc:'chose your chef',icon:' mdi-vote',route:'/etudiant/vote'},
                     {titre:'Help',link:'help',desc:'How Can We help You !',icon:'mdi-wrench',route:'/etudiant/help'}
                 ],
-                messages:10
+                messages:10,
+                test_ischef:false,
+                test_idetudiant:false
 
             }
         },
@@ -259,6 +260,8 @@ import gererNotifEtud from "@/service/NotifEtudiant/gererNotifEtud"
          },
         },
          created(){
+            this.test_ischef=this.store.Ischef;
+            this.test_idetudiant=this.store.Isetudiant;
             this.getNotifs();
             this.getNotifsNotSeen();
          },

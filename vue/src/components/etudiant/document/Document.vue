@@ -59,7 +59,7 @@
                                         ></v-radio>
                                     </v-radio-group>
                                 </v-list-item>
-                                <button @click="accepterdemande(document.id)">Accepter demande </button>
+                                <!-- <button @click="accepterdemande(document.id)">Accepter demande </button> -->
                                 <v-card-actions v-if="test && test.etat==0">
                                     <v-btn
                                         outlined
@@ -115,7 +115,6 @@ export default {
         this.init_demande();
         this.init_doc();
         this.info_perosnnel();
-
    },
    setup(){
         const store=AuthUser();
