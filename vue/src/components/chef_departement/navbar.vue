@@ -22,8 +22,9 @@
             <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn plain v-bind="attrs" v-on="on">
-                        <v-avatar size="43px">
-                            <img src="../../assets/DSC_6972 (1).jpg" alt="">
+                        <v-avatar size="43px" color="indigo">
+                            <img v-if="store.user['Photo'].length!=2" :src="store.user['Photo']" alt="">
+                            <span v-else> {{ store.user['Photo'] }}</span>
                         </v-avatar>
                     </v-btn>
                 </template>
