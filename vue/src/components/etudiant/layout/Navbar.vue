@@ -228,11 +228,16 @@ import gererNotifEtud from "@/service/NotifEtudiant/gererNotifEtud"
 
             }
         },
+       mounted(){
+            window.Echo.channel('NotifRealtime').listen('notif',(e)=>{
+                this.getNotifs();
+                this.getNotifsNotSeen();
+             })
+        },
        methods:{
         logout(){
             this.store.logout();
             this.$router.push({name:'signin'});
-
         },
         getNotifs(){
             gererNotifEtud.getNotifEtud().then((res)=>{

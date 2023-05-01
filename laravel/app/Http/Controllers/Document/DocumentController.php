@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Document;
 
+use App\Events\notif;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Document\DB;
 use App\Models\Document;
@@ -31,6 +32,7 @@ class DocumentController extends Controller
       $notif->id_envoi=$request->user()->id;
       $notif->id_recu=$id_chef->id;
       $notif->message=$request->user()->FirstName .' demande document '.$nom->Type;
+      broadcast(new notif( $notif->message));
       $notif->etat=0;
       $notif->save();
       if($demandes_check){

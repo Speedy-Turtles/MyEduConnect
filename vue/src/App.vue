@@ -15,6 +15,10 @@ export default {
   name: 'App',
   mounted() {
       AOS.init();
+      //test Websockets ,Pusher
+      // window.Echo.channel('NotifRealtime').listen('notif',(e)=>{
+    	//     console.log(e);
+      // })
     },
  data(){
   return{
