@@ -167,4 +167,5 @@ Route::group(['prefix'=>'/proffesors/students'],function(){
     Route::get('/accepted',[usersEtudiantContoroller::class,'acceptedStudents']);
     Route::get('/pending',[usersEtudiantContoroller::class,'pendingRequests']);
 });
+Route::get("/classes",[GestionClasseController::class,'getAllClasses']);
 
