@@ -11,6 +11,7 @@
     "aos": "^2.3.4",
     "chart.js": "^4.2.1",
     "core-js": "^3.8.3",
+    "draggable-vue-directive": "^2.1.0",
     "echarts": "^5.4.2",
     "fontsource-amiri": "^4.0.0",
     "jspdf": "^2.5.1",
