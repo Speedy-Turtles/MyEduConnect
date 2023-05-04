@@ -14,7 +14,8 @@
                         <v-flex class="pa-5"><h1>Novelty</h1></v-flex>
                     </v-layout>
                     <div class="NoNeauvelty ma-10 " v-if="neavautes.length==0">
-                        <span class="msgErr">No Neauvelty is availble</span>
+                        <v-img src="../../../../public/etudiant/images/no-data-found-logo.png" width="550px"></v-img>
+                        
                     </div>
                     <div id="card"  data-aos="fade-down" v-else>
                         <div class="Neauvelty" v-for="neauv in neavautes" :key="neauv.id">
