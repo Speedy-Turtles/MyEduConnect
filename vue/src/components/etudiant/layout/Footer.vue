@@ -32,6 +32,9 @@
 
 </script>
 <style scoped>
+.container{
+    margin-top:12vh ;
+}
 .footer1{
     background-color:#5094df ;
     height: auto;
@@ -41,7 +44,7 @@
     padding-bottom: 50px;
 }
 .footer2{
-    height: auto;
+    height: 30vh;
     background-color:#525fe1 ;
     
 }
