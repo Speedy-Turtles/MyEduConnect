@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class="content">
       <v-container fluid>
          <!-- --------------------------------------search------------------------------ -->
          
@@ -25,7 +25,7 @@
                   <v-flex xl3 md3 lg3 sm6 xs12>
                      <v-select
                      class="mr-5 pa-5"
-                     :items="seances2"
+                     
                      label="Session"
                      >
                      </v-select>
@@ -68,8 +68,11 @@
                      
                   >   <td>Lundi</td>
                      <td class="pa-5" v-for="lun in lundi" :key="lun.id">
+
                           <v-layout row class="pa-2">
-                            <v-flex><span class="seance align-center"> {{ seances[lun.numero_seance] }}</span> </v-flex>
+                            <v-flex>
+                              <span class="seance align-center"> {{ seances[lun.numero_seance] }}</span>
+                            </v-flex>
                           </v-layout>
                          
                         <v-layout row class="pa-2">
@@ -217,7 +220,6 @@
         this.jeudi=(res.data.data['jeudi']);
         this.vendredi=(res.data.data['vendredi']);
         this.samedi=(res.data.data['samedi']);
-        console.log(this.seances[2]);
       }).catch((err)=>{
         console.log(err);
       })
@@ -371,5 +373,7 @@
 .salle{
   font-size: 16px;
 }
-
+.emploi{
+  margin-bottom: 400px;
+}
  </style>
