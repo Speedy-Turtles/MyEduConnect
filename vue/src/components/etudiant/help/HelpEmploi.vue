@@ -55,19 +55,116 @@
          <div class="emploiTable">
             <v-simple-table>
                <template v-slot:default>
-                  <thead>
+                  <!-- <thead>
                   <tr>
                      <th class="text-left pa-5" v-for="seance in seances">
                         {{seance}}
                      </th>
                   </tr>
-                  </thead>
+                  </thead> -->
                   <tbody class="pa-5">
                   <tr
-                     v-for="jour in jours"
-                  >
-                     <td class="pa-5">{{ jour }}</td>
-                     <td v-for="i in 6" class="pa-3">Poo<br>A.Chaloueh <span>I0.9</span></td>
+                     
+                     
+                  >   <td>Lundi</td>
+                     <td class="pa-5" v-for="lun in lundi" :key="lun.id">
+                          <v-layout row class="pa-2">
+                            <v-flex><span class="seance align-center"> {{ seances[lun.numero_seance] }}</span> </v-flex>
+                          </v-layout>
+                         
+                        <v-layout row class="pa-2">
+                          <v-flex><span class="matiere">{{lun.matiere}}</span></v-flex>
+                        </v-layout>
+                        <v-layout row class="pa-2">
+                          <v-flex xl6 md6 lg6 sm6 xs6><span class="nom">{{lun.user.FirstName}} - {{lun.user.LastName}} </span></v-flex>
+                          <v-flex xl6 md6 lg6 sm6 xs6><span class="salle">{{ lun.salle.numero}}</span></v-flex>
+                        </v-layout>      
+                      </td>
+                  </tr>
+
+                  <tr  
+                  >   <td>Mardi</td>
+                  <td class="pa-5" v-for="mar in mardi" :key="mar.id">
+                          <v-layout row class="pa-2">
+                            <v-flex><span class="seance align-center"> {{ seances[mar.numero_seance] }}</span> </v-flex>
+                          </v-layout>
+                         
+                        <v-layout row class="pa-2">
+                          <v-flex><span class="matiere">{{mar.matiere}}</span></v-flex>
+                        </v-layout>
+                        <v-layout row class="pa-2">
+                          <v-flex xl6 md6 lg6 sm6 xs6><span class="nom">{{mar.user.FirstName}} - {{mar.user.LastName}} </span></v-flex>
+                          <v-flex xl6 md6 lg6 sm6 xs6><span class="salle">{{ mar.salle.numero}}</span></v-flex>
+                        </v-layout>      
+                      </td>
+                  </tr>
+
+                  <tr  
+                  >   <td>Mercredi</td>
+                      <td class="pa-5" v-for="mer in mercredi" :key="mer.id">
+                          <v-layout row class="pa-2">
+                            <v-flex><span class="seance align-center"> {{ seances[mer.numero_seance] }}</span> </v-flex>
+                          </v-layout>
+                         
+                        <v-layout row class="pa-2">
+                          <v-flex><span class="matiere">{{mer.matiere}}</span></v-flex>
+                        </v-layout>
+                        <v-layout row class="pa-2">
+                          <v-flex xl6 md6 lg6 sm6 xs6><span class="nom">{{mer.user.FirstName}} - {{mer.user.LastName}} </span></v-flex>
+                          <v-flex xl6 md6 lg6 sm6 xs6><span class="salle">{{ mer.salle.numero}}</span></v-flex>
+                        </v-layout>      
+                      </td>
+                  </tr>
+
+                  <tr  
+                  >     <td>Jeudi</td>
+                        <td class="pa-5" v-for="jeu in jeudi" :key="jeu.id">
+                              <v-layout row class="pa-2">
+                                <v-flex><span class="seance align-center"> {{ seances[jeu.numero_seance] }}</span> </v-flex>
+                              </v-layout>
+                            
+                            <v-layout row class="pa-2">
+                              <v-flex><span class="matiere">{{jeu.matiere}}</span></v-flex>
+                            </v-layout>
+                            <v-layout row class="pa-2">
+                              <v-flex xl6 md6 lg6 sm6 xs6><span class="nom">{{jeu.user.FirstName}} - {{jeu.user.LastName}} </span></v-flex>
+                              <v-flex xl6 md6 lg6 sm6 xs6><span class="salle">{{ jeu.salle.numero}}</span></v-flex>
+                            </v-layout>      
+                        </td>
+                  </tr>
+
+                  <tr  
+                  >   <td>Vendredi</td>
+                      <td class="pa-5" v-for="ven in vendredi" :key="ven.id">
+                            <v-layout row class="pa-2">
+                              <v-flex><span class="seance align-center"> {{ seances[ven.numero_seance] }}</span> </v-flex>
+                            </v-layout>
+                          
+                          <v-layout row class="pa-2">
+                            <v-flex><span class="matiere">{{ven.matiere}}</span></v-flex>
+                          </v-layout>
+                          <v-layout row class="pa-2">
+                            <v-flex xl6 md6 lg6 sm6 xs6><span class="nom">{{ven.user.FirstName}} - {{ven.user.LastName}} </span></v-flex>
+                            <v-flex xl6 md6 lg6 sm6 xs6><span class="salle">{{ ven.salle.numero}}</span></v-flex>
+                          </v-layout>      
+                      </td>
+                  </tr>
+
+                  <tr  
+                  >   <td>Samedi</td>
+                      <td class="pa-5" v-for="sam in samedi" :key="sam.id">
+                          <v-layout row class="pa-2">
+                            <v-flex><span class="seance align-center"> {{ seances[sam.numero_seance] }}</span> </v-flex>
+                          </v-layout>
+                        
+                        <v-layout row class="pa-2">
+                          <v-flex><span class="matiere">{{sam.matiere}}</span></v-flex>
+                        </v-layout>
+                        <v-layout row class="pa-2">
+                          <v-flex xl6 md6 lg6 sm6 xs6><span class="nom">{{sam.user.FirstName}} - {{sam.user.LastName}} </span></v-flex>
+                          <v-flex xl6 md6 lg6 sm6 xs6><span class="salle">{{ sam.salle.numero}}</span></v-flex>
+                        </v-layout>      
+                      </td>
                   </tr>
                   </tbody>
                </template>
@@ -84,13 +181,47 @@
     
   </template>
   <script>
+  import emploiService from "@/service/Emploi/gererEmploi"
   export default {
+    created(){
+      this.getEmploi();
+    },
    data(){
       return{
-        seances:["      ","Séance 1","Séance 2","Séance 3","Séance 4","Séance 5","Séance 6"],
-        seances2:["Séance 1","Séance 2","Séance 3","Séance 4","Séance 5","Séance 6"],
         jours:["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"],
+        lundi:[],
+        mardi:[],
+        mercredi:[],
+        jeudi:[],
+        vendredi:[],
+        samedi:[],
+        seances:{
+          1:'8h30 - 10h00',
+          2:'10h10 - 11h40',
+          3:'11h50 - 13h20',
+          4:'12h40 - 14h20',
+          5:'14h20 - 15h50',
+          6:'16h00 - 17h30',
+
+        }
+
+
       }
+   },
+   methods:{
+    getEmploi(){
+      emploiService.getEmploi().then((res)=>{
+        this.lundi=(res.data.data['lundi']);
+        this.mardi=(res.data.data['mardi']);
+        this.mercredi=(res.data.data['mercredi']);
+        this.jeudi=(res.data.data['jeudi']);
+        this.vendredi=(res.data.data['vendredi']);
+        this.samedi=(res.data.data['samedi']);
+        console.log(this.seances[2]);
+      }).catch((err)=>{
+        console.log(err);
+      })
+    }
    }
   }
  </script>
@@ -226,6 +357,19 @@
 .cssbuttons-io-button:active {
   box-shadow: 0 0.3em 1em -0.5em #4d36d0be;
 }
-
+.matiere{
+  font-size: 15px;
+  font-weight: bold;
+}
+.seance{
+  font-size: 15px;
+}
+.name{
+  text-align: justify;
+  font-size: 15px;
+}
+.salle{
+  font-size: 16px;
+}
 
  </style>
