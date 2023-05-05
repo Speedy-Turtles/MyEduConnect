@@ -14,6 +14,7 @@ use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\EditProfil\EditController;
 use App\Http\Controllers\nouveauteController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\proffesors\usersEtudiantContoroller;
 use App\Http\Controllers\proffesors\UsersProffesorsController;
 use Illuminate\Http\Request;
@@ -83,6 +84,8 @@ Route::group(['prefix'=>"/admin"],function(){
 Route::get('GetUser/{id}',[InfoUserController::class,"GetUser"]);
 
 Route::put("/edit/updateEmail",[EditController::class,"updateEmail"]);
+Route::get('/generate', [PdfController::class,"generatePDF"]);
+
 Route::middleware("auth:sanctum")->group(function(){
 
     Route::get('getUserAuthentifie',[InfoUserController::class,"getUserAuthentifie"]);
