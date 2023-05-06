@@ -145,7 +145,6 @@ export default{
       list-style-type: none;
   }
 
-  
   .large ul li .active{
     background: #fff;
     border-top-left-radius: 30px;
@@ -155,6 +154,7 @@ export default{
   .small ul li .active{
     background: #fff;
     border-radius: 25px;
+    height: 30px;
   }
 
   .active .nav-item,.active .icon{
@@ -171,12 +171,22 @@ export default{
     line-height:34px;
   }
 
+  .icon{
+    position: relative;
+    width: 70px;
+    height: 40px;
+    top: 5px;
+    font-size: 25px;
+    text-align: center;
+    margin-left:-10px;
+    color:#fff;
+}
 .large .active .icon{
     position: relative;
     width: 70px;
     height: 40px;
-    top: 14px;
-    font-size: 25px;
+    top: 2px;
+    font-size: 35px;
     text-align: center;
     margin-left:-10px;
 }  
@@ -185,32 +195,24 @@ export default{
   position: relative;
   width: 70px;
   height: 40px;
-  top: 14px;
-  font-size: 15px;
+  top: 11px;
+  font-size: 25px;
   text-align: center;
 }  
 .small .active .icon{
   position: relative;
   width: 70px;
   height: 40px;
-  top: 14px;
-  font-size: 20px;
+  top: 1px;
+  font-size: 30px;
   text-align: center;
+  left: 4px;
 }  
-  .icon{
-      position: relative;
-      width: 70px;
-      height: 40px;
-      top: 14px;
-      font-size: 25px;
-      text-align: center;
-      margin-left:-10px;
-      color:#fff;
-  }
+  
   .nav-item{
       position: relative;
-      top: 19px;
-      margin-left: 10px;
+      top: 4px;
+      margin-left: 28px;
   }
   nav.close{
       width: 280px;
