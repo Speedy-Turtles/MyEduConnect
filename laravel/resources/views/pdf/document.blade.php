@@ -36,21 +36,25 @@
         }
 
         table{
-            margin-top: 5px;
             width: 100%;
-            padding: 25px;
+            padding: 15px;
         }
         tr,td{
             line-height: 10px;
             padding: 5px;
+        }
+        td{
+            border: 1px solid #000;
+            width: 100%
         }
         .image{
             text-align: center;
             padding: 10px;
         }
         .footer{
-            text-align: center
+            text-align: center;
         }
+
     </style>
 </head>
 <body>
@@ -67,30 +71,28 @@
          </p>
     </div>
     <div>
-       <p class="objet"><Strong>Objet</Strong> : Demande de Stage Obligatoire</p>
+       <p class="objet"><Strong>Objet: Demande de Stage Obligatoire</Strong> </p>
     </div>
     <div>
         <p class="paraghraphe">
          L'Institut Supérieur des Etudes Technologiques de Bizerte assure depuis un certain nombre d'années une formation en licences
-         devant être consolidée par un stage de perfectionnement en entreprise et ce, dans le cadre de l'ouverture de notre institution
+         devant être consolidée par <b> un stage de perfectionnement </b>en entreprise et ce, dans le cadre de l'ouverture de notre institution
          universitaire sur son environnement socio-économique.
         </p>
     </div>
     <div>
         <p class="paraghraphe">
             Nous venons donc, par la présente, vous demander de bien vouloir accueillir, au sein de votre entreprise,{{$user['sex']=="Man" ? 'l\'étudiant': 'l\'étudiante'}}
-             {{$user['LastName'].' '.$user['FirstName']}} titulaire de la CIN n°{{$user['Cin']}} {{$user['sex']=="Man" ? 'inscrit': 'inscrite'}}
-            au cours de l'année universitaire 2022/2023 en {{$niveau}} année de la <b>LICENCE APPLIQUEE EN TECHNOLOGIES DE L'INFORMATIQUE</b>:{{$specaialite}} Classe {{$classe_current}}
-             Ce stage obligatoire est prévu pour une durée de quatre semaines, du 09 Janvier au 04 Février 2023.
+             <b>{{strtoupper($user['LastName']).' '.strtoupper($user['FirstName'])}} </b>titulaire de la CIN n°<b>{{$user['Cin']}}</b> {{$user['sex']=="Man" ? 'inscrit': 'inscrite'}}
+            au cours de l'année universitaire <b>2022/2023</b> en {{$niveau}} année de la <b>LICENCE APPLIQUEE EN TECHNOLOGIES DE L'INFORMATIQUE:{{$specaialite}}</b> Classe {{$classe_current}}
+             Ce stage obligatoire est prévu pour une durée de quatre semaines, du <b>09 Janvier</b> au <b>04 Février 2023</b>.
          </p>
     </div>
-
     <div>
         <p class="paraghraphe">
             Nous vous signalons, que durant la période de stage, l'{{$user['sex']=="Man" ? 'étudiant': 'étudiante'}}  est {{$user['sex']=="Man" ? 'couvert': 'couverte'}}  par la Mutuelle Accident Scolaire et Universitaire-MASU(11051424-006).
          </p>
     </div>
-
     <div>
         <p class="paraghraphe">
             Nous vous prions, en cas de réponse positive, de bien vouloir remplir la fiche de stage ci-dessous et la remettre à l'{{$user['sex']=="Man" ? 'étudiant': 'étudiante'}} ou la retourner par fax, et ce afin de préparer la lettre d'affectation du stagiaire.
@@ -101,45 +103,41 @@
     <p class="titre"><b> Fiche Réponse</b></p>
     <table >
          <tr>
-            <td>Entreprise</td>
-            <td></td>
+            <td colspan="2">Entreprise</td>
          </tr>
          <tr>
-            <td>Département :</td>
-            <td></td>
+            <td colspan="2">Département :</td>
          </tr>
          <tr>
-            <td>Le responsable direct du stagiaire :</td>
-            <td></td>
+            <td colspan="2">Le responsable direct du stagiaire :</td>
          </tr>
          <tr>
-            <td>Fonction du responsable direct du stagiaire :</td>
-            <td></td>
+            <td colspan="2">Fonction du responsable direct du stagiaire :</td>
          </tr>
          <tr>
             <td>Stage prévu du</td>
             <td>au</td>
          </tr>
          <tr>
-            <td>Adresse :</td>
-            <td></td>
+            <td colspan="2">Adresse :</td>
          </tr>
          <tr>
             <td>Fax :</td>
             <td>Tél :</td>
          </tr>
-         <tr>
-            <td >
+         <tr >
+            <td style="border: none ;">
                 Signature et cachet du responsable de l'entreprise
             </td>
-            <td >
-                 Signature et cachet du responsable ISET
+            <td style="border: none;">
+                Signature et cachet du responsable ISET
             </td>
          </tr>
          <tr>
-            <td></td>
-            <td><img src="data:image/jpeg;base64,{{$base64}}'"/></td>
+            <td  style="border: none"></td>
+            <td  style="border: none"><img src="data:image/jpeg;base64,{{$base64}}'"/></td>
          </tr>
+         <tr>
     </table>
     <div>
         <p class="footer">

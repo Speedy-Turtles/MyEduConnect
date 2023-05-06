@@ -68,10 +68,9 @@
                                             label="Français"
                                             value="f"
                                         ></v-radio>
-                                      
                                     </v-radio-group>
                                 </v-list-item>
-                                <button @click="accepterdemande(document.id)">Accepter demande </button>
+                                <!-- <button @click="accepterdemande(document.id)">Accepter demande </button> -->
                                 <v-card-actions v-if="test && test.etat==0">
                                     <v-btn
                                         outlined
@@ -122,7 +121,6 @@ import {AmiriRegular} from "@/assets/fontArabic/amiri.js";
 import service_doc from "@/service/Document/gererDocument.js"
 import infouser from "@/service/UserInfo/userinfo.js"
 import "@/plugins/axios"
-import axios from "axios"
 export default {
    mixins:[ar,fr],
    created(){
