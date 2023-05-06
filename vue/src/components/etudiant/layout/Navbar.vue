@@ -139,6 +139,7 @@
                         <v-list-item-action>
                             <v-btn
                                 plain
+                                router to="/etudiant/EditProfilView"
                             >
                                 <v-icon class="pa-2">mdi-wrench</v-icon>
                                 <span class="">Settings</span>
@@ -147,7 +148,7 @@
                         
                     </v-list-item>
 
-                    <v-list-item>
+                    <!-- <v-list-item>
                         
                         <v-list-item-action>
                             <v-btn
@@ -157,7 +158,7 @@
                                 <span class="">personal info </span>
                             </v-btn>
                         </v-list-item-action>
-                    </v-list-item>
+                    </v-list-item> -->
 
                     <v-list-item v-if="test_ischef==true || store.Ischef=='true'">
                         <v-list-item-action>
