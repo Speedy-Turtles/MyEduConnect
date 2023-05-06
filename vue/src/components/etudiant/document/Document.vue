@@ -221,7 +221,7 @@ export default {
         },
         generePrsenceFrancais(){
             var niveau="";
-                if(this.niveau==1){
+                    if(this.niveau==1){
                      niveau=this.langDocument=="premiere";
                     }else if(this.niveau==2){
                         niveau=this.langDocument=="deuxieme" ;
@@ -293,7 +293,7 @@ export default {
                     this.generePrsenceFrancais();
                 }
             }else if(type=="Stage"){
-                window.location.href = 'http://localhost:8000/api/generate'
+                window.location.href = 'http://localhost:8000/api/pdf/generate/'+this.store.user['id'];
                 setTimeout(() => {
                     window.location.href="http://localhost:8081/etudiant/document";
                  }, 2000);
