@@ -11,6 +11,7 @@ use App\Http\Controllers\Document\DemandesController;
 use App\Http\Controllers\GestionClasseController;
 use App\Http\Controllers\GestionSpecialiteController;
 use App\Http\Controllers\InfoUserController;
+use App\Http\Controllers\Document\EmploiController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\EditProfil\EditController;
 use App\Http\Controllers\nouveauteController;
@@ -121,6 +122,10 @@ Route::middleware("auth:sanctum")->group(function(){
             Route::post('ShowNotif',[InfoUserController::class,"ShowNotif"]);
         });
 
+        Route::group(['prefix'=>"emploi/"],function(){
+            Route::get("getemploi",[EmploiController::class,"getEmploi"]);
+
+        });
 
         Route::group(['prefix'=>"vote/"],function(){
             Route::post('AddUserNominated_Session',[VoteController::class,"AddUserNominated_Session"]);

@@ -9,24 +9,34 @@
                 </v-container>
             </v-flex>
             <v-flex xl8 md9  xs12 class="pa-5" >
-                    <v-layout row>
-                        <v-flex class="pa-5"><h1 class="titre">Document</h1></v-flex>
-                    </v-layout>
                     <v-layout row wrap>
-                        <v-flex class="py-5 mt-5" v-if="loding_page==false">
-                            <div class="text-center py-5 mt-5">
-                                <v-progress-circular
-                                  indeterminate
-                                  color="primary"
-                                ></v-progress-circular>
-                                </div>
+                        
+                        <v-flex xl6 md6 sm12 xs12 v-if="All_Document.length==0">
+                            <div class="nodata">
+                                <v-img src="../../../../public/etudiant/images/no-data-found-logo.png" width="550px" ></v-img>
+                            </div>
                         </v-flex>
+<<<<<<< HEAD
                         <v-flex  xl6 md6 sm12 xs12 v-for="(document,index) in All_Document " :key="document.id">
+=======
+                        <div class="div" v-else>
+                            <v-flex class="py-5 mt-5" v-if="loding_page==false">
+                                <div class="text-center py-5 mt-5">
+                                    <v-progress-circular
+                                    indeterminate
+                                    color="primary"
+                                    ></v-progress-circular>
+                                </div>
+                            </v-flex>
+                            <v-flex  xl6 md6 sm12 xs12 v-for="document in All_Document " :key="document.id">
+                            
+>>>>>>> etudiant_branch
                             <v-card
                                 :loading="loading1"
                                 class="mx-auto mb-4"
                                 max-width="350"
                                 outlined
+                                
                             >
                                <img src="../../../../public/etudiant/images/document.png" alt="" srcset="" width="300px" height="200px"> 
                                 <v-list-item three-line>
@@ -105,6 +115,8 @@
                                     </v-card-actions>
                             </v-card>
                         </v-flex>
+                        </div>
+                        
                     </v-layout>
 
             </v-flex>
@@ -343,6 +355,10 @@ export default {
     .v-card{
         max-width: 351px;
         height: 420px; 
+    }
+    .nodata{
+        display: flex;
+        align-items: center;
     }
     /* .titre{
         margin-top: 50px;

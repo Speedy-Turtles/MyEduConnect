@@ -19,11 +19,20 @@
         </v-container>
             <!-- --------------------------------------section-2 ------------------------->
                 <div class="section-2">
-                    <v-container>
+                    <v-container fluid>
                             <div class="content">
                                 <v-layout row wrap class="justify-content-center">
-                                    <v-flex xl3 lg3 md3 sm6 xs6   class="pa-5" v-for="acteur in acteurs" :key="acteur.person">
-                                        <h3 class="white--text justify-center">{{acteur.person}}  {{ acteur.nombre }}</h3>
+                                    <v-flex xl3 lg3 md3 sm6 xs12   class="pa-5">
+                                        <h3 class="white--text justify-center"> <span>Students </span>  {{ this.stats.nb_etudiant}}</h3>
+                                    </v-flex>
+                                    <v-flex xl3 lg3 md3 sm6 xs12   class="pa-5">
+                                        <h3 class="white--text justify-center"> <span>Teachers </span>  {{ this.stats.nbr_ens}}</h3>
+                                    </v-flex>
+                                    <v-flex xl3 lg3 md3 sm6 xs12   class="pa-5">
+                                        <h3 class="white--text justify-center"> <span>Head Of Department </span>  {{ this.stats.nb_etudiant}}</h3>
+                                    </v-flex>
+                                    <v-flex xl3 lg3 md3 sm6 xs12   class="pa-5">
+                                        <h3 class="white--text justify-center"> <span>Technician</span>  {{ this.stats.nb_technicien}}</h3>
                                     </v-flex>
                                 </v-layout>
                             </div>
@@ -45,7 +54,7 @@
                         </div>
                     </v-flex>
                
-                    <v-flex xl2 lg3 md4 sm6 xs12 class="pa-5" v-for="fonction in fonctions "
+                    <v-flex xl4 lg4 md4 sm6 xs12 class="pa-5" v-for="fonction in fonctions "
                                 :key="fonction.titre"
                                 >
                             <!-- -------------------card------------------------ -->
@@ -104,6 +113,7 @@
 <script>
 import {AuthUser} from "@/store/Store.js";
 import userinfo from "@/service/UserInfo/userinfo";
+import admin from "@/service/admin/gererAdmin";
 
 export default {
     
@@ -123,19 +133,16 @@ data(){
         classe_current:"",
         spec:"",
         niveau:0,
-        acteurs:[
-            {person:'Etudiants',nombre:'+50',icon:''},
-            {person:'Enseignants',nombre:'+20',icon:''},
-            {person:'Chef Departement',nombre:'+10',icon:''},
-            {person:'Technecien',nombre:'+10',icon:''}
-        ],
         fonctions:[
             {titre:'Document',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/document.png')},
-            {titre:'Forums',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/forum.png')},
-            {titre:'Clubs   ',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/club.png')},
+            {titre:'Forums',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/forum2.png')},
+            {titre:'Emploi',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/club.png')},
+            {titre:'Emploi',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/help.png')},
+            
         ],
         snackbar:false,
-        timeout:3000
+        timeout:3000,
+        stats:[]
     }
 },
 props:['photos'],
@@ -158,13 +165,23 @@ methods:{
                 })
             }, 1000);
         }
+    },
+    getStats(){
+        admin.getStat().then((res)=>{
+            this.stats=res.data.data;
+            console.log(this.stats.nb_etudiant)
+        }).catch((err)=>{
+            console.log(err);
+        })
     }
+
    
 },
 created(){
     this.selected=this.randomPhoto(this.photos)
     this.snackbar=true
-    this.greeting()
+    this.greeting();
+    this.getStats();
 
 }
 }
@@ -270,6 +287,10 @@ text-transform: none;
     margin-bottom: 50px;
     margin-top: 50px;
     clip-path: polygon(0 5%, 100% 0, 100% 100%, 100% 100%, 100% 100%, 0 93%, 0 21%);
+}
+h3{
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    padding-left: 20px;
 }
 </style>
 

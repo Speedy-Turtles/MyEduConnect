@@ -62,7 +62,9 @@
                 </v-toolbar-items>
                 <v-spacer></v-spacer>
                 <v-menu offset-y
-                
+                transition="slide-x-transition" 
+                left
+                class="mt-7"
                 >
                     <template v-slot:activator="{ on, attrs }">
                      <v-btn
@@ -71,7 +73,7 @@
                      v-on="on"
                      @click="chagerEtatNotif"
                      >
-                        <v-icon size="35px">mdi-bell</v-icon>
+                        <v-icon size="35px ">mdi-bell</v-icon>
                         <v-badge color="red" :content="getNbrNotifNotSeen"
                         v-if="getNbrNotifNotSeen!=0"
                         :values="getNbrNotifNotSeen"
@@ -79,6 +81,13 @@
                      </v-btn>
                      
                     </template>
+                   
+                        <v-list>
+                            <v-list-item class="">
+                                Notifications
+                            </v-list-item>
+                        </v-list>
+                        <v-divider></v-divider>
                     <v-list v-if="notifications.length==0">
                     <v-list-item  class="mt-5">
                         <v-list-item-title>No notifications !</v-list-item-title>
@@ -88,8 +97,12 @@
                     <v-list-item
                         v-for="notif in notifications" :key="notif.id"
                     >
-                        <v-list-item-title>{{ notif.msg }}</v-list-item-title>
+                        <v-list-item-content>
+                            <v-list-item-title class="px-5">{{ notif.msg }}   <br><span class="date"> Since : {{ notif.date }}</span></v-list-item-title>
+                        </v-list-item-content> 
+                        
                         </v-list-item>
+                        <v-divider></v-divider>
                         <v-list-item class="mt-5">
                             <v-btn 
                             plain
@@ -210,7 +223,6 @@ import gererNotifEtud from "@/service/NotifEtudiant/gererNotifEtud"
                     {titre:'home',link:'home',desc:'Home',icon:'mdi-home',route:'/etudiant'},
                     {titre:'Document',link:'document',desc:'Check Documents',icon:'mdi-table-edit',route:'/etudiant/document'},
                     {titre:'Forum',link:'forum',desc:'Go to Forum',icon:'mdi-comment-text-outline',route:'/etudiant/forum'},
-                    {titre:'Club',link:'club',desc:'Enjoy Clubs',icon:'mdi-star-outline',route:'/etudiant/club'},
                     {titre:'Help',link:'help',desc:'How Can We help You !',icon:'mdi-wrench',route:'/etudiant/help'}
                 ],
 
@@ -243,7 +255,7 @@ import gererNotifEtud from "@/service/NotifEtudiant/gererNotifEtud"
         getNotifs(){
             gererNotifEtud.getNotifEtud().then((res)=>{
                 for(let i=0;i<(res.data.data).length;i++){
-                    this.notifications.push({idNotif:res.data.data[i].id,msg:res.data.data[i].message,etat:res.data.data[i].etat})
+                    this.notifications.push({idNotif:res.data.data[i].id,msg:res.data.data[i].message,etat:res.data.data[i].etat,date:(res.data.data[i].created_at).substring(0,10)})
                 }
             }
             )
@@ -316,5 +328,14 @@ text-transform: uppercase;
     z-index: 999;
     width: 100%;
    
+}
+
+.v-application .mt-5{
+    padding-top: 10px;
+}
+
+.date{
+    font-size: 12px;
+    color: grey;
 }
 </style>
