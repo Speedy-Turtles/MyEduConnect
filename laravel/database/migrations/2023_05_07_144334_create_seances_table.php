@@ -20,7 +20,7 @@ return new class extends Migration
             $table->String('jour');
 
             $table->foreignId("emploi_id");
-            $table->foreign("emploi_id")->references('id')->on("emplois")->onDelete("cascade");
+            $table->foreign("emploi_id")->references("id")->on("emplois")->onDelete("cascade");
 
             $table->foreignId("salle_id");
             $table->foreign("salle_id")->references('id')->on("salles")->onDelete("cascade");
