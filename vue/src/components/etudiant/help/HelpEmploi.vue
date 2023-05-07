@@ -64,28 +64,66 @@
                   </thead> -->
                   <tbody class="pa-5">
                   <tr
-                     
-                     
-                  >   <td>Lundi</td>
-                     <td class="pa-5" v-for="lun in lundi" :key="lun.id">
+                  v-for="(jour,index) in jours"
+                  :key="index"
+                    
+                  >  
+                  <td>
+                    
+                    {{ jour[index] }}
+                  </td>
+                   <td
+                  v-for="jou in jour[index]"
 
-                          <v-layout row class="pa-2">
-                            <v-flex>
-                              <span class="seance align-center"> {{ seances[lun.numero_seance] }}</span>
-                            </v-flex>
-                          </v-layout>
+                  >
+                  {{ jou }}
+                </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                     <!-- <td class="pa-5" v-for="lun in lundi" :key="lun.id">
+
+                       
+
                          
-                        <v-layout row class="pa-2">
-                          <v-flex><span class="matiere">{{lun.matiere}}</span></v-flex>
-                        </v-layout>
-                        <v-layout row class="pa-2">
-                          <v-flex xl6 md6 lg6 sm6 xs6><span class="nom">{{lun.user.FirstName}} - {{lun.user.LastName}} </span></v-flex>
-                          <v-flex xl6 md6 lg6 sm6 xs6><span class="salle">{{ lun.salle.numero}}</span></v-flex>
-                        </v-layout>      
-                      </td>
+                              <v-layout row class="pa-2">
+                                <v-flex>
+                                  <span class="seance align-center"> {{ seances[lun.numero_seance] }}</span>
+                                </v-flex>
+                              </v-layout>
+                            
+                            <v-layout row class="pa-2">
+                              <v-flex><span class="matiere">{{lun.matiere}}</span></v-flex>
+                            </v-layout>
+                            <v-layout row class="pa-2">
+                              <v-flex xl6 md6 lg6 sm6 xs6><span class="nom">{{lun.user.FirstName}} - {{lun.user.LastName}} </span></v-flex>
+                              <v-flex xl6 md6 lg6 sm6 xs6><span class="salle">{{ lun.salle.numero}}</span></v-flex>
+                            </v-layout>    
+                    
+                        <div class="div2">
+                          nooooo
+                        </div>
+                            
+                      </td> -->
                   </tr>
 
-                  <tr  
+                  <!-- <tr  
                   >   <td>Mardi</td>
                   <td class="pa-5" v-for="mar in mardi" :key="mar.id">
                           <v-layout row class="pa-2">
@@ -168,7 +206,7 @@
                           <v-flex xl6 md6 lg6 sm6 xs6><span class="salle">{{ sam.salle.numero}}</span></v-flex>
                         </v-layout>      
                       </td>
-                  </tr>
+                  </tr> -->
                   </tbody>
                </template>
             </v-simple-table>
@@ -191,7 +229,7 @@
     },
    data(){
       return{
-        jours:["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"],
+        jours:[],
         lundi:[],
         mardi:[],
         mercredi:[],
@@ -214,12 +252,19 @@
    methods:{
     getEmploi(){
       emploiService.getEmploi().then((res)=>{
+        this.jours=res.data.data;
+        //console.log(this.jours);
         this.lundi=(res.data.data['lundi']);
-        this.mardi=(res.data.data['mardi']);
-        this.mercredi=(res.data.data['mercredi']);
-        this.jeudi=(res.data.data['jeudi']);
-        this.vendredi=(res.data.data['vendredi']);
-        this.samedi=(res.data.data['samedi']);
+        console.log(this.lundi);
+        // this.mardi=(res.data.data['mardi']);
+        // this.mercredi=(res.data.data['mercredi']);
+        // this.jeudi=(res.data.data['jeudi']);
+        // this.vendredi=(res.data.data['vendredi']);
+        // this.samedi=(res.data.data['samedi']);
+        // console.log(res.data.data)
+        // console.log(res.data.data);
+        // console.log(this.lundi[1][0].user['FirstName']);
+        // console.log(this.lundi[1][0]['numero_seance']);
       }).catch((err)=>{
         console.log(err);
       })
