@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Salle extends Model
 {
-    public function emplois(){
-        return $this->belongsToMany(Emploi::class);
+    public function seance(){
+        return $this->belongsTo(Seance::class);
     }
     use HasFactory;
 }
