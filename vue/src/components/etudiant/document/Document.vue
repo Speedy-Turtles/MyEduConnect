@@ -21,12 +21,20 @@
                                 ></v-progress-circular>
                                 </div>
                         </v-flex>
-                        <v-flex  xl6 md6 sm12 xs12 v-for="document in All_Document " :key="document.id">
+                        <v-flex xl6 md6 sm12 xs12 v-if="All_Document.length==0 ">
+                            <div class="nodata">
+                                <v-img src="../../../../public/etudiant/images/no-data-found-logo.png" width="550px"></v-img>
+                            </div>
+                        </v-flex>
+                        <div class="div" v-else>
+                            <v-flex  xl6 md6 sm12 xs12 v-for="document in All_Document " :key="document.id">
+                            
                             <v-card
                                 :loading="loading1"
                                 class="mx-auto mb-4"
                                 max-width="350"
                                 outlined
+                                
                             >
                                <img src="../../../../public/etudiant/images/document.png" alt="" srcset="" width="300px" height="200px"> 
                                 <v-list-item three-line>
@@ -94,6 +102,8 @@
                                     </v-card-actions>
                             </v-card>
                         </v-flex>
+                        </div>
+                        
                     </v-layout>
 
             </v-flex>
