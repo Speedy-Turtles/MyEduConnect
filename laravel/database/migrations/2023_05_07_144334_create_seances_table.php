@@ -19,16 +19,16 @@ return new class extends Migration
             $table->String('temps_fin');
             $table->String('jour');
 
-            $table->unsignedBigInteger("emploi_id");
+            $table->foreignId("emploi_id");
             $table->foreign("emploi_id")->references('id')->on("emplois")->onDelete("cascade");
 
-            $table->unsignedBigInteger("salle_id");
+            $table->foreignId("salle_id");
             $table->foreign("salle_id")->references('id')->on("salles")->onDelete("cascade");
 
-            $table->unsignedBigInteger("user_id");
+            $table->foreignId("user_id");
             $table->foreign("user_id")->references('id')->on("users")->onDelete("cascade");
 
-            $table->unsignedBigInteger("matiere_id");
+            $table->foreignId("matiere_id");
             $table->foreign("matiere_id")->references('id')->on("matieres")->onDelete("cascade");
 
             $table->timestamps();

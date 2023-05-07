@@ -12,7 +12,7 @@ class Emploi extends Model
     public function classe(){
         return $this->belongsTo(Classe::class);
     }
-    public function seance(){
-        return $this->belongsTo(Seance::class);
+    public function seances(){
+        return $this->hasMany(Seance::class,'seances');
     }
 }

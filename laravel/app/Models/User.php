@@ -74,6 +74,6 @@ class User extends Authenticatable
     }
 
     public function seance(){
-        return $this->belongsTo(Seance::class);
+        return $this->hasMany(Seance::class,'seances');
     }
 }

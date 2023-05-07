@@ -9,18 +9,19 @@ class Seance extends Model
 {
     use HasFactory;
 
-    public function emplois(){
-        return $this->hasMany(Emploi::class);
-    }
-    public function salles(){
-        return $this->hasMany(Salle::class);
+    public function emploi(){
+        return $this->belongsTo(Emploi::class);
     }
 
-    public function users(){
-        return $this->hasMany(Seance::class);
+    public function salle(){
+        return $this->belongsTo(Salle::class);
     }
 
-    public function matieres(){
-        return $this->hasMany(Matiere::class);
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function matiere(){
+        return $this->hasOne(Matiere::class);
     }
 }
