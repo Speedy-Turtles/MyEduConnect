@@ -13,6 +13,11 @@ class Classe extends Model
         return $this->hasMany(User::class);
     }
 
+    public function emploi(){
+        return $this->hasOne(Emploi::class);
+    }
+
+
     public function Specialite(){
         return $this->belongsTo(Specialite::class);
     }
