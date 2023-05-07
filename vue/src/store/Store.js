@@ -58,9 +58,16 @@ export const AuthUser = defineStore('auth', ()=> {
         localStorage.removeItem('Isens');
     }
 
+    function SetUser(u){
+        user.value=null;
+        localStorage.removeItem('user');
+        user.value=u;
+        localStorage.setItem('user',JSON.stringify(u));
+    }
+
     return {
         token,user,isAuth,IsAdmin,IsTechnicien,Isetudiant,Ischef,Isens,
         getUser,gettoken,getisauth,getIsadmin,getIsTechnicien,getIsetudiant,getIschef,getIsens,
-        login,logout
+        login,logout,SetUser
     }
 })

@@ -175,6 +175,7 @@
   import loginService from "@/service/AuthService/Auth.js";
   import servcie_info from "@/service/UserInfo/userinfo.js"
   import {required,email} from "vuelidate/lib/validators"
+  import serviceEdit from "@/service/editProfil/serviceEdit";
   export default{
       name:"signup",
       validations:{
@@ -245,6 +246,10 @@
         if(this.$route.query.email){
             this.VerifyEmail(this.$route.query.email);
         }
+        if(this.$route.query.email_current && this.$route.query.email_new ){
+            this.store.logout();
+            this.updatedEmail(this.$route.query.email_current,this.$route.query.email_new);
+          }
       },
       methods:{
           Login(){
@@ -298,6 +303,19 @@
                 }
                  this.$router.replace({'query':null});
             })
+          },
+          updatedEmail(old_email,new_email){
+            serviceEdit.updateEmail(
+              {
+                 "email_old":old_email,
+                 "email_new":new_email
+               }).then((res)=>{
+                 this.message=res.data.message;
+                 this.$router.replace({'query':null});
+               }).catch((error)=>{
+                 console.log(error);
+                 this.$router.replace({'query':null});
+               })
           }
       },
       components:{

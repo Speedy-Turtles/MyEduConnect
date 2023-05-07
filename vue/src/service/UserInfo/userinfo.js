@@ -16,6 +16,9 @@ export default{
   GetUser(id){
     return axios.get("GetUser/"+id);
   },
+  getUserAuthentifie(){
+    return axios.get("getUserAuthentifie");
+  },
   ActiveUser(id, status) {
     return axios.post('/active/' + id, status);
   },

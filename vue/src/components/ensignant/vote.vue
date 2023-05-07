@@ -1,26 +1,5 @@
 <template>
     <div style="height:88vh;padding:35px" class="mt-5 p-5">
-        <!-- <v-menu  class="mt-5 py-5" offset-y>
-            <template v-slot:activator="{ on, attrs }">
-             <v-btn
-                plain
-                v-bind="attrs"
-                v-on="on"
-             > 
-               <v-badge  :content="notif_yet.length ? notif_yet.length : '0'" color="green">
-                <v-icon @click="ShowAllNotif()" >mdi-bell</v-icon>
-              </v-badge>
-             </v-btn>
-            </template>
-            <v-list>
-            <v-list-item  v-for="notif in All_notif" :key="notif.id"
-            >
-                <v-list-item-title  >
-                      {{ notif.message }}
-                </v-list-item-title>
-                </v-list-item>
-            </v-list>
-        </v-menu> -->
         <div v-if="loader==false">
           <v-progress-circular
           indeterminate
@@ -164,28 +143,22 @@ export default{
         const store=AuthUser();
         return{store}
     },
-    mounted(){
+    created(){
         this.allSession();
-        service_vote.getUserNominated().then((res)=>{
-            for(let i=0;i<(res.data.data).length;i++){
-                this.UserNominated.push({iduser:res.data.data[i].user_id,vote_session_id:res.data.data[i].vote_session_id});
-            }
+        this.GetNotif();
+    },
+    mounted(){
+        window.Echo.channel('Vote').listen('VoteRealTime',(e)=>{
+          this.allSession();
+          //this.checkuservoted(this.store.user['id']);
+          this.usernomintad();
         })
-
-        service_vote.getUserVoted().then((res)=>{
-          for(let i=0;i<(res.data.data).length;i++){
-                this.UserVoted.push({iduser:res.data.data[i].user_id,vote_session_id:res.data.data[i].vote_session_id});
-            }
+        //this.GetNotif();
+        this.userVoted();
+        this.usernomintad();
+        service_vote.ListNominated().then((res)=>{
+            this.ListNominated=res.data.data;
         })
-
-        service_notif.getnotif().then((res)=>{
-            this.All_notif=res.data.data.Allnotif;
-            this.notif_yet=res.data.data.notifyet;
-        })
-
-       service_vote.ListNominated().then((res)=>{
-           this.ListNominated=res.data.data;
-       })
     },
     data(){
         return{
@@ -210,6 +183,20 @@ export default{
         }
     },
     methods:{
+      userVoted(){
+        service_vote.getUserVoted().then((res)=>{
+          for(let i=0;i<(res.data.data).length;i++){
+                this.UserVoted.push({iduser:res.data.data[i].user_id,vote_session_id:res.data.data[i].vote_session_id});
+            }
+        })
+      },
+      usernomintad(){
+        service_vote.getUserNominated().then((res)=>{
+            for(let i=0;i<(res.data.data).length;i++){
+                this.UserNominated.push({iduser:res.data.data[i].user_id,vote_session_id:res.data.data[i].vote_session_id});
+            }
+        })
+      },
       allSession(){
         service_admin.test_Vote().then((res)=>{
           this.CheckSession=res.data.status;
@@ -250,6 +237,7 @@ export default{
               this.loading_vote=false;
               this.dialog_nominated=false;
               this.idsession="";
+              this.allSession();
            })
         },
         checkuservoted(id){
@@ -265,6 +253,12 @@ export default{
           }).catch((error)=>{
             console.log(error.response);
           })
+        },
+        GetNotif(){
+          service_notif.getnotif().then((res)=>{
+            this.All_notif=res.data.data.Allnotif;
+            this.notif_yet=res.data.data.notifyet;
+        })
         }
     },
     computed:{

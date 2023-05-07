@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\notif;
+use App\Events\VoteRealTime;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreVoteSession;
 use App\Models\Notification;
@@ -38,7 +40,8 @@ class VoteController extends Controller
             $notif->message='Vote Session Started Now "'.$vote->Titre_Vote.'"';
             $notif->save();
         }
-
+        broadcast(new notif($notif->message));
+        broadcast(new VoteRealTime());
         return response()->json(['data'=>$users],201);
     }
 
@@ -60,9 +63,9 @@ class VoteController extends Controller
                 'user_id'=>$request->user()->id,
                 'vote_session_id'=>$request->idsession
             ]);
+            broadcast(new VoteRealTime());
             return response()->json(['data'=>$vote],201);
         }
-
     }
 
     public function CheckUserNomanated($id,Request $request){
@@ -94,6 +97,7 @@ class VoteController extends Controller
         $vote->vote_session_id=$request->session_id;
         $vote->user_nominated_id=$request->id_nominated;
         $vote->save();
+        broadcast(new VoteRealTime());
         return response()->json(['data'=>$vote],201);
     }
 
@@ -108,6 +112,7 @@ class VoteController extends Controller
             $check_session->delete();
             return response()->json(['data'=>"delete with success"],200);
         }
+        broadcast(new VoteRealTime());
         return response()->json(['data'=>"Not Found"],404);
     }
 
@@ -117,13 +122,13 @@ class VoteController extends Controller
             $check_session->update([
                 'etat'=>2
             ]);
+            broadcast(new VoteRealTime());
             return response()->json(['data'=>"Annuler with success"],200);
         }
         return response()->json(['data'=>"Not Found"],404);
     }
 
     public function CloseVote(int $id){
-
         $check_session=VoteSession::find($id);
         if($check_session){
             $check_session->update([
@@ -141,45 +146,37 @@ class VoteController extends Controller
                     ];
                 })->sortByDesc("votes")->values()->all();
             }
-
             foreach($votes[0] as $value){
-
                 if($value['session']->etat==3){
                     $checkExist=Role::where("Role_name","chefDepartment")->First();
-
                     if(!$checkExist){
                         $role=new Role();
                         $role->Role_name="chefDepartment";
                         $role->save();
                     }
-
                     $role_user=new RoleUser();
                     $role_user->user_id=$value['user_nominated']->id;
                     $role_user->role_id=$checkExist ? $checkExist->id : $role->id;
                     $role_user->status=1;
                     $role_user->save();
-
                     $admin=User::whereHas('roles',function($query){
                         $query->where("Role_name","Admin");
                     })->first();
-
                     $notif=new Notification();
                     $notif->id_envoi=$admin->id;
                     $notif->id_recu=$value['user_nominated']->id;
                     $notif->message='You Have Been voted to be new Chef Deperment"'.$value['session']->Titre_Vote.'';
                     $notif->save();
-
                 }
             }
+            broadcast(new notif($notif->message));
+            broadcast(new VoteRealTime());
             return response()->json(['data'=>"Finished with success"],200);
         }
         return response()->json(['data'=>"Not Found"],404);
     }
 
-
-
     public function GetSessionTerminer(){
-
         $session=VoteSession::where("etat",2)->orWhere("etat",3)->get();
         $votes=[];
         foreach($session as $value){
@@ -192,6 +189,7 @@ class VoteController extends Controller
                 ];
             })->sortByDesc("votes")->values()->all()[0];
         }
+        return response()->json(['data'=>$votes],200);
 
 /* foreach($votes[0] as $value){
 
@@ -218,7 +216,6 @@ class VoteController extends Controller
             }
         }
 */
-       return response()->json(['data'=>$votes],200);
     }
 
     public function suspende(int $id){
@@ -227,11 +224,13 @@ class VoteController extends Controller
             $update_session->update([
                 'etat'=>1
             ]);
+            broadcast(new VoteRealTime());
             return response()->json(['data'=>$update_session],200);
         }else if($update_session['etat']==1){
             $update_session->update([
                 'etat'=>0
             ]);
+            broadcast(new VoteRealTime());
             return response()->json(['data'=>$update_session],200);
         }else{
             return response()->json(['data'=>"Not Found"],404);

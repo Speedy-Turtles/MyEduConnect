@@ -153,9 +153,9 @@
           </v-card-text>
           <v-card-actions>
             <v-list-item class="grow">
-              <v-chip @click="Suspende(data['id'])" color="info" class="mx-1">{{data['etat']==1 ? 'suspended' : 'Start Vote'}}</v-chip>
+              <v-chip :loading="loading_sus" @click="Suspende(data['id'])" color="info" class="mx-1">{{data['etat']==1 ? 'suspended' : 'Start Vote'}}</v-chip>
               <v-chip @click="annuler(data['id'])" color="red" class="mx-1">Reject</v-chip>
-              <v-chip @click="Terminer(data['id'])" color="primary" class="mx-1">Finished</v-chip>
+              <v-chip :loading="loading_ter" @click="Terminer(data['id'])" color="primary" class="mx-1">Finished</v-chip>
               <v-row
                 align="center"
                 justify="end"
@@ -256,7 +256,7 @@
                   <td v-if="vote.session['etat']==2" class="text-center" > <v-chip color="red" style="color:#fff">Vote Rejected</v-chip> </td>
                   <td v-else class="text-center" >{{vote.user_nominated['FirstName']}}</td>
                   <td  class="text-center" >
-                     <v-btn @click="deleteSession(vote.session['id'])" style="color:#fff" color="red">Delete</v-btn>
+                     <v-btn @click="deleteSession(vote.session['id'])" style="color:#fff" color="red" :loading="load_delete">Delete</v-btn>
                   </td>
               </tr>
             </tbody>
@@ -291,15 +291,7 @@ import service_admin from "@/service/admin/gererAdmin.js";
 import service_vote from "@/service/Vote/vote.js"
 export default{
     name:"vote",
-    created(){
-      service_admin.test_Vote().then((res)=>{
-          this.CheckSession=res.data.status;
-          this.session=res.data.data;
-      });
-      service_vote.getSessionTerminer().then((res)=>{
-        this.voteTerminer=res.data.data;
-      })
-    },
+   
     validations:{
       form:{
         titre:{
@@ -324,8 +316,11 @@ export default{
         return{
             dialog:false,
             loading:false,
+            loading_sus:false,
+            load_delete:false,
             CheckSession:false,
             snackbar:false,
+            loading_ter:false,
             snackbar_delete:false,
             ListNominated:[],
             dialog_nominated:false,
@@ -339,10 +334,35 @@ export default{
             countnbrVoted:0
         }
     },
+    created(){
+      this.allsession();
+      this.GetTerminer();
+    },
+    mounted(){
+      window.Echo.channel('Vote').listen('VoteRealTime',(e)=>{
+          this.allsession();
+          this.GetTerminer();
+      })
+    },
     methods:{
+      GetTerminer(){
+        service_vote.getSessionTerminer().then((res)=>{
+            this.voteTerminer=res.data.data;
+        })
+      },
+      allsession(){
+        service_admin.test_Vote().then((res)=>{
+            this.CheckSession=res.data.status;
+            this.session=res.data.data;
+         });
+      },
         Terminer(id){
+          this.loading_ter=true;
           service_vote.TermenierSession(id).then((res)=>{
-             console.log(res.data.data);
+            this.loading_ter=false;
+            
+             this.allsession();
+             this.GetTerminer();
           })
         },
         startNewVote(){
@@ -369,8 +389,10 @@ export default{
           })
         },
         Suspende(id){
+          this.loading_sus=true;
           service_vote.suspende(id).then((res)=>{
-             console.log(res.data);
+            this.loading_sus=false;
+            
           })
         },
         annuler(id){
@@ -379,8 +401,11 @@ export default{
           })
         },
         deleteSession(id){
+          this.load_delete=true;
           service_vote.deleteSession(id).then((res)=>{
+             this.load_delete=false;
              this.snackbar_delete=true;
+             this.allsession();
           })
         },
         getListNominated(id){

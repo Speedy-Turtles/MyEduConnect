@@ -11,6 +11,7 @@ use Nette\Utils\Strings;
 
 class VerifyEmailController extends Controller
 {
+
     public function VerifyEmail(String $email){
         $user=User::where('email',$email)->first();
         if(!$user->hasVerifiedEmail()){

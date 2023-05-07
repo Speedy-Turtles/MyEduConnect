@@ -17,9 +17,9 @@
                     <div  v-else-if="store.view=='vote'">
                         <Vote></Vote>
                     </div>
-                    <div  v-else>
-                       <statistique></statistique>
-                    </div>
+                    <div  v-else-if="store.view=='edit'">
+                       <modifierProfil></modifierProfil>
+                  </div>
                 </div>
             </div>
         </transition>
@@ -27,15 +27,22 @@
 </template>
 
 <script>
+import userinfo from "@/service/UserInfo/userinfo";
 import statistique from '@/components/Admin/statistique.vue';
 import HeaderDashboard from '@/components/Admin/HeaderDashboard.vue';
 import sidebarVue from '../../components/Admin/sidebar.vue'
+import modifierProfil from "@/components/EditProfil/ModifierProfil.vue";
 import Vote from '@/components/Admin/Vote.vue';
 import {CurentView} from "@/store/StoreView.js";
+import {AuthUser} from "@/store/Store.js";
 export default{
+  created(){
+    this.greeting();
+  },
   setup(){
     const store=CurentView();
-    return {store}
+    const storeAuth=AuthUser();
+    return {store,storeAuth}
   },
     name:'dashboard',
     data(){
@@ -49,7 +56,6 @@ export default{
         }
     },
     mounted() {
-     
         window.addEventListener('resize', this.onresize);
     },
     methods:{
@@ -66,14 +72,25 @@ export default{
                         this.etatsidbar = false;
                }
       }, 
-        changreetat(etat){
-           /* let test=new SpeechSynthesisUtterance("welcome");
-            speechSynthesis.speak(test);*/
+      changreetat(etat){
             this.etatsidbar=etat;
+        },
+      greeting(){
+        if(this.storeAuth.user['welcome_field']==0){
+            let test=new SpeechSynthesisUtterance("welcome"+this.storeAuth.user['FirstName']);
+            speechSynthesis.speak(test);
+            setTimeout(() => {
+                userinfo.updateWelcome().then((res)=>{
+                    console.log(res)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+            }, 1000);
         }
+      }
     },
     components:{
-       sidebarVue,HeaderDashboard,statistique,Vote
+       sidebarVue,HeaderDashboard,statistique,Vote,modifierProfil
     },
  
 };

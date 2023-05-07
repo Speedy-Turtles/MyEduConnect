@@ -97,6 +97,15 @@ class InfoUserController extends Controller
             return response()->json(['data'=>"Not Found"],404);
         }
     }
+
+    public function getUserAuthentifie(Request $request){
+        $user=User::find($request->user()->id);
+        if($user){
+            return response()->json(['data'=>$user],200);
+        }else{
+            return response()->json(['data'=>"Not Found"],404);
+        }
+    }
     public function updateWelcome(Request $request){
         $user=User::where('id',$request->user()->id)->update([
             'welcome_field'=>1

@@ -12,7 +12,10 @@ use App\Http\Controllers\GestionClasseController;
 use App\Http\Controllers\GestionSpecialiteController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\Document\DocumentController;
+use App\Http\Controllers\EditProfil\EditController;
 use App\Http\Controllers\nouveauteController;
+use App\Http\Controllers\pdf\GenratePdfController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\proffesors\usersEtudiantContoroller;
 use App\Http\Controllers\proffesors\UsersProffesorsController;
 use Illuminate\Http\Request;
@@ -81,8 +84,26 @@ Route::group(['prefix'=>"/admin"],function(){
 });
 Route::get('GetUser/{id}',[InfoUserController::class,"GetUser"]);
 
+Route::put("/edit/updateEmail",[EditController::class,"updateEmail"]);
+
+
+Route::group(["prefix"=>"/pdf"],function(){
+    Route::get('/generate/{id}', [GenratePdfController::class,"generatePDF"]);
+});
 
 Route::middleware("auth:sanctum")->group(function(){
+
+    Route::get('getUserAuthentifie',[InfoUserController::class,"getUserAuthentifie"]);
+
+
+
+    Route::group(["prefix"=>"/edit"],function(){
+        Route::post("/uploadPhoto",[EditController::class,"editPhoto"]);
+        Route::get("/SendChangedEmail/{email}",[EditController::class,"SendChangedEmail"]);
+        Route::put("/EditInfoPersonnel",[EditController::class,"EditInfoPersonnel"]);
+        Route::get("/CheckPassword/{password}",[EditController::class,"CheckPassword"]);
+        Route::put("/ChangerPasswordActuel/{password}",[EditController::class,"ChangerPasswordActuel"]);
+    });
 
         Route::get("/getNiveau",[InfoUserController::class,"GetNiveauUser"]);
         Route::post("/welcome",[InfoUserController::class,"updateWelcome"]);
