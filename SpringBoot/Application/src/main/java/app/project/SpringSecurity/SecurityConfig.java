@@ -79,6 +79,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 			http.cors().and().csrf().disable()
 			.authorizeRequests()
 			.antMatchers("/login").permitAll()
+			.antMatchers("/SignUp").permitAll()
+			.antMatchers("/verify").permitAll()
 			.anyRequest().authenticated()
 			 .and()
 			 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
