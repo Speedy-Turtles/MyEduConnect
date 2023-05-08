@@ -11,6 +11,7 @@ use App\Models\Notification;
 use App\Models\Role;
 use App\Models\RoleUser;
 use App\Models\User;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 
@@ -66,13 +67,20 @@ class DocumentController extends Controller
         $demandes=Demande::where('user_id',$request->user()->id)->where('document_id',$request->docId)->update(['etat'=>-1]);
         return response()->json(['data'=>$demandes],200);
     }
+
     public function getNotifs(Request $request){
         $notifs=Notification::where('id_recu',$request->user()->id)->get();
-        if(!$notifs){
+        if($notifs->isEmpty()){
             return response()->json("No Notifcations available");
-        }else{
-            return response()->json(['data'=>$notifs,200]);
         }
+        $user_envoi=[];
+        foreach($notifs as $notif){
+            $user = User::find($notif->id_envoi);
+            if($user){
+                $notif['user_envoi']= $user;
+            }
+        }
+        return response()->json(['data'=>$notifs], 200);
     }
 
     public function getNotifsNotSeen(Request $request){
