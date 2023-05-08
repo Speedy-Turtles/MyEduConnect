@@ -12,6 +12,12 @@ export default {
     },
     deleteAllNotif(){
         return axios.delete('/deleteAllNotif');
+    },
+    deleteNotificationById(id){
+        return axios.delete('/deleteNotification/'+id);
     }
+
+
+
 
 }
