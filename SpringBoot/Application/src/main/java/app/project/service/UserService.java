@@ -1,5 +1,7 @@
 package app.project.service;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -35,4 +37,22 @@ public class UserService {
 		 }
 		 
 	  }
+	  
+	  
+	  public void VerifyEmail(String email) throws Exception {
+		  User user=UserRepo.getUserByemail(email);
+		  if(user==null) {
+			  throw new Exception("User Not Found");
+		  }else {
+			  if(user.getEmail_verified_at()!=null) {
+				  throw new Exception("User Already Verified");
+			  }else {
+				  user.setEmail_verified_at(new Date());
+				  UserRepo.save(user);
+			  }
+		  }
+	  }
+	  
+	  
+	
 }
