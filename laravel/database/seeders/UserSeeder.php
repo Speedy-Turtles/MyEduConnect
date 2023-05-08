@@ -18,10 +18,9 @@ class UserSeeder extends Seeder
         User::factory(10)->state(new Sequence(
             ["sex"=>"Man"],
             ["sex"=>"Woman"]
-        ))->has(Role::factory(2)->state(new Sequence(
+        ))->has(Role::factory(1)->state(new Sequence(
             ['Role_name'=>"etudiant"],
             ['Role_name'=>"ensignant"],
-            ['Role_name'=>"Technicien"],
         )))->create();
     }
 }
