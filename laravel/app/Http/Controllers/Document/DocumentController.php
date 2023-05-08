@@ -103,6 +103,14 @@ class DocumentController extends Controller
     public function clearNotif(Request $request){
         Notification::where('id_recu',$request->user()->id)
         ->delete();
+
+    }
+
+    public function deleteNotifById(Request $request){
+        Notification::where('id_recu',$request->user()->id)->where('id',$request->id)
+        ->delete();
+        return response()->json(['data'=>"delete succes",200]);
+
     }
 
 
