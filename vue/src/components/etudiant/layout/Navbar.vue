@@ -97,11 +97,35 @@
                     <v-list-item
                         v-for="notif in notifications" :key="notif.id"
                     >
+                        <!-- ---------------avatar-------------------- -->
+                        <v-list-item-avatar>
+                            <v-avatar v-if="notif.user_envoi_photo.length>2" size="43px">
+                                <v-img  :src="'http://localhost:8000'+notif.user_envoi_photo"></v-img>
+                            </v-avatar>
+                            <v-avatar color="blue" v-else>
+                                <span class="white--text">{{ notif.user_envoi_photo }}</span>
+                            </v-avatar>
+                        </v-list-item-avatar>
+                        <!-- --------------- /avatar-------------------- -->
+
+                         <!-- --------------- msg + date -------------------- -->
                         <v-list-item-content>
-                            <v-list-item-title class="px-5">{{ notif.msg }}   <br><span class="date"> Since : {{ notif.date }}</span></v-list-item-title>
+                            <v-list-item-title class="px-5">{{ notif.msg }}<br><span class="date" v-if="notif.date!=null"> Since : {{ notif.date }}</span></v-list-item-title>
                         </v-list-item-content> 
+                        <!-- --------------- /msg + date -------------------- -->
+
+                        <!--------------------button----------------------->
+                        <v-list-item-action>
+                            <v-btn
+                                plain
+                            >
+                                <v-icon>mdi-close</v-icon>
+                            </v-btn>
+                        </v-list-item-action>
+                        <!-------------------- /button----------------------->
                         
-                        </v-list-item>
+                    </v-list-item>
+                    
                         <v-divider></v-divider>
                         <v-list-item class="mt-5">
                             <v-btn 
@@ -237,7 +261,8 @@ import gererNotifEtud from "@/service/NotifEtudiant/gererNotifEtud"
                 ],
                 messages:10,
                 test_ischef:false,
-                test_idetudiant:false
+                test_idetudiant:false,
+                
 
             }
         },
@@ -254,9 +279,18 @@ import gererNotifEtud from "@/service/NotifEtudiant/gererNotifEtud"
         },
         getNotifs(){
             gererNotifEtud.getNotifEtud().then((res)=>{
-                for(let i=0;i<(res.data.data).length;i++){
-                    this.notifications.push({idNotif:res.data.data[i].id,msg:res.data.data[i].message,etat:res.data.data[i].etat,date:(res.data.data[i].created_at).substring(0,10)})
+                // console.log((res.data.data).length);
+                // this.notifications=res.data.data;
+                // console.log(this.notifications);
+                // for(let j=0;j<3;j++){
+                //     console.log(res.data.data[j])
+                // }
+                for(let i=0;i<res.data.data.length;i++){
+                    this.notifications.push({idNotif:res.data.data[i].id,msg:res.data.data[i].message,etat:res.data.data[i].etat,data:(res.data.data[i].created_at)?.substring(0,10),user_envoi_photo:res.data.data[i].user_envoi['Photo']})
+                    console.log(res.data.data[i].user_envoi['Photo']);
                 }
+
+                
             }
             )
         },
