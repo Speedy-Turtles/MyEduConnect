@@ -8,7 +8,22 @@
         </div>
         <div v-else-if="session==''" class="container text-center" style="margin-top:10%;">
             <div class="not_found">
-                  No Session yet
+
+              <v-layout column>
+                <v-flex>
+                  <v-img src="../../../public/etudiant/images/interdit.jpg" id="interdit" width="70px"></v-img>  
+                </v-flex>
+                <v-flex>
+                  <div class="novote">
+                      No Vote Now
+                  </div>
+               </v-flex>
+                <v-flex>
+                  <div class="check">
+                    please check later
+                  </div>
+                </v-flex>
+              </v-layout>
             </div>
        </div>
         <div v-else> 
@@ -280,11 +295,33 @@ export default{
   transform: translate(-50%,-50%);
   height: 200px;
   width: 400px;
+  flex-direction: row;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fff;
+  
   border-radius: 25px;
-  background-color: red;
+}
+.novote{
+  font-size: 40px;
+  color: rgb(56, 56, 56);
+  font-weight: bold;
+  letter-spacing: 2.2px;
+  word-spacing: 4.4px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-transform: capitalize;
+}
+.check{
+  color: rgb(163, 161, 161);
+  font-size: 21px;
+  letter-spacing: 2.2px;
+  word-spacing: 4.4px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-transform: capitalize;
+}
+
+#interdit{
+  
+  left: 42%;
 }
 </style>
