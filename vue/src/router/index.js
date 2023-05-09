@@ -22,10 +22,14 @@ import dashboardAdminView from "../views/Admin/DashboardView.vue"
 import testView from "../views/test/TestView.vue"
 <<<<<<< HEAD
 import gereremploiView from "../views/chef_departement/gererEmploiView.vue"
+<<<<<<< HEAD
 
 =======
 import EditProfilView from "../views/etudiant/EditProfilView.vue"
 >>>>>>> ea11f12c07ae4ac8f060b8760149ead7df6f6cf0
+=======
+import EditProfilView from "../views/etudiant/EditProfilView.vue"
+>>>>>>> c475a485596fd9a763dff634b70b71401dae7c73
 Vue.use(VueRouter)
 
 
