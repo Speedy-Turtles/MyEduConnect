@@ -2,6 +2,9 @@ import axios from "axios";
 import "@/plugins/axios";
 
 export default {
+    getAllClasses() {
+        return axios.get("/classes");
+    },
     ClassesBySpecialte(id) {
         return axios.get("classe/classesBySpecialite/" + id);
     },

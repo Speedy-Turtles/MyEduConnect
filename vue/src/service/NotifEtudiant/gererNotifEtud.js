@@ -1,16 +1,16 @@
 import axios from "axios";
 import "@/plugins/axios";
 export default {
-    getNotifEtud(){
+    getNotifEtud() {
         return axios.get('/notif');
     },
-    getNotifNotSeen(){
+    getNotifNotSeen() {
         return axios.get('/notifNotSeen');
     },
-    updateNotif(){
+    updateNotif() {
         return axios.post('/editnotif');
     },
-    deleteAllNotif(){
+    deleteAllNotif() {
         return axios.delete('/deleteAllNotif');
     }
 
