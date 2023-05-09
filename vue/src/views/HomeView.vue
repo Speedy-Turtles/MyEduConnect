@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+  
     <nav>
       <Navbar/>
     </nav>
@@ -9,7 +10,6 @@
     <footer>
       <Footer></Footer>
     </footer>
-      
   </div>
 </template>
 
@@ -17,6 +17,7 @@
 import Navbar from "@/components/home/Navbar.vue"
 import Content from "@/components/home/Content.vue"
 import Footer from "@/components/etudiant/layout/Footer.vue"
+import preloaderVue from '../components/Loading/preloader.vue'
 export default {
   name: 'Home',
   data(){
@@ -28,7 +29,8 @@ export default {
   components: {
     Navbar,
     Content,
-    Footer
+    Footer,
+    preloaderVue
   },
 }
 </script>

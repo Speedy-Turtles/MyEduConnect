@@ -16,6 +16,8 @@ return new class extends Migration
             $table->String("nom");
             $table->foreignId("specialite_id");
             $table->foreign("specialite_id")->references("id")->on("specialites")->onDelete("cascade");
+            $table->foreignId("emploi_id");
+            $table->foreign("emploi_id")->references("id")->on("emplois")->onDelete("cascade");
             $table->timestamps();
         });
     }

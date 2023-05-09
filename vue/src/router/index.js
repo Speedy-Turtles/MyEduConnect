@@ -20,8 +20,12 @@ import gererClassesView from '../views/chef_departement/gererClassesView.vue'
 import VoteView from "@/views/ensignant/VoteView.vue"
 import dashboardAdminView from "../views/Admin/DashboardView.vue"
 import testView from "../views/test/TestView.vue"
+<<<<<<< HEAD
 import gereremploiView from "../views/chef_departement/gererEmploiView.vue"
 
+=======
+import EditProfilView from "../views/etudiant/EditProfilView.vue"
+>>>>>>> ea11f12c07ae4ac8f060b8760149ead7df6f6cf0
 Vue.use(VueRouter)
 
 
@@ -100,6 +104,11 @@ const routes = [{
         path: '/etudiant/vote',
         name: 'vote',
         component: VoteView
+    },
+    {
+        path: '/etudiant/EditProfilView',
+        name: 'EditProfilView',
+        component: EditProfilView
     },
     {
         path: '/etudiant/document',

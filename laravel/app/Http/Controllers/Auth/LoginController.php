@@ -22,7 +22,7 @@ class LoginController extends Controller
             $verify["Isenseignant"]=false;
             $verify["IsChefDepartement"]=false;
             $verify["Istechnicien"]=false;
-            $verify["Isadmin"]=false;
+            $verify["IsAdmin"]=false;
 
            /* if($user->roles->contains("Role_name","chefDepartment")){
                 if($user->roles->first()->pivot->status==0){

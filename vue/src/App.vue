@@ -1,5 +1,6 @@
 <template>
   <v-app id="app">
+     <preloaderVue></preloaderVue>
       <router-view v-slot="{ Component }">
          <transition name="fade"  mode="out-in">
                  <component :is="Component" />
@@ -11,14 +12,23 @@
 <script>
 import AOS from "aos";
 import 'animate.css';
+
+import preloaderVue from './components/Loading/preloader.vue';
 export default {
   name: 'App',
+  components:{
+    preloaderVue
+  },
   mounted() {
       AOS.init();
+      //test Websockets ,Pusher
+      // window.Echo.channel('NotifRealtime').listen('notif',(e)=>{
+    	//     console.log(e);
+      // })
     },
  data(){
   return{
-
+   
   }
  }
 };

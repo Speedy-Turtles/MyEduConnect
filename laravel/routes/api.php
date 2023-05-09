@@ -11,9 +11,12 @@ use App\Http\Controllers\Document\DemandesController;
 use App\Http\Controllers\GestionClasseController;
 use App\Http\Controllers\GestionSpecialiteController;
 use App\Http\Controllers\InfoUserController;
+use App\Http\Controllers\Document\EmploiController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\EditProfil\EditController;
 use App\Http\Controllers\nouveauteController;
+use App\Http\Controllers\pdf\GenratePdfController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\proffesors\usersEtudiantContoroller;
 use App\Http\Controllers\proffesors\UsersProffesorsController;
 use Illuminate\Http\Request;
@@ -83,12 +86,19 @@ Route::group(['prefix'=>"/admin"],function(){
 Route::get('GetUser/{id}',[InfoUserController::class,"GetUser"]);
 
 Route::put("/edit/updateEmail",[EditController::class,"updateEmail"]);
+
+
+Route::group(["prefix"=>"/pdf"],function(){
+    Route::get('/generate/{id}', [GenratePdfController::class,"generatePDF"]);
+});
+
 Route::middleware("auth:sanctum")->group(function(){
 
     Route::get('getUserAuthentifie',[InfoUserController::class,"getUserAuthentifie"]);
 
-    Route::group(["prefix"=>"/edit"],function(){
 
+
+    Route::group(["prefix"=>"/edit"],function(){
         Route::post("/uploadPhoto",[EditController::class,"editPhoto"]);
         Route::get("/SendChangedEmail/{email}",[EditController::class,"SendChangedEmail"]);
         Route::put("/EditInfoPersonnel",[EditController::class,"EditInfoPersonnel"]);
@@ -112,6 +122,10 @@ Route::middleware("auth:sanctum")->group(function(){
             Route::post('ShowNotif',[InfoUserController::class,"ShowNotif"]);
         });
 
+        Route::group(['prefix'=>"emploi/"],function(){
+            Route::get("getemploi",[EmploiController::class,"getEmploi"]);
+
+        });
 
         Route::group(['prefix'=>"vote/"],function(){
             Route::post('AddUserNominated_Session',[VoteController::class,"AddUserNominated_Session"]);
