@@ -61,12 +61,14 @@
                 </v-toolbar-items>
                 <v-spacer></v-spacer>
                 <v-menu offset-y
+               
                 transition="slide-x-transition" 
                 left
                 class="mt-7"
                 max-width="auto"
                 min-width="300"
                 >
+                
                     <template v-slot:activator="{ on, attrs }">
                      <v-btn
                      plain
@@ -82,7 +84,7 @@
                      </v-btn>
                      
                     </template>
-                   
+               
                         <v-list>
                             <v-list-item class="text-h5">
                                 Notifications
@@ -95,10 +97,13 @@
                         <v-list-item-title class="text-h7 ml-8 mb-8">No notifications is available</v-list-item-title>
                     </v-list-item>
                    </v-list>
+                   
                     <v-list v-else>
                     <v-list-item
                         v-for="notif in notifications" :key="notif.id"
                     >
+                   
+                    
                         <!-- ---------------avatar-------------------- -->
                         <v-list-item-avatar>
                             <v-avatar v-if="notif.user_envoi_photo.length>2" size="43px">
@@ -168,6 +173,7 @@
                                     Clear All<v-icon class="pa-1 red--text">mdi-delete</v-icon>
                                 </v-list-item-title>
                             </v-btn>
+                        
                         </v-list-item>
                     </v-list>
                 </v-menu>
