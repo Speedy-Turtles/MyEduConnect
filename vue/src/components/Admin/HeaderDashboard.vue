@@ -132,7 +132,7 @@
                         </v-list-item>
                     </v-list>
                 </v-menu>
-              <v-menu offset-y>
+              
                 <template v-slot:activator="{ on, attrs }">
                  <v-btn
                  plain
@@ -169,8 +169,80 @@
                       </v-btn>
                   </v-list-item-action>
               </v-list-item>
-            </v-menu>
-              </v-row>
+              </v-menu> -->
+              <v-menu offset-y 
+                transition="slide-x-transition" 
+                left
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                    <v-btn   plain v-bind="attrs"
+                     v-on="on"
+                     >
+                        <v-avatar v-if="store.user['Photo'].indexOf('storage')!=-1" size="43px">
+                            <img :src="'http://localhost:8000'+store.user['Photo']" alt="" srcset="">
+                         </v-avatar>
+
+                         <v-avatar color="primary" v-else size="43px">
+                             <span class="white--text">{{ store.user['Photo'] }}</span>
+                         </v-avatar>
+                     </v-btn>
+                    </template>
+                    <v-list>
+                    <v-list-item>
+                        <v-list-item-title>
+                            <v-btn
+                                plain
+                                block
+                                class="py-3"
+                            >
+                            {{store.user['FirstName']}}
+                            </v-btn>
+                        </v-list-item-title>
+                     </v-list-item>
+                    <v-list-item>
+                        
+                        <v-list-item-action>
+                            <v-btn
+                                plain
+                                router to="/etudiant/EditProfilView"
+                            >
+                                <v-icon class="pa-2">mdi-wrench</v-icon>
+                                <span class="">Settings</span>
+                            </v-btn>
+                        </v-list-item-action>
+                        
+                    </v-list-item>
+
+                    <v-list-item v-if="test_ischef==true || store.Ischef=='true'">
+                        <v-list-item-action>
+                            <v-btn
+                                plain
+                            >
+                                <v-icon class="pa-2">mdi-swap-horizontal</v-icon>
+                                <span >
+                                    <v-btn router to="/chef_departement">
+                                        switch
+                                    </v-btn>
+                                </span>
+                            </v-btn>
+                        </v-list-item-action>
+                    </v-list-item>
+
+                    <v-list-item >
+                        <v-list-item-action>
+                            <v-btn
+                                plain
+                                @click="logout()"
+                            >
+                                <v-icon class="pa-2">mdi-logout</v-icon>
+                                <span >log out</span>
+                            </v-btn>
+                        </v-list-item-action>
+                    </v-list-item>
+
+                    </v-list>
+                </v-menu>  
+            </v-row>
         </v-container>
     </div>
 </template>
