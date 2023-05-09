@@ -86,7 +86,7 @@ export default defineComponent({
         },
         series: [
           {
-            name: 'sales',
+            name: 'Etudiants',
             type: 'bar',
             data: [0, 1, 2]
           }

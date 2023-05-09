@@ -9,10 +9,12 @@ class Emploi extends Model
 {
     use HasFactory;
     protected $guarded=[];
-    public function salle(){
-        return $this->belongsTo(Salle::class);
+
+    public function classe(){
+        return $this->belongsTo(Classe::class);
     }
-    public function user(){
-        return $this->belongsTo(User::class);
+
+    public function seances(){
+        return $this->hasMany(Seance::class);
     }
 }

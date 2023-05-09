@@ -21,7 +21,7 @@ import VoteView from "@/views/ensignant/VoteView.vue"
 import dashboardAdminView from "../views/Admin/DashboardView.vue"
 import testView from "../views/test/TestView.vue"
 import gereremploiView from "../views/chef_departement/gererEmploiView.vue"
-
+import EditProfilView from "../views/etudiant/EditProfilView.vue"
 Vue.use(VueRouter)
 
 
@@ -100,6 +100,11 @@ const routes = [{
         path: '/etudiant/vote',
         name: 'vote',
         component: VoteView
+    },
+    {
+        path: '/etudiant/EditProfilView',
+        name: 'EditProfilView',
+        component: EditProfilView
     },
     {
         path: '/etudiant/document',

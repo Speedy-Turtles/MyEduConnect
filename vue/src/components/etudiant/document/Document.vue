@@ -21,7 +21,7 @@
                                 ></v-progress-circular>
                                 </div>
                         </v-flex>
-                        <v-flex  xl6 md6 sm12 xs12 v-for="document in All_Document " :key="document.id">
+                        <v-flex  xl6 md6 sm12 xs12 v-for="(document,index) in All_Document " :key="document.id">
                             <v-card
                                 :loading="loading1"
                                 class="mx-auto mb-4"
@@ -43,7 +43,7 @@
                                 </v-list-item-content>
                                 
                                 </v-list-item>
-                                <v-list-item>
+                                <v-list-item v-if="index==0">
                                     <v-radio-group
                                     v-model="select_langue"
                                     row
@@ -51,15 +51,26 @@
                                         <v-radio
                                             label="Français"
                                             value="f"
-
                                         ></v-radio>
-                                        <v-radio
+                                        <v-radio 
                                             label="Arabe"
                                             value="a"
                                         ></v-radio>
                                     </v-radio-group>
                                 </v-list-item>
-                                <button @click="accepterdemande(document.id)">Accepter demande </button>
+                                <v-list-item v-else>
+                                    <v-radio-group
+                                     v-model="select_langue_fr"
+                                      row
+                                    >
+                                        <v-radio
+                                            disabled
+                                            label="Français"
+                                            value="f"
+                                        ></v-radio>
+                                    </v-radio-group>
+                                </v-list-item>
+                                <!-- <button @click="accepterdemande(document.id)">Accepter demande </button> -->
                                 <v-card-actions v-if="test && test.etat==0">
                                     <v-btn
                                         outlined
@@ -109,13 +120,13 @@ import 'jspdf-autotable'
 import {AmiriRegular} from "@/assets/fontArabic/amiri.js";
 import service_doc from "@/service/Document/gererDocument.js"
 import infouser from "@/service/UserInfo/userinfo.js"
+import "@/plugins/axios"
 export default {
    mixins:[ar,fr],
    created(){
         this.init_demande();
         this.init_doc();
         this.info_perosnnel();
-
    },
    setup(){
         const store=AuthUser();
@@ -129,6 +140,7 @@ export default {
         loading_demander:false,
         loading_download:false,
         loading2: false,
+        select_langue_fr:'f',
         langDocument:"",
         loading3: false,
         All_demandes:[],
@@ -136,7 +148,7 @@ export default {
         classe_current:"",
         spec:"",
         niveau:0,
-        select_langue:"",
+        select_langue:"f",
     }),
 
     methods: {
@@ -207,7 +219,7 @@ export default {
         },
         generePrsenceFrancais(){
             var niveau="";
-                if(this.niveau==1){
+                    if(this.niveau==1){
                      niveau=this.langDocument=="premiere";
                     }else if(this.niveau==2){
                         niveau=this.langDocument=="deuxieme" ;
@@ -267,7 +279,7 @@ export default {
                  this.$router.go();
             })
           },
-        GenerPdf(type,id,langue){
+         GenerPdf(type,id,langue){
            console.log(langue)
             if(type=="Attestation"){
                 if(langue==='a'){
@@ -279,9 +291,10 @@ export default {
                     this.generePrsenceFrancais();
                 }
             }else if(type=="Stage"){
-                const doc = new jsPDF();
-                doc.text("hello",40,450)
-                doc.save("type.pdf");
+                window.location.href = 'http://localhost:8000/api/pdf/generate/'+this.store.user['id'];
+                setTimeout(() => {
+                    window.location.href="http://localhost:8081/etudiant/document";
+                 }, 2000);
             }
             this.inittialiser_demande(id);
             console.log(this.langDocument);

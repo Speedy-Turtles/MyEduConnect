@@ -47,14 +47,26 @@
 
 
         <!-- ------------------section 3 ------------------------------------>
+        <div class="subject">
+            <h3 class="">OUR POPULAR SUBJECTS</h3>
+        </div>
+        
         <div class="sec3">
-            <v-container>
-                <v-layout flex wrap>
-                    <v-flex xl4 lg4 md4 sm6 xs12 v-for="card in cards" :key="card.title" class="px-5" data-aos="fade-down">
-                        <h2 class="align-center" id="h2">{{ card.title }}</h2>
-                        <p id="p" class="">{{ card.p }}</p>
-                    </v-flex>
-                </v-layout>
+            
+            <v-container fluid>
+                    
+                    <v-layout flex wrap>
+                        <v-flex xl3 lg3 md6 sm6 xs12 v-for="card in cards" :key="card.title" class="px-5 py-5" data-aos="fade-down">
+                            <div class="card">
+                                <v-avatar size="100">
+                                    <v-img :src="card.image" class="pa-5"></v-img>
+                                </v-avatar>
+                                <h2 class="align-center" id="h2">{{ card.title }}</h2>
+                                <p id="p" class="">{{ card.p }}</p>
+                            </div>
+                        </v-flex>
+                    </v-layout>
+               
             </v-container>
         </div>
         
@@ -62,16 +74,22 @@
 
 
         <!-- ------------------ equipe ------------------------------------>
+        <div class="subject">
+            <h3 class="">OUR BEAUTIFUL TEAM</h3>
+        </div>
         <div class="equipe">
-            <v-container>
-                <div class="pa-4 text-center rounded-0">
+            <v-container fluid>
+                <div class="card2 pa-4 text-center rounded-0">
                     <v-layout flex wrap class="mt-5 py-5">
-                        <v-flex xl3 lg3 md6 sm6 xs12 class="mt-5 py-5" v-for="equipe in equipes" :key="equipe.name" data-aos="fade-down">
-                            <v-avatar size="150">
-                                <v-img :src="equipe.image" contain></v-img>
-                            </v-avatar>
-                            <p class=" py-5">{{equipe.name}}</p>
-                        </v-flex>
+                                <v-flex xl3 lg3 md6 sm6 xs12 class="mt-5 py-5 px-5" v-for="equipe in equipes" :key="equipe.name" data-aos="fade-down">
+                                    <div class="card-body">
+                                        <div class="img">
+                                            <v-img :src="equipe.image" width="600px" height="400px"></v-img>
+                                        </div>   
+                                        <p class="py-5 m-5">{{equipe.name}}</p>
+                                    </div>
+                                </v-flex>
+                           
                     </v-layout>
                 </div>
             </v-container>
@@ -95,16 +113,18 @@ export default {
         p3:'Online education has revolutionized the way we learn by providing students with the flexibility and convenience to access educational materials remotely. This mode of learning offers a wide range of programs and courses to choose from, allowing students to tailor their education to fit their needs and interests. Online education is particularly beneficial for those who have other commitments such as work or family obligations, as it allows them to learn on their own schedule. While it does present some challenges, such as a lack of face-to-face interaction, advances in technology are addressing these issues. Overall, online education has become a popular and effective means of learning in today s digital age.',
         p4:'Online Education',
         cards:[
-            {title:'Document',p:'A document official is an official document that has been created, issued, or certified by the university.'},
-            {title:'Forum',p:'A forum is an online discussion  where users can engage in conversations, share ideas and opinions, and ask and answer questions on various topics.'},
-            {title:'Club',p:'A Club is an organization that connects graduates of a particular university or college, provides them with opportunities for networking and socializing.'},
+            {title:'Document',p:'A document official is an official document that has been created, issued, or certified by the university.',image:require('../../../public/etudiant/images/document2.png')},
+            {title:'Forum',p:'A forum is an online discussion  where users can engage in conversations, share ideas and opinions, and ask and answer questions on various topics.',image:require('../../../public/etudiant/images/forum2.png')},
+            {title:'Club',p:'A Club is an organization that connects graduates of a particular university or college, provides them with opportunities for networking and socializing.',image:require('../../../public/etudiant/images/club.png')},
+            {title:'Help',p:'The help desk typically offers a single point of contact for users to seek assistance from trained technicians who can diagnose and troubleshoot issues and provide solutions.',image:require('../../../public/etudiant/images/help.png')},
+            
         ],
 
         equipes:[
-            {name:'Naamen Malek',image:require('../../assets/team/image2.jpeg')},
-            {name:'Mejri Talel',image:require('../../assets/team/pro.jpg')},
-            {name:'Mohamed Amin Hkimi',image:require('../../assets/team/DSC_6972 (1).jpg')},
-            {name:'Ahmed Ghassen',image:require('../../assets/team/ghassen.jpg')},
+            {name:'NAAMEN MALEK',image:require('../../assets/team/image2.jpeg')},
+            {name:'MEJRI TALEL',image:require('../../assets/team/pro.jpg')},
+            {name:'HKIMI MOHAMED AMINE ',image:require('../../assets/team/DSC_6972 (1).jpg')},
+            {name:'AHMED GHASSEN',image:require('../../assets/team/ghassen.jpg')},
         ]
     }),
     components: {
@@ -180,11 +200,10 @@ font-variant: small-caps;
 
 #h2{
     font-family: "Times New Roman", Times, serif;
-    font-size: 30px;
+    font-size: 20px;
     margin-top: 50px;
     letter-spacing: 5.4px;
     word-spacing: -5px;
-    color: #000000;
     font-weight: 700;
     text-decoration: none;
     font-style: normal;
@@ -193,10 +212,9 @@ font-variant: small-caps;
     text-align: center;
     }
 #p{
-    font-size: 13px;
+    font-size: 10px;
     margin-top: 20px;
     letter-spacing:2px;
-    color: #757575;
     text-decoration: none;
     font-style: normal;
     text-transform: none;
@@ -212,5 +230,39 @@ font-variant: small-caps;
 .equipe{
     margin-bottom: 100px;
 }
-
+.card{
+    border:2px solid#1976D2;
+    padding: 20px;
+    height: 45vh;
+    background-color: #81D4FA;
+    color: #444;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+/* .card>h2,p{
+    color: white;
+} */
+.card:hover{
+    background-color: #1976D2;
+    color: white;
+    
+}
+.subject{
+    text-align: center;
+    margin-top: 100px;
+    left:50%;
+    
+}
+.subject>h3{
+    font-family: 'DM Sans', sans-serif;
+    color: #1976D2;
+    font-size: 30px;
+    display: inline-block;
+}
+.card-body{
+    border-radius: 5px;
+    -webkit-box-shadow: -6px 5px 20px -10px #103a64; 
+            box-shadow: -6px 5px 20px -10px #103a64;
+}
 </style>

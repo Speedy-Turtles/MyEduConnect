@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// test Sent Websockets
+// use App\Events\notif;
+// Route::get('/broadcast',function(){
+//     broadcast(new notif("jawha behyy"));//notif::dispatch();
+//     return "Event has been sent!";
+// });
 
 Route::get('/', function () {
     return view('welcome');
