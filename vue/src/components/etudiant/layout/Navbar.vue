@@ -221,18 +221,6 @@
                         
                     </v-list-item>
 
-                    <!-- <v-list-item>
-                        
-                        <v-list-item-action>
-                            <v-btn
-                                plain
-                            >
-                                <v-icon class="pa-2">mdi-shield-outline</v-icon>
-                                <span class="">personal info </span>
-                            </v-btn>
-                        </v-list-item-action>
-                    </v-list-item> -->
-
                     <v-list-item v-if="test_ischef==true || store.Ischef=='true'">
                         <v-list-item-action>
                             <v-btn
