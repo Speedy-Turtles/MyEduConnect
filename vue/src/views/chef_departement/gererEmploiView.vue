@@ -5,7 +5,7 @@
         <div class="main_content">
             <div class="classes">
                 <v-row>
-                    <v-col v-for="classe in  classes ">
+                    <v-col v-for="classe in   classes  ">
                         <v-card>
                             <v-row align="center" justify="center">
                                 <v-avatar size="70" color="primary">
@@ -42,34 +42,45 @@
                                                                 </v-btn>
                                                             </v-toolbar-items>
                                                         </v-toolbar>
-                                                        <div class="emploiTable">
+                                                        <v-row class="allModule">
+                                                        <v-col class="emploiTable" style="width:80%;height: 80%;" >
                                                             <v-row align='center' justify="center">
-                                                               <h1 style="magrin-top:15%!important"> emploi de classe {{ selectedClasse.nom }}</h1>
+                                                                <h1 class="mt-5"> emploi de classe {{
+                                                                    selectedClasse.nom }}</h1>
                                                             </v-row>
                                                             <v-simple-table>
                                                                 <template v-slot:default>
                                                                     <thead>
                                                                         <tr>
                                                                             <th class="text-left pa-5"
-                                                                                v-for=" seance  in  seances ">
+                                                                                v-for="  seance   in   seances  ">
                                                                                 {{seance}}
                                                                             </th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody class="pa-5">
-                                                                        <tr v-for=" jour  in  emploi ">
+                                                                        <tr v-for="  jour   in   emploi  ">
                                                                             <td class="pa-5">{{ jour.day }}</td>
-                                                                            <td v-for=" classe  in jour.seances " class="pa-3">
-                                                                                {{classe}}<br>A.Chaloueh <span>I0.9</span>
-                                                                            <v-btn icon color="orange" @click="selectChange(classe,jour)">
-                                                                                <v-icon>mdi-pen</v-icon>
-                                                                            </v-btn>
+                                                                            <td v-for="  classe   in  jour.seances"
+                                                                                class="pa-3">
+                                                                                <div :id="'dropzone'+classe.id">
+                                                                                    {{classe.sance}}<br>A.Chaloueh
+                                                                                    <span>I0.9</span>
+                                                                                </div>
+                                                                                <v-btn icon color="orange"
+                                                                                    @click=" selectChange(classe, jour) ">
+                                                                                    <v-icon>mdi-pen</v-icon>
+                                                                                </v-btn>
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </template>
                                                             </v-simple-table>
-                                                        </div>
+                                                        </v-col>
+                                                        <v-col ref="changes" class="changes" style="display: none;">
+
+                                                        </v-col>
+                                                    </v-row>
                                                     </v-card>
                                                 </v-dialog>
                                             </v-row>
@@ -89,11 +100,15 @@
 import navbar from '@/components/chef_departement/navbar.vue';
 import navigationDrawer from '@/components/chef_departement/navigationDrawer.vue';
 import gestionclasse from '@/service/classe/gestionclasse';
+import { Draggable } from 'draggable-vue-directive'
 export default {
     name: '',
     components: {
         navbar,
         navigationDrawer
+    },
+    directives: {
+            Draggable,
     },
     created() {
         this.getAllClasses();
@@ -104,18 +119,74 @@ export default {
             classes: [],
             dialog: 0,
             selectedClasse: {},
-            seances:["      ","Séance 1","Séance 2","Séance 3","Séance 4","Séance 5","Séance 6"],
-            seances2:["Séance 1","Séance 2","Séance 3","Séance 4","Séance 5","Séance 6"],
-            jours:["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"],
-            emploi : [
-            { day: 'Monday', seances: ['class1', 'class2', 'class3', 'class4', 'class5', 'class6'] },
-            { day: 'Tuesday', seances: ['class1', 'class2', 'class3', 'class4', 'class5', 'class6'] },
-            { day: 'Wednesday', seances: ['class1', 'class2', 'class3', 'class4', 'class5', 'class6'] },
-            { day: 'Thursday', seances: ['class1', 'class2', 'class3', 'class4', 'class5', 'class6'] },
-            { day: 'Friday', seances: ['class1', 'class2', 'class3', 'class4', 'class5', 'class6'] },
-            { day: 'Saturday', seances: ['class1', 'class2', 'class3', 'class4', 'class5', 'class6'] },
+            seances: ["", "Séance 1", "Séance 2", "Séance 3", "Séance 4", "Séance 5", "Séance 6"],
+            seances2: ["Séance 1", "Séance 2", "Séance 3", "Séance 4", "Séance 5", "Séance 6"],
+            emploi: [
+                {
+                    day: 'Monday',
+                    seances: [
+                        { id: 1, sance: 'Class 1' },
+                        { id: 2, sance: 'Class 2' },
+                        { id: 3, sance: 'Class 3' },
+                        { id: 4, sance: 'Class 4' },
+                        { id: 5, sance: 'Class 5' },
+                        { id: 6, sance: 'Class 6' }
+                    ]
+                },
+                {
+                    day: 'Tuesday',
+                    seances: [
+                        { id: 7, sance: 'Class A' },
+                        { id: 8, sance: 'Class B' },
+                        { id: 9, sance: 'Class C' },
+                        { id: 10, sance: 'Class D' },
+                        { id: 11, sance: 'Class E' },
+                        { id: 12, sance: 'Class F' }
+                    ]
+                },
+                {
+                    day: 'Wednesday',
+                    seances: [
+                        { id: 13, sance: 'Class G' },
+                        { id: 14, sance: 'Class H' },
+                        { id: 15, sance: 'Class I' },
+                        { id: 16, sance: 'Class J' },
+                        { id: 17, sance: 'Class K' },
+                        { id: 18, sance: 'Class L' }
+                    ]
+                },
+                {
+                    day: 'Thursday',
+                    seances: [
+                        { id: 19, sance: 'Class M' },
+                        { id: 20, sance: 'Class N' },
+                        { id: 21, sance: 'Class O' },
+                        { id: 22, sance: 'Class P' },
+                        { id: 23, sance: 'Class Q' },
+                        { id: 24, sance: 'Class R' }
+                    ]
+                },
+                {
+                    day: 'Friday',
+                    seances: [
+                        { id: 25, sance: 'Class S' },
+                        { id: 26, sance: 'Class T' },
+                        { id: 27, sance: 'Class U' },
+                        { id: 28, sance: 'Class V' },
+                        { id: 29, sance: 'Class W' },
+                        { id: 30, sance: 'Class X' }
+                    ]
+                },
+                {
+                    day: 'Saturday',
+                    seances: [
+                        { id: 31, sance: 'Class Y' },
+                        { id: 32, sance: 'Class Z' },
+                        { id: 33, sance: 'Class AA' },
+                    ]
+                }
             ],
-            selectedSeance:{},
+            selectedSeance: {},
         }
     },
     methods: {
@@ -125,15 +196,13 @@ export default {
                 console.log(this.classes);
             })
         },
-        selectChange(seance,jour){
-            this.selectedSeance.seance=seance;
-            this.selectedSeance.jour=jour;
-            for(classe in this.classes){
-                if(classe.id==this.selectedClasse){
-                    let className=classe.name;
-                }
-            }
-            this.selectedSeance.classe=className;
+        selectChange(seance, jour) {
+            this.selectedSeance.seance = seance;
+            this.selectedSeance.jour = jour.day;
+            this.selectedSeance.classe = this.selectedClasse.nom;
+            console.log(this.$refs.changes);
+            this.$refs.changes[1].style.display="grid";
+            console.log(this.selectedSeance);
         }
     },
     computed: {
@@ -151,5 +220,4 @@ export default {
 
 .classes {
     margin-top: 10%;
-}
-</style>
+}</style>
