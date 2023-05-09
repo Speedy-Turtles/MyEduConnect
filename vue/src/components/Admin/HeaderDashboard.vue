@@ -14,48 +14,124 @@
                 }}
               </h2>
               <v-spacer></v-spacer>
+              
               <v-menu offset-y
+               
+                transition="slide-x-transition" 
+                left
+                class="mt-7"
+                max-width="auto"
+                min-width="300"
+                >
                 
-              >
-                  <template v-slot:activator="{ on, attrs }">
-                   <v-btn
-                   plain
-                   v-bind="attrs"
-                   v-on="on"
-                   @click="chagerEtatNotif"
-                   >
-                      <v-icon size="35px">mdi-bell</v-icon>
-                      <v-badge color="red" :content="getNbrNotifNotSeen!=0 ? getNbrNotifNotSeen : '0'"
-
-                      ></v-badge>
-                   </v-btn>
+                    <template v-slot:activator="{ on, attrs }">
+                     <v-btn
+                     plain
+                     v-bind="attrs"
+                     v-on="on"
+                     @click="chagerEtatNotif"
+                     >
+                        <v-icon size="35px ">mdi-bell</v-icon>
+                        <v-badge color="red" :content="getNbrNotifNotSeen"
+                        v-if="getNbrNotifNotSeen!=0"
+                        :values="getNbrNotifNotSeen"
+                        ></v-badge>
+                     </v-btn>
+                     
+                    </template>
+               
+                        <v-list>
+                            <v-list-item class="text-h5">
+                                Notifications
+                            </v-list-item>
+                        </v-list>
+                        <v-divider></v-divider>
+                    <v-list v-if="notifications.length==0">
+                    <v-list-item  class="mt-5 red--text">
+                        
+                        <v-list-item-title class="text-h7 ml-8 mb-8">No notifications is available</v-list-item-title>
+                    </v-list-item>
+                   </v-list>
                    
-                  </template>
-                  <v-list v-if="notifications.length==0">
-                  <v-list-item  class="mt-5">
-                      <v-list-item-title>No notifications !</v-list-item-title>
-                  </v-list-item>
-                 </v-list>
-                  <v-list v-else>
-                  <v-list-item
-                      v-for="notif in notifications" :key="notif.id"
-                  >
-                      <v-list-item-title>{{ notif.msg }}</v-list-item-title>
-                      </v-list-item>
-                      <v-list-item class="mt-5">
-                          <v-btn 
-                          plain
-                          v-if="notifications.length!=0"
-                          @click="deleteAllNotif()"
-                          >
-                              <v-list-item-title class="red--text"> 
-                                  
-                                  Clear All<v-icon class="pa-1 red--text">mdi-delete</v-icon>
-                              </v-list-item-title>
-                          </v-btn>
-                      </v-list-item>
-                  </v-list>
-              </v-menu>
+                    <v-list v-else>
+                    <v-list-item
+                        v-for="notif in notifications" :key="notif.id"
+                    >
+                   
+                    
+                        <!-- ---------------avatar-------------------- -->
+                        <v-list-item-avatar>
+                            <v-avatar v-if="notif.user_envoi_photo.length>2" size="43px">
+                                <v-img  :src="'http://localhost:8000'+notif.user_envoi_photo"></v-img>
+                            </v-avatar>
+                            <v-avatar color="blue" v-else>
+                                <span class="white--text">{{ notif.user_envoi_photo }}</span>
+                            </v-avatar>
+                        </v-list-item-avatar>
+                        <!-- --------------- /avatar-------------------- -->
+
+                         <!-- --------------- msg + date -------------------- -->
+                        <v-list-item-content>
+                            <v-list-item-title class="px-5 justify-center">{{ notif.msg }}<br><span class="date" v-if="notif.date!=null"> Since : {{ notif.date }}</span></v-list-item-title>
+                        </v-list-item-content> 
+                        <!-- --------------- /msg + date -------------------- -->
+
+                        <!--------------------button----------------------->
+                        <v-list-item-action>
+                            <v-col cols="auto">
+                            <v-dialog
+                                transition="dialog-bottom-transition"
+                                max-width="400"
+                            >
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-btn
+                                    plain
+                                    @click="dialog==true"
+                                    v-bind="attrs"
+                                    v-on="on"
+                                    >
+                                        <v-icon>mdi-close</v-icon>
+                                    </v-btn>
+                                </template>
+                                <template v-slot:default="dialog">
+                                <v-card>
+                                    <v-card-text>
+                                    <div class="text-h5 pa-5">Delete Notification</div>
+                                    </v-card-text>
+                                    <v-card-actions class="justify-end">
+                                    <v-btn
+                                        text
+                                        @click="dialog.value = false"
+                                    >No</v-btn>
+                                    <v-btn
+                                        text
+                                        @click="deleteNotificationById(notif.idNotif),dialog.value = false"
+                                    >Delete</v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                                </template>
+                            </v-dialog>
+                            </v-col>
+                        </v-list-item-action>
+                        <!-------------------- /button----------------------->
+                        
+                    </v-list-item>
+                    
+                        <v-divider></v-divider>
+                        <v-list-item class="mt-5">
+                            <v-btn 
+                            plain
+                            v-if="notifications.length!=0"
+                            @click="deleteAllNotif()"
+                            >
+                                <v-list-item-title class="red--text ml-15"> 
+                                    Clear All<v-icon class="pa-1 red--text">mdi-delete</v-icon>
+                                </v-list-item-title>
+                            </v-btn>
+                        
+                        </v-list-item>
+                    </v-list>
+                </v-menu>
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
                  <v-btn
@@ -117,6 +193,7 @@ export default {
     return{
           notifications:[],
           notificationNotSeen:[],
+          dialog:false
     }
   },
   methods:{
@@ -131,11 +208,15 @@ export default {
         },
         getNotifs(){
             gererNotifEtud.getNotifEtud().then((res)=>{
-                for(let i=0;i<(res.data.data).length;i++){
-                    this.notifications.push({idNotif:res.data.data[i].id,msg:res.data.data[i].message,etat:res.data.data[i].etat})
-                }
+                for(let i=0;i<res.data.data.length;i++){
+                    this.notifications.push({idNotif:res.data.data[i].id,msg:res.data.data[i].message,etat:res.data.data[i].etat,date:(res.data.data[i].created_at)?.substring(0,10),user_envoi_photo:res.data.data[i].user_envoi['Photo']})
+                    
+                }  
             }
             )
+        },
+        deleteNotificationById(id){
+            gererNotifEtud.deleteNotificationById(id);
         },
         deleteAllNotif(){
             gererNotifEtud.deleteAllNotif().then((res)=>{
