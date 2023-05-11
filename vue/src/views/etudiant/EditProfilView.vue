@@ -1,3 +1,4 @@
+
 <template>
     <div class="etudiant">  
         <nav >
@@ -47,4 +48,4 @@ methods:{
    
 }
 
-</style>
+

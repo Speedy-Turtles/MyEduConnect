@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <template>
     <div style="height:88vh;padding:35px" class="mt-5 p-5">
         <div v-if="loader==false">

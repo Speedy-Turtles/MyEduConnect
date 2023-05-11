@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class GestionClasseController extends Controller
 {
+    public function getAllClasses(){
+        $classes=Classe::all();
+        return response()->json(["data"=>$classes],200);
+    }
     public function getClasseForSpecialte($id){
         $classes=Classe::where("specialite_id",$id)->get();
         return response()->json(["data"=>$classes],200);

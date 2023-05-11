@@ -1,3 +1,4 @@
+
 <template>
     <div class="mt-5 py-5 ">
             <div class="content">
@@ -203,5 +204,4 @@ export default defineComponent({
       width: 70vw;
     }
   }
-
-</style>
+  </style>

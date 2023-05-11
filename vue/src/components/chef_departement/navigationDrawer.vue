@@ -36,6 +36,11 @@
                         :class="[currentPage == 'neauveuate' ? 'active' : '']"><v-icon>mdi-newspaper</v-icon> <span
                             class="hidden_description"> gerer
                             les neauveuate </span></v-btn></v-list-item></router-link>
+            <router-link class="link" to="/chef_departement/gereremploi"><v-list-item class="justify-center"><v-btn
+                        rounded @click="selectActive('emploi')" class="btn-drawer btn-width"
+                        :class="[currentPage == 'emploi' ? 'active' : '']"><v-icon> mdi-calendar</v-icon> <span
+                            class="hidden_description"> gerer
+                            les emplois </span></v-btn></v-list-item></router-link>
         </ul>
 
 
@@ -44,15 +49,15 @@
 </template>
 
 <script>
-import {AuthUser} from "@/store/Store.js"
+import { AuthUser } from "@/store/Store.js"
 export default {
     name: 'navigationDrawer',
     props: [
         'currentPage',
     ],
-    setup(){
-            const store=AuthUser();
-            return{store}
+    setup() {
+        const store = AuthUser();
+        return { store }
     },
     data() {
         return {
@@ -73,9 +78,10 @@ export default {
 }
 </script>
 <style scoped>
-body{
+body {
     height: 40000px;
 }
+
 .nav-drawer {
     background-color: #525fe1 !important;
     height: 95% !important;
@@ -121,7 +127,7 @@ body{
 
 @media screen and (max-width:768px) {
     .nav-drawer {
-        height: 10%!important;
+        height: 10% !important;
         width: 100%;
         position: fixed;
         z-index: 1000;
@@ -135,7 +141,7 @@ body{
     .nav-drawer ul {
         margin-left: -30% !important;
         display: inline-flex;
-        gap: 0px!important;
+        gap: 0px !important;
         justify-content: center;
         align-items: center;
         padding: 0;
@@ -150,8 +156,8 @@ body{
     }
 
     .btn-drawer {
-        min-width: 0px!important;
-        width: 7px!important;
+        min-width: 0px !important;
+        width: 7px !important;
         font-size: 2px !important;
         margin-left: 2% !important;
     }
