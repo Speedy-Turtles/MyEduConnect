@@ -18,6 +18,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	
 	@Query(value="select * from user where cin=:cin",nativeQuery=true)
 	User getUserByCin(String cin);
+	
+	@Query(value="select * from user where password_token=:token",nativeQuery=true)
+	User CheckToken(String token);
+	
   
 }
 

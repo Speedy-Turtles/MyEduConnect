@@ -77,7 +77,18 @@ public class UserService {
 		  if(user==null) {
 			  throw new Exception("Email Not Found");
 		  }else {
-			 
+			  if(UserRepo.CheckToken(Token)==null) {
+				  throw new Exception("Token Not Found");
+			  }else {
+				  if(user.getPassword_token().equals(Token)) {
+					  user.setPassword(password);
+					  user.setPassword_token(null);
+					  user.setPassword_token_send_ats(null);
+					  UserRepo.save(user);
+				  }else {
+					  throw new Exception("Token doesn't match");
+				  }
+			  }
 		   }
 	  }
 	  

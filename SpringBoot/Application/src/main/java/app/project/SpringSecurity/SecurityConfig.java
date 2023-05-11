@@ -2,6 +2,8 @@
 package app.project.SpringSecurity;
 
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -97,7 +99,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 		}
 	}
 	
-	   /*@Bean
+	    @Bean
 	    public CorsConfigurationSource corsConfigurationSource() {
 	        CorsConfiguration configuration = new CorsConfiguration();
 	        configuration.setAllowedOrigins(Arrays.asList("*"));
@@ -109,6 +111,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 
 	        return  source;
 	    }
-	   */
+	   
   
 }
