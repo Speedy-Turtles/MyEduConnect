@@ -46,5 +46,9 @@ methods:{
     overflow: hidden;
    
 }
+main{
+    margin-top: 150px;
+    margin-bottom: 100px;
+}
 
 </style>
