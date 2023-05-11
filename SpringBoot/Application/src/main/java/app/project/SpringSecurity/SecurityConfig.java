@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -79,8 +80,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 			http.cors().and().csrf().disable()
 			.authorizeRequests()
 			.antMatchers("/login").permitAll()
+			.antMatchers("/test").permitAll()
 			.antMatchers("/SignUp").permitAll()
 			.antMatchers("/verify").permitAll()
+			.antMatchers("/ForgotPassword").permitAll()
 			.anyRequest().authenticated()
 			 .and()
 			 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
@@ -91,6 +94,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+	web
+	.ignoring()
+	.antMatchers("/resources/**", "/static/**",
+	"/css/**", "/js/**", "/images/**");
+	}
+
+
 	
 	   /*@Bean
 	    public CorsConfigurationSource corsConfigurationSource() {

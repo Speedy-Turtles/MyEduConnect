@@ -32,7 +32,7 @@ public class Mail {
 				throws MessagingException, UnsupportedEncodingException {
 
 			Context context=new Context();
-			context.setVariable("title", "Verify Your Email address");
+			context.setVariable("name", user.getLastName());
 			context.setVariable("link","http://localhost:8081/login?email="+user.getEmail());
 			String body=templateEngine.process("VerifyEmail", context);
 			
@@ -46,6 +46,31 @@ public class Mail {
 			helper.setFrom(fromAddress, senderName);
 			helper.setTo(toAddress);
 			helper.setSubject("Email address Verification");
+
+			helper.setText(body, true);
+
+			javamailSender.send(message);
+		}
+		
+		
+		public void SendForgotPassword(User user,String Token)
+				throws MessagingException, UnsupportedEncodingException {
+
+			Context context=new Context();
+			context.setVariable("token", Token);
+			context.setVariable("link","http://localhost:8081/ChangerPassword");
+			String body=templateEngine.process("ForgotPassword", context);
+			
+			String fromAddress = "myeduconnect20@gmail.com";
+			String senderName = "MyEduConnect";
+	         
+			MimeMessage message = javamailSender.createMimeMessage();
+			
+			MimeMessageHelper helper = new MimeMessageHelper(message,true);
+			String toAddress = user.getEmail();
+			helper.setFrom(fromAddress, senderName);
+			helper.setTo(toAddress);
+			helper.setSubject("Email Forgot Password");
 
 			helper.setText(body, true);
 

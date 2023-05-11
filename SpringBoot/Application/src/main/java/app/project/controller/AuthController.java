@@ -12,6 +12,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +24,7 @@ import app.project.SpringSecurity.UserDetailsImpl;
 import app.project.entities.User;
 import app.project.repository.UserRepository;
 import app.project.service.UserService;
+import authPrametre.ChangerPassword;
 import authPrametre.Credentials;
 import authPrametre.Reponse;
 import app.project.jwt.jwtTokenUtil;
@@ -52,6 +55,7 @@ public class AuthController {
 	    
 	    @Autowired
 	    Mail mailsender;
+	    
 
 	@PostMapping("/SignUp")
 	public ResponseEntity<?>  SignUp(@RequestBody User user){
@@ -125,4 +129,28 @@ public class AuthController {
     	Reponse data=new Reponse(user,token);
     	return  ResponseEntity.ok().body(data);
     }
+    
+    
+    @PostMapping("/ForgotPassword")
+    public ResponseEntity<?> forgotPassword(@RequestParam(name="email")String email){
+    	try {
+    		user_service.forgotPassword(email);
+    	}catch(Exception e) {
+    		return new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
+    	}
+    	return ResponseEntity.ok().body("Mail Send With Token");
+    }
+    
+    
+    @PostMapping("/ChangerPassword")
+    public ResponseEntity<?> ResetPassword(@RequestBody ChangerPassword parametre){
+    	String password_hash=securityConfig.passwordEncoder().encode(parametre.getPassword());
+    	try {
+    		user_service.ChangerPassword(parametre.getEmail(), parametre.getToken(), password_hash);
+    	}catch(Exception e) {
+    		return new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
+    	}
+    	return ResponseEntity.ok().body("Password has been changed");
+    }
+    
 }
