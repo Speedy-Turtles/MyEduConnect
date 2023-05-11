@@ -20,7 +20,10 @@ import gererClassesView from '../views/chef_departement/gererClassesView.vue'
 import VoteView from "@/views/ensignant/VoteView.vue"
 import dashboardAdminView from "../views/Admin/DashboardView.vue"
 import testView from "../views/test/TestView.vue"
+import gereremploiView from "../views/chef_departement/gererEmploiView.vue"
 import EditProfilView from "../views/etudiant/EditProfilView.vue"
+
+
 Vue.use(VueRouter)
 
 
@@ -75,6 +78,11 @@ const routes = [{
         path: '/chef_departement/gererspecialite',
         name: 'gererspecialite',
         component: gererSpecialiteView
+    },
+    {
+        path: '/chef_departement/gereremploi',
+        name: 'gereremploi',
+        component: gereremploiView
     },
     {
         path: '/about',

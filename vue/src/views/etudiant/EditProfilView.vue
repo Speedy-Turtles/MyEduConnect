@@ -1,3 +1,4 @@
+
 <template>
     <div class="etudiant">  
         <nav >
@@ -52,3 +53,4 @@ main{
 }
 
 </style>
+

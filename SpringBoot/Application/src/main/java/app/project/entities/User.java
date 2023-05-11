@@ -1,3 +1,4 @@
+
 package app.project.entities;
 
 import java.io.Serializable;
@@ -26,6 +27,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
 
 @Entity
 @Data
@@ -76,3 +78,4 @@ public class User implements Serializable {
 	private List<Role> role;
 	
 }
+

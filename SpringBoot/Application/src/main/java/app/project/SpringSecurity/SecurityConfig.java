@@ -1,5 +1,8 @@
+
 package app.project.SpringSecurity;
 
+
+import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -8,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -23,6 +27,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import app.project.jwt.JwtAuthenticateEntryPoint;
 import app.project.jwt.JwtRequestFilter;
+
 
 @Configuration
 @EnableWebSecurity
@@ -79,6 +84,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 			http.cors().and().csrf().disable()
 			.authorizeRequests()
 			.antMatchers("/login").permitAll()
+			.antMatchers("/SignUp").permitAll()
+			.antMatchers("/verify").permitAll()
+			.antMatchers("/ForgotPassword").permitAll()
+			.antMatchers("/ChangerPassword").permitAll()
 			.anyRequest().authenticated()
 			 .and()
 			 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
@@ -90,7 +99,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 		}
 	}
 	
-	   /*@Bean
+	    @Bean
 	    public CorsConfigurationSource corsConfigurationSource() {
 	        CorsConfiguration configuration = new CorsConfiguration();
 	        configuration.setAllowedOrigins(Arrays.asList("*"));
@@ -102,6 +111,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 
 	        return  source;
 	    }
-	   */
+	   
   
 }

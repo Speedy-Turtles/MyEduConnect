@@ -16,7 +16,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor@NoArgsConstructor@Data
-
 public class Role implements Serializable {
  /**
 	 * 
@@ -36,3 +35,4 @@ public class Role implements Serializable {
 	private Timestamp updated_at;
  
 }
+

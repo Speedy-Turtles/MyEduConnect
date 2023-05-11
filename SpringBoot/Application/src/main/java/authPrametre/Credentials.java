@@ -1,3 +1,4 @@
+
 package authPrametre;
 
 import lombok.AllArgsConstructor;
@@ -9,3 +10,4 @@ public class Credentials  {
   private String email;
   private String password;
 }
+

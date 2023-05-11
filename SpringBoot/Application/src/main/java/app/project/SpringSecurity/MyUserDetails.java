@@ -1,3 +1,4 @@
+
 package app.project.SpringSecurity;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import app.project.entities.Role;
 import app.project.entities.User;
+
 
 public class MyUserDetails implements UserDetails {
 	private User user;
@@ -70,3 +72,4 @@ public class MyUserDetails implements UserDetails {
 	}
 
 }
+

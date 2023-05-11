@@ -1,3 +1,4 @@
+
 package app.project.entities;
 
 import java.io.Serializable;
@@ -17,6 +18,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+
+
 
 @Table(name="user_role")
 @Entity@Data@NoArgsConstructor@AllArgsConstructor
@@ -49,3 +53,4 @@ public class RoleUser implements Serializable {
 	@UpdateTimestamp
 	private Timestamp updated_at;
 }
+

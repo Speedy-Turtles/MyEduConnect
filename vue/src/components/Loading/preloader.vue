@@ -1,3 +1,4 @@
+
 <template>
     <div v-if="preloader"  class="preloader">
         <img data-aos="zoom-in-up" :src="require('@/assets/Logo_app/logo-no-background.png')" alt="">
@@ -42,5 +43,6 @@ img{
                 height: 200px;
             }
     }
+
+    </style>
     
-</style>

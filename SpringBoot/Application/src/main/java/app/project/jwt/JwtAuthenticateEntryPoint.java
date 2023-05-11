@@ -1,3 +1,4 @@
+
 package app.project.jwt;
 
 import java.io.IOException;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Service;
+
+
 @Service
 public class JwtAuthenticateEntryPoint implements AuthenticationEntryPoint, Serializable {
 	
@@ -23,3 +26,4 @@ public class JwtAuthenticateEntryPoint implements AuthenticationEntryPoint, Seri
 			
 		}
 }
+

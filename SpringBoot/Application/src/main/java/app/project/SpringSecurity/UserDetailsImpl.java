@@ -1,3 +1,4 @@
+
 package app.project.SpringSecurity;
 
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import app.project.entities.User;
 import app.project.repository.UserRepository;
+
 
 @Service
 public class UserDetailsImpl implements UserDetailsService {
@@ -27,3 +29,4 @@ public class UserDetailsImpl implements UserDetailsService {
 	}
 
 }
+
