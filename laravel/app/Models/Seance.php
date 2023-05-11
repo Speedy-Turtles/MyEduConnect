@@ -22,6 +22,6 @@ class Seance extends Model
     }
 
     public function matiere(){
-        return $this->hasOne(Matiere::class);
+        return $this->belongsTo(Matiere::class);
     }
 }
