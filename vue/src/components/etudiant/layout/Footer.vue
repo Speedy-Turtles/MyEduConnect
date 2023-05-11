@@ -4,8 +4,8 @@
                 <v-container id="container">
                     <v-layout row wrap >
                         <v-flex xl4 md4 sm4 xs12  class="footer-2-span float-start" ><v-icon color="white">mdi-copyright</v-icon> <span class="white--text align-center">2023 MyEduConnect.All rights reserved.</span></v-flex>
-                        <v-flex xl4 md4 sm4 xs12 class="hidden-xs-only float-right"><img class="footer-2-img" src="../../../../public/etudiant/images/logo-no-background-white.svg"></v-flex>
-                        <v-flex xl4 md4 sm4 xs12 class="footer-2-span align-center"><span class="white--text float-xl-end float-md-end float-sm-end " id="span-reserved">Speedy Turtles</span> </v-flex> 
+                        <v-flex xl4 md4 sm6 xs12 class="hidden-sm-and-down float-right"><img class="footer-2-img" src="../../../../public/etudiant/images/logo-no-background-white.svg"></v-flex>
+                        <v-flex xl4 md4 sm6 xs12 class="footer-2-span align-center"><span class="white--text float-xl-end float-md-end float-sm-end " id="span-reserved">Speedy Turtles</span> </v-flex> 
                     </v-layout>
                     <v-layout>
                         <a href="#">
@@ -44,7 +44,8 @@
     padding-bottom: 50px;
 }
 .footer2{
-    height: 30vh;
+    height: 100vh;
+    max-height: 50vh;
     background-color:#525fe1 ;
     
 }

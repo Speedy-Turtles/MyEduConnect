@@ -1,6 +1,6 @@
 <template>
     <div class="justify-center">
-       <form  @submit.prevent="ChangerPassword()" >
+       <form  @submit.prevent="ChangerPassword()">
             <div class="mx-5 px-5">
               <div class="col-xl-9 col-lg-6 text-center">
                <div class="row d-flex justify-content-center">

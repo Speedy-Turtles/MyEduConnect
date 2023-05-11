@@ -49,164 +49,166 @@
          <div class="emploi">
          <!-- --------------------------------------titre------------------------------- -->
          <div class="titrediv mb-5">
-            <h2 color="red" class="titre">Timetable</h2>
+            <h2 color="red" class="titre">Timetable : {{ classe }}</h2>
          </div>
           <!-- --------------------------------------titre/------------------------------- -->
          <div class="emploiTable">
             <v-simple-table>
                <template v-slot:default>
-                  <!-- <thead>
+                  <thead>
                   <tr>
                      <th class="text-left pa-5" v-for="seance in seances">
                         {{seance}}
-                     </th>
+                     </th> 
                   </tr>
-                  </thead> -->
+                  </thead>
+
+                  
                   <tbody class="pa-5">
-                  <tr
-                  v-for="(jour,index) in jours"
-                  :key="index"
-                    
-                  >  
-                  <td>
-                    
-                    {{ jour[index] }}
-                  </td>
-                   <td
-                  v-for="jou in jour[index]"
+                  <tr>
+                      <td class="pa-5">Lundi</td>
+                      <td class="pa-5" v-for="lun in lundi">
+  
+                        <div class="div2" v-if="lun.length>0">
+                          <v-layout row class="pa-2">
+                            <v-flex justify-center><span class="duree align-center"> {{ lun[0].numero }}</span> </v-flex>
+                          </v-layout>
+                          <v-layout row class="pa-2">
+                            <v-flex><span class="matiere">{{lun[0].matiere.nom}}</span></v-flex>
+                          </v-layout>
+                          <v-layout row class="pa-2">
+                            <v-flex xl6 md6 lg6 sm6 xs6><span class="nom">{{(lun[0].user.FirstName).substring(0,1)}}.{{ lun[0].user.LastName }}</span> - <span class="salle">{{ lun[0].salle.nom }}</span> </v-flex>
+                            <v-flex xl6 md6 lg6 sm6 xs6><span class="salle"></span></v-flex>
+                          </v-layout> 
+                        </div>
 
-                  >
-                  {{ jou }}
-                </td>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                     <!-- <td class="pa-5" v-for="lun in lundi" :key="lun.id">
-
-                       
-
-                         
-                              <v-layout row class="pa-2">
-                                <v-flex>
-                                  <span class="seance align-center"> {{ seances[lun.numero_seance] }}</span>
-                                </v-flex>
-                              </v-layout>
-                            
-                            <v-layout row class="pa-2">
-                              <v-flex><span class="matiere">{{lun.matiere}}</span></v-flex>
-                            </v-layout>
-                            <v-layout row class="pa-2">
-                              <v-flex xl6 md6 lg6 sm6 xs6><span class="nom">{{lun.user.FirstName}} - {{lun.user.LastName}} </span></v-flex>
-                              <v-flex xl6 md6 lg6 sm6 xs6><span class="salle">{{ lun.salle.numero}}</span></v-flex>
-                            </v-layout>    
-                    
-                        <div class="div2">
-                          nooooo
+                        <div class="" v-else>
+                          <v-divider></v-divider>
                         </div>
                             
-                      </td> -->
+                      </td> 
                   </tr>
 
-                  <!-- <tr  
-                  >   <td>Mardi</td>
-                  <td class="pa-5" v-for="mar in mardi" :key="mar.id">
+                  <tr>
+                      <td class="pa-5">Mardi</td>
+                      <td class="pa-5" v-for="mar in mardi">
+  
+                        <div class="div2" v-if="mar.length>0">
                           <v-layout row class="pa-2">
-                            <v-flex><span class="seance align-center"> {{ seances[mar.numero_seance] }}</span> </v-flex>
+                            <v-flex justify-center><span class="duree align-center"> {{ mar[0].numero }}</span> </v-flex>
                           </v-layout>
-                         
-                        <v-layout row class="pa-2">
-                          <v-flex><span class="matiere">{{mar.matiere}}</span></v-flex>
-                        </v-layout>
-                        <v-layout row class="pa-2">
-                          <v-flex xl6 md6 lg6 sm6 xs6><span class="nom">{{mar.user.FirstName}} - {{mar.user.LastName}} </span></v-flex>
-                          <v-flex xl6 md6 lg6 sm6 xs6><span class="salle">{{ mar.salle.numero}}</span></v-flex>
-                        </v-layout>      
-                      </td>
-                  </tr>
-
-                  <tr  
-                  >   <td>Mercredi</td>
-                      <td class="pa-5" v-for="mer in mercredi" :key="mer.id">
                           <v-layout row class="pa-2">
-                            <v-flex><span class="seance align-center"> {{ seances[mer.numero_seance] }}</span> </v-flex>
+                            <v-flex><span class="matiere">{{mar[0].matiere.nom}}</span></v-flex>
                           </v-layout>
-                         
-                        <v-layout row class="pa-2">
-                          <v-flex><span class="matiere">{{mer.matiere}}</span></v-flex>
-                        </v-layout>
-                        <v-layout row class="pa-2">
-                          <v-flex xl6 md6 lg6 sm6 xs6><span class="nom">{{mer.user.FirstName}} - {{mer.user.LastName}} </span></v-flex>
-                          <v-flex xl6 md6 lg6 sm6 xs6><span class="salle">{{ mer.salle.numero}}</span></v-flex>
-                        </v-layout>      
-                      </td>
-                  </tr>
+                          <v-layout row class="pa-2">
+                            <v-flex xl6 md6 lg6 sm6 xs6><span class="nom">{{(mar[0].user.FirstName).substring(0,1)}}.{{ mar[0].user.LastName }}</span> - <span class="salle">{{ lun[0].salle.nom }}</span> </v-flex>
+                            <v-flex xl6 md6 lg6 sm6 xs6><span class="salle"></span></v-flex>
+                          </v-layout> 
+                        </div>
 
-                  <tr  
-                  >     <td>Jeudi</td>
-                        <td class="pa-5" v-for="jeu in jeudi" :key="jeu.id">
-                              <v-layout row class="pa-2">
-                                <v-flex><span class="seance align-center"> {{ seances[jeu.numero_seance] }}</span> </v-flex>
-                              </v-layout>
+                        <div class="pa-5" v-else>
+                          <v-divider></v-divider>
+                        </div>
                             
-                            <v-layout row class="pa-2">
-                              <v-flex><span class="matiere">{{jeu.matiere}}</span></v-flex>
-                            </v-layout>
-                            <v-layout row class="pa-2">
-                              <v-flex xl6 md6 lg6 sm6 xs6><span class="nom">{{jeu.user.FirstName}} - {{jeu.user.LastName}} </span></v-flex>
-                              <v-flex xl6 md6 lg6 sm6 xs6><span class="salle">{{ jeu.salle.numero}}</span></v-flex>
-                            </v-layout>      
-                        </td>
+                      </td> 
                   </tr>
+                  
 
-                  <tr  
-                  >   <td>Vendredi</td>
-                      <td class="pa-5" v-for="ven in vendredi" :key="ven.id">
-                            <v-layout row class="pa-2">
-                              <v-flex><span class="seance align-center"> {{ seances[ven.numero_seance] }}</span> </v-flex>
-                            </v-layout>
-                          
+                  <tr>
+                      <td class="pa-5">Mercredi</td>
+                      <td class="pa-5" v-for="mer in mercredi">
+  
+                        <div class="div2" v-if="mer.length>0">
                           <v-layout row class="pa-2">
-                            <v-flex><span class="matiere">{{ven.matiere}}</span></v-flex>
+                            <v-flex justify-center><span class="duree align-center"> {{ mer[0].numero }}</span> </v-flex>
                           </v-layout>
                           <v-layout row class="pa-2">
-                            <v-flex xl6 md6 lg6 sm6 xs6><span class="nom">{{ven.user.FirstName}} - {{ven.user.LastName}} </span></v-flex>
-                            <v-flex xl6 md6 lg6 sm6 xs6><span class="salle">{{ ven.salle.numero}}</span></v-flex>
-                          </v-layout>      
-                      </td>
+                            <v-flex><span class="matiere">{{mer[0].matiere.nom}}</span></v-flex>
+                          </v-layout>
+                          <v-layout row class="pa-2">
+                            <v-flex xl6 md6 lg6 sm6 xs6><span class="nom">{{(mer[0].user.FirstName).substring(0,1)}}.{{ mer[0].user.LastName }}</span> - <span class="salle">{{ lun[0].salle.nom }}</span> </v-flex>
+                            <v-flex xl6 md6 lg6 sm6 xs6><span class="salle"></span></v-flex>
+                          </v-layout> 
+                        </div>
+
+                        <div class="pa-5" v-else>
+                          <v-divider></v-divider>
+                        </div>
+                            
+                      </td> 
+                  </tr>
+                  
+                  <tr>
+                      <td class="pa-5">Jeudi</td>
+                      <td class="pa-5" v-for="jeu in jeudi">
+  
+                        <div class="div2" v-if="jeu.length>0">
+                          <v-layout row class="pa-2">
+                            <v-flex justify-center><span class="duree align-center"> {{ jeu[0].numero }}</span> </v-flex>
+                          </v-layout>
+                          <v-layout row class="pa-2">
+                            <v-flex><span class="matiere">{{jeu[0].matiere.nom}}</span></v-flex>
+                          </v-layout>
+                          <v-layout row class="pa-2">
+                            <v-flex xl6 md6 lg6 sm6 xs6><span class="nom">{{(jeu[0].user.FirstName).substring(0,1)}}.{{ jeu[0].user.LastName }}</span> - <span class="salle">{{ lun[0].salle.nom }}</span> </v-flex>
+                            <v-flex xl6 md6 lg6 sm6 xs6><span class="salle"></span></v-flex>
+                          </v-layout> 
+                        </div>
+
+                        <div class="pa-5" v-else>
+                          <v-divider></v-divider>
+                        </div>
+                            
+                      </td> 
                   </tr>
 
-                  <tr  
-                  >   <td>Samedi</td>
-                      <td class="pa-5" v-for="sam in samedi" :key="sam.id">
+                  <tr>
+                      <td class="pa-5">Vendredi</td>
+                      <td class="pa-5" v-for="ven in vendredi">
+  
+                        <div class="div2" v-if="ven.length>0">
                           <v-layout row class="pa-2">
-                            <v-flex><span class="seance align-center"> {{ seances[sam.numero_seance] }}</span> </v-flex>
+                            <v-flex justify-center><span class="duree align-center"> {{ ven[0].numero }}</span> </v-flex>
                           </v-layout>
-                        
-                        <v-layout row class="pa-2">
-                          <v-flex><span class="matiere">{{sam.matiere}}</span></v-flex>
-                        </v-layout>
-                        <v-layout row class="pa-2">
-                          <v-flex xl6 md6 lg6 sm6 xs6><span class="nom">{{sam.user.FirstName}} - {{sam.user.LastName}} </span></v-flex>
-                          <v-flex xl6 md6 lg6 sm6 xs6><span class="salle">{{ sam.salle.numero}}</span></v-flex>
-                        </v-layout>      
-                      </td>
-                  </tr> -->
+                          <v-layout row class="pa-2">
+                            <v-flex><span class="matiere">{{ven[0].matiere.nom}}</span></v-flex>
+                          </v-layout>
+                          <v-layout row class="pa-2">
+                            <v-flex xl6 md6 lg6 sm6 xs6><span class="nom">{{(ven[0].user.FirstName).substring(0,1)}}.{{ ven[0].user.LastName }}</span> - <span class="salle">{{ lun[0].salle.nom }}</span> </v-flex>
+                            <v-flex xl6 md6 lg6 sm6 xs6><span class="salle"></span></v-flex>
+                          </v-layout> 
+                        </div>
+
+                        <div class="pa-5" v-else>
+                          <v-divider></v-divider>
+                        </div>
+                            
+                      </td> 
+                  </tr>
+
+                  <tr>
+                      <td class="pa-5">Samedi</td>
+                      <td class="pa-5" v-for="sam in samedi">
+  
+                        <div class="div2" v-if="sam.length>0">
+                          <v-layout row class="pa-2">
+                            <v-flex justify-center><span class="duree align-center"> {{ sam[0].numero }}</span> </v-flex>
+                          </v-layout>
+                          <v-layout row class="pa-2">
+                            <v-flex><span class="matiere">{{sam[0].matiere.nom}}</span></v-flex>
+                          </v-layout>
+                          <v-layout row class="pa-2">
+                            <v-flex xl6 md6 lg6 sm6 xs6><span class="nom">{{(sam[0].user.FirstName).substring(0,1)}}.{{ sam[0].user.LastName }}</span> - <span class="salle">{{ lun[0].salle.nom }}</span> </v-flex>
+                            <v-flex xl6 md6 lg6 sm6 xs6><span class="salle"></span></v-flex>
+                          </v-layout> 
+                        </div>
+
+                        <div class="pa-5" v-else>
+                          <v-divider></v-divider>
+                        </div>
+                            
+                      </td> 
+                  </tr>
                   </tbody>
                </template>
             </v-simple-table>
@@ -229,7 +231,8 @@
     },
    data(){
       return{
-        jours:[],
+        classe:"",
+        jours:['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
         lundi:[],
         mardi:[],
         mercredi:[],
@@ -237,14 +240,16 @@
         vendredi:[],
         samedi:[],
         seances:{
-          1:'8h30 - 10h00',
-          2:'10h10 - 11h40',
-          3:'11h50 - 13h20',
-          4:'12h40 - 14h20',
-          5:'14h20 - 15h50',
-          6:'16h00 - 17h30',
+          1:'            ',
+          2:'8h30 - 10h00',
+          3:'10h10 - 11h40',
+          4:'11h50 - 13h20',
+          5:'12h40 - 14h20',
+          6:'14h20 - 15h50',
+          7:'16h00 - 17h30',
 
-        }
+        },
+        num_seance:[1,2,3,4,5,6]
 
 
       }
@@ -252,19 +257,21 @@
    methods:{
     getEmploi(){
       emploiService.getEmploi().then((res)=>{
-        this.jours=res.data.data;
+        //this.jours=res.data.data;
         //console.log(this.jours);
-        this.lundi=(res.data.data['lundi']);
-        console.log(this.lundi);
-        // this.mardi=(res.data.data['mardi']);
-        // this.mercredi=(res.data.data['mercredi']);
-        // this.jeudi=(res.data.data['jeudi']);
-        // this.vendredi=(res.data.data['vendredi']);
-        // this.samedi=(res.data.data['samedi']);
-        // console.log(res.data.data)
-        // console.log(res.data.data);
-        // console.log(this.lundi[1][0].user['FirstName']);
-        // console.log(this.lundi[1][0]['numero_seance']);
+        this.classe=res.data.classe[0]['nom'];
+        console.log(this.classe);
+        this.lundi=res.data.data['lundi'];
+        console.log(this.lundi)
+        //console.log(res.data.data['lundi']);
+        this.mardi=(res.data.data['mardi']);
+        this.mercredi=(res.data.data['mercredi']);
+        this.jeudi=(res.data.data['jeudi']);
+        this.vendredi=(res.data.data['vendredi']);
+        this.samedi=(res.data.data['samedi']);
+        //console.log(res.data.data)
+        //console.log(res.data.data);
+        //console.log(this.lundi[1][0].user['FirstName']);
       }).catch((err)=>{
         console.log(err);
       })
@@ -408,17 +415,20 @@
   font-size: 15px;
   font-weight: bold;
 }
-.seance{
-  font-size: 15px;
+.duree{
+  font-size: 10px;
 }
-.name{
-  text-align: justify;
-  font-size: 15px;
+.nom{
+  text-align: center;
+  font-size: 10px;
 }
 .salle{
-  font-size: 16px;
+  font-size: 10px;
 }
 .emploi{
   margin-bottom: 400px;
+}
+.empty-col{
+  background-color: #444444;
 }
  </style>

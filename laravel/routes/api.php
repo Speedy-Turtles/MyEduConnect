@@ -19,6 +19,7 @@ use App\Http\Controllers\pdf\GenratePdfController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\proffesors\usersEtudiantContoroller;
 use App\Http\Controllers\proffesors\UsersProffesorsController;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -120,6 +121,7 @@ Route::middleware("auth:sanctum")->group(function(){
         Route::group(['prefix'=>"notif/"],function(){
             Route::get("getnotif",[InfoUserController::class,"getnotif"]);
             Route::post('ShowNotif',[InfoUserController::class,"ShowNotif"]);
+
         });
 
         Route::group(['prefix'=>"emploi/"],function(){
@@ -166,6 +168,7 @@ Route::middleware("auth:sanctum")->group(function(){
     Route::get("/notifNotSeen",[DocumentController::class,'getNotifsNotSeen']);
     Route::post("/editnotif",[DocumentController::class,'changerEtat']);
     Route::delete("/deleteAllNotif",[DocumentController::class,'clearNotif']);
+    Route::delete("deleteNotification/{id}",[DocumentController::class,"deleteNotifById"]);
     // utiliser dans controller $request()->user()->id  grace a interceptors dans vue js
 });
 Route::group(['prefix'=>'/documents/demandes'],function(){

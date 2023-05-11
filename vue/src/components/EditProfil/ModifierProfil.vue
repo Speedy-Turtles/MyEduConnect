@@ -3,13 +3,13 @@
         <v-container>
             <div class="row">
                 <div class="col-lg-4">
-                        <v-card style="padding: 15px;">
+                        <v-card style="padding: 15px;" class="edit-profile ">
                             <div class="mb-5">
                             <span class="text">
                                 {{store.user['FirstName'].charAt(0).toUpperCase() +""+store.user['FirstName'].substring(1,(store.user['FirstName']).length)}}
                             </span>
                             <span class="mb-3 text">
-                                {{store.user['LastName'].charAt(0).toUpperCase() +""+store.user['LastName'].substring(1,(store.user['LastName']).length)}}
+                                {{" "+store.user['LastName'].charAt(0).toUpperCase() +""+store.user['LastName'].substring(1,(store.user['LastName']).length)}}
                             </span>
                         </div>
                             <div class="mb-5">
@@ -142,6 +142,12 @@ export default{
 
 <style scoped>
 .text{
-    font-size: 25px;
+    font-family: "Times New Roman", Times, serif;
+    letter-spacing: 2px;
+    word-spacing: 2px;
+    color: #1976D2;
+    font-size: 30px;
+    display: inline-block;
 }
+
 </style>

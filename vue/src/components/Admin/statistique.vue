@@ -28,8 +28,8 @@
             </div>
             </div>
                 <div class="card row mt-5">
-                     <v-chart  class="chart col-lg-6" :option="option"  autoresize/>
-                     <v-chart class="chart col-lg-6" :option="option_two"  autoresize/>
+                     <v-chart  class="chart col-lg-6 col-sm-12 col-xs-12"  :option="option"  autoresize/>
+                     <v-chart class="chart col-lg-6 col-sm-12 col-xs-12" :option="option_two"  autoresize/>
               </div> 
     </div>
 </template>
@@ -204,4 +204,8 @@ export default defineComponent({
       width: 70vw;
     }
   }
-  </style>
+
+</style>
+
+
+

@@ -121,58 +121,58 @@
          </div>
 
         <div  v-else> 
-            <div class="row">
-               <div class="col-lg-4" v-for="data in session" :key="data.id">
-          <v-card 
-          class="mx-auto"
-          color="#26c6da"
-          dark
-          max-width="400"
-        >
-          <v-card-title>
-            <v-icon
-              large
-              left
-            >
-              mdi-vote
-            </v-icon>
-            <span class="text-h6 font-weight-light">{{data['Titre_Vote']}}</span>
-            <v-spacer></v-spacer>
-            <span :style="data['etat']==1 ? 'color:green' : data['etat']==0 ? 'color:yellow' : 'color:'" >{{data['etat']==1 ? 'in progress' : data['etat']==0 ? 'suspended' : ''}}</span>
-          </v-card-title>
-          <v-card-text style="font-size:18px" class="text-center font-weight-bold">
-            <p>
-              Date Debut: {{ data['DateDebut'] }}
-            </p>
-             <p>
-              Date Fin: {{ data['DateFin'] }}
-             </p>
-            <p>
-               <v-btn @click="getListNominated(data['id'])" color="warning">List Nominated</v-btn>
-            </p>
-          </v-card-text>
-          <v-card-actions>
-            <v-list-item class="grow">
-              <v-chip :loading="loading_sus" @click="Suspende(data['id'])" color="info" class="mx-1">{{data['etat']==1 ? 'suspended' : 'Start Vote'}}</v-chip>
-              <v-chip @click="annuler(data['id'])" color="red" class="mx-1">Reject</v-chip>
-              <v-chip :loading="loading_ter" @click="Terminer(data['id'])" color="primary" class="mx-1">Finished</v-chip>
-              <v-row
-                align="center"
-                justify="end"
+            <div class="">
+               <div class="text-center" v-for="data in session" :key="data.id">
+                <v-card 
+                class="mx-auto"
+                color="#26c6da"
+                dark
+                max-width="400"
               >
-                <v-icon class="mr-1">
-                  mdi-account
-                </v-icon>
-                <span class="subheading">
-                  {{ data['votes_count'] }} 
-                </span>
-              </v-row>
-            </v-list-item>
-          </v-card-actions>
-        </v-card>
+                <v-card-title>
+                  <v-icon
+                    large
+                    left
+                  >
+                    mdi-vote
+                  </v-icon>
+                  <span class="text-h6 font-weight-light">{{data['Titre_Vote']}}</span>
+                  <v-spacer></v-spacer>
+                  <span :style="data['etat']==1 ? 'color:green' : data['etat']==0 ? 'color:yellow' : 'color:'" >{{data['etat']==1 ? 'in progress' : data['etat']==0 ? 'suspended' : ''}}</span>
+                </v-card-title>
+                <v-card-text style="font-size:18px" class="text-center font-weight-bold">
+                  <p>
+                    Date Debut: {{ data['DateDebut'] }}
+                  </p>
+                  <p>
+                    Date Fin: {{ data['DateFin'] }}
+                  </p>
+                  <p>
+                    <v-btn @click="getListNominated(data['id'])" color="warning">List Nominated</v-btn>
+                  </p>
+                </v-card-text>
+                <v-card-actions>
+                  <v-list-item class="grow">
+                    <v-chip :loading="loading_sus" @click="Suspende(data['id'])" color="info" class="mx-1">{{data['etat']==1 ? 'suspended' : 'Start Vote'}}</v-chip>
+                    <v-chip @click="annuler(data['id'])" color="red" class="mx-1">Reject</v-chip>
+                    <v-chip :loading="loading_ter" @click="Terminer(data['id'])" color="primary" class="mx-1">Finished</v-chip>
+                    <v-row
+                      align="center"
+                      justify="end"
+                    >
+                      <v-icon class="mr-1">
+                        mdi-account
+                      </v-icon>
+                      <span class="subheading">
+                        {{ data['votes_count'] }} 
+                      </span>
+                    </v-row>
+                  </v-list-item>
+                </v-card-actions>
+                </v-card>
+              </div>
+            </div>
         </div>
-       </div>
-    </div>
 
     <v-dialog
       v-model="dialog_nominated"

@@ -13,9 +13,14 @@
                     <v-layout row>
                         <v-flex class="pa-5"><h1>Novelty</h1></v-flex>
                     </v-layout>
-                    <div class="NoNeauvelty ma-10 " v-if="neavautes.length==0">
-                        <v-img src="../../../../public/etudiant/images/no-data-found-logo.png" width="550px"></v-img>
-                        
+                    <div class="NoNeauvelty ma-10 ml-10 d-flex align-center justify-center" v-if="neavautes.length==0">
+                        <v-img id="interdit" src="../../../../public/etudiant/images/interdit.jpg" width="100px"></v-img>
+                        <div class="novote">
+                            No Novelty Now
+                        </div>
+                        <div class="check">
+                            please check later
+                        </div>
                     </div>
                     <div id="card"  data-aos="fade-down" v-else>
                         <div class="Neauvelty" v-for="neauv in neavautes" :key="neauv.id">
@@ -25,6 +30,7 @@
                                 <v-layout>
                                     <v-flex>
                                         <h5>{{ neauv.titre }}</h5>
+                                        
                                     </v-flex> 
                                 </v-layout>
                                 <v-layout>
@@ -109,5 +115,40 @@ methods:{
     text-align: center;
     font-size: 30px;
     color: red;
+}
+.NoNeauvelty{
+    flex-direction: column;
+    text-align: center;
+}
+#interdit{
+   
+}
+.not_found{
+  transform: translate(-50%,-50%);
+  height: 200px;
+  width: 400px;
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  border-radius: 25px;
+}
+.novote{
+  font-size: 40px;
+  color: rgb(56, 56, 56);
+  font-weight: bold;
+  letter-spacing: 2.2px;
+  word-spacing: 4.4px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-transform: capitalize;
+}
+.check{
+  color: rgb(163, 161, 161);
+  font-size: 21px;
+  letter-spacing: 2.2px;
+  word-spacing: 4.4px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-transform: capitalize;
 }
 </style>
