@@ -36,7 +36,6 @@ import app.project.service.UserService;
 import authPrametre.ChangerPassword;
 import authPrametre.Credentials;
 import authPrametre.Reponse;
-import authPrametre.StoreUser;
 import app.project.jwt.jwtTokenUtil;
 import app.project.mail.Mail;
 
