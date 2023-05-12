@@ -12,7 +12,7 @@
                 <v-spacer></v-spacer>
                 <v-container>
                     <div class="btns float-end">
-                        <v-btn outlined rounded color="#12c2b9" class="me-5" :to="links[0].route">
+                        <v-btn  outlined rounded color="#12c2b9" class="me-5" :to="links[0].route">
                         {{ links[0].title }} 
                         </v-btn>
 
@@ -34,8 +34,8 @@ export default {
     data(){
         return{
             links:[
-            {title:'SIGN IN',route:'signin'},
-            {title:'SIGN UP',route:'signup'}
+            {title:'SIGN IN',route:'/login'},
+            {title:'SIGN UP',route:'/SignUp'}
         ]
         }
     },  
