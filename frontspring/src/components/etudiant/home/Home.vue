@@ -13,7 +13,7 @@
                     <p class="p1 hidden-sm-and-down">{{ p1 }}</p>
                 </v-flex>
                 <v-flex xs12 md6 sm12 xl4 data-aos="fade-right">
-                    <img  v-if="selected" :src="selected"   id="img"  alt="" width="100%" height="350px" >
+                    <img   src="../../../assets/p1.png"   id="img"  alt="" width="100%" height="350px" >
                 </v-flex>
             </v-layout>
         </v-container>
@@ -49,7 +49,7 @@
                             <p class="p-iset">L'Institut Supérieur des Etudes Technologiques de Bizerte</p>
                             <v-layout row>
                                     <v-flex xl8 lg6 md6 sm12 xs12 class="pt-5"><p>Un Institut supérieur des études technologiques est un institut universitaire tunisien</p></v-flex>
-                                    <v-flex xl4 lg6 md6 sm12 xs12 class="hidden-sm-and-down"><img src="../../../../public/etudiant/images/logoiset.png" width="100%" height="150px"></v-flex>
+                                    <v-flex xl4 lg6 md6 sm12 xs12 class="hidden-sm-and-down"><img  width="100%" height="150px" src="../../../assets/logoiset.png"></v-flex>
                             </v-layout>
                         </div>
                     </v-flex>
@@ -72,7 +72,7 @@
                                 <v-list-item-avatar
                                 tile
                                 size="70"
-                            > <img :src="fonction.avatar" alt="" srcset="" >
+                            > <img  alt="" srcset="" :src="fonction.avatar">
                             <v-list-item-title class="text-h6 mb-1">
                                    <strong> {{fonction.titre}}</strong>
                                 </v-list-item-title>
@@ -94,7 +94,7 @@
             :timeout="timeout"
             color="green--text"
             >
-            Welcome {{store.user['FirstName']}} !
+            Welcome  !
             <template v-slot:action="{ attrs }">
                 <v-btn
                 color="red"
@@ -111,18 +111,13 @@
    
 </template>
 <script>
-import {AuthUser} from "@/store/Store.js";
-import userinfo from "@/service/UserInfo/userinfo";
-import admin from "@/service/admin/gererAdmin";
-
 export default {
     
     mounted(){
       
     },
     setup(){
-        const store=AuthUser();
-        return{store}
+        
       },
 data(){
     return{
@@ -134,55 +129,17 @@ data(){
         spec:"",
         niveau:0,
         fonctions:[
-            {titre:'Document',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/document.png')},
-            {titre:'Forums',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/forum2.png')},
-            {titre:'Emploi',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/club.png')},
-            {titre:'Help',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/help.png')},
-            
+            {titre:'Document',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../assets/document2.png')},
+            {titre:'Forums',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../assets/forum2.png')},
         ],
         snackbar:false,
         timeout:3000,
         stats:[]
     }
 },
-props:['photos'],
+
 methods:{
-    translate(prop){
-         return(this[this.langDocument][prop]);
-    },
-    randomPhoto(imgs){
-        return imgs[Math.floor(Math.random()*this.photos.length)]
-    },
-    greeting(){
-        if(this.store.user['welcome_field']==0){
-            let test=new SpeechSynthesisUtterance("welcome"+this.store.user['FirstName']);
-            speechSynthesis.speak(test);
-            setTimeout(() => {
-                userinfo.updateWelcome().then((res)=>{
-                    console.log(res)
-                }).catch((err)=>{
-                    console.log(err)
-                })
-            }, 1000);
-        }
-    },
-    getStats(){
-        admin.getStat().then((res)=>{
-            this.stats=res.data.data;
-            console.log(this.stats.nb_etudiant)
-        }).catch((err)=>{
-            console.log(err);
-        })
-    }
-
-   
-},
-created(){
-    this.selected=this.randomPhoto(this.photos)
-    this.snackbar=true
-    this.greeting();
-    this.getStats();
-
+    
 }
 }
 </script>
@@ -224,7 +181,7 @@ font-variant: small-caps;
 
 .title-word-1 {
   --color-1: #f66641;
-  --color-2: #525fe1;
+  --color-2: #12c2b9;
   --color-3: #ff60aa;
 }
 
@@ -280,7 +237,7 @@ text-transform: none;
 }
 
 .section-2{
-    background:#525fe1;
+    background:#12c2b9;
     width: 100%;
     height: auto;
     padding-bottom: 20px;
@@ -293,13 +250,3 @@ h3{
     padding-left: 20px;
 }
 </style>
-
-
-
-
-
-
-
-
-
-

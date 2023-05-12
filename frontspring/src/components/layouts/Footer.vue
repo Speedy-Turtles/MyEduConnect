@@ -44,6 +44,7 @@
     padding-bottom: 50px;
 }
 .footer2{
+    margin-top: 20vh;
     height: 100vh;
     max-height: 50vh;
     background-color:#12c2b9 ;
