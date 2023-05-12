@@ -137,7 +137,7 @@ data(){
             {titre:'Document',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/document.png')},
             {titre:'Forums',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/forum2.png')},
             {titre:'Emploi',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/club.png')},
-            {titre:'Emploi',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/help.png')},
+            {titre:'Help',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/help.png')},
             
         ],
         snackbar:false,

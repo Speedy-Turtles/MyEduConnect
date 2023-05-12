@@ -1,0 +1,216 @@
+<template>
+    <div id="tab1">
+        <div class="navbar">
+         <v-toolbar   class="toolbar">
+            <a type="hidden" href=""></a>
+            <!-- --------------------menu-------------------------- -->
+                <v-menu offset-y transition="slide-x-transition" 
+                right
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                        
+                        v-bind="attrs"
+                        v-on="on"
+                        plain
+                        class="hidden-md-and-up grey--text mr-3"
+                        >
+                        <v-icon size="43px" color="primary">
+                            mdi-menu
+                        </v-icon>
+                        </v-btn>
+                    </template>
+                    <v-list>
+                    
+                        <v-list-item
+                        v-for="link in links"
+                        :key="link.titre"
+                        >
+                            <v-list-item-title>
+                                <v-btn plain router :to="link.route">{{link.titre}} </v-btn>
+                            </v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+                </v-menu>
+                <!-- --------------------menu/-------------------------- -->
+                <!-- --------------------titre-------------------------- -->
+                <v-toolbar-title class="mr-5 hidden-sm-and-down">
+                    <img src="../../../assets/logo-no-background.svg" class="ml-10" alt="" width="110px" srcset="">
+                </v-toolbar-title>
+                <!-- --------------------titre/-------------------------- -->
+
+                <v-toolbar-items  class="hidden-sm-and-down">
+                    <!-- --------------------tooltips-------------------------- -->
+                    <v-tooltip bottom v-for="link in links" :key="link.titre">
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn
+                            plain
+                            v-bind="attrs"
+                            v-on="on"
+                            id="btn-links"
+                            class="black--text"
+                            router :to="link.route"
+                            >
+                            <v-icon class="px-3">{{ link.icon }}</v-icon>
+                            {{ link.titre }} 
+                            </v-btn>
+                        </template>
+                        <span>{{ link.desc  }}</span>
+                    </v-tooltip>
+                    
+                    <!-- --------------------tooltips/-------------------------- -->
+                </v-toolbar-items>
+                <v-spacer></v-spacer>
+                <v-toolbar-title class="mr-5 hidden-md-and-up">
+                    <img src="../../../assets/logo-no-background.svg" class="ml-10" alt="" width="110px" srcset="">
+                </v-toolbar-title>
+
+                <!-- <v-menu offset-y
+               
+                transition="slide-x-transition" 
+                left
+                class="mt-7"
+                max-width="auto"
+                min-width="300"
+                >
+                
+                    <template v-slot:activator="{ on, attrs }">
+                     <v-btn
+                     plain
+                     v-bind="attrs"
+                     v-on="on"
+                     @click="chagerEtatNotif"
+                     >
+                        <v-icon size="35px ">mdi-bell</v-icon>
+                        <v-badge color="red" :content="getNbrNotifNotSeen"
+                        v-if="getNbrNotifNotSeen!=0"
+                        :values="getNbrNotifNotSeen"
+                        ></v-badge>
+                     </v-btn>
+                     
+                    </template>
+               
+                        <v-list>
+                            <v-list-item class="text-h5">
+                                Notifications
+                            </v-list-item>
+                        </v-list>
+                        <v-divider></v-divider>
+                    <v-list v-if="notifications.length==0">
+                    <v-list-item  class="mt-5 red--text">
+                        
+                        <v-list-item-title class="text-h7 ml-8 mb-8">No notifications is available</v-list-item-title>
+                    </v-list-item>
+                   </v-list>
+                   
+                    <v-list v-else>
+                    <v-list-item
+                        v-for="notif in notifications" :key="notif.id"
+                    > -->
+                   
+                    
+                        <!-- ---------------avatar-------------------- -->
+                        <!-- <v-list-item-avatar>
+                            <v-avatar v-if="notif.user_envoi_photo.length>2" size="43px">
+                                <v-img  :src="'http://localhost:8000'+notif.user_envoi_photo"></v-img>
+                            </v-avatar>
+                            <v-avatar color="blue" v-else>
+                                <span class="white--text">{{ notif.user_envoi_photo }}</span>
+                            </v-avatar>
+                        </v-list-item-avatar> -->
+                        <!-- --------------- /avatar-------------------- -->
+
+                         <!-- --------------- msg + date -------------------- -->
+                        <!-- <v-list-item-content>
+                            <v-list-item-title class="px-5 justify-center">{{ notif.msg }}<br><span class="date" v-if="notif.date!=null"> Since : {{ notif.date }}</span></v-list-item-title>
+                        </v-list-item-content>  -->
+                        <!-- --------------- /msg + date -------------------- -->
+
+                        <!--------------------button----------------------->
+                        <!-- <v-list-item-action>
+                            <v-col cols="auto">
+                            <v-dialog
+                                transition="dialog-bottom-transition"
+                                max-width="400"
+                            >
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-btn
+                                    plain
+                                    @click="dialog==true"
+                                    v-bind="attrs"
+                                    v-on="on"
+                                    >
+                                        <v-icon>mdi-close</v-icon>
+                                    </v-btn>
+                                </template>
+                                <template v-slot:default="dialog">
+                                <v-card>
+                                    <v-card-text>
+                                    <div class="text-h5 pa-5">Delete Notification</div>
+                                    </v-card-text>
+                                    <v-card-actions class="justify-end">
+                                    <v-btn
+                                        text
+                                        @click="dialog.value = false"
+                                    >No</v-btn>
+                                    <v-btn
+                                        text
+                                        @click="deleteNotificationById(notif.idNotif),dialog.value = false"
+                                    >Delete</v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                                </template>
+                            </v-dialog>
+                            </v-col>
+                        </v-list-item-action> -->
+                        <!-------------------- /button----------------------->
+                        
+                    <!-- </v-list-item>
+                    
+                        <v-divider></v-divider>
+                        <v-list-item class="mt-5">
+                            <v-btn 
+                            plain
+                            v-if="notifications.length!=0"
+                            @click="deleteAllNotif()"
+                            >
+                                <v-list-item-title class="red--text ml-15"> 
+                                    Clear All<v-icon class="pa-1 red--text">mdi-delete</v-icon>
+                                </v-list-item-title>
+                            </v-btn>
+                        
+                        </v-list-item>
+                    </v-list>
+                </v-menu> -->
+        </v-toolbar> 
+    </div>
+    </div>
+</template>
+
+<script>
+
+
+
+export default {
+    data(){
+        return{
+            links:[
+                    {titre:'home',link:'home',desc:'Home',icon:'mdi-home',route:'/etudiant'},
+                    {titre:'Document',link:'document',desc:'Check Documents',icon:'mdi-table-edit',route:'/etudiant/document'},
+                    {titre:'Forum',link:'forum',desc:'Go to Forum',icon:'mdi-comment-text-outline',route:'/etudiant/forum'},
+        ]
+        }
+    },  
+    methods:{
+    },
+    components: {
+    },
+}
+</script>
+<style scoped>
+.toolbar{
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+}
+</style>

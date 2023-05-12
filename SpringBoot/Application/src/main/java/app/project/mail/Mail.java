@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package app.project.mail;
 
 import java.io.UnsupportedEncodingException;
@@ -33,7 +32,7 @@ public class Mail {
 				throws MessagingException, UnsupportedEncodingException {
 
 			Context context=new Context();
-			context.setVariable("title", "Verify Your Email address");
+			context.setVariable("name", user.getLastName());
 			context.setVariable("link","http://localhost:8081/login?email="+user.getEmail());
 			String body=templateEngine.process("VerifyEmail", context);
 			
@@ -53,45 +52,14 @@ public class Mail {
 			javamailSender.send(message);
 		}
 		
-}
-=======
-package app.project.mail;
-
-import java.io.UnsupportedEncodingException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Service;
-import org.thymeleaf.TemplateEngine;
-
-import javax.mail.MessagingException;
-
-import app.project.entities.User;
-
-import javax.mail.internet.MimeMessage;
-
-import org.springframework.mail.javamail.MimeMessageHelper;
-
-import org.thymeleaf.context.Context;
-
-@Service
-public class Mail {
-
-	 @Autowired
-	 private JavaMailSender javamailSender;
-	 private final TemplateEngine templateEngine ;
-	 
-		public Mail(TemplateEngine templateEngine) {
-			this.templateEngine=templateEngine;
-		}
 		
-		public void sendVerificationEmail(User user)
+		public void SendForgotPassword(User user,String Token)
 				throws MessagingException, UnsupportedEncodingException {
 
 			Context context=new Context();
-			context.setVariable("title", "Verify Your Email address");
-			context.setVariable("link","http://localhost:8081/login?email="+user.getEmail());
-			String body=templateEngine.process("VerifyEmail", context);
+			context.setVariable("token", Token);
+			context.setVariable("link","http://localhost:8081/ChangerPassword");
+			String body=templateEngine.process("ForgotPassword", context);
 			
 			String fromAddress = "myeduconnect20@gmail.com";
 			String senderName = "MyEduConnect";
@@ -102,7 +70,7 @@ public class Mail {
 			String toAddress = user.getEmail();
 			helper.setFrom(fromAddress, senderName);
 			helper.setTo(toAddress);
-			helper.setSubject("Email address Verification");
+			helper.setSubject("Email Forgot Password");
 
 			helper.setText(body, true);
 
@@ -110,4 +78,3 @@ public class Mail {
 		}
 		
 }
->>>>>>> c475a485596fd9a763dff634b70b71401dae7c73

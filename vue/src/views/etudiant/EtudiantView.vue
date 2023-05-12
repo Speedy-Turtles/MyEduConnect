@@ -5,7 +5,7 @@
                         <Navbar></Navbar>
                     </div>
                 </nav>
-                <main >
+                <main>
                     <Home :photos="photos"></Home>
                     <NouveauteCard />
                 </main>
