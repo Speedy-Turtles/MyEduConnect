@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -50,6 +51,7 @@ public class User implements Serializable {
 	@Column(length = 999999999) 
 	private String Photo;
 	private String Cin;
+	private String sex;
 	private Date Birth_day;
 	@ColumnDefault(value = "false")
 	private Boolean welcome_field;
@@ -70,6 +72,11 @@ public class User implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@ColumnDefault(value = "null")
 	private Date email_verified_at;
+	
+	
+	@ManyToOne
+	@JoinColumn(name="idclasse")
+	private classe classe;
 	
 	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinTable(name="user_role",
