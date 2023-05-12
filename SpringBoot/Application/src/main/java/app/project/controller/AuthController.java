@@ -214,9 +214,6 @@ public class AuthController {
     public Boolean TestExitCode(@RequestParam("code") String code) {
     	return UserRepo.CheckToken(code)==null ? true :false;
     }
-    
-    
-       
-    
+
     
 }

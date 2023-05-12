@@ -21,9 +21,8 @@
                         </v-btn>
                     </template>
                     <v-list>
-                    
                         <v-list-item
-                        v-for="link in links"
+                        v-for="link in  store.Isetudiant==true ? links : links_ens"
                         :key="link.titre"
                         >
                             <v-list-item-title>
@@ -41,7 +40,7 @@
 
                 <v-toolbar-items  class="hidden-sm-and-down">
                     <!-- --------------------tooltips-------------------------- -->
-                    <v-tooltip bottom v-for="link in links" :key="link.titre">
+                    <v-tooltip bottom v-for="link in  store.Isetudiant=='true' ? links : links_ens" :key="link.titre">
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn
                             plain
@@ -182,26 +181,106 @@
                         </v-list-item>
                     </v-list>
                 </v-menu> -->
+
+                <v-menu offset-y 
+                transition="slide-x-transition" 
+                left
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                    <v-btn   plain v-bind="attrs"
+                     v-on="on"
+                     >
+                         <v-avatar   size="43px">
+                             <img :src="store.user['photo']">
+                         </v-avatar>
+                     </v-btn>
+                    </template>
+                    <v-list>
+                    <v-list-item>
+                        <v-list-item-title>
+                            <v-btn
+                                plain
+                                block
+                                class="py-3"
+                            >
+                            {{store.user['FirstName']}}
+                            </v-btn>
+                        </v-list-item-title>
+                     </v-list-item>
+                    <v-list-item>
+                        
+                        <v-list-item-action>
+                            <v-btn
+                                plain
+                                router to="/etudiant/EditProfilView"
+                            >
+                                <v-icon class="pa-2">mdi-wrench</v-icon>
+                                <span class="">Settings</span>
+                            </v-btn>
+                        </v-list-item-action>
+                        
+                    </v-list-item>
+
+                    <v-list-item v-if="store.Ischef=='true'">
+                        <v-list-item-action>
+                            <v-btn
+                                plain
+                            >
+                                <v-icon class="pa-2">mdi-swap-horizontal</v-icon>
+                                <span >
+                                    <v-btn router to="/chef_departement">
+                                        switch
+                                    </v-btn>
+                                </span>
+                            </v-btn>
+                        </v-list-item-action>
+                    </v-list-item>
+
+                    <v-list-item >
+                        <v-list-item-action>
+                            <v-btn
+                                plain
+                                @click="logout()"
+                            >
+                                <v-icon class="pa-2">mdi-logout</v-icon>
+                                <span >log out</span>
+                            </v-btn>
+                        </v-list-item-action>
+                    </v-list-item>
+
+                    </v-list>
+                </v-menu>
         </v-toolbar> 
     </div>
     </div>
 </template>
 
 <script>
-
-
-
+import {AuthUser} from "@/store/AuthStore.js"
 export default {
+    setup(){
+        const store=AuthUser()
+        return{store}
+    },
     data(){
         return{
             links:[
                     {titre:'home',link:'home',desc:'Home',icon:'mdi-home',route:'/etudiant'},
                     {titre:'Document',link:'document',desc:'Check Documents',icon:'mdi-table-edit',route:'/etudiant/document'},
                     {titre:'Forum',link:'forum',desc:'Go to Forum',icon:'mdi-comment-text-outline',route:'/etudiant/forum'},
-        ]
+            ],
+            links_ens:[
+                    {titre:'home',link:'home',desc:'Home',icon:'mdi-home',route:'/etudiant'},
+                    {titre:'Forum',link:'forum',desc:'Go to Forum',icon:'mdi-comment-text-outline',route:'/etudiant/forum'},
+            ]
         }
     },  
     methods:{
+        logout(){
+            this.store.logout();
+            this.$router.push({name:"login"});
+        }
+
     },
     components: {
     },
