@@ -70,8 +70,7 @@
                                                 </div>   
                                                 <p class="py-5 m-5">{{equipe.name}}</p>
                                             </div>
-                                        </v-flex>
-                                
+                                        </v-flex>       
                             </v-layout>
                         </div>
                     </v-container>
@@ -229,6 +228,7 @@ export default {
 }
 .equipe{
     margin-bottom: 100px;
+    cursor: pointer;
 }
 #img{
     border-radius: 15px;
