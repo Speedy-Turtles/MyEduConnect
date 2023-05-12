@@ -24,6 +24,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import app.project.jwt.JwtAuthenticateEntryPoint;
 import app.project.jwt.JwtRequestFilter;
@@ -81,6 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 	@Override
 	public void configure(HttpSecurity http) {
 		try {
+
 			http.cors().and().csrf().disable()
 			.authorizeRequests()
 			.antMatchers("/login").permitAll()
@@ -88,6 +91,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 			.antMatchers("/verify").permitAll()
 			.antMatchers("/ForgotPassword").permitAll()
 			.antMatchers("/ChangerPassword").permitAll()
+			.antMatchers("/getSpecialte").permitAll()
+			.antMatchers("/getClasse").permitAll()
+			.antMatchers("/getRoleByid").permitAll()
+			.antMatchers("/GetAllRole").permitAll()
+			.antMatchers("/getClasseById").permitAll()
+			.antMatchers("/ExistToken").permitAll()
+			.antMatchers("/ExistMail").permitAll()
 			.anyRequest().authenticated()
 			 .and()
 			 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
@@ -112,5 +122,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 	        return  source;
 	    }
 	   
-  
+	
 }
