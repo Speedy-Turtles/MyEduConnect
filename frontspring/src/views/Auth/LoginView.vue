@@ -199,14 +199,11 @@
                 authService.login(this.email,this.password).then((res)=>{
                 this.loading=false;
                if(this.store.Isetudiant==true){
-                    console.log("etudiant");
-                  // this.$router.push({name:"etudiant"});
+                   this.$router.push({name:"homeEtudiant"});
                 }else if(this.store.IsAdmin==true){
-                    console.log("admin");
-                  // this.$router.push({name:"dashboardAdminView"});
+                   this.$router.push({name:"dashboradAdminView"});
                 }else if(this.store.Isens==true){
-                    console.log("ens");
-                 // this.$router.push({name:"etudiant"});
+                    this.$router.push({name:"homeEtudiant"});
                 }
               }).catch((error)=>{
                 this.loading=false;
