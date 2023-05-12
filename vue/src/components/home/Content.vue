@@ -111,7 +111,7 @@ export default {
         p1:' is a website that caters specifically to college students .',
         p2:'Myeduconnect is an innovative education website that offers a range of features to support students in their academic journey. One of the main benefits of this platform is its provision of professional documents, such as academic articles, research papers, and study guides, which can be accessed by students to enhance their learning experience. Additionally, Myeduconnect provides a forum for students to engage in discussions, share ideas, and collaborate with peers on academic topics. Moreover, the website has numerous clubs that cater to diverse interests, enabling students to explore their passions beyond the classroom. ',
         p3:'Online education has revolutionized the way we learn by providing students with the flexibility and convenience to access educational materials remotely. This mode of learning offers a wide range of programs and courses to choose from, allowing students to tailor their education to fit their needs and interests. Online education is particularly beneficial for those who have other commitments such as work or family obligations, as it allows them to learn on their own schedule. While it does present some challenges, such as a lack of face-to-face interaction, advances in technology are addressing these issues. Overall, online education has become a popular and effective means of learning in today s digital age.',
-        p4:'Online Education',
+        p4:'Online Education',  
         cards:[
             {title:'Document',p:'A document official is an official document that has been created, issued, or certified by the university.',image:require('../../../public/etudiant/images/document2.png')},
             {title:'Forum',p:'A forum is an online discussion  where users can engage in conversations, share ideas and opinions, and ask and answer questions on various topics.',image:require('../../../public/etudiant/images/forum2.png')},
@@ -240,9 +240,7 @@ font-variant: small-caps;
     flex-direction: column;
     align-items: center;
 }
-/* .card>h2,p{
-    color: white;
-} */
+
 .card:hover{
     background-color: #1976D2;
     color: white;
