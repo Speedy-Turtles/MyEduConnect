@@ -1,7 +1,7 @@
 <template>
-    <div  class="ma-5 mb-5">
-        <v-container >
-            <v-row>
+    <div  class=" mb-5">
+        <v-container elevation="5">
+            <v-row class="ma-5">
               <h2>
                 <span style="color: #5094df">{{
                   (store_view.getView).toUpperCase().substring(0, (store_view.getView).length - 3)
@@ -15,7 +15,7 @@
               </h2>
               <v-spacer></v-spacer>
               
-              <v-menu offset-y
+             <!--  <v-menu offset-y
                
                 transition="slide-x-transition" 
                 left
@@ -40,7 +40,7 @@
                      
                     </template>
                
-                        <v-list>
+                       <v-list>
                             <v-list-item class="text-h5">
                                 Notifications
                             </v-list-item>
@@ -59,7 +59,7 @@
                     >
                    
                     
-                        <!-- ---------------avatar-------------------- -->
+                    
                         <v-list-item-avatar>
                             <v-avatar v-if="notif.user_envoi_photo.length>2" size="43px">
                                 <v-img  :src="'http://localhost:8000'+notif.user_envoi_photo"></v-img>
@@ -68,15 +68,11 @@
                                 <span class="white--text">{{ notif.user_envoi_photo }}</span>
                             </v-avatar>
                         </v-list-item-avatar>
-                        <!-- --------------- /avatar-------------------- -->
-
-                         <!-- --------------- msg + date -------------------- -->
+                      
                         <v-list-item-content>
                             <v-list-item-title class="px-5 justify-center">{{ notif.msg }}<br><span class="date" v-if="notif.date!=null"> Since : {{ notif.date }}</span></v-list-item-title>
                         </v-list-item-content> 
-                        <!-- --------------- /msg + date -------------------- -->
-
-                        <!--------------------button----------------------->
+                      
                         <v-list-item-action>
                             <v-col cols="auto">
                             <v-dialog
@@ -113,12 +109,12 @@
                             </v-dialog>
                             </v-col>
                         </v-list-item-action>
-                        <!-------------------- /button----------------------->
+                      
                         
                     </v-list-item>
                     
                         <v-divider></v-divider>
-                        <!-- <v-list-item class="mt-5">
+                       <v-list-item class="mt-5">
                             <v-btn 
                             plain
                             v-if="notifications.length!=0"
@@ -129,44 +125,9 @@
                                 </v-list-item-title>
                             </v-btn>
                         
-                        </v-list-item> -->
+                        </v-list-item> 
                     </v-list>
-                </v-menu>
-              
-                <template v-slot:activator="{ on, attrs }">
-                 <v-btn
-                 plain
-                 v-bind="attrs"
-                 v-on="on"
-                 >
-                    <v-avatar>
-                       <img :src="store.user['Photo']" alt="">
-                  </v-avatar>
-                 </v-btn>
-                </template>
-                <v-list>
-                <v-list-item class="text-center"
-                >
-                    <v-list-item-title>{{store.user['FirstName']}}</v-list-item-title>
-                    </v-list-item>
-                </v-list>
-                <v-list-item>
-                    <v-list-item-action>
-                        <v-btn plain @click="changerView('edit')">
-                            <v-icon class="pa-2">mdi-account-cog</v-icon>
-                            <span class="">Setting</span>
-                        </v-btn>
-                    </v-list-item-action>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-action>
-                      <v-btn plain @click="logout()">
-                          <v-icon class="pa-2">mdi-logout</v-icon>
-                          <span class="">log out</span>
-                      </v-btn>
-                  </v-list-item-action>
-              </v-list-item>
-            
+                </v-menu>-->
               <v-menu offset-y 
                 transition="slide-x-transition" 
                 left
@@ -175,12 +136,8 @@
                     <v-btn   plain v-bind="attrs"
                      v-on="on"
                      >
-                        <v-avatar v-if="store.user['Photo'].indexOf('storage')!=-1" size="43px">
-                            <img :src="'http://localhost:8000'+store.user['Photo']" alt="" srcset="">
-                         </v-avatar>
-
-                         <v-avatar color="primary" v-else size="43px">
-                             <span class="white--text">{{ store.user['Photo'] }}</span>
+                         <v-avatar color="red" size="43px">
+                             <img :src="store.user['Photo']">
                          </v-avatar>
                      </v-btn>
                     </template>
@@ -192,7 +149,7 @@
                                 block
                                 class="py-3"
                             >
-                            {{store.user['FirstName']}}
+                            {{store.user["firstName"]}}
                             </v-btn>
                         </v-list-item-title>
                      </v-list-item>
@@ -209,22 +166,6 @@
                         </v-list-item-action>
                         
                     </v-list-item>
-
-                    <v-list-item v-if="test_ischef==true || store.Ischef=='true'">
-                        <v-list-item-action>
-                            <v-btn
-                                plain
-                            >
-                                <v-icon class="pa-2">mdi-swap-horizontal</v-icon>
-                                <span >
-                                    <v-btn router to="/chef_departement">
-                                        switch
-                                    </v-btn>
-                                </span>
-                            </v-btn>
-                        </v-list-item-action>
-                    </v-list-item>
-
                     <v-list-item >
                         <v-list-item-action>
                             <v-btn
@@ -236,7 +177,6 @@
                             </v-btn>
                         </v-list-item-action>
                     </v-list-item>
-
                     </v-list>
                 </v-menu>  
             </v-row>
@@ -273,7 +213,7 @@ export default {
        logout(){
             this.store_view.suppView();
             this.store.logout();
-            this.$router.push({name:'signin'});
+            this.$router.push({name:'loign'});
         },
         /*getNotifs(){
             gererNotifEtud.getNotifEtud().then((res)=>{

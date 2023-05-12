@@ -3,6 +3,7 @@ package app.project.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.mail.MessagingException;
 
@@ -214,6 +215,12 @@ public class AuthController {
     public Boolean TestExitCode(@RequestParam("code") String code) {
     	return UserRepo.CheckToken(code)==null ? true :false;
     }
-
+   
+    @PostMapping("/updateWelcome")
+    public ResponseEntity<?> updateFiledWelcome(@RequestParam("email")String email){
+    	User user=user_service.getByEmail(email);
+    	user.setWelcome_field(true);
+    	return ResponseEntity.ok().body("Password has been changed");
+    }
     
 }

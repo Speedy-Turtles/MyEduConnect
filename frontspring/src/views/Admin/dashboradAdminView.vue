@@ -12,6 +12,7 @@
                  <HeaderDashboard ></HeaderDashboard>
                 <div  class="ma-5 pa-5" id="home">
                     <div v-if="store.view=='stat' ">
+                          <test></test>
                           <!-- <statistique></statistique> -->
                     </div>
                     <div  v-else-if="store.view=='vote'">
@@ -31,6 +32,7 @@ import userinfo from "@/service/UserInfo/userInfo.js";
 //import statistique from '@/components/Admin/statistique.vue';
 import HeaderDashboard from '@/components/Admin/headerAdmin.vue';
 import sidebarVue from '../../components/Admin/sidebar.vue'
+import test from "../../components/Admin/test.vue"
 //import modifierProfil from "@/components/EditProfil/ModifierProfil.vue";
 //import Vote from '@/components/Admin/Vote.vue';
 import {CurentView} from "@/store/storeView.js";
@@ -80,7 +82,7 @@ export default{
             let test=new SpeechSynthesisUtterance("welcome"+this.storeAuth.user['FirstName']);
             speechSynthesis.speak(test);
             setTimeout(() => {
-                userinfo.updateWelcome().then((res)=>{
+                userinfo.updateWelcome(this.storeAuth.user['email']).then((res)=>{
                     console.log(res)
                 }).catch((err)=>{
                     console.log(err)
@@ -90,7 +92,7 @@ export default{
       }
     },
     components:{
-       sidebarVue,HeaderDashboard
+       sidebarVue,HeaderDashboard,test
     },
  
 };
@@ -117,6 +119,7 @@ export default{
   }
   .large .content {
          margin-left: 280px ;
+        
   }
   .small .content{
         margin-left: 0px !important;
