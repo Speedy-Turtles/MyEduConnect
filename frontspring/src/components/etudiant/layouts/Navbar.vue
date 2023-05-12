@@ -22,7 +22,7 @@
                     </template>
                     <v-list>
                         <v-list-item
-                        v-for="link in  store.Isetudiant==true ? links : links_ens"
+                        v-for="link in (!test_idetudiant || store.Isetudiant=='false' ? links_ens : links)"
                         :key="link.titre"
                         >
                             <v-list-item-title>
@@ -40,7 +40,7 @@
 
                 <v-toolbar-items  class="hidden-sm-and-down">
                     <!-- --------------------tooltips-------------------------- -->
-                    <v-tooltip bottom v-for="link in  store.Isetudiant=='true' ? links : links_ens" :key="link.titre">
+                    <v-tooltip bottom v-for="link in  (!test_idetudiant || store.Isetudiant=='false' ? links_ens : links)" :key="link.titre">
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn
                             plain
@@ -221,7 +221,7 @@
                         
                     </v-list-item>
 
-                    <v-list-item v-if="store.Ischef=='true'">
+                    <v-list-item v-if="test_ischef==true || store.Ischef=='true'">
                         <v-list-item-action>
                             <v-btn
                                 plain
@@ -264,6 +264,8 @@ export default {
     },
     data(){
         return{
+            test_ischef:false,
+            test_idetudiant:false,
             links:[
                     {titre:'home',link:'home',desc:'Home',icon:'mdi-home',route:'/etudiant'},
                     {titre:'Document',link:'document',desc:'Check Documents',icon:'mdi-table-edit',route:'/etudiant/document'},
@@ -284,6 +286,10 @@ export default {
     },
     components: {
     },
+    created(){
+            this.test_ischef=this.store.Ischef;
+            this.test_idetudiant=this.store.Isetudiant;
+    }
 }
 </script>
 <style scoped>
