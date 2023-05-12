@@ -14,5 +14,8 @@ export default{
     },
     TestExistcode(code){
         return Axios.get("ExistToken?code="+code);
+    },
+    updateWelcome(email){
+        return Axios.post("updateWelcome?email="+email);
     }
 }
