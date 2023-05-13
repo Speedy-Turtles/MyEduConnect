@@ -14,9 +14,9 @@
                    </a>
                 </li>
                  <li>
-                    <a @click="changerView('vote')" href="#" :class="store.view=='vote' ? 'active' : ''">
-                       <v-icon  class="icon" >mdi-vote</v-icon>
-                       <span  :class=" small ? 'none_btn_open_close_sidebar' : ''" class="nav-item">vote</span>
+                    <a @click="changerView('user')" href="#" :class="store.view=='user' ? 'active' : ''">
+                       <v-icon  class="icon" >mdi-account-cog</v-icon>
+                       <span  :class=" small ? 'none_btn_open_close_sidebar' : ''" class="nav-item">Gérer User</span>
                    </a>
                 </li>
             <li class="btn_open_close"  :class="etatsidbar==true ? 'close' : '' ">
