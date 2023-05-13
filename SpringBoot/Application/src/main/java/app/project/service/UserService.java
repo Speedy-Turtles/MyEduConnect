@@ -1,6 +1,8 @@
 package app.project.service;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import app.project.entities.Role;
 import app.project.entities.User;
 import app.project.mail.Mail;
 import app.project.repository.UserRepository;
@@ -90,6 +93,28 @@ public class UserService {
 				  }
 			  }
 		   }
+	  }
+	  
+	  public  boolean TestRoleName(String email) {
+		  User user=UserRepo.getUserByemail(email);
+		  List<Role> role=user.getRole();
+		  boolean test=false;
+		  if(role.size()>1) {
+			  if(role.get(0).getRoleName().equals("ensignant")) {
+				  return true;
+			  }else if(role.get(0).getRoleName().equals("chefDepartment")) {
+				  return true;
+			  }
+		  }else {
+			  if(role.get(0).getRoleName().equals("etudiant")) {
+				  return false;
+			  }else if(role.get(0).getRoleName().equals("Admin")) {
+				  return true;
+			  }else if(role.get(0).getRoleName().equals("ensignant")) {
+				  return false;
+			  }
+		  }
+		  return test;
 	  }
 	  
 	  
