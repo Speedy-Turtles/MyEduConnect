@@ -12,11 +12,10 @@
                  <HeaderDashboard ></HeaderDashboard>
                 <div  class="ma-5 pa-5" id="home">
                     <div v-if="store.view=='stat' ">
-                          <test></test>
                           <!-- <statistique></statistique> -->
                     </div>
-                    <div  v-else-if="store.view=='vote'">
-                        <!-- <Vote></Vote> -->
+                    <div  v-else-if="store.view=='user'">
+                         <GererUser></GererUser>
                     </div>
                     <div  v-else-if="store.view=='edit'">
                        <!-- <modifierProfil></modifierProfil> -->
@@ -32,7 +31,7 @@ import userinfo from "@/service/UserInfo/userInfo.js";
 //import statistique from '@/components/Admin/statistique.vue';
 import HeaderDashboard from '@/components/Admin/headerAdmin.vue';
 import sidebarVue from '../../components/Admin/sidebar.vue'
-import test from "../../components/Admin/test.vue"
+import GererUser from "../../components/Admin/GererUser.vue"
 //import modifierProfil from "@/components/EditProfil/ModifierProfil.vue";
 //import Vote from '@/components/Admin/Vote.vue';
 import {CurentView} from "@/store/storeView.js";
@@ -92,7 +91,7 @@ export default{
       }
     },
     components:{
-       sidebarVue,HeaderDashboard,test
+       sidebarVue,HeaderDashboard,GererUser
     },
  
 };
