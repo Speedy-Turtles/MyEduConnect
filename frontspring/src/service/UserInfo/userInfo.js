@@ -17,5 +17,12 @@ export default{
     },
     updateWelcome(email){
         return Axios.post("updateWelcome?email="+email);
+    },
+    async GetUsers(){
+        const response=await Axios.get("getUsers");
+        return response;
+    },
+    UpdateStatus(info){
+        return axios.post("UpdateStatus",info);
     }
 }
