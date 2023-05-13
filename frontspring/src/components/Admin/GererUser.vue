@@ -1,6 +1,6 @@
 <template>
- <div id="test">
-       <div>
+ <div id="test" class="row justify-content-center">
+       <div class="col-lg-4">
            <h1>Todo</h1>
            <draggable  :group="{ name: 'app', put: false }" :options="dragOptions" v-model="Waiting" 
              @change="onUserMove"  
@@ -12,7 +12,7 @@
           </p>
         </draggable>
        </div>
-       <div>
+       <div class="col-lg-4">
         <h1>inProgress</h1>
       <draggable  :options="dragOptions" v-model="Accpted" group="app"
       @change="onUserMove"  
@@ -24,7 +24,7 @@
         </p>
       </draggable>
      </div>
-     <div>
+     <div class="col-lg-4">
       <h1>Completed</h1>
     <draggable   :options="dragOptions"  v-model="Rejeter" group="app"
     @change="onUserMove"  
@@ -117,7 +117,7 @@
 <style scoped>
  #test{
    display: flex;
-   justify-content: space-around;
+   justify-content: center;
    margin:50px 0 ;
  }
  p{

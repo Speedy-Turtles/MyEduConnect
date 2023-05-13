@@ -1,10 +1,12 @@
-
 package app.project.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+import org.hibernate.annotations.CreationTimestamp;
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import app.project.SpringSecurity.SecurityConfig;
 import app.project.SpringSecurity.UserDetailsImpl;
 import app.project.entities.Role;
+import app.project.entities.RoleUser;
 import app.project.entities.User;
 import app.project.entities.classe;
 import app.project.entities.specialite;
@@ -33,10 +36,13 @@ import app.project.repository.ClasseRepository;
 import app.project.repository.RoleRepository;
 import app.project.repository.SpecialiteRepository;
 import app.project.repository.UserRepository;
+import app.project.repository.UserRoleRepository;
 import app.project.service.UserService;
 import authPrametre.ChangerPassword;
 import authPrametre.Credentials;
+import authPrametre.MultipelDonne;
 import authPrametre.Reponse;
+import authPrametre.StatId;
 import app.project.jwt.jwtTokenUtil;
 import app.project.mail.Mail;
 
@@ -74,6 +80,9 @@ public class AuthController {
 	    
 	    @Autowired
 	    RoleRepository rolerep;
+	    
+	    @Autowired
+	    UserRoleRepository roleuser;
 	    
 	
 
@@ -221,6 +230,38 @@ public class AuthController {
     	User user=user_service.getByEmail(email);
     	user.setWelcome_field(true);
     	return ResponseEntity.ok().body("Password has been changed");
+    }
+    
+    @PostMapping("/UpdateStatus")
+    public ResponseEntity<?> UpdateStatus(@RequestBody StatId param){
+    	RoleUser user=	roleuser.getUserRole(param.getId());
+    	user.setStatus(param.getStatus());
+    	roleuser.save(user);
+    	return ResponseEntity.ok().body("Status Changed");
+    }
+    
+    @GetMapping("/getUsers")
+    public ResponseEntity<?> getUsers(){
+    		List<Object[]> rows = UserRepo.getAllUsersWithStatus();
+    	    List<MultipelDonne> users = new ArrayList<>();
+
+    	    for (Object[] row : rows) {
+    	    	 if(  user_service.TestRoleName((String)row[7])==false ) {
+    	    		  MultipelDonne user = new MultipelDonne();
+    	    	         user.setId((BigInteger) row[0]);
+    	    	         user.setFirstName((String) row[3]);
+    	    	         user.setLastname((String)row[4]);
+    	    	         user.setEmail((String)row[7]);
+    	    	         user.setPhoto((String)row[5]);
+    	    	         user.setCreated_at((Timestamp)row[6]);
+    	    	         user.setStatus((int) row[row.length-1]);
+    	    	         users.add(user);
+    	    	}
+    	       
+    	    }
+
+    	    return ResponseEntity.ok().body(users);
+
     }
     
 }
