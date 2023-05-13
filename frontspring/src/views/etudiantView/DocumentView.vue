@@ -2,7 +2,7 @@
     <div class="document">
         <Navbar></Navbar>
             <div class="main">
-               <h1>Document</h1>
+               <Document></Document>
             </div>
             <footer>
                 <Footer></Footer>
@@ -11,10 +11,11 @@
 </template>
 <script>
 import Navbar from "@/components/etudiant/layouts/Navbar.vue";
+import Document from "@/components/etudiant/document/Document.vue";
 import Footer from "@/components/layouts/Footer.vue";
 export default {
     components:{
-        Navbar,Footer
+        Navbar,Footer,Document
     }
    
 }
