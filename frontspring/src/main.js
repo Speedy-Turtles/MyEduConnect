@@ -9,6 +9,9 @@ Vue.config.productionTip = false
 import { createPinia, PiniaVuePlugin } from 'pinia'
 Vue.use(PiniaVuePlugin)
 const pinia = createPinia()
+import {interceptors} from "./global/interceptors.js";
+interceptors();
+
 new Vue({
   router,
   pinia,
