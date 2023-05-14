@@ -18,7 +18,7 @@
                          <GererUser></GererUser>
                     </div>
                     <div  v-else-if="store.view=='edit'">
-                       <!-- <modifierProfil></modifierProfil> -->
+                       <modifierProfil></modifierProfil>
                   </div>
                 </div>
 
@@ -27,7 +27,7 @@
                         <!-- <statistique></statistique> -->
                   </div>
                   <div  v-else-if="store.view=='edit'">
-                     <!-- <modifierProfil></modifierProfil> -->
+                     <modifierProfil></modifierProfil>
                 </div>
               </div>
 
@@ -42,7 +42,7 @@ import userinfo from "@/service/UserInfo/userInfo.js";
 import HeaderDashboard from '@/components/Admin/headerAdmin.vue';
 import sidebarVue from '../../components/Admin/sidebar.vue'
 import GererUser from "../../components/Admin/GererUser.vue"
-//import modifierProfil from "@/components/EditProfil/ModifierProfil.vue";
+import modifierProfil from "@/components/EditProfil/ModifierProfil.vue";
 import {CurentView} from "@/store/storeView.js";
 import {AuthUser} from "@/store/AuthStore.js";
 export default{
@@ -103,7 +103,7 @@ export default{
       }
     },
     components:{
-       sidebarVue,HeaderDashboard,GererUser
+       sidebarVue,HeaderDashboard,GererUser,modifierProfil
     },
  
 };
