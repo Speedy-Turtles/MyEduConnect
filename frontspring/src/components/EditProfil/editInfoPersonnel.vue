@@ -126,9 +126,9 @@ const mindate=(date)=>{
     }
 }
 import {required,minLength,maxLength,numeric} from "vuelidate/lib/validators"
-import serviceInfor from "@/service/UserInfo/userinfo"
-import serviceEdit from "@/service/editProfil/serviceEdit";
-import {AuthUser} from "@/store/Store.js";
+import serviceInfor from "@/service/UserInfo/userInfo.js"
+import serviceEdit from "@/service/EditProfil/EditProfile.js";
+import {AuthUser} from "@/store/AuthStore.js";
 import changerPassword from "@/components/EditProfil/ChagerPassword.vue"
 import ChangerEmail from "@/components/EditProfil/ChangerEmail.vue";
 export default{
@@ -169,12 +169,12 @@ export default{
     },
     created(){
         serviceInfor.getUserAuthentifie().then((res)=>{
-            this.form.FirstName=res.data.data['FirstName'];
-            this.form.Lastname=res.data.data['LastName'];
-            this.form.numero_tlf=res.data.data['num_tlf'];
-            this.form.cin=res.data.data['Cin'];
-            this.form.email=res.data.data['email'];
-            this.form.birth_day=res.data.data['Birth_day'];
+            this.form.FirstName=res.data['firstName'];
+            this.form.Lastname=res.data['lastName'];
+            this.form.numero_tlf=res.data['num_tlf'];
+            this.form.cin=res.data['cin'];
+            this.form.email=res.data['email'];
+            this.form.birth_day=res.data['birth_day'];
         })
     },
     data() {
@@ -210,10 +210,10 @@ export default{
                 "birth_day":this.form.birth_day
             }).then((res)=>{
                 serviceInfor.getUserAuthentifie().then((res)=>{
-                    this.store.SetUser(res.data.data);
+                    this.store.SetUser(res.data);
                 });
                 this.loadingEdit=false;
-                this.message=res.data.message;
+                this.message=res.data;
                 this.snackbar=true;
             }).catch((error)=>{
                 this.loadingEdit=false;

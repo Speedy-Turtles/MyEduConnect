@@ -6,39 +6,30 @@
                         <v-card style="padding: 15px;" class="edit-profile ">
                             <div class="mb-5">
                             <span class="text">
-                                {{store.user['FirstName'].charAt(0).toUpperCase() +""+store.user['FirstName'].substring(1,(store.user['FirstName']).length)}}
+                                {{store.user['firstName'].charAt(0).toUpperCase() +""+store.user['firstName'].substring(1,(store.user['firstName']).length)}}
                             </span>
                             <span class="mb-3 text">
-                                {{" "+store.user['LastName'].charAt(0).toUpperCase() +""+store.user['LastName'].substring(1,(store.user['LastName']).length)}}
+                                {{" "+store.user['lastName'].charAt(0).toUpperCase() +""+store.user['lastName'].substring(1,(store.user['lastName']).length)}}
                             </span>
                         </div>
                             <div class="mb-5">
-                            <v-avatar size="120" v-if="(store.user['Photo']).indexOf('storage')==-1" >
-                                 <span>{{store.user['Photo']}}</span>
-                           </v-avatar>
-                           <v-avatar size="120" v-else >
-                                <img :src="'http://127.0.0.1:8000'+store.user['Photo']" alt="">
+                           <v-avatar size="120" >
+                                <img :src="store.user['photo']" alt="">
                             </v-avatar>
                         </div>
-                             <form class="mb-4 py-4"  @submit.prevent="UploadImage()" enctype="multipart/form-data" >
-                                    <input
-                                      name="image"
-                                      type="file"
-                                      class="form-control"
-                                      ref="photo"
-                                       @change="saveImage()"
-                                     >
-                                     <div class="mb-2">
-                                       <small style="color:red" v-if="photo_error!=''">
-                                           {{ photo_error[0] }}
-                                         </small>
-                                    </div>
-                                    <v-btn type="submit" style="color:#fff" class="mt-5" color="#5094df"  :loading="loadimage">Upload</v-btn>
-                             </form>
+                        <v-text-field
+                        name="file"
+                        id="file"
+                        :error-messages="photo_error"
+                        label="Your Photo"
+                         @change="saveImage()"
+                         type="file"
+                        ></v-text-field>
+                                    
+                          <v-btn type="submit" style="color:#fff" class="mt-5" color="#5094df"  :loading="loadimage" @click="UploadImage()">Upload</v-btn>
                              <p class="py-3" >
                                 Member Since: {{ store.user['created_at'].substring(0,10) }}
                              </p>
-                            
                          </v-card>
                 </div>
                 <div class="col-lg-8">
@@ -70,9 +61,9 @@
 
 <script>
 import {required} from "vuelidate/lib/validators"
-import {AuthUser} from "@/store/Store.js";
-import serviceEdit from "@/service/editProfil/serviceEdit.js"
-import seviceInfo from "@/service/UserInfo/userinfo.js"
+import {AuthUser} from "@/store/AuthStore.js";
+import serviceEdit from "@/service/EditProfil/EditProfile.js"
+import seviceInfo from "@/service/UserInfo/userInfo.js"
 import editInfoPersonnel from "@/components/EditProfil/editInfoPersonnel.vue"
 export default{
     setup(){
@@ -81,13 +72,11 @@ export default{
     },
     validations:{
          photo:{
-              required,
+               required,
                typeFile(val){
-                    if( val === "" ){
-                        return true;
-                    };
-                    const regex = new RegExp('\.(gif|jpe?g|svg|png)$');
-                    return regex.test(val.type);
+                     const tab_ext_dispo=['jpg','gif','png','svg','jpeg'];
+                     const extention=val.split(';')[0].split('/')[1];
+                     return tab_ext_dispo.find((v)=>v==extention) ? true : false ;
                 }
             }
     },
@@ -102,8 +91,12 @@ export default{
     },
     methods: {
         saveImage(){
-            this.photo=this.$refs.photo.files[0];
-            this.$v.photo.$touch();
+            const file = document.querySelector("#file").files[0];
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                this.photo= reader.result;
+           };
+           reader.readAsDataURL(file);
         },
         UploadImage(){
             this.loadimage=true;
@@ -112,12 +105,14 @@ export default{
                 this.loadimage=false;
                 return;
             }
-            serviceEdit.uploadPhoto({"photo":this.photo}).then((res)=>{
+            serviceEdit.uploadPhoto({
+                 'photo':this.photo
+                }).then((res)=>{
                 seviceInfo.getUserAuthentifie().then((res)=>{
-                    this.store.SetUser(res.data.data);
+                    this.store.SetUser(res.data);
                 })
                 this.loadimage=false;
-                this.message=res.data.message;
+                this.message=res.data;
                 this.snackbar=true;
             }).catch((error)=>{
                 this.loadimage=false;
@@ -135,7 +130,7 @@ export default{
         },
     },
     components:{
-        editInfoPersonnel
+       editInfoPersonnel
     }
 }
 </script>
