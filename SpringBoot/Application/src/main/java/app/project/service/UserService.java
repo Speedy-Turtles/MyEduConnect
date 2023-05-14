@@ -46,22 +46,11 @@ public class UserService {
 	    
 	    @Autowired
 		NotificationRepository notifrepo;
-
-	  /*public User getLoggedUser() {
-			 try {
-				 Authentication loggeduser=SecurityContextHolder.getContext().getAuthentication();
-				 return UserRepo.getUserByemail(loggeduser.getName());
-			 }catch(Exception e) {
-				 e.printStackTrace();
-				 return null;
-			 }
-		 }*/
-	    
 	    
 	    // Get User Authentifie
 	    
 	    public User UserAuth(HttpServletRequest request) {
-	    	 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    	 //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    	 final String requestTokenHeader=request.getHeader("Authorization");
 	    	 String jwtToken=requestTokenHeader.substring(7);
 	    	 String username=jwtTokenUtil.getUsernameFromToken(jwtToken);
