@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import serviceEdit from "@/service/editProfil/serviceEdit.js"
+import serviceEdit from "@/service/EditProfil/EditProfile.js"
 import {required,sameAs,minLength,maxLength} from "vuelidate/lib/validators"
 export default{
     validations:{
@@ -78,7 +78,7 @@ export default{
                     return true;
                 }
                 const response=await serviceEdit.CheckPassword(val);
-                return response.data.success;
+                return response.data;
             }
         },
         new_password:{
@@ -128,8 +128,11 @@ methods:{
         }
         serviceEdit.ChangerPasswordActuel(this.new_password).then((res)=>{
             this.load=false;
-            this.message=res.data.message;
+            this.message=res.data;
             this.snackbar=true;
+            this.old_password="";
+            this.new_password="";
+            this.confirm_password="";
         }).catch((error)=>{
             this.load=false;
             console.log(error);
