@@ -9,7 +9,7 @@
             </li>
               <li >
                 <a  @click="changerView('stat')"  href="#" :class="store.view=='stat' ? 'active' : ''">
-                    <v-icon  class="icon">mdi-home</v-icon>
+                    <v-icon  class="icon">mdi-chart-areaspline</v-icon>
                     <span :class=" small ? 'none_btn_open_close_sidebar' : ''"  class="nav-item">Statistique</span>
                    </a>
                 </li>
@@ -19,6 +19,12 @@
                        <span  :class=" small ? 'none_btn_open_close_sidebar' : ''" class="nav-item">Gérer User</span>
                    </a>
                 </li>
+                <li v-if="test_ischef==true || storeAuth.Ischef=='true'">
+                  <a @click="changerView('spec')" href="#" :class="store.view=='spec' ? 'active' : ''">
+                     <v-icon  class="icon" >mdi-book-education</v-icon>
+                     <span  :class=" small ? 'none_btn_open_close_sidebar' : ''" class="nav-item">Gérer Specialite</span>
+                 </a>
+              </li>
             <li class="btn_open_close"  :class="etatsidbar==true ? 'close' : '' ">
                   <v-btn :class=" small ? 'none_btn_open_close_sidebar' : ''"    fab  @click="changer()">
                        <v-icon style="color:#5094df" v-if="etatsidbar" class="px-1">mdi-arrow-right-bold</v-icon>

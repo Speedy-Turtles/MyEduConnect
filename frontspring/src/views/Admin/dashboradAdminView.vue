@@ -17,6 +17,9 @@
                     <div  v-else-if="store.view=='user'">
                          <GererUser></GererUser>
                     </div>
+                    <div  v-else-if="store.view=='spec'">
+                         <GererSpecialiteVue></GererSpecialiteVue>
+                    </div>
                     <div  v-else-if="store.view=='edit'">
                        <modifierProfil></modifierProfil>
                   </div>
@@ -45,6 +48,7 @@ import GererUser from "../../components/Admin/GererUser.vue"
 import modifierProfil from "@/components/EditProfil/ModifierProfil.vue";
 import {CurentView} from "@/store/storeView.js";
 import {AuthUser} from "@/store/AuthStore.js";
+import GererSpecialiteVue from '../../components/Admin/Specialite/GererSpecialite.vue';
 export default{
   created(){
     this.greeting();
@@ -103,7 +107,7 @@ export default{
       }
     },
     components:{
-       sidebarVue,HeaderDashboard,GererUser,modifierProfil
+       sidebarVue,HeaderDashboard,GererUser,modifierProfil,GererSpecialiteVue
     },
  
 };
