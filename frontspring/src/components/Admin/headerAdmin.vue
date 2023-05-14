@@ -147,12 +147,9 @@
                     <v-list-item>
                         
                         <v-list-item-action>
-                            <v-btn
-                                plain
-                                router to="/etudiant/EditProfilView"
-                            >
-                                <v-icon class="pa-2">mdi-wrench</v-icon>
-                                <span class="">Settings</span>
+                            <v-btn plain @click="changerView('edit')">
+                                <v-icon class="pa-2">mdi-account-cog</v-icon>
+                                <span class="">Setting</span>
                             </v-btn>
                         </v-list-item-action>
                         
