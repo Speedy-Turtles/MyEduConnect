@@ -23,6 +23,9 @@ export default{
         return response;
     },
     UpdateStatus(info){
-        return axios.post("UpdateStatus",info);
+        return Axios.post("UpdateStatus",info);
+    },
+    getUserAuthentifie(){
+        return Axios.get("getUserAuthentifie");
     }
 }
