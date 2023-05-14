@@ -40,7 +40,6 @@
            >
              Close
            </v-btn>
-           
          </template>
        </v-snackbar>
     </div>
@@ -48,9 +47,9 @@
 
 <script>
 import {required,email} from "vuelidate/lib/validators"
-import serviceInfor from "@/service/UserInfo/userinfo";
-import serviceEdit from "@/service/editProfil/serviceEdit";
-import {AuthUser} from "@/store/Store.js";
+import serviceInfor from "@/service/UserInfo/userInfo.js";
+import serviceEdit from "@/service/EditProfil/EditProfile.js";
+import {AuthUser} from "@/store/AuthStore.js";
 export default{
     validations:{
         email_new:{
@@ -63,7 +62,7 @@ export default{
     },
     created(){
         serviceInfor.getUserAuthentifie().then((res)=>{
-            this.email=res.data.data['email'];
+            this.email=res.data['email'];
         })
     },
     data(){
