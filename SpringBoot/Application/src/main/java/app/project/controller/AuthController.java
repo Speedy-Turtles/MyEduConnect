@@ -3,6 +3,7 @@ package app.project.controller;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -163,20 +164,23 @@ public class AuthController {
     		return new ResponseEntity<String>("Incorrect email or password",HttpStatus.CONFLICT);
     	}
     	
-        UserDetails user_detailts=userservice.loadUserByUsername(parametre.getEmail());
+       UserDetails user_detailts=userservice.loadUserByUsername(parametre.getEmail());
     	User user=UserRepo.getUserByemail(parametre.getEmail());
     	
     	if(user.getEmail_verified_at()==null) {
     		return new ResponseEntity<String>("Email not verified",HttpStatus.CONFLICT);
     	}
+    	
     	if(UserRepo.GetStatus(user.getId())==0) {
     		return new ResponseEntity<String>("Your Acount Not Active",HttpStatus.CONFLICT);
     	}else if(UserRepo.GetStatus(user.getId())==2) {
     		return new ResponseEntity<String>("Your Acount Rejected",HttpStatus.CONFLICT);
     	}
+    	
     	String token=jwtTokenUtil.generateToken(user_detailts);
-    	//Reponse data=new Reponse(user,token);
+    	//Reponse data=new Reponse(user,token);*/
     	return  ResponseEntity.ok().body(new Reponse(user,token));
+    
     }
     
     
