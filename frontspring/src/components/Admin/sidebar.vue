@@ -7,13 +7,13 @@
                      <img  src="../../assets/logo-no-background.svg" alt="">
                  </div>
             </li>
-              <li>
+              <li >
                 <a  @click="changerView('stat')"  href="#" :class="store.view=='stat' ? 'active' : ''">
                     <v-icon  class="icon">mdi-home</v-icon>
                     <span :class=" small ? 'none_btn_open_close_sidebar' : ''"  class="nav-item">Statistique</span>
                    </a>
                 </li>
-                 <li>
+                 <li v-if="test_ischef==true || storeAuth.Ischef=='true'">
                     <a @click="changerView('user')" href="#" :class="store.view=='user' ? 'active' : ''">
                        <v-icon  class="icon" >mdi-account-cog</v-icon>
                        <span  :class=" small ? 'none_btn_open_close_sidebar' : ''" class="nav-item">Gérer User</span>
@@ -31,10 +31,12 @@
   </template>
   <script>
   import {CurentView} from "@/store/storeView.js";
+  import {AuthUser} from "@/store/AuthStore.js";
   export default{
     setup(){
       const store=CurentView();
-      return {store}
+      const storeAuth=AuthUser();
+      return {store,storeAuth}
     },
     name:"sidebar",
     props:{
@@ -43,8 +45,11 @@
     },
     data(){
         return{
-  
+          test_ischef:false
         }
+    },
+    created(){
+            this.test_ischef=this.storeAuth.Ischef;
     },
     methods:{
         changer(){
