@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import org.hibernate.annotations.CreationTimestamp;
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,12 +28,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import app.project.SpringSecurity.SecurityConfig;
 import app.project.SpringSecurity.UserDetailsImpl;
+import app.project.entities.Notification;
 import app.project.entities.Role;
 import app.project.entities.RoleUser;
 import app.project.entities.User;
 import app.project.entities.classe;
 import app.project.entities.specialite;
 import app.project.repository.ClasseRepository;
+import app.project.repository.NotificationRepository;
 import app.project.repository.RoleRepository;
 import app.project.repository.SpecialiteRepository;
 import app.project.repository.UserRepository;
@@ -49,13 +52,15 @@ import app.project.mail.Mail;
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
 public class AuthController {
-	
-        
+
         @Autowired
 	    AuthenticationManager authenticationManager; 
 	 
 	    @Autowired
 	    UserRepository UserRepo;
+	    
+	    @Autowired
+	    NotificationRepository NotifRepo;
 	
 	    @Autowired
 		UserDetailsImpl userservice;
@@ -83,8 +88,6 @@ public class AuthController {
 	    
 	    @Autowired
 	    UserRoleRepository roleuser;
-	    
-	
 
 	    @PostMapping("/SignUp")
 		public ResponseEntity<?>  SignUp(@RequestBody User user){
@@ -124,8 +127,17 @@ public class AuthController {
 			}catch(UnsupportedEncodingException e) {
 				return new ResponseEntity<String>("Unsupported Forme",HttpStatus.CONFLICT);
 			}
-		
+			
 			UserRepo.save(new_user);
+			
+			Notification notif=new Notification();
+			notif.setUserEnvoi(new_user);
+			notif.setEtat(0);
+			User chef=UserRepo.GetChefDepartment();
+			notif.setUserRecu(chef);
+			Role role=rolerep.getRoleById(new_user.getRole().get(0).getId());
+			notif.setMessage("New "+role.getRoleName()+" "+new_user.getFirstName()+" "+new_user.getLastName());
+			NotifRepo.save(notif);
 
 			return  ResponseEntity.ok().body("user add");
 		}
@@ -229,15 +241,23 @@ public class AuthController {
     public ResponseEntity<?> updateFiledWelcome(@RequestParam("email")String email){
     	User user=user_service.getByEmail(email);
     	user.setWelcome_field(true);
-    	return ResponseEntity.ok().body("Password has been changed");
+    	UserRepo.save(user);
+    	return ResponseEntity.ok().body("Welcome field changed");
     }
     
     @PostMapping("/UpdateStatus")
     public ResponseEntity<?> UpdateStatus(@RequestBody StatId param){
+    	user_service.SendNotification( param);
     	RoleUser user=	roleuser.getUserRole(param.getId());
     	user.setStatus(param.getStatus());
     	roleuser.save(user);
     	return ResponseEntity.ok().body("Status Changed");
+    }
+    
+    @GetMapping("/getUserAuthentifie")
+    public ResponseEntity<?> getUserAuthentifie(HttpServletRequest request){
+    	User userAuth=user_service.UserAuth(request);
+    	return ResponseEntity.ok().body(userAuth);
     }
     
     @GetMapping("/getUsers")
@@ -257,12 +277,9 @@ public class AuthController {
     	    	         user.setRoleName(UserRepo.GetRoleByIdUser((BigInteger) row[0]));
     	    	         user.setStatus((int) row[row.length-1]);
     	    	         users.add(user);
-    	    	}
-    	       
+    	    	}  
     	    }
-
     	    return ResponseEntity.ok().body(users);
-
     }
     
 }
