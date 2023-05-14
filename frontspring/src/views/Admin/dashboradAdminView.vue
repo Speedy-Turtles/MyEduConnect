@@ -10,7 +10,7 @@
           <transition name="fade" mode="out-in">
             <div :class="etatsidbar == true ? 'content close ' : 'content'">
                  <HeaderDashboard ></HeaderDashboard>
-                <div  class="ma-5 pa-5" id="home">
+                <div v-if="test_ischef==true || storeAuth.Ischef=='true'"  class="ma-5 pa-5" id="home">
                     <div v-if="store.view=='stat' ">
                           <!-- <statistique></statistique> -->
                     </div>
@@ -21,6 +21,16 @@
                        <!-- <modifierProfil></modifierProfil> -->
                   </div>
                 </div>
+
+                <div v-else class="ma-5 pa-5" id="home">
+                  <div v-if="store.view=='stat' ">
+                        <!-- <statistique></statistique> -->
+                  </div>
+                  <div  v-else-if="store.view=='edit'">
+                     <!-- <modifierProfil></modifierProfil> -->
+                </div>
+              </div>
+
             </div>
         </transition>
     </div>
@@ -33,12 +43,12 @@ import HeaderDashboard from '@/components/Admin/headerAdmin.vue';
 import sidebarVue from '../../components/Admin/sidebar.vue'
 import GererUser from "../../components/Admin/GererUser.vue"
 //import modifierProfil from "@/components/EditProfil/ModifierProfil.vue";
-//import Vote from '@/components/Admin/Vote.vue';
 import {CurentView} from "@/store/storeView.js";
 import {AuthUser} from "@/store/AuthStore.js";
 export default{
   created(){
     this.greeting();
+    this.test_ischef=this.storeAuth.Ischef;
   },
   setup(){
     const store=CurentView();
@@ -54,6 +64,7 @@ export default{
             snackbar: false,
             snackbar_edit: false,
             small:false,
+            test_ischef:false
         }
     },
     mounted() {
@@ -77,14 +88,15 @@ export default{
             this.etatsidbar=etat;
         },
       greeting(){
-        if(this.storeAuth.user['welcome_field']==0){
-            let test=new SpeechSynthesisUtterance("welcome"+this.storeAuth.user['FirstName']);
+        if(this.storeAuth.user['welcome_field']!=1){
+            let test=new SpeechSynthesisUtterance("welcome "+this.storeAuth.user['firstName']);
             speechSynthesis.speak(test);
             setTimeout(() => {
                 userinfo.updateWelcome(this.storeAuth.user['email']).then((res)=>{
-                    console.log(res)
+                  userinfo.getUserAuthentifie().then((res)=>{
+                        this.storeAuth.SetUser(res.data);
+                   })
                 }).catch((err)=>{
-                    console.log(err)
                 })
             }, 1000);
         }
