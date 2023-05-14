@@ -247,13 +247,14 @@ public class AuthController {
 
     	    for (Object[] row : rows) {
     	    	 if(  user_service.TestRoleName((String)row[7])==false ) {
-    	    		  MultipelDonne user = new MultipelDonne();
+    	    		  	 MultipelDonne user = new MultipelDonne();
     	    	         user.setId((BigInteger) row[0]);
     	    	         user.setFirstName((String) row[3]);
     	    	         user.setLastname((String)row[4]);
     	    	         user.setEmail((String)row[7]);
     	    	         user.setPhoto((String)row[5]);
     	    	         user.setCreated_at((Timestamp)row[6]);
+    	    	         user.setRoleName(UserRepo.GetRoleByIdUser((BigInteger) row[0]));
     	    	         user.setStatus((int) row[row.length-1]);
     	    	         users.add(user);
     	    	}

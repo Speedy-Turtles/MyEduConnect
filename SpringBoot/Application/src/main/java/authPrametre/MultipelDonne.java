@@ -23,6 +23,7 @@ public class MultipelDonne {
 	    private String photo;
 	    @CreationTimestamp
 		private Timestamp created_at;
+	    private String RoleName;
         private int status;
         
        

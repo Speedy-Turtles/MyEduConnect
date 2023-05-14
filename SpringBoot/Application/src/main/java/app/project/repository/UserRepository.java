@@ -1,6 +1,7 @@
 
 package app.project.repository;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +32,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	
 	@Query(value="select u.*,ur.status from user u,user_role ur where u.id=ur.user_id",nativeQuery=true)
 	List<Object[]> getAllUsersWithStatus();
+	
+	@Query(value="select role_name from role r,user_role ur where r.id=ur.role_id and ur.user_id=:id ",nativeQuery=true)
+	String GetRoleByIdUser(BigInteger id);
+	
 	
 }
 
