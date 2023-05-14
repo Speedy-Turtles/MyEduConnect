@@ -15,7 +15,7 @@
               </h2>
               <v-spacer></v-spacer>
               
-             <!--  <v-menu offset-y
+         <v-menu offset-y
                
                 transition="slide-x-transition" 
                 left
@@ -29,13 +29,11 @@
                      plain
                      v-bind="attrs"
                      v-on="on"
-                     @click="chagerEtatNotif"
+                     @click="chagerEtatNotif()"
                      >
                         <v-icon size="35px ">mdi-bell</v-icon>
-                        <v-badge color="red" :content="getNbrNotifNotSeen"
-                        v-if="getNbrNotifNotSeen!=0"
-                        :values="getNbrNotifNotSeen"
-                        ></v-badge>
+                         <v-badge color="red" :content="getNbrNotifNotSeen ? getNbrNotifNotSeen : '0'"
+                        ></v-badge> 
                      </v-btn>
                      
                     </template>
@@ -57,20 +55,17 @@
                     <v-list-item
                         v-for="notif in notifications" :key="notif.id"
                     >
-                   
-                    
                     
                         <v-list-item-avatar>
-                            <v-avatar v-if="notif.user_envoi_photo.length>2" size="43px">
-                                <v-img  :src="'http://localhost:8000'+notif.user_envoi_photo"></v-img>
-                            </v-avatar>
-                            <v-avatar color="blue" v-else>
-                                <span class="white--text">{{ notif.user_envoi_photo }}</span>
+                            <v-avatar size="43px">
+                                <v-img  :src="notif.photo"></v-img>
                             </v-avatar>
                         </v-list-item-avatar>
                       
                         <v-list-item-content>
-                            <v-list-item-title class="px-5 justify-center">{{ notif.msg }}<br><span class="date" v-if="notif.date!=null"> Since : {{ notif.date }}</span></v-list-item-title>
+                            <v-list-item-title class="px-5 justify-center">
+                                {{ notif.msg }}<br><span class="date" v-if="notif.date!=null"> Since : {{ notif.date }}</span>
+                            </v-list-item-title>
                         </v-list-item-content> 
                       
                         <v-list-item-action>
@@ -89,7 +84,7 @@
                                         <v-icon>mdi-close</v-icon>
                                     </v-btn>
                                 </template>
-                                <template v-slot:default="dialog">
+                                 <template v-slot:default="dialog">
                                 <v-card>
                                     <v-card-text>
                                     <div class="text-h5 pa-5">Delete Notification</div>
@@ -105,16 +100,13 @@
                                     >Delete</v-btn>
                                     </v-card-actions>
                                 </v-card>
-                                </template>
+                                </template> 
                             </v-dialog>
                             </v-col>
                         </v-list-item-action>
-                      
-                        
                     </v-list-item>
-                    
                         <v-divider></v-divider>
-                       <v-list-item class="mt-5">
+                        <v-list-item class="mt-5">
                             <v-btn 
                             plain
                             v-if="notifications.length!=0"
@@ -124,10 +116,9 @@
                                     Clear All<v-icon class="pa-1 red--text">mdi-delete</v-icon>
                                 </v-list-item-title>
                             </v-btn>
-                        
-                        </v-list-item> 
+                        </v-list-item>  
                     </v-list>
-                </v-menu>-->
+                </v-menu>
               <v-menu offset-y 
                 transition="slide-x-transition" 
                 left
@@ -166,6 +157,23 @@
                         </v-list-item-action>
                         
                     </v-list-item>
+
+                    <v-list-item v-if="test_ischef==true || store.Ischef=='true'">
+                        <v-list-item-action>
+                            <v-btn
+                                plain
+                            >
+                                <v-icon class="pa-2">mdi-swap-horizontal</v-icon>
+                                <span >
+                                    <v-btn router to="/etudiant">
+                                        switch
+                                    </v-btn>
+                                </span>
+                            </v-btn>
+                        </v-list-item-action>
+                    </v-list-item>
+
+
                     <v-list-item >
                         <v-list-item-action>
                             <v-btn
@@ -185,13 +193,14 @@
 </template>
 
 <script>
-//import gererNotifEtud from "@/service/NotifEtudiant/gererNotifEtud"
+import gererNotifEtud from "@/service/Notification/gererNotif.js"
 import {AuthUser} from "@/store/AuthStore.js";
 import {CurentView} from "@/store/storeView.js";
 export default {
   created(){
-           /* this.getNotifs();
-            this.getNotifsNotSeen();*/
+            this.test_ischef=this.store.Ischef;
+            this.getNotifs();
+            this.getNotifsNotSeen();
          },
   setup(){
      const store = AuthUser();
@@ -200,6 +209,7 @@ export default {
   },
   data(){
     return{
+          test_ischef:false,
           notifications:[],
           notificationNotSeen:[],
           dialog:false
@@ -213,46 +223,65 @@ export default {
        logout(){
             this.store_view.suppView();
             this.store.logout();
-            this.$router.push({name:'loign'});
+            this.$router.push({name:'login'});
         },
-        /*getNotifs(){
-            gererNotifEtud.getNotifEtud().then((res)=>{
-                for(let i=0;i<res.data.data.length;i++){
-                    this.notifications.push({idNotif:res.data.data[i].id,msg:res.data.data[i].message,etat:res.data.data[i].etat,date:(res.data.data[i].created_at)?.substring(0,10),user_envoi_photo:res.data.data[i].user_envoi['Photo']})
-                    
+        getNotifs(){
+            gererNotifEtud.getNotifs().then((res)=>{
+                for(let i=0;i<res.data.length;i++){
+                    this.notifications.push({idNotif:res.data[i].id,msg:res.data[i].message,etat:res.data[i].etat,date:(res.data[i].created_at)?.substring(0,10),photo:res.data[i].userEnvoi['photo']})
                 }  
             }
             )
         },
         deleteNotificationById(id){
-            gererNotifEtud.deleteNotificationById(id);
+            gererNotifEtud.deleteNotificationById(id).then((res)=>{
+                this.notifications=[];
+                this.notificationNotSeen=[];
+                this.getNotifs();
+                this.getNotifsNotSeen();
+            }).catch((err)=>{
+                console.log(err);
+            })
         },
         deleteAllNotif(){
             gererNotifEtud.deleteAllNotif().then((res)=>{
                 this.notifications=[];
                 this.notificationNotSeen=[];
+            }).catch((err)=>{
+                console.log(err);
             })
         },
         chagerEtatNotif(){
-            gererNotifEtud.updateNotif();
+            gererNotifEtud.updateNotif()
+            .then((res)=>{
+                this.notifications=[];
+                this.notificationNotSeen=[];
+                this.getNotifsNotSeen();
+                this.getNotifs();
+            }).catch((err)=>{
+                console.log(err);
+            })
         },
         getNotifsNotSeen(){
             gererNotifEtud.getNotifNotSeen().then((res)=>{
-                for(let i=0;i<(res.data.data).length;i++){
-                    this.notificationNotSeen.push({idNotif:res.data.data[i].id,msg:res.data.data[i].message,etat:res.data.data[i].etat})
+                for(let i=0;i<(res.data).length;i++){
+                    this.notificationNotSeen.push({idNotif:res.data[i].id,msg:res.data[i].message,etat:res.data[i].etat})
                 }
+            }).catch((err)=>{
+                console.log(err);
             })
-         },*/
+         },
   },
   computed:{
-           /* getNbrNotif(){
+           getNbrNotif(){
                 const nbrNotif=this.notifications.length
                 return nbrNotif;
             },
+            
             getNbrNotifNotSeen(){
                     const nbrNotifNotSeen=this.notificationNotSeen.length
                     return nbrNotifNotSeen;
-            }*/
+            }
          }   
 };
 
