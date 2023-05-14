@@ -130,7 +130,7 @@
   import {AuthUser} from "@/store/AuthStore.js";
   import authService from "@/service/AuthService/Auth.js";
   import {required,email} from "vuelidate/lib/validators"
-
+  import serviceEdit from "@/service/EditProfil/EditProfile.js"
   export default{
       name:"login",
       validations:{
@@ -183,9 +183,9 @@
         if(this.$route.query.email){
             this.VerifyEmail(this.$route.query.email);
         }
-        if(this.$route.query.email_current && this.$route.query.email_new ){
+        if(this.$route.query.email && this.$route.query.email_new ){
             this.store.logout();
-            this.updatedEmail(this.$route.query.email_current,this.$route.query.email_new);
+            this.updatedEmail(this.$route.query.email,this.$route.query.email_new);
           }
       },
       methods:{
@@ -222,19 +222,19 @@
                  this.$router.replace({'query':null});
             })
           },
-          /*updatedEmail(old_email,new_email){
+          updatedEmail(old_email,new_email){
             serviceEdit.updateEmail(
               {
                  "email_old":old_email,
                  "email_new":new_email
                }).then((res)=>{
-                 this.message=res.data.message;
+                 this.message=res.data;
                  this.$router.replace({'query':null});
                }).catch((error)=>{
                  console.log(error);
                  this.$router.replace({'query':null});
                })
-          }*/
+          }
       },
       components:{
           
