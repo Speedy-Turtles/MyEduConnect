@@ -12,7 +12,7 @@ import dashboradAdminView from "../views/Admin/dashboradAdminView.vue"
 import HomeEtudiantView from '../views/etudiantView/HomeEtudiantView.vue'
 import DocumentView from '../views/etudiantView/DocumentView.vue'
 import ForumView from '../views/etudiantView/ForumView.vue'
-
+import EditProfilView from "../views/etudiantView/EditProfilView.vue"
 
 Vue.use(VueRouter)
 
@@ -70,6 +70,11 @@ const routes = [
     name: 'forum',
     component: ForumView
   },
+  {
+    path: '/etudiant/EditProfilView',
+    name: 'EditProfilView',
+    component: EditProfilView
+},
 ]
 
 const router = new VueRouter({
