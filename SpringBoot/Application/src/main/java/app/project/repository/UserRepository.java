@@ -16,10 +16,13 @@ import authPrametre.MultipelDonne;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-   Optional<User> findByEmail(String email);
+    Optional<User> findByEmail(String email);
   
 	@Query(value="select * from user where email=:email",nativeQuery=true)
 	User getUserByemail(String email);
+	
+	@Query(value="select * from user where id=:id",nativeQuery=true)
+	User getUserById(long id);
 	
 	@Query(value="select * from user where cin=:cin",nativeQuery=true)
 	User getUserByCin(String cin);
@@ -36,6 +39,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query(value="select role_name from role r,user_role ur where r.id=ur.role_id and ur.user_id=:id ",nativeQuery=true)
 	String GetRoleByIdUser(BigInteger id);
 	
+	@Query(value="select u.* from user u,role r,user_role ur where r.id=ur.role_id and ur.user_id=u.id and r.role_name='chefDepartment';",nativeQuery=true)
+	User GetChefDepartment();	
 	
 }
 
