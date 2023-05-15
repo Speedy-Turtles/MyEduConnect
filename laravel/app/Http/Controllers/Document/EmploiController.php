@@ -11,8 +11,6 @@ use Illuminate\Http\Request;
 class EmploiController extends Controller
 {
     public function getEmploi(Request $request){
-
-
         $user_Classe_id=User::where('id',$request->user()->id)->get('classe_id');
         $classe=Classe::where('id',$user_Classe_id[0]['classe_id'])->get('nom');
         $jours=['lundi','mardi','mercredi','jeudi','vendredi','samedi'];
