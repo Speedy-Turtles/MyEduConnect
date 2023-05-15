@@ -92,6 +92,7 @@ Route::put("/edit/updateEmail",[EditController::class,"updateEmail"]);
 
 Route::group(["prefix"=>"/pdf"],function(){
     Route::get('/generate/{id}', [GenratePdfController::class,"generatePDF"]);
+    Route::get('/gererEmploi/{id}', [GenratePdfController::class,"gererEmploi"]);
 });
 
 Route::middleware("auth:sanctum")->group(function(){
