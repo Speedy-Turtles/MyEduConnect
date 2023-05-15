@@ -77,7 +77,6 @@ class GenratePdfController extends Controller
         $classe = Classe::find($user->classe_id);
         $jours = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
         $seances = [1, 2, 3, 4, 5, 6];
-        $data = [];
 
         foreach ($jours as $jour) {
             foreach ($seances as $numero) {
