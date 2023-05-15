@@ -7,5 +7,8 @@ export default {
     },
     getPendingRequests() {
         return axios.get("proffesors/pending");
+    },
+    getEmploi() {
+        return axios.get("/emploi");
     }
 }
