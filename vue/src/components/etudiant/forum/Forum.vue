@@ -141,6 +141,11 @@
     import {AuthUser} from "@/store/Store.js";
    
     export default {
+        mounted(){
+            window.Echo.channel('chatRealTime').listen('chatlive',(e)=>{
+               this.getForums();
+            })        
+        },
         created(){
             this.getForums();
             this.getAllUsers();
