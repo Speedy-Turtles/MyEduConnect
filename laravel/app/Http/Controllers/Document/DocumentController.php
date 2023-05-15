@@ -73,7 +73,6 @@ class DocumentController extends Controller
         if($notifs->isEmpty()){
             return response()->json("No Notifcations available");
         }
-        $user_envoi=[];
         foreach($notifs as $notif){
             $user = User::find($notif->id_envoi);
             if($user){
