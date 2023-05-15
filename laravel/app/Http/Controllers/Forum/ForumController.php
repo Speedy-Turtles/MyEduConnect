@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Forum;
 
+use App\Events\chatlive;
 use App\Http\Controllers\Controller;
 use App\Models\Forum;
 use App\Models\Inboxe;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Broadcast;
 
 class ForumController extends Controller
 {
@@ -27,6 +29,7 @@ class ForumController extends Controller
                 $post->user_id=$request->user()->id;
                 $post->post =$request->post;
                 $post->save();
+                Broadcast(new chatlive());
                 return response()->json(['data'=>$post,201]);
     }
 
@@ -57,6 +60,7 @@ class ForumController extends Controller
         $message->id_recu=$id;
         $message->message=$request->message;
         $message->save();
+        Broadcast(new chatlive());
         return response()->json(['data'=>$message,201]);
 
 }
