@@ -109,9 +109,8 @@
                         <div class="pa-5" v-else>
                           <v-divider></v-divider>
                         </div>
-                            
                       </td> 
-                  </tr>
+                  </tr> 
                   
 
                   <tr>
