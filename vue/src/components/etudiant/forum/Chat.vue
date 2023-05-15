@@ -84,10 +84,10 @@
                         </div>
                     </div>
              </div>
-             <div class="chat-box">
+             <div class="chat-box" >
 
                 <div class="chat-area">
-                    <div class="chat" v-for="chat in chats" :key="chat.id">
+                    <div class="chat"  v-for="chat in chats" :key="chat.id">
                         <div class="chat-l" v-if="chat.id_envoi!=store.user['id']">
                             <div class="mess">
                                 <p>
@@ -130,6 +130,11 @@
 import { AuthUser } from '@/store/Store';
 import forumService from '@/service/forum/forumService';
 export default {
+    mounted(){
+        window.Echo.channel('chatRealTime').listen('chatlive',(e)=>{
+               this.getChatById();
+            }) 
+    },
     setup(){
             const store=AuthUser();
             return{store}
@@ -140,7 +145,6 @@ export default {
         this.getChatById();
         this.getUserById();
         console.log(this.store.user['id'])
-        
     },
 
     data(){
