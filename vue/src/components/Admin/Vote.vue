@@ -121,10 +121,10 @@
          </div>
 
         <div  v-else> 
-            <div class="">
-               <div class="text-center" v-for="data in session" :key="data.id">
+            <div class="row">
+               <div class="text-center col-lg-4" v-for="data in session" :key="data.id">
                 <v-card 
-                class="mx-auto"
+                class="mx-auto mb-2"
                 color="#26c6da"
                 dark
                 max-width="400"
