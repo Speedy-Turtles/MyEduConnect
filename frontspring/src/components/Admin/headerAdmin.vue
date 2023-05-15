@@ -127,8 +127,8 @@
                     <v-btn   plain v-bind="attrs"
                      v-on="on"
                      >
-                         <v-avatar color="red" size="43px">
-                             <img :src="store.user['Photo']">
+                         <v-avatar  size="55px">
+                             <img :src="store.user['photo']">
                          </v-avatar>
                      </v-btn>
                     </template>

@@ -132,44 +132,7 @@
                         </v-list-item>
                     </v-list>
                 </v-menu>
-              
-                <template v-slot:activator="{ on, attrs }">
-                 <v-btn
-                 plain
-                 v-bind="attrs"
-                 v-on="on"
-                 >
-                    <v-avatar v-if="(store.user['Photo']).indexOf('storage')==-1" >
-                         <span>{{store.user['Photo']}}</span>
-                    </v-avatar>
-                    <v-avatar v-else >
-                       <img :src="'http://127.0.0.1:8000'+store.user['Photo']" alt="">
-                  </v-avatar>
-                 </v-btn>
-                </template>
-                <v-list>
-                <v-list-item class="text-center"
-                >
-                    <v-list-item-title>{{store.user['FirstName']}}</v-list-item-title>
-                    </v-list-item>
-                </v-list>
-                <v-list-item>
-                    <v-list-item-action>
-                        <v-btn plain @click="changerView('edit')">
-                            <v-icon class="pa-2">mdi-account-cog</v-icon>
-                            <span class="">Setting</span>
-                        </v-btn>
-                    </v-list-item-action>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-action>
-                      <v-btn plain @click="logout()">
-                          <v-icon class="pa-2">mdi-logout</v-icon>
-                          <span class="">log out</span>
-                      </v-btn>
-                  </v-list-item-action>
-              </v-list-item>
-              </v-menu> -->
+  
               <v-menu offset-y 
                 transition="slide-x-transition" 
                 left
@@ -199,18 +162,13 @@
                             </v-btn>
                         </v-list-item-title>
                      </v-list-item>
-                    <v-list-item>
-                        
+                     <v-list-item>
                         <v-list-item-action>
-                            <v-btn
-                                plain
-                                router to="/etudiant/EditProfilView"
-                            >
-                                <v-icon class="pa-2">mdi-wrench</v-icon>
-                                <span class="">Settings</span>
+                            <v-btn plain @click="changerView('edit')">
+                                <v-icon class="pa-2">mdi-account-cog</v-icon>
+                                <span class="">Setting</span>
                             </v-btn>
                         </v-list-item-action>
-                        
                     </v-list-item>
 
                     <v-list-item v-if="test_ischef==true || store.Ischef=='true'">
