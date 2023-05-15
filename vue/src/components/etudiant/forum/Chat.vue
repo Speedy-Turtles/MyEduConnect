@@ -1,6 +1,7 @@
 <template>
     <div class="">
         <!-- <v-container>
+
             <div class="box">
                 <div class="header text-center">
                    <h1>conversation</h1>
@@ -60,8 +61,14 @@
             </div>
         </v-container> -->
 
-
-        <div class="container">
+        
+            <div class="loading text-center py-5 mt-5" v-if="loding_page==false">
+                <v-progress-circular
+                indeterminate
+                color="primary"
+                ></v-progress-circular>
+            </div>
+        <div class="container" v-else>
          <div class="chat">
              <div class="chat-header">
                     <div class="profil">
@@ -133,6 +140,7 @@ export default {
         this.getChatById();
         this.getUserById();
         console.log(this.store.user['id'])
+        
     },
 
     data(){
@@ -140,7 +148,8 @@ export default {
             id:-1,
             chats:[],
             user:[],
-            message:""
+            message:"",
+            loding_page:false,
         }
     },
     methods:{
@@ -150,6 +159,7 @@ export default {
                 for(let i=0;i<(res.data.data).length;i++){
                      this.chats.push({id:res.data.data[i].id,id_envoi:res.data.data[i].id_envoi,id_recu:res.data.data[i].id_recu,message:res.data.data[i].message,date:res.data.data[i].created_at.substring(0,10)});
                  }
+                 this.loding_page=true;
             })).catch((err=>{
                 console.log(err);
             }))
@@ -296,7 +306,9 @@ export default {
 
 
 
-
+.loading{
+    height: 100vh;
+}
 
 
 
