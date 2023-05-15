@@ -123,6 +123,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 			.antMatchers("/ChangerPasswordActuel").permitAll()
 			.antMatchers("/SendChangedEmail").permitAll()
 			.antMatchers("/updateEmail").permitAll()
+			.antMatchers("/getSepecialite").permitAll()
 			.anyRequest().authenticated()
 			 .and()
 			 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
