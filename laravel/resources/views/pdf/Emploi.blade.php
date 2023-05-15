@@ -20,7 +20,7 @@
     table td {
         border: 1px solid black;
         padding: 20px;
-        text-align: justify;
+        text-align: center;
     }
     div{
         padding-right: 15px;
@@ -62,6 +62,9 @@
     .footer{
             text-align: center;
         }
+    .matiere_salle{
+        font-size: 8px;
+    }
     </style>
 </head>
 <body>
@@ -101,7 +104,7 @@
                                         @foreach ($seance as $item)
                                             <div>
                                                 {{ $item->user->FirstName }}<br>
-                                                {{ $item->salle->nom }} - {{ $item->matiere->nom }}
+                                               <span class="matiere_salle"> {{ $item->salle->nom }} - {{ $item->matiere->nom }}</span>
                                             </div>
                                         @endforeach
                                         </td>
