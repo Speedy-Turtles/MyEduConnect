@@ -21,7 +21,11 @@
                                 ></v-progress-circular>
                                 </div>
                         </v-flex>
-                        <v-flex  xl6 md6 sm12 xs12 v-for="(document,index) in All_Document " :key="document.id">
+                        <div class="no-document">
+
+                        </div>
+                        <div class="document">
+                            <v-flex  xl6 md6 sm12 xs12 v-for="(document,index) in All_Document " :key="document.id">
                             <v-card
                                 :loading="loading1"
                                 class="mx-auto mb-4"
@@ -65,7 +69,7 @@
                                     >
                                         <v-radio
                                             disabled
-                                            label="Français"
+                                              label="Français"
                                             value="f"
                                         ></v-radio>
                                     </v-radio-group>
@@ -105,6 +109,8 @@
                                     </v-card-actions>
                             </v-card>
                         </v-flex>
+                        </div>
+                       
                     </v-layout>
 
             </v-flex>
