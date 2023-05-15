@@ -1,6 +1,13 @@
 <template>
     <div class="forum">
-        <v-container fluid>
+
+        <div class="loading text-center py-5 mt-5" v-if="loding_page==false">
+                <v-progress-circular
+                indeterminate
+                color="primary"
+                ></v-progress-circular>
+        </div>
+        <v-container fluid v-else>
             <!-- <v-layout row >
                 <v-flex>
                     <div class="title d-flex align-center justify-center">
@@ -146,7 +153,8 @@
             return{
                 forums:[],
                 post:"",
-                users:[]
+                users:[],
+                loding_page:false,
             }
         },
         methods:{
@@ -156,6 +164,7 @@
                     for(let i=0;i<(res.data.data)?.length;i++){
                         this.forums.push({id:res.data.data[i].id,nom:res.data.data[i].FirstName,post:res.data.data[i].post,photo:res.data.data[i].Photo,date:(res.data.data[i].created_at).substring(0,10)})
                     }
+                    this.loding_page=true;
                     console.log(this.forums);
                 }).catch((err)=>{
                     console.log(err);
@@ -185,6 +194,9 @@
     }
     </script>
     <style scoped>
+    .loading{
+    height: 100vh;
+    }
     .button{
         color: white;
         border-radius: 10px;
