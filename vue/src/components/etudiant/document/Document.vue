@@ -8,10 +8,7 @@
                     <img src="../../../../public/etudiant/images/logoiset.png" alt="" width="200px" height="200px" >  
                 </v-container>
             </v-flex>
-            <v-flex xl8 md9  xs12 class="pa-5" >
-                    <v-layout row>
-                        <v-flex class="pa-5"><h1 class="titre">Document</h1></v-flex>
-                    </v-layout>
+            <v-flex xl8 md9  xs12 class="pa-5 mt-15">
                     <v-layout row wrap>
                         <v-flex class="py-5 mt-5" v-if="loding_page==false">
                             <div class="text-center py-5 mt-5">
@@ -21,10 +18,7 @@
                                 ></v-progress-circular>
                                 </div>
                         </v-flex>
-                        <div class="no-document">
-
-                        </div>
-                        <div class="document">
+                        
                             <v-flex  xl6 md6 sm12 xs12 v-for="(document,index) in All_Document " :key="document.id">
                             <v-card
                                 :loading="loading1"
@@ -109,7 +103,7 @@
                                     </v-card-actions>
                             </v-card>
                         </v-flex>
-                        </div>
+                        
                        
                     </v-layout>
 
