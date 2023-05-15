@@ -145,6 +145,7 @@ export default {
     border-radius: 10px;
     box-sizing:border-box;
     max-width: 85%;
+    background-color: #dbfffe;
 }
 .message{
     text-align: justify;
