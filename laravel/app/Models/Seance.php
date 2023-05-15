@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Seance extends Model
 {
     use HasFactory;
-
+    protected $guarded=[];
     public function emploi(){
         return $this->belongsTo(Emploi::class);
     }
