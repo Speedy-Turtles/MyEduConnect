@@ -206,8 +206,61 @@
        </v-card>
      </template>
    </v-dialog> 
-   
-   <v-snackbar
+
+   <v-dialog
+                    v-model="dialog_classe"
+                        width="500"
+                  >
+              <v-card>
+                <v-card-title class="text-h5 grey lighten-2">
+                  Chose Classe
+               </v-card-title>
+        <form >
+          <div class="mx-5 px-5">
+            <v-select
+                :items="specialtes"
+                v-model="specialite_id"
+                item-text="type"
+                :error-messages="Specialite_error"
+                item-value="idspec"
+                @change="choseClasse()"  
+                 label="chose Your Specialite"
+            ></v-select>
+          </div>
+
+          <div class="mx-5 px-5">
+            <v-select
+                :disabled="specialite_id=='' ? true : false "
+                :items="classes"
+                v-model="classe_id"
+                :error-messages="classe_error"
+                item-text="nom"
+                item-value="idclasse"
+                label="chose Your Classe"
+            ></v-select>
+          </div>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+          color="gray"
+          text
+          @click="dialog_classe = false"
+        >
+          Close
+        </v-btn>
+          <v-btn
+            color="primary"
+            text
+            @click="ConfirmClasse()"
+          >
+            Confirm
+          </v-btn>
+        </v-card-actions>
+      </form>
+      </v-card>
+    </v-dialog>
+  <v-snackbar
    v-model="snackbar"
  >
     {{ message }}
@@ -226,11 +279,21 @@
 </template>
 
 <script>
+import {required} from "vuelidate/lib/validators";
 import AddSpecialite from "@/components/Admin/Specialite/AddSpec.vue"
 import UpdateSpecVue from "@/components/Admin/Specialite/UpdateSpec.vue"
 import serviceSpec from "@/service/GereSpecialite/gereSpec.js"
 export default{
     name:'spec',
+    validations:{
+      specialite_id:{
+        required
+      },
+      classe_id:{
+        required
+      }
+      
+    },
     created(){
       this.FetchData();
     },
@@ -238,11 +301,17 @@ export default{
         return {
           spec:[],
           search:"",
+          dialog_classe:false,
           message:"",
           snackbar:false,
           dialogAddclasse:false,
+          specialite_id:"",
+          classe_id:"",
+          specialtes:[],
+          classes:[],
           IdSpecSelected:0,
           SelectUpdateVal:[],
+          specialite_choisie:"",
           countPage:[],
           item_selected:[],
           updateSpec:false,
@@ -273,7 +342,7 @@ export default{
            this.IdSpecSelected=0;
            this.FetchData();
            this.message="Classe Added";
-          this.snackbar=true;
+           this.snackbar=true;
         })
       },
       close_update(){
@@ -316,14 +385,54 @@ export default{
             this.dialog=false;
             this.FetchData();
           }else{
-            
+              this.dialog_classe=true;
+              this.specialite_choisie=id;
+              serviceSpec.GetAllSpec().then((res)=>{
+                this.specialtes=res.data;
+              })
+              this.load=false;
           }
         
         })
+      },
+      choseClasse(){
+        serviceSpec.GetClasse(this.specialite_id).then((res)=>{
+                this.classes=res.data;
+        })
+      },
+      ConfirmClasse(){
+             this.$v.specialite_id.$touch();
+              this.$v.classe_id.$touch();
+              if(this.$v.specialite_id.$invalid && this.$v.classe_id.$invalid){
+                   return;
+              }
+              serviceSpec.ChangerSpecialite(this.specialite_choisie,this.classe_id).then((res)=>{
+                this.message="Classe Add To All Users in this Specialite";
+                this.snackbar=true;
+                this.dialog_classe=false;
+                this.specialite_choisie="";
+                this.dialog=false;
+                this.load=false;
+                this.FetchData();
+              })
       }
     },
     components:{
       UpdateSpecVue,AddSpecialite
+    },
+    computed:{
+         classe_error(){
+              const error=[];
+              if(!this.$v.classe_id.$dirty) return error;
+              !this.$v.classe_id.required && error.push("Classe Required");
+              return error;
+          },
+          Specialite_error(){
+              const error=[];
+              if(!this.$v.specialite_id.$dirty) return error;
+              !this.$v.specialite_id.required && error.push("Specialite Required");
+              return error;
+          }
     }
 }
 </script>
