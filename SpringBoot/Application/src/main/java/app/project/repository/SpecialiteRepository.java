@@ -17,6 +17,9 @@ public interface SpecialiteRepository extends JpaRepository<specialite, Long>  {
 	@Query(value="select * from specialite",nativeQuery=true)
 	List<specialite> getAllSpec();
 	
+	@Query(value="select * from specialite where idspec=:id",nativeQuery=true)
+	specialite getSpecById(long id);
+	
 	Page<specialite> findByType(String mc,Pageable pageable);
 	
 	/*@Query("select p from specialite p where p.designation like :x",nativeQuery=true)

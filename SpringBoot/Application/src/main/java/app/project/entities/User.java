@@ -75,7 +75,7 @@ public class User implements Serializable {
 	private Date email_verified_at;
 	
 	
-	@ManyToOne
+	@ManyToOne( fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
 	@JoinColumn(name="idclasse")
 	private classe classe;
 	
