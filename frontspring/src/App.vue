@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <preloader></preloader>
     <v-main>
       <router-view/>
     </v-main>
@@ -7,13 +8,16 @@
 </template>
 
 <script>
-
+import preloader from './components/Loading/preloader.vue';
 export default {
   name: 'App',
 
   data: () => ({
     //
   }),
+  components:{
+    preloader
+  }
 };
 </script>
 
