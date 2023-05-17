@@ -7,12 +7,10 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 
-import app.project.entities.RoleUser;
 import app.project.entities.User;
-import authPrametre.MultipelDonne;
+
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
