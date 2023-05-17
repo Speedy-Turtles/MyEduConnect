@@ -18,7 +18,7 @@
                         <Vote></Vote>
                     </div>
                     <div  v-else-if="store.view=='edit'">
-                       <modifierProfil></modifierProfil>
+                    <modifierProfil></modifierProfil>
                   </div>
                 </div>
             </div>
