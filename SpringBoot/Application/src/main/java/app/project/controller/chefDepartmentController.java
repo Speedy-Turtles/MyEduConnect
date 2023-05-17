@@ -116,7 +116,6 @@ public class chefDepartmentController {
     		}else {
     			return ResponseEntity.ok(false);
     		}
-    	
     	}
     }
     
