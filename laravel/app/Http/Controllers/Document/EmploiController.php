@@ -27,13 +27,6 @@ class EmploiController extends Controller
             }
 
         }
-        // $data['lundi']=Emploi::where('jour','lundi')->where('classe',$classe[0]['nom'])->with('user')->with('salle')->get();
-        // $data['mardi']=Emploi::where('jour','mardi')->where('classe',$classe[0]['nom'])->with('user')->with('salle')->get();
-        // $data['mercredi']=Emploi::where('jour','mercredi')->where('classe',$classe[0]['nom'])->with('user')->with('salle')->get();
-        // $data['jeudi']=Emploi::where('jour','jeudi')->where('classe',$classe[0]['nom'])->with('user')->with('salle')->get();
-        // $data['vendredi']=Emploi::where('jour','vendredi')->where('classe',$classe[0]['nom'])->with('user')->with('salle')->get();
-        // $data['samedi']=Emploi::where('jour','samedi')->where('classe',$classe[0]['nom'])->with('user')->with('salle')->get();
-
         return response()->json(["data"=>$data,"classe"=>$classe,200]);
     }
 }

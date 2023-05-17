@@ -2,7 +2,7 @@
     <div class="forum">
         <Navbar></Navbar>
             <div class="main">
-               <h1>forum</h1>
+               <Forum></Forum>
             </div>
             <footer>
                 <Footer></Footer>
@@ -12,17 +12,18 @@
 <script>
 import Navbar from "@/components/etudiant/layouts/Navbar.vue";
 import Footer from "@/components/layouts/Footer.vue";
+import Forum from "@/components/etudiant/forum/Forum.vue";
 export default {
     components:{
-        Navbar,Footer
+        Navbar,Footer,Forum
     }
    
 }
 </script>
 <style scoped>
 .main{
-    margin-top: 100px;
-   height: 100vh;
+    margin-top: 40px;
+    height: auto;
 }
 .forum{
     overflow: hidden;

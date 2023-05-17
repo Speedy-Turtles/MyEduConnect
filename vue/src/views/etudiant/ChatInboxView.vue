@@ -1,10 +1,8 @@
 <template>
-    <div class="forum">
-
-            <Navbar></Navbar>
+    <div class="chat">
+        <Navbar></Navbar>
             <div class="main">
-               <h1>forum</h1>
-               <Forum></Forum>
+               <Chat></Chat>
             </div>
             <Footer></Footer>
     </div>
@@ -12,15 +10,18 @@
 <script>
 import Navbar from '@/components/etudiant/layout/Navbar.vue'
 import Footer from '@/components/etudiant/layout/Footer.vue'
-import Forum from '@/components/etudiant/forum/Forum.vue'
-export default {
-    components:{
-        Navbar,Footer,Forum
+import Chat from "@/components/etudiant/forum/Chat.vue"
+    export default {
+        name:'chatInbox',
+        components:{
+            Chat,Navbar,Footer
+        },
+
     }
-}
 </script>
 <style scoped>
 .main{
+    margin-top: 10vh;
    height: auto;
 }
 </style>

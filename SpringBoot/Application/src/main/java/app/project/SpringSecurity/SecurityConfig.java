@@ -109,6 +109,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 			.antMatchers("/getClasseById").permitAll()
 			.antMatchers("/ExistToken").permitAll()
 			.antMatchers("/ExistMail").permitAll()
+			.antMatchers("/getDocuments").permitAll()
 			.antMatchers("/UpdateStatus").permitAll()
 			.antMatchers("/getUsers").permitAll()
 			.antMatchers("/GetNotif").permitAll()

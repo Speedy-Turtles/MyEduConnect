@@ -14,6 +14,7 @@ use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\Document\EmploiController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\EditProfil\EditController;
+use App\Http\Controllers\Forum\ForumController;
 use App\Http\Controllers\nouveauteController;
 use App\Http\Controllers\pdf\GenratePdfController;
 use App\Http\Controllers\PdfController;
@@ -91,6 +92,7 @@ Route::put("/edit/updateEmail",[EditController::class,"updateEmail"]);
 
 Route::group(["prefix"=>"/pdf"],function(){
     Route::get('/generate/{id}', [GenratePdfController::class,"generatePDF"]);
+    Route::get('/gererEmploi/{id}', [GenratePdfController::class,"gererEmploi"]);
 });
 
 Route::middleware("auth:sanctum")->group(function(){
@@ -169,6 +171,12 @@ Route::middleware("auth:sanctum")->group(function(){
     Route::post("/editnotif",[DocumentController::class,'changerEtat']);
     Route::delete("/deleteAllNotif",[DocumentController::class,'clearNotif']);
     Route::delete("deleteNotification/{id}",[DocumentController::class,"deleteNotifById"]);
+    Route::get("/forum",[ForumController::class,"getForums"]);
+    Route::get("/allUsers",[ForumController::class,"getAllUsers"]);
+    Route::post("/addPost",[ForumController::class,"addPost"]);
+    Route::get("/getChat/{id}",[ForumController::class,"getChatById"]);
+    Route::get("/getUser/{id}",[ForumController::class,"getUserById"]);
+    Route::post("/addMessage/{id}",[ForumController::class,"addMessage"]);
     // utiliser dans controller $request()->user()->id  grace a interceptors dans vue js
 });
 Route::group(['prefix'=>'/documents/demandes'],function(){
