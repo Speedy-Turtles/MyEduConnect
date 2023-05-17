@@ -3,6 +3,7 @@ package app.project.entities;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class User implements Serializable {
 	private String Photo;
 	private String Cin;
 	private String sex;
-	private Date Birth_day;
+	private LocalDate Birth_day;
 	@ColumnDefault(value = "false")
 	private Boolean welcome_field;
 	@ColumnDefault(value = "null")
@@ -83,6 +84,6 @@ public class User implements Serializable {
 	joinColumns = @JoinColumn(name="user_id"),
 	inverseJoinColumns = @JoinColumn(name="role_id"))
 	private List<Role> role;
-	
+
 }
 

@@ -40,6 +40,7 @@ public class jwtTokenUtil implements Serializable {
 	  }
 	    
 	 private Claims getAllClaimsFromToken(String token) {
+		  jwtTokenUtil.secret = "MyEduConnect";
 		  return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody();
 	  }
 	 
