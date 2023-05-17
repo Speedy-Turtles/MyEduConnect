@@ -4,6 +4,7 @@ namespace App\Http\Controllers\pdf;
 
 use App\Http\Controllers\Controller;
 use App\Models\Classe;
+use App\Models\Seance;
 use App\Models\User;
 use Barryvdh\DomPDF\PDF;
 use DateTime;
@@ -69,5 +70,35 @@ class GenratePdfController extends Controller
         $pdf->loadView('pdf.document',$data);
         //$pdf->setOptions(['isRemoteEnabled' => true]);
         return $pdf->download('Deamande_Stage.pdf');
+    }
+
+    public function gererEmploi(int $id){
+        $Date = new DateTime();
+        $user = User::find($id);
+        $classe = Classe::find($user->classe_id);
+        $jours = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+        $seances = [1, 2, 3, 4, 5, 6];
+
+        foreach ($jours as $jour) {
+            foreach ($seances as $numero) {
+                $seance = Seance::where('jour', $jour)->where('numero', $numero)->where('emploi_id', $classe->id)->with('user', 'salle', 'matiere')
+                    ->get();
+                $data[$jour][$numero] = $seance->isEmpty() ? null : $seance;
+            }
+        }
+
+        $file_iset = "../resources/images/IsetBare.PNG";
+        $img_iset = file_get_contents($file_iset);
+        $base64_iset = base64_encode($img_iset);
+                $info = [
+                    'date'=>'Fait à Bizerte le '.$Date->format('Y-m-d'),
+                    "data" => $data,
+                    "classe"=>$classe,
+                    'bareIset'=>$base64_iset
+                ];
+
+                $pdf = app()->make(PDF::class);
+                $pdf->loadView('pdf.Emploi', $info);
+                return $pdf->download('Emploi.pdf');
     }
 }

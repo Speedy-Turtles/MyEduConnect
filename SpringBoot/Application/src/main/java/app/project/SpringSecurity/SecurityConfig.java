@@ -119,6 +119,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 			.antMatchers("/getUserAuthentifie").permitAll()
 			.antMatchers("/uploadPhoto").permitAll()
 			.antMatchers("/EditInfoPersonnel").permitAll()
+			.antMatchers("/getDocuments").permitAll()
 			.antMatchers("/CheckPassword").permitAll()
 			.antMatchers("/ChangerPasswordActuel").permitAll()
 			.antMatchers("/SendChangedEmail").permitAll()
@@ -155,3 +156,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 	   
 	
 }
+
