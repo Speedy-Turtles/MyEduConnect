@@ -77,7 +77,7 @@ export default defineComponent({
         },
         tooltip: {},
         legend: {
-          data: ['sales']
+          data: ['Etudiant']
         },
         xAxis: {
              data: ['Accpted', 'refused', 'En cours']
