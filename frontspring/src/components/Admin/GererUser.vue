@@ -5,7 +5,7 @@
           <v-toolbar dark color="yellow">
              <v-toolbar-title >Wating</v-toolbar-title>
           </v-toolbar>
-          <v-card-text>
+          <v-card-text class="card_scroll">
             <draggable  :group="{ name: 'app', put: false }" :options="dragOptions" v-model="Waiting" 
             @change="onUserMove"  
             @add="checkMove('waiting')"
@@ -45,7 +45,7 @@
           <v-toolbar dark color="green">
              <v-toolbar-title >Accepted</v-toolbar-title>
           </v-toolbar>
-          <v-card-text>
+          <v-card-text class="card_scroll">
             <draggable  :options="dragOptions" v-model="Accpted" group="app"
             @change="onUserMove"  
             @add="checkMove('inProgress')"
@@ -85,7 +85,7 @@
         <v-toolbar dark color="red">
            <v-toolbar-title >Rejeter</v-toolbar-title>
         </v-toolbar>
-          <v-card-text>
+          <v-card-text class="card_scroll">
           <draggable   :options="dragOptions"  v-model="Rejeter" group="app"
           @change="onUserMove"  
           @add="checkMove('completed')"
@@ -227,7 +227,10 @@
 }
 </script>
 <style scoped>
-
+.card_scroll{
+  overflow-y: scroll;
+  height: 400px;
+}
  #test{
    display: flex;
    justify-content: center;
