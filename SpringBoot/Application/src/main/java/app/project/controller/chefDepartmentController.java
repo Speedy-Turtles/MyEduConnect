@@ -29,6 +29,7 @@ import app.project.repository.SpecialiteRepository;
 import app.project.repository.UserRepository;
 import app.project.repository.UserRoleRepository;
 import app.project.service.UserService;
+import authPrametre.DataClasse;
 import authPrametre.DataSpecialite;
 import authPrametre.InfoClasse;
 import authPrametre.SpecDonne;
@@ -96,6 +97,38 @@ public class chefDepartmentController {
 
     }
     
+    @GetMapping("/getAllClasse")
+    public ResponseEntity<?> getClasse(
+    		@RequestParam(name="id",defaultValue = "0") long id,
+    		@RequestParam(name = "search",defaultValue = "") String nom,
+    		@RequestParam(name = "page", defaultValue = "0") int page,
+			@RequestParam(name = "per_page", defaultValue = "2") int size){
+    	
+    	Page<classe> classe = null;
+    	if(nom.isEmpty()) {
+        	classe = ClasseRepo.findAll( PageRequest.of(page, size));
+    	}
+    	
+    	if(id!=0) {
+    		classe =ClasseRepo.getClasseByIdSpecPagination(id,PageRequest.of(page, size));
+    	}
+    	
+    	if(nom.isEmpty()==false) {
+    		classe = ClasseRepo.findByNom(nom, PageRequest.of(page, size));
+    	}
+
+    	
+    	int totale = classe.getTotalPages();
+		int[] count_page = new int[totale];
+		for (int i = 0; i < totale; i++) {
+			count_page[i] = i;
+		}
+
+		DataClasse data=new DataClasse(count_page,classe,page);
+		return ResponseEntity.ok(data);
+
+    }
+    
     @DeleteMapping("/deleteSpec")
     public ResponseEntity<?> deleteSpec(@RequestParam("id")long id){
     	List<classe> classes=ClasseRepo.getClasseByIdSpec(id);
@@ -119,9 +152,70 @@ public class chefDepartmentController {
     	}
     }
     
+    @DeleteMapping("/deleteClasse")
+    public ResponseEntity<?> deleteClasse(@RequestParam("id")long id){
+    	classe classe=ClasseRepo.getClasseById(id);
+    	if(classe==null) {
+    		return ResponseEntity.ok("Not Found");
+    	}else {
+    		List<User> users=UserRepo.GetUserByClass(classe.getIdclasse());
+    	    if(users.size()==0) {
+    	    	ClasseRepo.deleteById(id);
+    			return ResponseEntity.ok(true);
+    	    }else {
+    	    	return ResponseEntity.ok(false);
+    	    }
+    	}
+    	
+    }
+    
+    @PostMapping("/ChangerClasse")
+    public ResponseEntity<?> ChangerClasse(@RequestParam("id")long id,@RequestParam("new_id") long idnew){
+    		classe classe=ClasseRepo.getClasseById(id);
+    		if(classe==null) {
+        		return ResponseEntity.ok("Not Found");
+        	}else {
+			List<User> users=UserRepo.GetUserByClass(classe.getIdclasse());
+			 for(User u:users) {
+				 u.setClasse(null);
+				 u.setClasse(ClasseRepo.getClasseById(idnew));
+			 }
+			 	ClasseRepo.deleteById(id);
+    			return ResponseEntity.ok("Classe add to user");
+        	}
+    }
+    
+    @PostMapping("/UpdateClasse")
+    public ResponseEntity<?> updateClasse(@RequestParam("id") long id,@RequestParam("nom") String nom){
+    	classe classe=ClasseRepo.getClasseById(id);
+    	classe.setNom(nom);
+    	ClasseRepo.save(classe);
+    	return ResponseEntity.ok("Update With Success");
+    }
+    
     @PostMapping("/ChangerSpecialite")
-    public ResponseEntity<?> changerSpec(@RequestParam("id")long id){
-    	return ResponseEntity.ok(false);
+    public ResponseEntity<?> changerSpec(@RequestParam("id")long id,@RequestParam("new_id") long idnew){
+    	List<classe> classes=ClasseRepo.getClasseByIdSpec(id);
+    	for(classe c:classes) {
+			List<User> users=UserRepo.GetUserByClass(c.getIdclasse());
+			 for(User u:users) {
+				 u.setClasse(null);
+				 u.setClasse(ClasseRepo.getClasseById(idnew));
+			 }
+		}
+    	SpecRepo.deleteById(id);
+    	return ResponseEntity.ok("Classe add to user");
+    }
+    
+    @GetMapping("/GetAllSpec")
+    public ResponseEntity<?> GetAllSpec(){
+    	return ResponseEntity.ok(SpecRepo.findAll());
+    }
+    
+    @GetMapping("/GetClasse")
+    public ResponseEntity<?> getClasseById(@RequestParam("id")long id){
+    	List<classe> classes=ClasseRepo.getClasseByIdSpec(id);
+    	return ResponseEntity.ok(classes);
     }
     
     @PostMapping("/updateSpecilte")
