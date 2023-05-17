@@ -11,14 +11,15 @@ use DateTime;
 
 class GenratePdfController extends Controller
 {
-    public function generatePDF($id)
+    public function generatePDF(int $id)
     {
 
-     $user= User::find($id)->first();
+     $user= User::find($id);
      $Date = new DateTime();
      $classe=Classe::where("id",$user->classe_id)->with("Specialite")->first();
-     $niveau= $classe->specialite['niveau'];
 
+
+     $niveau= $classe->specialite['niveau'];
      //Niveau de etudiant
      $niveau_francais='';
       if($niveau==1){

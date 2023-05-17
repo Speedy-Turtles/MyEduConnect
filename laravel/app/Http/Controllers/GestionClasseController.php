@@ -16,9 +16,11 @@ class GestionClasseController extends Controller
         return response()->json(["data"=>$classes],200);
     }
     public function AddClasse(Request $request){
+
         $classe=Classe::create([
             "nom"=>$request->nom,
             "specialite_id"=>$request->specialite_id,
+            "emploi_id"=>null,
         ]);
         $classe->save();
         if($classe==null){

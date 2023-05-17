@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -33,6 +34,7 @@ import app.project.jwt.JwtRequestFilter;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 	
 	@Autowired
@@ -73,17 +75,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) {
 		try {
-			auth.authenticationProvider(authenticationProvider());
-			auth.userDetailsService(userDetailsService);
+			/*auth.authenticationProvider(authenticationProvider());
+			auth.userDetailsService(userDetailsService);*/
+			auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
 	
+	/*@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		// configure AuthenticationManager so that it knows from where to load
+		// user for matching credentials
+		// Use BCryptPasswordEncoder
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+	}
+	*/
 	@Override
 	public void configure(HttpSecurity http) {
 		try {
-
 			http.cors().and().csrf().disable()
 			.authorizeRequests()
 			.antMatchers("/login").permitAll()
@@ -92,6 +102,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 			.antMatchers("/ForgotPassword").permitAll()
 			.antMatchers("/ChangerPassword").permitAll()
 			.antMatchers("/getSpecialte").permitAll()
+			.antMatchers("/updateWelcome").permitAll()
 			.antMatchers("/getClasse").permitAll()
 			.antMatchers("/getRoleByid").permitAll()
 			.antMatchers("/GetAllRole").permitAll()
@@ -99,6 +110,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 			.antMatchers("/ExistToken").permitAll()
 			.antMatchers("/ExistMail").permitAll()
 			.antMatchers("/getDocuments").permitAll()
+			.antMatchers("/UpdateStatus").permitAll()
+			.antMatchers("/getUsers").permitAll()
+			.antMatchers("/GetNotif").permitAll()
+			.antMatchers("/DeleteNotificationById").permitAll()
+			.antMatchers("/DeleteAllNotif").permitAll()
+			.antMatchers("/GetNotifNotSeen").permitAll()
+			.antMatchers("/updateNotif").permitAll()
+			.antMatchers("/getUserAuthentifie").permitAll()
+			.antMatchers("/uploadPhoto").permitAll()
+			.antMatchers("/EditInfoPersonnel").permitAll()
+			.antMatchers("/CheckPassword").permitAll()
+			.antMatchers("/ChangerPasswordActuel").permitAll()
+			.antMatchers("/SendChangedEmail").permitAll()
+			.antMatchers("/updateEmail").permitAll()
+			.antMatchers("/getSepecialite").permitAll()
 			.anyRequest().authenticated()
 			 .and()
 			 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()

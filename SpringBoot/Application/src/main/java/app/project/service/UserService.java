@@ -1,38 +1,61 @@
 package app.project.service;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import app.project.SpringSecurity.SecurityConfig;
+import app.project.SpringSecurity.UserDetailsImpl;
+import app.project.entities.Notification;
+import app.project.entities.Role;
 import app.project.entities.User;
+import app.project.jwt.jwtTokenUtil;
 import app.project.mail.Mail;
+import app.project.repository.ClasseRepository;
+import app.project.repository.NotificationRepository;
+import app.project.repository.RoleRepository;
+import app.project.repository.SpecialiteRepository;
 import app.project.repository.UserRepository;
+import app.project.repository.UserRoleRepository;
+import authPrametre.StatId;
 import net.bytebuddy.utility.RandomString;
-
 
 @Service
 public class UserService {
- 
-	  @Autowired
-	  UserRepository UserRepo;
-	  
-	  @Autowired
-	  Mail mailsender;
-	  
-	  
-	  public User getLoggedUser() {
-			 try {
-				 Authentication loggeduser=SecurityContextHolder.getContext().getAuthentication();
-				 return UserRepo.getUserByemail(loggeduser.getName());
-			 }catch(Exception e) {
-				 e.printStackTrace();
-				 return null;
-			 }
-		 }
+
+		@Autowired
+		Mail mailsender;
+
+	    @Autowired
+	    UserRepository UserRepo;
+   
+	    @Autowired
+		private jwtTokenUtil  jwtTokenUtil;
+    
+	    @Autowired
+	    UserRoleRepository roleuser;
+	    
+	    @Autowired
+		NotificationRepository notifrepo;
+	    
+	    // Get User Authentifie
+	    
+	    public User UserAuth(HttpServletRequest request) {
+	    	 //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    	 final String requestTokenHeader=request.getHeader("Authorization");
+	    	 String jwtToken=requestTokenHeader.substring(7);
+	    	 String username=jwtTokenUtil.getUsernameFromToken(jwtToken);
+	    	 return UserRepo.getUserByemail(username);
+	    }
 	  
 	  public User getByEmail(String email) {
 		 try {
@@ -43,7 +66,6 @@ public class UserService {
 		 }
 		 
 	  }
-	  
 	  
 	  public void VerifyEmail(String email) throws Exception {
 		  User user=UserRepo.getUserByemail(email);
@@ -92,6 +114,40 @@ public class UserService {
 		   }
 	  }
 	  
+	  public  boolean TestRoleName(String email) {
+		  User user=UserRepo.getUserByemail(email);
+		  List<Role> role=user.getRole();
+		  boolean test=false;
+		  if(role.size()>1) {
+			  if(role.get(0).getRoleName().equals("ensignant")) {
+				  return true;
+			  }else if(role.get(0).getRoleName().equals("chefDepartment")) {
+				  return true;
+			  }
+		  }else {
+			  if(role.get(0).getRoleName().equals("etudiant")) {
+				  return false;
+			  }else if(role.get(0).getRoleName().equals("Admin")) {
+				  return true;
+			  }else if(role.get(0).getRoleName().equals("ensignant")) {
+				  return false;
+			  }
+		  }
+		  return test;
+	  }
 	  
-	
+	  public void SendNotification(StatId param) {
+		  User user=UserRepo.getUserById(param.getId());
+		  User chef=UserRepo.GetChefDepartment();
+			 Notification notif=new Notification();
+			 notif.setUserEnvoi(chef);
+			 notif.setEtat(0);
+			 notif.setUserRecu(user);
+		  if(param.getStatus()==1) {
+				notif.setMessage("Chef Department Accepte Your Request");
+		  }else {
+				notif.setMessage("Chef Department Reject Your Request");
+		  }
+		  notifrepo.save(notif);
+	  }
 }

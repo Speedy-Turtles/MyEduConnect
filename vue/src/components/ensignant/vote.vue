@@ -1,7 +1,7 @@
 
 <template>
     <div style="height:88vh;padding:35px" class="mt-5 p-5">
-        <div v-if="loader==false">
+        <div style="margin-top:10%;" lass="container text-center" v-if="loader==false">
           <v-progress-circular
           indeterminate
           color="primary"
@@ -29,9 +29,8 @@
        </div>
         <div v-else> 
           <div class="row">
-            <div class="col-lg-4" v-for="data in session" :key="data.id">
-            <v-card
-                class="mx-auto"
+            <div >
+            <v-card  class="col-lg-4 " v-for="data in session" :key="data.id"
                 color="#26c6da"
                 dark
                 max-width="400"
