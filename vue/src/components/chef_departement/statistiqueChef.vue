@@ -19,7 +19,7 @@
                                 </v-icon>
                                 <p class="text-h5 mt-3">
                                     demande accepte
-                                <div class="number-stat text-center" style="background:#a6cd49">5</div>
+                                <div class="number-stat text-center" style="background:#a6cd49">{{ this.stats.nb_demande_accepte }}</div>
                                 </p>
                             </v-row>
                             <v-row>
@@ -28,7 +28,7 @@
                                 </v-icon>
                                 <p class="text-h5 mt-3">
                                     demande en cours
-                                <div class="number-stat text-center" style="background:#525fe1">5</div>
+                                <div class="number-stat text-center" style="background:#525fe1">{{this.stats.nb_demande_encours}}</div>
                                 </p>
                             </v-row>
                             <v-row>
@@ -37,7 +37,7 @@
                                 </v-icon>
                                 <p class="text-h5 mt-3">
                                     demande refuse
-                                <div class="number-stat text-center" style="background:red">5</div>
+                                <div class="number-stat text-center" style="background:red">{{this.stats.nb_demande_refuse}}</div>
                                 </p>
                             </v-row>
                         </v-container>
@@ -54,7 +54,7 @@
                                 </v-icon>
                                 <p class="text-bold text-h5">
                                     nombre des etudiant
-                                <div class="number-stat text-center" style="background:#525fe1;margin-top: -3%;">5</div>
+                                <div class="number-stat text-center" style="background:#525fe1;margin-top: -3%;">{{ this.stats.nbr_etudiant }}</div>
 
                                 </p>
                                 <div class="line"></div>
@@ -65,7 +65,7 @@
                                 </v-icon>
                                 <p class="text-bold text-h5">
                                     nombre des enseignants
-                                <div class="number-stat text-center" style="background:#525fe1;margin-top: -3%;">5</div>
+                                <div class="number-stat text-center" style="background:#525fe1;margin-top: -3%;">{{ this.stats.nbr_ensignants }}</div>
                                 </p>
                                 <div class="line"></div>
                             </v-row>
@@ -83,7 +83,7 @@
                                 <p class="text-h5">
                                     nombre des classes
                                 </p>
-                                <div class="number-stat" style="color: black;display: inline;">15</div>
+                                <div class="number-stat" style="color: black;display: inline;">{{this.stats.nbr_classes}}</div>
                             </v-col>
                             <v-col align-self="end" class="pa-2 ma-2">
                                 <router-link to="/chef_departement/gererspecialite">
@@ -104,7 +104,7 @@
                                 <p class="text-h5">
                                     nombre des specialite
                                 </p>
-                                <div class="number-stat" style="color: black;display: inline;">3</div>
+                                <div class="number-stat" style="color: black;display: inline;">{{this.stats.nbr_specialite}}</div>
                             </v-col>
                             <v-col align-self="end" class="pa-2 ma-2">
                                 <router-link to="/chef_departement/gererspecialite">
@@ -125,7 +125,7 @@
                                 <p class="text-h5">
                                     neauveaute ajoute
                                 </p>
-                                <div class="number-stat" style="color: black;display: inline;">0</div>
+                                <div class="number-stat" style="color: black;display: inline;">{{this.stats.nbr_neauveaute}}</div>
                             </v-col>
                             <v-col align-self="end" class="pa-2 ma-2">
                                 <router-link to="/chef_departement/gererneaveaute">
@@ -156,7 +156,7 @@ import {
 } from 'echarts/components';
 import VChart, { THEME_KEY } from 'vue-echarts';
 import { defineComponent } from 'vue';
-
+import gererStats from '@/service/chefDepEmploi/gererStats';
 use([
     CanvasRenderer,
     PieChart,
@@ -170,6 +170,9 @@ export default defineComponent({
     name: 'statistique',
     components: {
         VChart,
+    },
+    mounted(){
+        this.getStats();
     },
     data() {
         return {
@@ -190,21 +193,24 @@ export default defineComponent({
                     {
                         name: 'Etudiants',
                         type: 'bar',
-                        data: [0, 1, 2]
+                        data: [0, 0, 0]
                     }
                 ]
             },
             provide: {
                 [THEME_KEY]: 'light',
             },
-            nbr_demande:null,
-            nbr_etudiants:null,
-            nbr_proffesor:null,
-            nbr_classes:null,
-            nbr_specialite:null,
-            nbr_neauv:null,
+            stats:{},
         }
     },
+    methods:{
+        getStats(){
+            gererStats.getStats().then(response=>{
+                this.stats=response.data[1];
+                this.option.series[0].data=[this.stats.etudiant_niveau1,this.stats.etudiant_niveau2,this.stats.etudiant_niveau3];
+            })
+        }
+    }
 });
 </script>
 <style scoped>
