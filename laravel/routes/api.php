@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\RestPassword\ForgotPasswordController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\ChefDepartement\emploichefController;
+use App\Http\Controllers\chefDepartement\HomeController;
 use App\Http\Controllers\Document\ChefDepartementDocument;
 use App\Http\Controllers\Document\DemandesController;
 use App\Http\Controllers\GestionClasseController;
@@ -195,3 +196,4 @@ Route::group(['prefix'=>"emploiChef/"],function(){
 });
 Route::get("/matiere",[MatiereController::class,'getAllMatiere']);
 Route::get("/salle",[SalleController::class,'getAllSalles']);
+Route::get("/chefDep",[HomeController::class,'getStats']);
