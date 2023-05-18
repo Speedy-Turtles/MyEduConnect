@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-card elavation="7" style="padding:25px">
-            <h4 class="text-center py-4">Classes</h4>
+           <!-- <h4 class="text-center py-4">Classes</h4>-->
                   <div class="row gap-4 p-5 mt-3">
                       <div class="col-lg-3 mx-2 text-center">
                         <v-text-field
