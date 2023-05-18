@@ -1,6 +1,7 @@
 package app.project.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +19,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import app.project.SpringSecurity.SecurityConfig;
 import app.project.SpringSecurity.UserDetailsImpl;
+import app.project.entities.EmbedIdDocument;
+import app.project.entities.Notification;
+import app.project.entities.Role;
 import app.project.entities.User;
+import app.project.entities.UserDocument;
 import app.project.entities.classe;
 import app.project.entities.specialite;
 import app.project.jwt.jwtTokenUtil;
 import app.project.mail.Mail;
 import app.project.repository.ClasseRepository;
+import app.project.repository.NotificationRepository;
 import app.project.repository.RoleRepository;
 import app.project.repository.SpecialiteRepository;
+import app.project.repository.UserDocumentRepostory;
 import app.project.repository.UserRepository;
 import app.project.repository.UserRoleRepository;
 import app.project.service.UserService;
@@ -33,6 +40,8 @@ import authPrametre.DataClasse;
 import authPrametre.DataSpecialite;
 import authPrametre.InfoClasse;
 import authPrametre.SpecDonne;
+import net.minidev.json.JSONObject;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -71,6 +80,12 @@ public class chefDepartmentController {
     
     @Autowired
     UserRoleRepository roleuser;
+    
+    @Autowired
+    UserDocumentRepostory userDocRepo;
+    
+    @Autowired
+    NotificationRepository NotifRepo;
     
     
     @GetMapping("/getSepecialite")
@@ -245,5 +260,72 @@ public class chefDepartmentController {
     	ClasseRepo.save(ClasseAdded);
     	return ResponseEntity.ok("Classe Added");
     }
+    
+    
+    @GetMapping("/getDoc")
+    public ResponseEntity<?> getAllDocuments(@RequestParam(name="nom",defaultValue = "")String nom){
+    	List<UserDocument> Accepted=new ArrayList<UserDocument>();
+    	List<UserDocument> Rejeter=new ArrayList<UserDocument>();;
+    	List<UserDocument> Waiting=new ArrayList<UserDocument>();;
+    	
+    	List<UserDocument> AllDoc=userDocRepo.findAll();
+    	
+    	for(UserDocument doc:AllDoc) {
+    		if(doc.getEtat()==0) {
+    			Waiting.add(doc);
+    		}else if(doc.getEtat()==1) {
+    			Accepted.add(doc);
+    		}else {
+    			Rejeter.add(doc);
+    		}
+    	}
+    	JSONObject res=new JSONObject();
+    	res.appendField("accepted", Accepted);
+    	res.appendField("waiting", Waiting);
+    	res.appendField("Rejeter", Rejeter);
+    	//for(int i=0;i<AllDoc.size();i++) {}
+    	return ResponseEntity.ok(res);
+    }
+    
+    @PostMapping("/ChangerEtat")
+    public ResponseEntity<?> ChangerEtatDoc(@RequestParam("id") long iddoc,@RequestParam("idUser")long idUser,@RequestParam("etat") int etat){
+    	
+    	UserDocument doc=userDocRepo.docByUserDoc(iddoc,idUser);
+    	
+    	if(doc==null) {
+    		return ResponseEntity.ok("No Trouve");
+    	}else {
+    		doc.setEtat(etat);
+    		if(etat==1) {
+    			doc.setNombre(doc.getNombre()+1);
+    		}
+    		userDocRepo.save(doc);
+    		User chef=UserRepo.GetChefDepartment();
+    		Notification notif=new Notification();
+			notif.setUserEnvoi(chef);
+			notif.setEtat(0);
+			notif.setUserRecu(doc.getUser());
+			if(etat==1) {
+				notif.setMessage("Votre Deamande Sur "+doc.getDocument().getType()+" a été accepté");
+			}else if(etat==2) {
+				notif.setMessage("Votre Deamande Sur "+doc.getDocument().getType()+" a été rejeté");
+			}
+			NotifRepo.save(notif);
+    		return ResponseEntity.ok("Document Etat Changed");
+    	}
+    }
+    
+    @DeleteMapping("/DeleteUserDoc")
+    public ResponseEntity<?> deleteByIdUserDoc(@RequestParam("id") long iddoc,@RequestParam("idUser")long idUser){
+    	UserDocument doc=userDocRepo.docByUserDoc(iddoc,idUser);
+    	if(doc==null) {
+    		return ResponseEntity.ok("No Trouve");
+    	}else {
+    		//userDocRepo.deleteUserDoc(iddoc,idUser);
+    		userDocRepo.delete(doc);
+    		return ResponseEntity.ok("Delete With success");
+    	}
+    }
+    
     
 }

@@ -20,7 +20,7 @@
                    </a>
                 </li>
                 <li v-if="test_ischef==true || storeAuth.Ischef=='true'">
-                  <a @click="changerView('spec')" href="#" :class="store.view=='spec' ? 'active' : ''">
+                  <a @click="changerView('Specialite')" href="#" :class="store.view=='Specialite' ? 'active' : ''">
                      <v-icon  class="icon" >mdi-book-education</v-icon>
                      <span  :class=" small ? 'none_btn_open_close_sidebar' : ''" class="nav-item">Gérer Specialite</span>
                  </a>
@@ -29,6 +29,12 @@
                 <a @click="changerView('classe')" href="#" :class="store.view=='classe' ? 'active' : ''">
                    <v-icon  class="icon" >mdi-home-group</v-icon>
                    <span  :class=" small ? 'none_btn_open_close_sidebar' : ''" class="nav-item">Gérer Classe</span>
+               </a>
+            </li>
+              <li v-if="test_ischef==true || storeAuth.Ischef=='true'">
+                <a @click="changerView('Document')" href="#" :class="store.view=='Document' ? 'active' : ''">
+                   <v-icon  class="icon" >mdi-file-document-edit</v-icon>
+                   <span  :class=" small ? 'none_btn_open_close_sidebar' : ''" class="nav-item">Gérer Document</span>
                </a>
             </li>
             <li class="btn_open_close"  :class="etatsidbar==true ? 'close' : '' ">

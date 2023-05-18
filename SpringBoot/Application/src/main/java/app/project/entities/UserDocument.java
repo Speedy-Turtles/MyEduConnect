@@ -2,6 +2,7 @@ package app.project.entities;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -48,4 +49,6 @@ public class UserDocument implements Serializable {
 		
 		@UpdateTimestamp
 		private Timestamp updated_at;
+
+		
 }
