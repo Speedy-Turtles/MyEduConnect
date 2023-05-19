@@ -43,5 +43,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query(value="select u.* from user u,role r,user_role ur where r.id=ur.role_id and ur.user_id=u.id and r.role_name='chefDepartment';",nativeQuery=true)
 	User GetChefDepartment();	
 	
+	@Query(value="select * from user u,role r,user_role ur where r.role_name='ensignant' and r.id=ur.role_id and ur.user_id=u.id;",nativeQuery=true)
+    List<User> getProffesors();
 }
 

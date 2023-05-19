@@ -33,6 +33,7 @@ public class RoleUser implements Serializable {
   @EmbeddedId
   EmbedeId id;
   
+
   @ManyToOne
   @MapsId("UserId")
   @JoinColumn(name="user_id")
