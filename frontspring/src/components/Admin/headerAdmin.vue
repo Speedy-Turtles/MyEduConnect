@@ -14,7 +14,13 @@
                 }}
               </h2>
               <v-spacer></v-spacer>
-              
+          <v-btn   plain
+          v-bind="attrs"
+          v-on="on" @click="changerView('chat')">
+              <v-icon size="35px ">
+                    mdi-chat
+              </v-icon>
+          </v-btn>
          <v-menu offset-y
                
                 transition="slide-x-transition" 
