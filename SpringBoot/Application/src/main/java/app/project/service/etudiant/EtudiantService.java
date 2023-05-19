@@ -59,7 +59,7 @@ public class EtudiantService {
 		 User user = userService.UserAuth(request);
 		 long user_id = user.getId();
 		if(demandeRepository.getDemandeByUser(user_id)==null) {
-			new ResponseEntity<String>("No demande Found",HttpStatus.NOT_FOUND);
+			new ResponseEntity<String>("No demande Found",HttpStatus.OK);
 		}
 		return demandeRepository.getDemandeByUser(user_id);
 	}

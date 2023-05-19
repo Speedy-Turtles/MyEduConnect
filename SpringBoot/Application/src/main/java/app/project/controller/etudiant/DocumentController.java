@@ -65,7 +65,7 @@ public class DocumentController {
 	public ResponseEntity<?> Documents(){
 		
 		if(etudiantService.getAllDocuments().size()==0) {
-			return  new ResponseEntity<String>("No documents found",HttpStatus.NOT_FOUND);
+			return  new ResponseEntity<String>("No documents found",HttpStatus.OK);
 		}
 		return ResponseEntity.ok().body(etudiantService.getAllDocuments());
 	}
@@ -74,10 +74,14 @@ public class DocumentController {
 	public ResponseEntity<?> getDemandes(){
 		
 		if(etudiantService.getAllDemandes().size()==0) {
-			return  new ResponseEntity<String>("No demandes found",HttpStatus.NOT_FOUND);
+			return  new ResponseEntity<String>("No demandes found",HttpStatus.OK);
 		}
 		return ResponseEntity.ok().body(etudiantService.getAllDemandes());
 	}
+	
+
+	
+	
 	
 
 	@PostMapping("/addDemande")
@@ -118,9 +122,11 @@ public class DocumentController {
 	
 	@GetMapping("/getDemande")
 	public ResponseEntity<?> getDemandeById(HttpServletRequest request,@RequestParam("id")long id) {
+
 		Boolean test=etudiantService.demandeCheck(request, id);
 		if(test==false){
 			return  new ResponseEntity<String>("There is no demande",HttpStatus.NOT_FOUND);
+
 		}
 		return ResponseEntity.ok().body(etudiantService.getAllDemandes());
 	}
