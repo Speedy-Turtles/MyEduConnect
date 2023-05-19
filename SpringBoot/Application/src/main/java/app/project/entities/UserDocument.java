@@ -16,7 +16,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder.Default;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,17 +25,17 @@ public class UserDocument implements Serializable {
 	
 	  @EmbeddedId
 	  EmbedIdDocument id;
-	  
+
 	  @ManyToOne
-	  @MapsId("UserId")
-	  @JoinColumn(name="user_id")
-	  User user;
-	  
-	 
-	  @ManyToOne
-	  @MapsId("DocumentId")
+	  @MapsId("documentId")
 	  @JoinColumn(name="document_id")
 	  Document document;
+	  
+	  
+	  @ManyToOne
+	  @MapsId("userId")
+	  @JoinColumn(name="user_id")
+	  User user;
 	  
 	    @ColumnDefault(value = "0")
 		private int etat;

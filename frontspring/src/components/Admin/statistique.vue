@@ -3,12 +3,7 @@
     <div class="mt-5 py-5 ">
             <div class="content">
               <div  v-for="dat in All_data" :key="dat.id" >
-                <v-skeleton-loader v-if="loading"  
-                        max-width="180"
-                        type="card"
-                    ></v-skeleton-loader>
                   <v-card  
-                    v-if="!loading" 
                     max-width="180"
                     max-height="180"
                     variant="outlined"
@@ -68,28 +63,7 @@ export default defineComponent({
                 {icon:"mdi-account-school",nbr:0,titre:"Nombre of Etudiant"},
                 {icon:"mdi-account-tie",nbr:0,titre:"Nombre of Ensignat"},
             ],
-     option_two :{
-        title: {
-          text: 'Static Etudiant'
-        },
-        tooltip: {},
-        legend: {
-          data: ['sales']
-        },
-        xAxis: {
-             data: ['Accpted', 'refused', 'En cours']
-        },
-        yAxis: {
-           
-        },
-        series: [
-          {
-            name: 'Etudiants',
-            type: 'bar',
-            data: [0, 1, 2]
-          }
-        ]
-      },
+ 
      option : {
          title: {
          text: `Static Student `,
@@ -131,31 +105,21 @@ export default defineComponent({
     },
   methods:{
     getStatique(){
-        // stat.getStat().then((res)=>{
-        //     const data=res.data.data;
-        //     this.All_data[3].nbr=data.nb_chef;
-        //     this.All_data[2].nbr=data.nbr_ens;
-        //     this.All_data[1].nbr=data.nb_etudiant;
-        //     this.All_data[0].nbr=data.nb_technicien;
-        //     this.option.series[0].data[0].value=data.nb_man;
-        //     this.option.series[0].data[1].value=data.nb_woman;
-        //     this.option_two.series[0].data=[data.nb_etudiant,data.nbr_etudiant_refused,data.nbr_etudiant_encours,10];
-        //     //this.option_two.yAxis.data=[0,1]
-        //     this.loading=false;
-        // });   
-
         stat.getMan().then((res)=>{
           this.option.series[0].data[0].value=res.data;
+         
         });
         stat.getWomen().then((res)=>{
           this.option.series[0].data[1].value=res.data;
+         
         });
-
         stat.getEtudiant().then((res)=>{
           this.All_data[0].nbr=res.data;
+         
         });
         stat.getEnseignant().then((res)=>{
           this.All_data[1].nbr=res.data;
+         
         });
     }
   },
@@ -176,7 +140,7 @@ export default defineComponent({
 <style scoped >
 .content{
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr ;
   grid-gap: 25px;
 }
 

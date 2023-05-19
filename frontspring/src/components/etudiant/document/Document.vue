@@ -17,7 +17,7 @@
                                 ></v-progress-circular>
                                 </div>
                     </v-flex>
-                    <v-flex  xl6 md6 sm12 xs12 v-for="(document,index) in All_Document " :key="document.id">
+                    <v-flex  xl6 md6 sm12 xs12 v-for="document in All_Document " :key="document.id">
                             <v-card
                                 :loading="loading1"
                                 class="mx-auto mb-4"
@@ -82,7 +82,7 @@
                                         :loading="loading_demander"
                                         color="primary"
                                         :disabled="(document.nombreDispo-etat?.nombre)<=0 ? true : false"
-                                        @click="reserve(document.id),getDemandeById(document.id)"
+                                        @click="reserve(document.id)"
                                     >
                                         demande
                                     </v-btn>
@@ -102,7 +102,7 @@ import {AuthUser} from "@/store/AuthStore";
 // import 'jspdf-autotable'
 // import {AmiriRegular} from "@/assets/fontArabic/amiri.js";
 import service_doc from "@/service/DocumentService/document"
-import userinfo from "@/service/UserInfo/userInfo"
+
 
 
 export default {

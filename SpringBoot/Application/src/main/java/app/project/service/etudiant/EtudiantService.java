@@ -44,15 +44,15 @@ public class EtudiantService {
 		return demandeRepository.findAll();
 	}
 	
-	public UserDocument demandeCheck(HttpServletRequest request,long document_id) {
+	public Boolean demandeCheck(HttpServletRequest request,long document_id) {
 		 User user = userService.UserAuth(request);
 		 long user_id = user.getId();
-		 return demandeRepository.getDemandeById(document_id,user_id);
+		 return demandeRepository.getDemandeById(document_id,user_id)==null ? true : false;
 		 
 	}
 	
 	public Document getDocumentById(long id) {
-		return documentRepository.getById(id);
+		return documentRepository.getdocbyId(id);
 	}
 	
 	public UserDocument getAllDemandesUser(HttpServletRequest request){

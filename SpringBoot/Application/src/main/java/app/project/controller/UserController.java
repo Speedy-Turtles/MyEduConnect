@@ -153,7 +153,7 @@ public class UserController {
 	    @GetMapping("/getUserMan")
 	    	public ResponseEntity<?> getUserMan(){
 	    		if(user_service.getUserMan()==0) {
-	    			return new ResponseEntity<String>("No man user found",HttpStatus.NOT_FOUND);
+	    			return  ResponseEntity.ok().body(0);
 	    			
 	    		}else{
 	    			return  ResponseEntity.ok().body(user_service.getUserMan());
@@ -163,7 +163,7 @@ public class UserController {
 	    @GetMapping("/getUserWomen")
     	public ResponseEntity<?> getUserWomen(){
     		if(user_service.getUserWomen()==0) {
-    			return new ResponseEntity<String>("No Women user found",HttpStatus.NOT_FOUND);
+    			return  ResponseEntity.ok().body(0);
     			
     		}else{
     			return  ResponseEntity.ok().body(user_service.getUserWomen());
@@ -173,7 +173,7 @@ public class UserController {
 	    @GetMapping("/getUserEnseignant")
     	public ResponseEntity<?> getUserEnseignant(){
     		if(user_service.getUserWomen()==0) {
-    			return new ResponseEntity<String>("No Enseignant user found",HttpStatus.NOT_FOUND);
+    			return  ResponseEntity.ok().body(0);
     			
     		}else{
     			return  ResponseEntity.ok().body(user_service.getUserEnseignant());
@@ -183,7 +183,7 @@ public class UserController {
 	    @GetMapping("/getUserEtudiant")
     	public ResponseEntity<?> getUserEtudiant(){
     		if(user_service.getUserWomen()==0) {
-    			return new ResponseEntity<String>("No Etudiant user found",HttpStatus.NOT_FOUND);
+    			return  ResponseEntity.ok().body(0);
     			
     		}else{
     			return  ResponseEntity.ok().body(user_service.getUserEnseignant());

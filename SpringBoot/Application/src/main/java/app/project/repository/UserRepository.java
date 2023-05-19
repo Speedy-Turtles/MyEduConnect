@@ -49,10 +49,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query(value="select count(*)  from user where sex ='Man'  ",nativeQuery=true)
 	int  CountUserMan();	
 	
-	@Query(value="select count(*)  from user where sex ='Women'  ",nativeQuery=true)
+	@Query(value="select count(*)  from user where sex ='Woman'  ",nativeQuery=true)
 	int  CountUserWomen();
 	
-	@Query(value="select count(*)  from user u,role r,user_role ur where u.id = ur.user_id  and ur.role_id=r.id and role_name='enseignant' ",nativeQuery=true)
+	@Query(value="select count(*)  from user u,role r,user_role ur where u.id = ur.user_id  and ur.role_id=r.id and role_name='ensignant' ",nativeQuery=true)
 	int  CountUserEnseignants();
 	
 	@Query(value="select count(*)  from user u,role r,user_role ur where u.id = ur.user_id  and ur.role_id=r.id and role_name='etudiant' ",nativeQuery=true)

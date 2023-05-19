@@ -3,6 +3,9 @@ package app.project.controller.etudiant;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +28,7 @@ import app.project.entities.EmbedIdDocument;
 import app.project.entities.Notification;
 import app.project.entities.User;
 import app.project.entities.UserDocument;
+import app.project.repository.DocumentRepository;
 import app.project.repository.NotificationRepository;
 import app.project.repository.UserDocumentRepostory;
 import app.project.repository.UserRepository;
@@ -54,6 +58,9 @@ public class DocumentController {
 	@Autowired
 	NotificationRepository notificationRepository;
 	
+	@Autowired
+	DocumentRepository docRepo;
+	
 	@GetMapping("/getDocuments")
 	public ResponseEntity<?> Documents(){
 		
@@ -72,70 +79,50 @@ public class DocumentController {
 		return ResponseEntity.ok().body(etudiantService.getAllDemandes());
 	}
 	
-	
-	@GetMapping("/accepterDemande")
-	public ResponseEntity<?> accepterDemande(HttpServletRequest request,@RequestParam("id")long id){
-		UserDocument demande_check=etudiantService.demandeCheck(request, id);
-		if(demande_check==null) {
-			return  new ResponseEntity<String>("No demande found",HttpStatus.NOT_FOUND);
-		}else {
-			demande_check.setEtat(1);
-			demande_check.setNombre(demande_check.getNombre()+1);
-		}
-		return new ResponseEntity<String>("data updated succesfully",HttpStatus.FOUND);
-	}
-	
-	
-	
+
 	@PostMapping("/addDemande")
 	public ResponseEntity<?> addDemande(HttpServletRequest request,@RequestParam("id")long id,@RequestParam("langue")String langue){
-		UserDocument demande_check=etudiantService.demandeCheck(request, id);
-		User chefDepartement = userRepository.GetChefDepartment();
-		User user =userService.UserAuth(request);
-		Document document = etudiantService.getDocumentById(id);
-		Notification notification = new Notification();
-		notification.setUserEnvoi(user);
-		notification.setUserRecu(chefDepartement);
-		notification.setMessage(user.getFirstName()+" " + user.getLastName() + " demande document "+document.getType());
-		notification.setEtat(0);
-		notificationRepository.save(notification);
-		
-		if(demande_check!=null) {
-			demande_check.setEtat(0);
-			demande_check.setLangue(langue);
-			userDocumentRepository.save(demande_check);
-			return  new ResponseEntity<String>("Demande updated successfuly",HttpStatus.OK);
-		}else {
-			UserDocument demande = new UserDocument();
-			demande.setUser(user);
-			demande.setDocument(document);
-			demande.setEtat(0);
-			demande.setNombre(0);
-			demande.setLangue(langue);
-			userDocumentRepository.save(demande);
-			return  new ResponseEntity<String>("Demande create successfuly",HttpStatus.CREATED);
-		}
+			User user =userService.UserAuth(request);
+			Document document = etudiantService.getDocumentById(id);
+			User chefDepartement = userRepository.GetChefDepartment();
+			Notification notification = new Notification();
+			notification.setUserEnvoi(user);
+			notification.setUserRecu(chefDepartement);
+			notification.setMessage(user.getFirstName()+" " + user.getLastName() + " demande document "+document.getType());
+			notification.setEtat(0);
+			notificationRepository.save(notification);
+			UserDocument demande=userDocumentRepository.docByUserDoc(document.getId(),user.getId());
+			/*List<User> users=new ArrayList<>();
+			users.add(user);
+			document.setUser(users);
+			docRepo.save(document);*/
+			if(demande==null) {
+				UserDocument demande_new = new UserDocument();
+				demande_new.setUser(user);
+				demande_new.setDocument(document);
+				demande_new.setEtat(0);
+				demande_new.setNombre(0);
+				demande_new.setLangue(langue);
+				userDocumentRepository.save(demande_new);
+				return  new ResponseEntity<String>("1",HttpStatus.CREATED);
+			}else {
+				demande.setNombre(demande.getNombre()+1);
+				demande.setLangue(langue);
+				userDocumentRepository.save(demande);
+				return  new ResponseEntity<String>("2",HttpStatus.CREATED); 
+			}
+			//return  new ResponseEntity<String>("test",HttpStatus.CREATED); 
 	}
 	
-	
-	@GetMapping("/initailiserDemande")
-	public UserDocument initailiser_demande(HttpServletRequest request,@RequestParam("id")long id){
-		UserDocument demande_check=etudiantService.demandeCheck(request, id);
-		demande_check.setEtat(3);
-		demande_check.setLangue("francais");
-		userDocumentRepository.save(demande_check);
-		return  demande_check;
-	}
+
 	
 	@GetMapping("/getDemande")
 	public ResponseEntity<?> getDemandeById(HttpServletRequest request,@RequestParam("id")long id) {
-		UserDocument demande=etudiantService.demandeCheck(request, id);
-		if(demande==null){
+		Boolean test=etudiantService.demandeCheck(request, id);
+		if(test==false){
 			return  new ResponseEntity<String>("There is no demande",HttpStatus.NOT_FOUND);
 		}
-		
-			return ResponseEntity.ok().body(etudiantService.getAllDemandes());
-		
+		return ResponseEntity.ok().body(etudiantService.getAllDemandes());
 	}
 	
 	
