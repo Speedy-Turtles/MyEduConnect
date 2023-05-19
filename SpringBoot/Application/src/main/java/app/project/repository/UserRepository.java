@@ -22,6 +22,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query(value="select * from user where id=:id",nativeQuery=true)
 	User getUserById(long id);
 	
+	@Query(value="select * from user where id!=:id",nativeQuery=true)
+	 List<User> getUserChat(long id);
+	
 	@Query(value="select * from user where cin=:cin",nativeQuery=true)
 	User getUserByCin(String cin);
 	
