@@ -12,7 +12,7 @@
                  <HeaderDashboard ></HeaderDashboard>
                 <div v-if="test_ischef==true || storeAuth.Ischef=='true'"  class="ma-5 pa-5" id="home">
                     <div v-if="store.view=='stat' ">
-                          <!-- <statistique></statistique> -->
+                          <statistique></statistique>
                     </div>
                     <div  v-else-if="store.view=='user'">
                          <GererUser></GererUser>
@@ -41,7 +41,7 @@
 
 <script>
 import userinfo from "@/service/UserInfo/userInfo.js";
-//import statistique from '@/components/Admin/statistique.vue';
+import statistique from '@/components/Admin/statistique.vue';
 import HeaderDashboard from '@/components/Admin/headerAdmin.vue';
 import sidebarVue from '../../components/Admin/sidebar.vue'
 import GererUser from "../../components/Admin/GererUser.vue"
@@ -107,7 +107,7 @@ export default{
       }
     },
     components:{
-       sidebarVue,HeaderDashboard,GererUser,modifierProfil,GererSpecialiteVue
+       sidebarVue,HeaderDashboard,GererUser,modifierProfil,GererSpecialiteVue,statistique
     },
  
 };
