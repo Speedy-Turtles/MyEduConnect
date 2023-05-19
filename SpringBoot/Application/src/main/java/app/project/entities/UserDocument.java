@@ -15,6 +15,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder.Default;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -41,6 +42,7 @@ public class UserDocument implements Serializable {
 	    
 	    private int nombre;
 	    
+	    @ColumnDefault(value = "f")
 	  	private String langue;
 	  
 	    @CreationTimestamp
