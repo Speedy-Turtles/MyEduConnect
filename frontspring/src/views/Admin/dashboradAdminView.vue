@@ -29,6 +29,9 @@
                    <div  v-else-if="store.view=='Document'">
                     <GererDocument></GererDocument>
                     </div>
+                    <div  v-else-if="store.view=='chat'">
+                        <forum></forum>
+                     </div>
                 </div>
                 <div v-else class="ma-5 pa-5" id="home">
                   <div v-if="store.view=='stat' ">
@@ -48,6 +51,7 @@
 import userinfo from "@/service/UserInfo/userInfo.js";
 import GererClasse from "@/components/Admin/classe/GererClasse.vue";
 //import statistique from '@/components/Admin/statistique.vue';
+import forum from "@/components/etudiant/forum/Forum.vue"
 import HeaderDashboard from '@/components/Admin/headerAdmin.vue';
 import GererDocument from "@/components/Admin/Document/GererDocument.vue";
 import sidebarVue from '../../components/Admin/sidebar.vue'
@@ -115,7 +119,7 @@ export default{
     },
     components:{
        sidebarVue,HeaderDashboard,GererUser,modifierProfil,
-       GererSpecialiteVue,GererClasse,GererDocument
+       GererSpecialiteVue,GererClasse,GererDocument,forum
     },
  
 };
