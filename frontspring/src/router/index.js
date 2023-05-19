@@ -14,9 +14,17 @@ import DocumentView from '../views/etudiantView/DocumentView.vue'
 import ForumView from '../views/etudiantView/ForumView.vue'
 import EditProfilView from "../views/etudiantView/EditProfilView.vue"
 
+import chat from "../components/etudiant/forum/chat.vue"
+
 Vue.use(VueRouter)
 
 const routes = [
+  
+  {
+    path: '/chat:id',
+    name: 'chat',
+    component: chat
+  },
   {
     path: '/',
     name: 'home',
