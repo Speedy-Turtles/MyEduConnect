@@ -18,5 +18,14 @@ export default{
     },
     AddClasse(classe){
         return Axios.post("AddClasse",classe);
-    }
+    },
+    GetAllSpec(){
+        return Axios.get("GetAllSpec");
+    },
+    GetClasse(id){
+        return Axios.get("GetClasse?id="+id);
+    },
+    ChangerSpecialite(id,idnew){
+        return Axios.post("ChangerSpecialite?id="+id+"&new_id="+idnew);
+    },
 }

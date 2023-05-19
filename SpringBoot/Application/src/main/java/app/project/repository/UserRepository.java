@@ -7,12 +7,10 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 
-import app.project.entities.RoleUser;
 import app.project.entities.User;
-import authPrametre.MultipelDonne;
+
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -23,6 +21,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	
 	@Query(value="select * from user where id=:id",nativeQuery=true)
 	User getUserById(long id);
+	
+	@Query(value="select * from user where id!=:id",nativeQuery=true)
+	 List<User> getUserChat(long id);
 	
 	@Query(value="select * from user where cin=:cin",nativeQuery=true)
 	User getUserByCin(String cin);

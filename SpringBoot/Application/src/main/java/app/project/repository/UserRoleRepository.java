@@ -10,4 +10,6 @@ import app.project.entities.User;
 public interface UserRoleRepository extends JpaRepository<RoleUser, EmbedeId> {
 	@Query(value="select * from user_role where user_id=:id",nativeQuery=true)
 	RoleUser getUserRole(long id);
+	
+	
 }

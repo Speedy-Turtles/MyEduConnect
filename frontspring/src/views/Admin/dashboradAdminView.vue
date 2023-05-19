@@ -17,14 +17,22 @@
                     <div  v-else-if="store.view=='user'">
                          <GererUser></GererUser>
                     </div>
-                    <div  v-else-if="store.view=='spec'">
+                    <div  v-else-if="store.view=='Specialite'">
                          <GererSpecialiteVue></GererSpecialiteVue>
                     </div>
                     <div  v-else-if="store.view=='edit'">
                        <modifierProfil></modifierProfil>
-                  </div>
+                   </div>
+                   <div  v-else-if="store.view=='classe'">
+                      <GererClasse></GererClasse>
+                   </div>
+                   <div  v-else-if="store.view=='Document'">
+                    <GererDocument></GererDocument>
+                    </div>
+                    <div  v-else-if="store.view=='chat'">
+                        <forum></forum>
+                     </div>
                 </div>
-
                 <div v-else class="ma-5 pa-5" id="home">
                   <div v-if="store.view=='stat' ">
                         <!-- <statistique></statistique> -->
@@ -41,8 +49,15 @@
 
 <script>
 import userinfo from "@/service/UserInfo/userInfo.js";
+
 import statistique from '@/components/Admin/statistique.vue';
+
+import GererClasse from "@/components/Admin/classe/GererClasse.vue";
+
+import forum from "@/components/etudiant/forum/Forum.vue"
+
 import HeaderDashboard from '@/components/Admin/headerAdmin.vue';
+import GererDocument from "@/components/Admin/Document/GererDocument.vue";
 import sidebarVue from '../../components/Admin/sidebar.vue'
 import GererUser from "../../components/Admin/GererUser.vue"
 import modifierProfil from "@/components/EditProfil/ModifierProfil.vue";
@@ -107,7 +122,12 @@ export default{
       }
     },
     components:{
-       sidebarVue,HeaderDashboard,GererUser,modifierProfil,GererSpecialiteVue,statistique
+
+
+
+       sidebarVue,HeaderDashboard,GererUser,modifierProfil,
+       GererSpecialiteVue,GererClasse,GererDocument,forum,statistique
+
     },
  
 };

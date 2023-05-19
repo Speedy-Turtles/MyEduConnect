@@ -1,20 +1,7 @@
 <template>
-  <div v-if="updateSpec && !AddSepc ">
-    <UpdateSpecVue
-                    :Spec="SelectUpdateVal"
-                    @close_update="close_update"
-                    :updateSpec="updateSpec"
-    ></UpdateSpecVue>
-  </div >
-  <div  v-else-if="!updateSpec && AddSepc ">
-    <AddSpecialite
-    @close_update="close_update"
-    :updateSpec="updateSpec"
-></AddSpecialite>
-  </div>
-    <div v-else>
-        <v-card class="card" elavation="7" style="padding:25px">
-            <!--<h4 class="text-center py-4">Specialite</h4> !-->
+    <div>
+        <v-card elavation="7" style="padding:25px">
+           <!-- <h4 class="text-center py-4">Classes</h4>-->
                   <div class="row gap-4 p-5 mt-3">
                       <div class="col-lg-3 mx-2 text-center">
                         <v-text-field
@@ -26,42 +13,28 @@
                             hide-details
                        ></v-text-field>  
                     </div>
-                    
                       <div class="col-lg-1 mt-4 mx-2 text-center">
                         <v-select
-                             color="blue"
-                              v-model="per_page"  
-                              :items="items"
-                              @change="FetchData()"
-                              outlined
-                              dense
+                            v-model="per_page"
+                            :items="items"
+                            @change="FetchData()"
+                            outlined
+                            dense
                       ></v-select>
                     </div>
                       <v-spacer></v-spacer>
-                      <div class="col-lg-3  text-center">
-                        <div class="row">
-                          <div class="col-lg-12 text-center">
-                            <v-tooltip bottom  >
-                              <template v-slot:activator="{ on, attrs }">
-                                  <v-btn
-                                  @click="AddSepc=true"
-                                  class="mb-5"
-                                  v-bind="attrs"
-                                  v-on="on"
-                                  
-                                  fab
-                                  color="white"
-                                >
-                                  <v-icon size="28px">mdi-book-education</v-icon>
-                                </v-btn>
-                              </template>
-                              <span>Add Specialte</span>
-                            </v-tooltip>
+                      <div class="col-lg-4 mt-3 text-center">
+                        <v-select
+                               :items="specialtes"
+                                v-model="specialite_id"
+                                item-text="type"
+                                item-value="idspec"
+                                @change="FetchData()"  
+                                label="chose Your Specialite"
+                    ></v-select>
+                  </div>
                       </div>
-                          </div> 
-                      </div>
-                      </div>
-        <v-simple-table class="card">
+        <v-simple-table>
           <template v-slot:default>
             <thead>
               <tr>
@@ -69,55 +42,49 @@
                   Id
                 </th>
                 <th  class="text-center ">
-                  Niveau
+                  Name
                 </th>
                 <th  class="text-center ">
-                  Type
+                  Specialite
                 </th>
                 <th class="text-center">
                   Operation
                 </th>
               </tr>
             </thead>
-            <tbody v-if="spec==''">
+            <tbody v-if="classes==''">
                 <tr>
                    <td colspan="5" class="text-center">No data</td>
                 </tr>
             </tbody>
             <tbody v-else>
-                <tr v-for="val in spec" :key="val.id">
-                   <td class="text-center">{{val.idspec}}</td>
-                   <td class="text-center">{{val.niveau}}</td>
-                   <td class="text-center">{{val.type}}</td>
+                <tr v-for="val in classes" :key="val.idclasse">
+                   <td class="text-center">{{val.idclasse}}</td>
+                   <td v-if="update == 'update' + val.idclasse">
+                    <form @submit.prevent="UpdateClasse(val.idclasse)" >
+                        <v-text-field :error-messages="name_error" label="classe name"  class="mx-4"  v-model="updateName"></v-text-field>
+                        <v-btn type="submit">
+                            <v-icon>  mdi-circle-edit-outline</v-icon>
+                        </v-btn>
+                    </form>
+                </td>
+                <td v-else>{{ val.nom }}</td>
+                   <td class="text-center">{{val.spec['type']}}</td>
                    <td class="text-center">
-                       <v-btn color="error" @click="deleteSpec(val)"  class="mx-2">
-                          <v-icon>
-                            mdi-trash-can
-                          </v-icon>
-                       </v-btn>
-                       <v-btn @click="UpdateSpec(val)"  color="warning" class="mx-2 ">
+                       <v-btn @click="update = 'update' + val.idclasse"  color="warning" class="mx-2 ">
                           <v-icon>
                             mdi-circle-edit-outline
                           </v-icon>
                        </v-btn>
-                       <v-tooltip bottom  >
-                        <template v-slot:activator="{ on, attrs }">
-                            <v-btn
-                              v-bind="attrs"
-                              v-on="on"
-                              @click="ShowAddClass(val)"
-                              style="color:#fff !important"
-                              color="blue"
-                            >
-                            <v-icon>mdi-plus</v-icon>
-                          </v-btn>
-                        </template>
-                        <span>Add Classe</span>
-                      </v-tooltip>
+                       <v-btn color="error" @click="deleteSpec(val)">
+                          <v-icon>
+                               mdi-trash-can
+                          </v-icon>
+                       </v-btn>
                    </td>
                 </tr>
             </tbody>
-             <div class="text-center mt-2">
+             <div style="display:wrap;justify-content: center;">
               <v-btn small :disabled="testPrev==true"  @click="changerPage(pageCurrent-1 )">
                 <v-icon>
                   mdi-chevron-left
@@ -143,41 +110,6 @@
           
         </v-simple-table>
       </v-card>
-      <v-dialog  v-if="IdSpecSelected!=0"
-      transition="dialog-bottom-transition"
-      max-width="600"
-      v-model="dialogAddclasse"
-    >
-     <template >
-       <v-card>
-         <v-toolbar
-           color="blue"
-           dark
-         >Add Classe </v-toolbar>
-         <v-card-text>
-          <v-text-field
-              name="Name"
-              v-model="classe_name"
-              required
-              label="Name"
-              type="text"
-              placeholder="Enter Name"
-            ></v-text-field>
-         </v-card-text>
-         <v-card-actions class="justify-end">
-           <v-btn 
-            :loading="load"
-             text
-              @click="AddClasse()"
-           >Add</v-btn>
-           <v-btn
-           text
-           @click="dialogAddclasse=false"
-         >fermer</v-btn>
-         </v-card-actions>
-       </v-card>
-     </template>
-   </v-dialog> 
 
       <v-dialog  v-if="item_selected!=''"
       transition="dialog-bottom-transition"
@@ -189,15 +121,15 @@
          <v-toolbar
            color="danger"
            dark
-         >Supprimer Specialte </v-toolbar>
+         >Supprimer Classe </v-toolbar>
          <v-card-text>
-           <div class="text-h2 pa-12">{{item_selected.type}} Niveau {{item_selected.niveau}}</div>
+           <div class="text-h2 pa-12">Classe {{item_selected.nom}}</div>
          </v-card-text>
          <v-card-actions class="justify-end">
            <v-btn 
              text
              :loading="load"
-              @click="confrimDelete(item_selected.idspec)"
+              @click="confrimDelete(item_selected.idclasse)"
            >Supprimer</v-btn>
            <v-btn
            text
@@ -208,7 +140,8 @@
      </template>
    </v-dialog> 
 
-   <v-dialog
+
+         <v-dialog
                     v-model="dialog_classe"
                         width="500"
                   >
@@ -253,6 +186,7 @@
           <v-btn
             color="primary"
             text
+            :loading="load"
             @click="ConfirmClasse()"
           >
             Confirm
@@ -261,61 +195,65 @@
       </form>
       </v-card>
     </v-dialog>
-  <v-snackbar
-   v-model="snackbar"
- >
-    {{ message }}
-   <template v-slot:action="{ attrs }">
-     <v-btn
-       color="indigo"
-       text
-       v-bind="attrs"
-       @click="snackbar = false"
-     >
-       Fermer
-     </v-btn>
-   </template>
- </v-snackbar>
+
+      <v-snackbar
+      v-model="snackbar"
+    >
+       {{ message }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="indigo"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Fermer
+        </v-btn>
+      </template>
+    </v-snackbar>
     </div>
 </template>
-
 <script>
 import {required} from "vuelidate/lib/validators";
-import AddSpecialite from "@/components/Admin/Specialite/AddSpec.vue"
-import UpdateSpecVue from "@/components/Admin/Specialite/UpdateSpec.vue"
 import serviceSpec from "@/service/GereSpecialite/gereSpec.js"
+import gererClassee from "@/service/classe/classe.js"
 export default{
-    name:'spec',
-    validations:{
+  validations:{
       specialite_id:{
         required
       },
       classe_id:{
         required
+      },
+      updateName:{
+        required
       }
-      
     },
+    name:'classe',
     created(){
-      this.FetchData();
+             serviceSpec.GetAllSpec().then((res)=>{
+                this.specialtes=res.data;
+              })
+             this.FetchData();
     },
-    data() {
-        return {
+    data(){
+        return{
           spec:[],
           search:"",
+          updateName:"",
+          update:"",
           dialog_classe:false,
           message:"",
           snackbar:false,
-          dialogAddclasse:false,
-          specialite_id:"",
           classe_id:"",
+          item_selected:[],
+          specialite_id:"",
+          classe_choise:"",
           specialtes:[],
+          specialite_id:"",
           classes:[],
           IdSpecSelected:0,
-          SelectUpdateVal:[],
-          specialite_choisie:"",
           countPage:[],
-          item_selected:[],
-          updateSpec:false,
           per_page:2,
           items:[2,5,10,15],
           pageCurrent:0,
@@ -327,41 +265,14 @@ export default{
           dialog:false
         }
     },
-    methods: {
-      ShowAddClass(val){
-        this.dialogAddclasse=true;
-        this.IdSpecSelected=val.idspec;
+    methods:{
+      deleteSpec(val){
+        this.item_selected=val;
+        this.dialog=true;
       },
-      AddClasse(){
-        this.load=true;
-        serviceSpec.AddClasse({
-          "name":this.classe_name,
-          "id":this.IdSpecSelected
-        }).then((res)=>{
-          this.load=false;
-           this.dialogAddclasse=false;
-           this.IdSpecSelected=0;
-           this.FetchData();
-           this.message="Classe Added";
-           this.snackbar=true;
-        })
-      },
-      close_update(){
-        this.updateSpec=false;
-        this.AddSepc=false;
-        this.FetchData();
-      },
-      UpdateSpec(val){
-        this.SelectUpdateVal=val;
-        this.updateSpec=true;
-      },
-      FetchData(){
-        serviceSpec.chercherSpec(this.pageCurrent,this.search,this.per_page).then((res)=>{
-          this.countPage=res.data.count_page;
-          this.spec=res.data.spec.content;
-          this.pageCurrent=res.data.page;
-          this.testNext=res.data.spec.last;
-          this.testPrev=res.data.spec.first;
+      choseClasse(){
+        serviceSpec.GetClasse(this.specialite_id).then((res)=>{
+                this.classes=res.data;
         })
       },
       changerPage(num){
@@ -371,29 +282,31 @@ export default{
         this.pageCurrent=num;
         this.FetchData();
       },
-      deleteSpec(val){
-        this.item_selected=val;
-        this.dialog=true;
+        FetchData(){
+            gererClassee.chercherclasse(this.pageCurrent,this.search,this.per_page,this.specialite_id).then((res)=>{
+                 this.countPage=res.data.count_page;
+                 this.classes=res.data.classe.content;
+                 this.pageCurrent=res.data.page;
+                 this.testNext=res.data.classe.last;
+                 this.testPrev=res.data.classe.first;
+        })
       },
       confrimDelete(id){
         this.load=true;
-        serviceSpec.deleteSpec(id).then((res)=>{
+        gererClassee.deleteClasse(id).then((res)=>{
           if(res.data==true){
             this.load=false;
             this.item_selected=[];
-            this.message="Delete speicialte with success";
+            this.message="Delete Classe with success";
             this.snackbar=true;
             this.dialog=false;
             this.FetchData();
           }else{
               this.dialog_classe=true;
-              this.specialite_choisie=id;
-              serviceSpec.GetAllSpec().then((res)=>{
-                this.specialtes=res.data;
-              })
+              this.classe_choise=id;
               this.load=false;
+              this.FetchData();
           }
-        
         })
       },
       choseClasse(){
@@ -407,22 +320,35 @@ export default{
               if(this.$v.specialite_id.$invalid && this.$v.classe_id.$invalid){
                    return;
               }
-              serviceSpec.ChangerSpecialite(this.specialite_choisie,this.classe_id).then((res)=>{
+              gererClassee.ChangerClasse(this.classe_choise,this.classe_id).then((res)=>{
                 this.message="Classe Add To All Users in this Specialite";
                 this.snackbar=true;
                 this.dialog_classe=false;
-                this.specialite_choisie="";
+                this.classe_choise="";
                 this.dialog=false;
                 this.load=false;
                 this.FetchData();
               })
+              this.FetchData();
+      },
+      UpdateClasse(id){
+              this.$v.updateName.$touch();
+              if(this.$v.updateName.$invalid){
+                   return;
+              }
+              gererClassee.UpdateClasse(id,this.updateName).then((res)=>{
+                this.update="";
+                this.updateName="";
+                this.message=res.data;
+                this.snackbar=true;
+                this.FetchData();
+              }).catch((eror)=>{
+                console.log("error");
+              })
       }
     },
-    components:{
-      UpdateSpecVue,AddSpecialite
-    },
     computed:{
-         classe_error(){
+      classe_error(){
               const error=[];
               if(!this.$v.classe_id.$dirty) return error;
               !this.$v.classe_id.required && error.push("Classe Required");
@@ -433,17 +359,13 @@ export default{
               if(!this.$v.specialite_id.$dirty) return error;
               !this.$v.specialite_id.required && error.push("Specialite Required");
               return error;
+          },
+        name_error(){
+              const error=[];
+              if(!this.$v.updateName.$dirty) return error;
+              !this.$v.updateName.required && error.push("Name Required");
+              return error;
           }
     }
 }
 </script>
-
-<style scoped>
-  .card{
-    background-color: lightblue;
-    font-size: 25px;
-  }
-  th{
-    font-size: 25px;
-  }
-</style>
