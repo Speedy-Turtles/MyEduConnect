@@ -14,6 +14,7 @@
                     <div v-if="store.view=='stat' ">
                           <statistique></statistique>
                     </div>
+                    
                     <div  v-else-if="store.view=='user'">
                          <GererUser></GererUser>
                     </div>
@@ -37,6 +38,9 @@
                   <div v-if="store.view=='stat' ">
                         <!-- <statistique></statistique> -->
                   </div>
+                  <div v-else-if="store.view=='reviewChef'">
+                       <ReviewChef></ReviewChef>
+                    </div>
                   <div  v-else-if="store.view=='edit'">
                      <modifierProfil></modifierProfil>
                 </div>
@@ -64,6 +68,7 @@ import modifierProfil from "@/components/EditProfil/ModifierProfil.vue";
 import {CurentView} from "@/store/storeView.js";
 import {AuthUser} from "@/store/AuthStore.js";
 import GererSpecialiteVue from '../../components/Admin/Specialite/GererSpecialite.vue';
+import ReviewChef from '../../components/Admin/ReviewChef';
 export default{
   created(){
     this.greeting();
@@ -86,13 +91,13 @@ export default{
             test_ischef:false
         }
     },
-    mounted() {
+    mounted() { 
         window.addEventListener('resize', this.onresize);
     },
     methods:{
         onresize(){
                 if (window.innerWidth < 750) {
-                       this.etatsidbar = true;
+                      this.etatsidbar = true;
                        this.small = false;
                 } else{
                        this.etatsidbar = false;
@@ -126,7 +131,7 @@ export default{
 
 
        sidebarVue,HeaderDashboard,GererUser,modifierProfil,
-       GererSpecialiteVue,GererClasse,GererDocument,forum,statistique
+       GererSpecialiteVue,GererClasse,ReviewChef,GererDocument,forum,statistique
 
     },
  

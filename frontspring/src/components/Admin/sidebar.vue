@@ -7,10 +7,16 @@
                      <img  src="../../assets/logo-no-background.svg" alt="">
                  </div>
             </li>
-              <li >
+              <li>
                 <a  @click="changerView('stat')"  href="#" :class="store.view=='stat' ? 'active' : ''">
                     <v-icon  class="icon">mdi-chart-areaspline</v-icon>
                     <span :class=" small ? 'none_btn_open_close_sidebar' : ''"  class="nav-item">Statistique</span>
+                   </a>
+                </li>
+                <li v-if="storeAuth.IsAdmin=='true' || storeAuth.IsAdmin==true">
+                <a  @click="changerView('reviewChef')"  href="#" :class="store.view=='reviewChef' ? 'active' : ''">
+                    <v-icon  class="icon">mdi-account-supervisor</v-icon>
+                    <span :class=" small ? 'none_btn_open_close_sidebar' : ''"  class="nav-item">review Chef</span>
                    </a>
                 </li>
                  <li v-if="test_ischef==true || storeAuth.Ischef=='true'">
@@ -71,7 +77,7 @@
     },
     methods:{
         changer(){
-             let etat=this.etatsidbar==true ? false : true;
+            let etat=this.etatsidbar==true ? false : true;
             this.$emit("changreetat", etat);
         },
         changerView(data){

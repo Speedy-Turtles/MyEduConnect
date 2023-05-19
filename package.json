@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "vue-dragula": "^1.3.1"
+  }
+}

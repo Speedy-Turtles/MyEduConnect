@@ -148,6 +148,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 			.antMatchers("/UpdateClasse").permitAll()
 			.antMatchers("/deleteClasse").permitAll()
 			.antMatchers("/ChangerClasse").permitAll()
+
+			.antMatchers("/enseignats/all").permitAll()
+			.antMatchers("/changeChef").permitAll()
+			.antMatchers("/getChef").permitAll()
+			.antMatchers("/deleteChef").permitAll()
+
 			.antMatchers("/getDoc").permitAll()
 			.antMatchers("/ChangerEtat").permitAll()
 			.antMatchers("/DeleteUserDoc").permitAll()
@@ -157,6 +163,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 			.antMatchers("/AllChatPrivate").permitAll()
 			.antMatchers("/getUserByID").permitAll()
 			.antMatchers("/AddMessagePrivate").permitAll()
+
 
 			.anyRequest().authenticated()
 			 .and()
