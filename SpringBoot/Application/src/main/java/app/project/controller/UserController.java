@@ -150,5 +150,48 @@ public class UserController {
 	    }
 	    
 	    
+	    @GetMapping("/getUserMan")
+	    	public ResponseEntity<?> getUserMan(){
+	    		if(user_service.getUserMan()==0) {
+	    			return  ResponseEntity.ok().body(0);
+	    			
+	    		}else{
+	    			return  ResponseEntity.ok().body(user_service.getUserMan());
+	    			}
+	    	}
+	    
+	    @GetMapping("/getUserWomen")
+    	public ResponseEntity<?> getUserWomen(){
+    		if(user_service.getUserWomen()==0) {
+    			return  ResponseEntity.ok().body(0);
+    			
+    		}else{
+    			return  ResponseEntity.ok().body(user_service.getUserWomen());
+    			}
+    	}
+	    
+	    @GetMapping("/getUserEnseignant")
+    	public ResponseEntity<?> getUserEnseignant(){
+    		if(user_service.getUserWomen()==0) {
+    			return  ResponseEntity.ok().body(0);
+    			
+    		}else{
+    			return  ResponseEntity.ok().body(user_service.getUserEnseignant());
+    			}
+    	}
+	    
+	    @GetMapping("/getUserEtudiant")
+    	public ResponseEntity<?> getUserEtudiant(){
+    		if(user_service.getUserWomen()==0) {
+    			return  ResponseEntity.ok().body(0);
+    			
+    		}else{
+    			return  ResponseEntity.ok().body(user_service.getUserEnseignant());
+    			}
+    	}
+	    
+	    
+ }
+	    
 
-}
+

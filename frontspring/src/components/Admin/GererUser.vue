@@ -3,7 +3,7 @@
        <div class="col-lg-4">
         <v-card class="elevation-12" :disabled="Waiting==''" style="min-height:200px">
           <v-toolbar dark color="yellow">
-             <v-toolbar-title >Wating</v-toolbar-title>
+             <v-toolbar-title >Waiting</v-toolbar-title>
           </v-toolbar>
           <v-card-text class="card_scroll">
             <draggable  :group="{ name: 'app', put: false }" :options="dragOptions" v-model="Waiting" 

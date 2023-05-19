@@ -9,10 +9,15 @@
                 </v-container>
             </v-flex>
             <v-flex xl8 md9  xs12 class="pa-5" >
-                    <v-layout row>
-                        <v-flex class="pa-5"><h1 class="titre">Document</h1></v-flex>
-                    </v-layout>
-                    <v-flex  xl6 md6 sm12 xs12 v-for="(document,index) in All_Document " :key="document.id">
+                    <v-flex class="py-5 mt-5" v-if="loding_page==false">
+                            <div class="text-center py-5 mt-5">
+                                <v-progress-circular
+                                  indeterminate
+                                  color="primary"
+                                ></v-progress-circular>
+                                </div>
+                    </v-flex>
+                    <v-flex  xl6 md6 sm12 xs12 v-for="document in All_Document " :key="document.id">
                             <v-card
                                 :loading="loading1"
                                 class="mx-auto mb-4"
@@ -34,7 +39,7 @@
                                 </v-list-item-content>
                                 
                                 </v-list-item>
-                                <v-list-item v-if="index==0">
+                                <v-list-item>
                                     <v-radio-group
                                     v-model="select_langue"
                                     row
@@ -49,20 +54,8 @@
                                         ></v-radio>
                                     </v-radio-group>
                                 </v-list-item>
-                                <v-list-item v-else>
-                                    <v-radio-group
-                                     v-model="select_langue_fr"
-                                      row
-                                    >
-                                        <v-radio
-                                            disabled
-                                            label="Français"
-                                            value="f"
-                                        ></v-radio>
-                                    </v-radio-group>
-                                </v-list-item>
                                 <!-- <button @click="accepterdemande(document.id)">Accepter demande </button> -->
-                                <v-card-actions v-if="test && test.etat==0">
+                                <v-card-actions v-if="demandeCheck==0">
                                     <v-btn
                                         outlined
                                         rounded
@@ -71,13 +64,13 @@
                                       En cours
                                     </v-btn>
                                 </v-card-actions>
-                                <v-card-actions v-else-if="test && test.etat==1">
+                                <v-card-actions v-else-if="demandeCheck==1">
                                 <v-btn
                                     outlined
                                     rounded
                                     :loading="loading_download"
                                     color="success"
-                                    @click="GenerPdf((document.Type).split(' ')[0],document.id,document.demandes[0].Langue)"
+                                    @click="downloadFile()"
                                 >
                                     Download 
                                 </v-btn>
@@ -88,7 +81,7 @@
                                         rounded
                                         :loading="loading_demander"
                                         color="primary"
-                                        :disabled="(document.NombreDispo-test?.nombre)<=0 ? true : false"
+                                        :disabled="(document.nombreDispo-etat?.nombre)<=0 ? true : false"
                                         @click="reserve(document.id)"
                                     >
                                         demande
@@ -109,12 +102,14 @@ import {AuthUser} from "@/store/AuthStore";
 // import 'jspdf-autotable'
 // import {AmiriRegular} from "@/assets/fontArabic/amiri.js";
 import service_doc from "@/service/DocumentService/document"
-import userinfo from "@/service/UserInfo/userInfo"
-import "@/plugins/axios"
+
+
+
 export default {
     name:'document',
    created(){
        this.getDocument();
+       this.getDemande();
    },
    setup(){
         const store=AuthUser();
@@ -128,15 +123,13 @@ export default {
         loading_demander:false,
         loading_download:false,
         loading2: false,
-        select_langue_fr:'f',
         langDocument:"",
         loading3: false,
         All_demandes:[],
-        selection: 1,
-        classe_current:"",
-        spec:"",
         niveau:0,
         select_langue:"f",
+        etat:0,
+        demandeCheck:[]
         
     }),
 
@@ -144,12 +137,60 @@ export default {
         getDocument(){
             service_doc.getAllDocment().then((res)=>{
                 this.All_Document=res.data;
-                this.loding_page=true;
-                console.log(this.All_Document);
+                 this.loding_page=true;
+                console.log(this.All_Document[0].nombreDispo);
             }).catch((err)=>{
                 console.log(err);
             })
-        }
+        },
+        reserve(id){
+            service_doc.addDemande(id,this.select_langue).then((res)=>{
+                console.log(res.data)
+            }).catch((err)=>{
+                console.log(err);
+            })
+        },
+         downloadFile() {
+        service_doc.gererPdf().then(response => {
+            const blob = new Blob([response.data], { type: 'application/pdf' });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'Document.pdf');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+            this.updateDemande();
+          })
+          .catch(error => {
+              console.log(error);
+          });
+    },
+    getDemandeById(id){
+        service_doc.getDemande(id).then((res)=>{
+            
+            console.log(res.data[0].etat);
+            this.etat=res.data[0].etat;
+        }).catch((err)=>{
+            console.log(err);
+        })
+    },
+    getDemande(){
+        service_doc.getDemandeUser().then((res)=>{
+            this.demandeCheck=res.data.etat;
+            console.log(this.demandeCheck);
+        }).catch((err)=>{
+            console.log(err);
+        })
+    },
+    updateDemande(){
+        service_doc.updateDemande().then((res)=>{
+            console.log(res.data);
+        }).catch((err)=>{
+            console.log(err);
+        })
+    }
     },
 }
 </script>

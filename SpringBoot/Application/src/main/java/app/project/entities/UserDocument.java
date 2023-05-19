@@ -2,6 +2,7 @@ package app.project.entities;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -24,23 +25,24 @@ public class UserDocument implements Serializable {
 	
 	  @EmbeddedId
 	  EmbedIdDocument id;
-	  
+
 	  @ManyToOne
-	  @MapsId("UserId")
-	  @JoinColumn(name="user_id")
-	  User user;
-	  
-	 
-	  @ManyToOne
-	  @MapsId("DocumentId")
+	  @MapsId("documentId")
 	  @JoinColumn(name="document_id")
 	  Document document;
+	  
+	  
+	  @ManyToOne
+	  @MapsId("userId")
+	  @JoinColumn(name="user_id")
+	  User user;
 	  
 	    @ColumnDefault(value = "0")
 		private int etat;
 	    
 	    private int nombre;
 	    
+	    @ColumnDefault(value = "f")
 	  	private String langue;
 	  
 	    @CreationTimestamp
@@ -48,4 +50,6 @@ public class UserDocument implements Serializable {
 		
 		@UpdateTimestamp
 		private Timestamp updated_at;
+
+		
 }

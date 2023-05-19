@@ -13,8 +13,8 @@
 ></AddSpecialite>
   </div>
     <div v-else>
-        <v-card elavation="7" style="padding:25px">
-            <h4 class="text-center py-4">Specialite</h4>
+        <v-card class="card" elavation="7" style="padding:25px">
+            <!--<h4 class="text-center py-4">Specialite</h4> !-->
                   <div class="row gap-4 p-5 mt-3">
                       <div class="col-lg-3 mx-2 text-center">
                         <v-text-field
@@ -29,11 +29,12 @@
                     
                       <div class="col-lg-1 mt-4 mx-2 text-center">
                         <v-select
-                            v-model="per_page"
-                            :items="items"
-                            @change="FetchData()"
-                            outlined
-                            dense
+                             color="blue"
+                              v-model="per_page"  
+                              :items="items"
+                              @change="FetchData()"
+                              outlined
+                              dense
                       ></v-select>
                     </div>
                       <v-spacer></v-spacer>
@@ -47,11 +48,11 @@
                                   class="mb-5"
                                   v-bind="attrs"
                                   v-on="on"
-                                  outlined
+                                  
                                   fab
-                                  color="#E84C03"
+                                  color="white"
                                 >
-                                  <v-icon>mdi-book-education</v-icon>
+                                  <v-icon size="28px">mdi-book-education</v-icon>
                                 </v-btn>
                               </template>
                               <span>Add Specialte</span>
@@ -60,7 +61,7 @@
                           </div> 
                       </div>
                       </div>
-        <v-simple-table>
+        <v-simple-table class="card">
           <template v-slot:default>
             <thead>
               <tr>
@@ -436,3 +437,13 @@ export default{
     }
 }
 </script>
+
+<style scoped>
+  .card{
+    background-color: lightblue;
+    font-size: 25px;
+  }
+  th{
+    font-size: 25px;
+  }
+</style>
