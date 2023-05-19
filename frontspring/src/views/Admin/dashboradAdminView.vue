@@ -12,7 +12,7 @@
                  <HeaderDashboard ></HeaderDashboard>
                 <div v-if="test_ischef==true || storeAuth.Ischef=='true'"  class="ma-5 pa-5" id="home">
                     <div v-if="store.view=='stat' ">
-                          <!-- <statistique></statistique> -->
+                          <statistique></statistique>
                     </div>
                     <div  v-else-if="store.view=='user'">
                          <GererUser></GererUser>
@@ -49,9 +49,13 @@
 
 <script>
 import userinfo from "@/service/UserInfo/userInfo.js";
+
+import statistique from '@/components/Admin/statistique.vue';
+
 import GererClasse from "@/components/Admin/classe/GererClasse.vue";
-//import statistique from '@/components/Admin/statistique.vue';
+
 import forum from "@/components/etudiant/forum/Forum.vue"
+
 import HeaderDashboard from '@/components/Admin/headerAdmin.vue';
 import GererDocument from "@/components/Admin/Document/GererDocument.vue";
 import sidebarVue from '../../components/Admin/sidebar.vue'
@@ -118,8 +122,12 @@ export default{
       }
     },
     components:{
+
+
+
        sidebarVue,HeaderDashboard,GererUser,modifierProfil,
-       GererSpecialiteVue,GererClasse,GererDocument,forum
+       GererSpecialiteVue,GererClasse,GererDocument,forum,statistique
+
     },
  
 };

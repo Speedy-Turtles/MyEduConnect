@@ -150,4 +150,20 @@ public class UserService {
 		  }
 		  notifrepo.save(notif);
 	  }
+	  
+	  public int getUserMan(){
+		  return UserRepo.CountUserMan();
+	  }
+	  
+	  public int getUserWomen(){
+		  return UserRepo.CountUserWomen();
+	  }
+	  
+	  public int getUserEnseignant() {
+		  return UserRepo.CountUserEnseignants();
+	  }
+	  
+	  public int getUserEtudiant() {
+		  return UserRepo.CountUserEtudiant();
+	  }
 }
