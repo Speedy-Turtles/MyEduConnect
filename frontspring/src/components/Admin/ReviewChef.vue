@@ -27,7 +27,7 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col v-for="prof in proffesors" :key="prof.id">
+          <v-col v-for="prof in proffesors" :key="prof.id" v-if="director==null || director.id!=prof.id">
             <div class="employee-card" :draggable="false" @dragstart="onDragStart(prof)">
               <v-avatar size="100">
                 <img :src="prof.photo" />
