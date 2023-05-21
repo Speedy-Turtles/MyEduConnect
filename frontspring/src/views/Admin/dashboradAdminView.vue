@@ -36,7 +36,11 @@
                 </div>
                 <div v-else class="ma-5 pa-5" id="home">
                   <div v-if="store.view=='stat' ">
+<<<<<<< HEAD
                          <statistique></statistique> 
+=======
+                        <statistique></statistique>
+>>>>>>> e7cbfb61b1b9d5197f5d13e99e41d0529a6722ca
                   </div>
                   <div v-else-if="store.view=='reviewChef'">
                        <ReviewChef></ReviewChef>
@@ -45,8 +49,13 @@
                      <modifierProfil></modifierProfil>
                 </div>
                 <div  v-else-if="store.view=='chat'">
+<<<<<<< HEAD
                   <forum></forum>
                </div>
+=======
+                        <forum></forum>
+                     </div>
+>>>>>>> e7cbfb61b1b9d5197f5d13e99e41d0529a6722ca
               </div>
 
             </div>
