@@ -1,7 +1,7 @@
 
 <template>
     <div class="mt-5 py-5 ">
-            <div class="content">
+            <div class="content justify-content-center">
               <div  v-for="dat in All_data" :key="dat.id" >
                 <v-skeleton-loader v-if="loading"  
                         max-width="180"
@@ -66,10 +66,10 @@ export default defineComponent({
         return{
             loading:true,
             All_data:[
-                {icon:"mdi-account-wrench",nbr:0,titre:"Nombre of technicien"},
+                // {icon:"mdi-account-wrench",nbr:0,titre:"Nombre of technicien"},
                 {icon:"mdi-account-school",nbr:0,titre:"Nombre of Etudiant"},
                 {icon:"mdi-account-tie",nbr:0,titre:"Nombre of Ensignat"},
-                {icon:"mdi-account-cog",nbr:0,titre:"Nombre of Chef Departement"},
+                // {icon:"mdi-account-cog",nbr:0,titre:"Nombre of Chef Departement"},
             ],
      option_two :{
         title: {
@@ -136,10 +136,10 @@ export default defineComponent({
     getStatique(){
         service_admin.getStat().then((res)=>{
             const data=res.data.data;
-            this.All_data[3].nbr=data.nb_chef;
-            this.All_data[2].nbr=data.nbr_ens;
-            this.All_data[1].nbr=data.nb_etudiant;
-            this.All_data[0].nbr=data.nb_technicien;
+            // this.All_data[3].nbr=data.nb_chef;
+            this.All_data[1].nbr=data.nbr_ens;
+            this.All_data[0].nbr=data.nb_etudiant;
+            // this.All_data[0].nbr=data.nb_technicien;
             this.option.series[0].data[0].value=data.nb_man;
             this.option.series[0].data[1].value=data.nb_woman;
             this.option_two.series[0].data=[data.nb_etudiant,data.nbr_etudiant_refused,data.nbr_etudiant_encours,10];
