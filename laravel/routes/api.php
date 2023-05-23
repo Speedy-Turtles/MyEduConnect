@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\SuggestionController;
 use App\Http\Controllers\Admin\VoteController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -42,6 +43,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
 
 
 Route::group(["prefix"=>"/auth"],function(){
@@ -99,12 +102,17 @@ Route::group(["prefix"=>"/pdf"],function(){
     Route::get('/gererEmploi/{id}', [GenratePdfController::class,"gererEmploi"]);
 });
 
+
+
 Route::middleware("auth:sanctum")->group(function(){
 
+    Route::group(["prefix"=>"/suggestion"],function(){
+        Route::get('/getAllSuggestion',[SuggestionController::class,'index']);
+        Route::post('/StoreSugg',[SuggestionController::class,'store']);
+        Route::delete('/delete/{id}',[SuggestionController::class,'destroy']);
+    });
+
     Route::get('getUserAuthentifie',[InfoUserController::class,"getUserAuthentifie"]);
-
-
-
     Route::group(["prefix"=>"/edit"],function(){
         Route::post("/uploadPhoto",[EditController::class,"editPhoto"]);
         Route::get("/SendChangedEmail/{email}",[EditController::class,"SendChangedEmail"]);
