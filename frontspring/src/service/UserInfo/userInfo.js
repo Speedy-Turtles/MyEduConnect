@@ -14,5 +14,18 @@ export default{
     },
     TestExistcode(code){
         return Axios.get("ExistToken?code="+code);
+    },
+    updateWelcome(email){
+        return Axios.post("updateWelcome?email="+email);
+    },
+    async GetUsers(){
+        const response=await Axios.get("getUsers");
+        return response;
+    },
+    UpdateStatus(info){
+        return Axios.post("UpdateStatus",info);
+    },
+    getUserAuthentifie(){
+        return Axios.get("getUserAuthentifie");
     }
 }

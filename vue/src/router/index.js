@@ -22,6 +22,7 @@ import dashboardAdminView from "../views/Admin/DashboardView.vue"
 import testView from "../views/test/TestView.vue"
 import gereremploiView from "../views/chef_departement/gererEmploiView.vue"
 import EditProfilView from "../views/etudiant/EditProfilView.vue"
+import ChatInboxView from "../views/etudiant/ChatInboxView.vue"
 
 
 Vue.use(VueRouter)
@@ -152,6 +153,11 @@ const routes = [{
         component: () =>
             import ( /* webpackChunkName: "about" */ '../views/AboutView.vue')
     },
+    {
+        path: "/etudiant/chat/:id",
+        name: "chatInbox",
+        component: ChatInboxView,
+      }
 
 ]
 

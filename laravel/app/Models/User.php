@@ -76,4 +76,12 @@ class User extends Authenticatable
     public function seance(){
         return $this->hasMany(Seance::class,'seances');
     }
+
+    public function forums(){
+        return $this->hasMany(Forum::class);
+    }
+
+    public function inboxes(){
+        return $this->hasMany(Inboxe::class);
+    }
 }

@@ -3,6 +3,7 @@ package app.project.entities;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -24,6 +26,8 @@ import org.hibernate.annotations.ColumnDefault;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -52,7 +56,7 @@ public class User implements Serializable {
 	private String Photo;
 	private String Cin;
 	private String sex;
-	private Date Birth_day;
+	private LocalDate Birth_day;
 	@ColumnDefault(value = "false")
 	private Boolean welcome_field;
 	@ColumnDefault(value = "null")
@@ -74,7 +78,7 @@ public class User implements Serializable {
 	private Date email_verified_at;
 	
 	
-	@ManyToOne
+	@ManyToOne( fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
 	@JoinColumn(name="idclasse")
 	private classe classe;
 	
@@ -84,5 +88,9 @@ public class User implements Serializable {
 	inverseJoinColumns = @JoinColumn(name="role_id"))
 	private List<Role> role;
 	
+	  /*@ManyToMany(mappedBy = "user")
+
+	  private List<Document> document;*/
+
 }
 

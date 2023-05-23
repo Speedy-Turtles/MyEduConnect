@@ -19,6 +19,6 @@ public class EmbedeId implements Serializable {
   
   @Column(name="role_id")
   Long RoleId;
-  
+ 
 }
 

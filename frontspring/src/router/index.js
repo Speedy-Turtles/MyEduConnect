@@ -6,15 +6,25 @@ import login from '../views/Auth/LoginView'
 import SignUp from '../views/Auth/SignUpView'
 import forgotPasswordView from "../views/Auth/ForgotPassword/forgotPasswordView.vue";
 import ChangerPassword from "../views/Auth/ForgotPassword/ChangerPasswordView.vue"
+import dashboradAdminView from "../views/Admin/dashboradAdminView.vue"
+
 
 import HomeEtudiantView from '../views/etudiantView/HomeEtudiantView.vue'
 import DocumentView from '../views/etudiantView/DocumentView.vue'
 import ForumView from '../views/etudiantView/ForumView.vue'
+import EditProfilView from "../views/etudiantView/EditProfilView.vue"
 
+import chat from "../components/etudiant/forum/chat.vue"
 
 Vue.use(VueRouter)
 
 const routes = [
+  
+  {
+    path: '/chat:id',
+    name: 'chat',
+    component: chat
+  },
   {
     path: '/',
     name: 'home',
@@ -34,6 +44,11 @@ const routes = [
     path: '/forgotPasswordView',
     name: 'forgotPasswordView',
     component: forgotPasswordView
+  },
+  {
+    path: '/dashboradAdminView',
+    name: 'dashboradAdminView',
+    component: dashboradAdminView
   },
   {
     path: '/ChangerPassword',
@@ -63,6 +78,11 @@ const routes = [
     name: 'forum',
     component: ForumView
   },
+  {
+    path: '/etudiant/EditProfilView',
+    name: 'EditProfilView',
+    component: EditProfilView
+},
 ]
 
 const router = new VueRouter({

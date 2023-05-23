@@ -27,13 +27,7 @@ Navbar,Home,Footer,NouveauteCard,ModifierProfil
 data(){
 return{
    
-    links:[
-            {titre:null,link:'home',route:'',desc:'Home',icon:'mdi-home'},
-            {titre:'Document',link:'document',route:'',desc:'Check Documents',icon:'mdi-table-edit'},
-            {titre:'Forum',link:'forum',route:'',desc:'Go to Forum',icon:'mdi-comment-text-outline'},
-            {titre:'Club',link:'club',route:'',desc:'Enjoy Clubs',icon:'mdi-star-outline'},
-            {titre:'Help',link:'help',route:'',desc:'How Can We help You !',icon:'mdi-wrench'}
-        ],
+  
 messages:10,
 }
 },
