@@ -1,4 +1,3 @@
-
 <template>
     <div class="mt-5 py-5 ">
             <div class="content justify-content-center">
@@ -115,7 +114,7 @@ export default defineComponent({
           center: ['50%', '60%'],
           data: [
             { value:0, name: 'Man' },
-            { value:0, name: 'Women' },
+            { value:0, name: 'Woman' },
           ],
           emphasis: {
             itemStyle: {

@@ -112,7 +112,15 @@
       </v-btn>
     </template>
   </v-snackbar>
-        <div v-if="session==''">
+  <div v-if="loading_vote==false">
+     <div class="text-center" >
+      <v-progress-circular 
+      indeterminate
+      color="primary"
+    ></v-progress-circular>
+     </div>
+ </div>
+        <div v-else-if="session==''">
             <v-alert class="text-center"   border="top"
                 color="red lighten-2"
                 dark>
@@ -265,7 +273,7 @@
         <v-snackbar
         v-model="snackbar_delete"
       >
-        Vote Session Deleted
+       {{ message }}
         <template v-slot:action="{ attrs }">
           <v-btn
             color="pink"
@@ -277,6 +285,7 @@
           </v-btn>
         </template>
       </v-snackbar>
+
       </v-card>
     </div>
     </div>
@@ -317,6 +326,7 @@ export default{
             dialog:false,
             loading:false,
             loading_sus:false,
+            loading_vote:false,
             load_delete:false,
             CheckSession:false,
             snackbar:false,
@@ -324,6 +334,7 @@ export default{
             snackbar_delete:false,
             ListNominated:[],
             dialog_nominated:false,
+            message:'',
             session:[],
             voteTerminer:[],
             form:{
@@ -354,15 +365,20 @@ export default{
         service_admin.test_Vote().then((res)=>{
             this.CheckSession=res.data.status;
             this.session=res.data.data;
+            this.loading_vote=true;
          });
       },
         Terminer(id){
           this.loading_ter=true;
           service_vote.TermenierSession(id).then((res)=>{
-            this.loading_ter=false;
-            
+             this.loading_ter=false;
              this.allsession();
+             this.snackbar_delete=true;
+             this.message="Session Finished with success";
              this.GetTerminer();
+          }).catch((error)=>{
+            this.snackbar_delete=true;
+            this.message=error.response.data.data;
           })
         },
         startNewVote(){
@@ -380,7 +396,10 @@ export default{
                   this.snackbar=true;
                   this.dialog=false;
                 }).catch((error)=>{
-                  console.log(error.response.data);
+                  this.snackbar_delete=true;
+                  this.dialog=false;
+                  this.loading=false;
+                  this.message=error.response.data.message;
                 })
         },
         count(id){
@@ -397,6 +416,8 @@ export default{
         },
         annuler(id){
           service_vote.annuler(id).then((res)=>{
+             this.snackbar_delete=true;
+             this.message="VoteSession Rejected";
              console.log(res.data);
           })
         },
@@ -405,6 +426,8 @@ export default{
           service_vote.deleteSession(id).then((res)=>{
              this.load_delete=false;
              this.snackbar_delete=true;
+             this.message=" Vote Session Deleted";
+             this.$router.go();
              this.allsession();
           })
         },
