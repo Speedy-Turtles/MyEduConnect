@@ -6,6 +6,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\RestPassword\ForgotPasswordController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\ChefDepartement\emploichefController;
+use App\Http\Controllers\chefDepartement\HomeController;
 use App\Http\Controllers\Document\ChefDepartementDocument;
 use App\Http\Controllers\Document\DemandesController;
 use App\Http\Controllers\GestionClasseController;
@@ -14,12 +16,14 @@ use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\Document\EmploiController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\EditProfil\EditController;
+use App\Http\Controllers\MatiereController;
 use App\Http\Controllers\Forum\ForumController;
 use App\Http\Controllers\nouveauteController;
 use App\Http\Controllers\pdf\GenratePdfController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\proffesors\usersEtudiantContoroller;
 use App\Http\Controllers\proffesors\UsersProffesorsController;
+use App\Http\Controllers\SalleController;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -194,3 +198,10 @@ Route::group(['prefix'=>'/proffesors/students'],function(){
 });
 Route::get("/classes",[GestionClasseController::class,'getAllClasses']);
 
+Route::group(['prefix'=>"emploiChef/"],function(){
+    Route::get("getemploi",[emploichefController::class,"getEmploi"]);
+    Route::post("storeemploi",[emploichefController::class,'StoreSeance']);
+});
+Route::get("/matiere",[MatiereController::class,'getAllMatiere']);
+Route::get("/salle",[SalleController::class,'getAllSalles']);
+Route::get("/chefDep",[HomeController::class,'getStats']);

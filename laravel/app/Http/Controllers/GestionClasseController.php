@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classe;
+use App\Models\Emploi;
 use Illuminate\Http\Request;
 
 class GestionClasseController extends Controller
@@ -16,11 +17,12 @@ class GestionClasseController extends Controller
         return response()->json(["data"=>$classes],200);
     }
     public function AddClasse(Request $request){
-
+        $emploi=Emploi::create([]);
+        $emploi->save();
         $classe=Classe::create([
             "nom"=>$request->nom,
             "specialite_id"=>$request->specialite_id,
-            "emploi_id"=>null,
+            "emploi_id"=>$emploi->id,
         ]);
         $classe->save();
         if($classe==null){

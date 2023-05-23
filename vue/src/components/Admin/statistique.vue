@@ -28,8 +28,8 @@
             </div>
             </div>
                 <div class="card row mt-5">
-                     <v-chart  class="chart col-lg-6 col-sm-12 col-xs-12"  :option="option"  autoresize/>
-                     <v-chart class="chart col-lg-6 col-sm-12 col-xs-12" :option="option_two"  autoresize/>
+                      <v-chart  class="chart col-lg-6 col-sm-12 col-xs-12"  :option="option"  autoresize/>
+                      <v-chart class="chart col-lg-6 col-sm-12 col-xs-12" :option="option_two"  autoresize/>
               </div> 
     </div>
 </template>
@@ -71,7 +71,7 @@ export default defineComponent({
                 {icon:"mdi-account-tie",nbr:0,titre:"Nombre of Ensignat"},
                 // {icon:"mdi-account-cog",nbr:0,titre:"Nombre of Chef Departement"},
             ],
-     option_two :{
+      option_two :{
         title: {
           text: 'Static Etudiant'
         },
@@ -80,10 +80,9 @@ export default defineComponent({
           data: ['Etudiant']
         },
         xAxis: {
-             data: ['Accpted', 'refused', 'En cours']
+            data: ['Accpted', 'refused', 'En cours']
         },
         yAxis: {
-           
         },
         series: [
           {
@@ -125,12 +124,12 @@ export default defineComponent({
             },
           },
         },
-         ],
+        ],
       }
         }
     },
     provide: {
-         [THEME_KEY]: 'dark',
+            [THEME_KEY]: 'dark',
     },
   methods:{
     getStatique(){
