@@ -1,4 +1,5 @@
-<template><Bar
+<template>
+  <Bar
     id="my-chart-id"
     :options="chartOptions"
     :data="chartData"
@@ -21,7 +22,8 @@ export default {
         datasets: [ { 
             label: 'nombre des etudiants',
             backgroundColor: '#525fe1',
-            data: [40, 20, 12] } ],
+            data: [40, 20, 12] 
+          } ],
       },
       chartOptions: {
         responsive: true

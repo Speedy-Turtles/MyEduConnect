@@ -1,7 +1,7 @@
 <template>
     <div class="club">
             <Navbar></Navbar>
-            <div class="main mt-5">
+            <div class="main mt-5 py-5">
                <vote></vote>
             </div>
             <Footer></Footer>

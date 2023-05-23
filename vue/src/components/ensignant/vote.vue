@@ -138,6 +138,22 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
+            <v-snackbar
+            color="green"
+            v-model="snackbar"
+          >
+            {{ message }}
+            <template v-slot:action="{ attrs }">
+              <v-btn
+                color="#E84C03"
+                text
+                v-bind="attrs"
+                @click="snackbar = false"
+              >
+                Fermer
+              </v-btn>
+            </template>
+          </v-snackbar>
     </div>
 </template>
 <script>
@@ -179,6 +195,8 @@ export default{
         return{
             loading_vote:false,
             CheckSession:false,
+            snackbar:false,
+            message:'',
             UserNominated:[],
             loader:false,
             UserVoted:[],
@@ -228,6 +246,8 @@ export default{
             this.votedLoading=true;
             service_vote.AddUserNominated_Session({idsession:id}).then((res)=>{
                 this.votedLoading=false;
+                this.snackbar=true;
+                this.message="You nominated with done with success";
                 this.allSession();
             })
         },
