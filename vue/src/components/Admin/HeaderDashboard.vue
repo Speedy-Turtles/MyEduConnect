@@ -210,6 +210,12 @@ import gererNotifEtud from "@/service/NotifEtudiant/gererNotifEtud"
 import {AuthUser} from "@/store/Store.js";
 import {CurentView} from "@/store/StoreView.js";
 export default {
+   mounted(){
+    window.Echo.channel('NotifRealtime').listen('notif',(e)=>{
+            this.getNotifs();
+            this.getNotifsNotSeen();
+      })
+   },
   created(){
             this.getNotifs();
             this.getNotifsNotSeen();
