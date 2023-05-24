@@ -84,4 +84,9 @@ class User extends Authenticatable
     public function inboxes(){
         return $this->hasMany(Inboxe::class);
     }
+
+    public function Suggestions(){
+        return $this->belongsToMany(Suggestion::class);
+    }
+
 }
