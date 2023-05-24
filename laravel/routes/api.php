@@ -108,8 +108,9 @@ Route::middleware("auth:sanctum")->group(function(){
 
     Route::group(["prefix"=>"/suggestion"],function(){
         Route::get('/getAllSuggestion',[SuggestionController::class,'index']);
+        Route::delete('/delete_all_sugg',[SuggestionController::class,'delete_all_sugg']);
         Route::post('/StoreSugg',[SuggestionController::class,'store']);
-        Route::delete('/delete/{id}',[SuggestionController::class,'destroy']);
+        Route::delete('/deleteSugg/{id}',[SuggestionController::class,'delete']);
     });
 
     Route::get('getUserAuthentifie',[InfoUserController::class,"getUserAuthentifie"]);
