@@ -86,8 +86,10 @@
                         <!-- -------------------card/------------------------ -->
                 </v-flex>
             </v-layout>
+        
             <!-- --------------------------------------section-3/------------------------->
         </v-container>
+           
         <div class="text-center" v-if="snackbar">
             <v-snackbar
             v-model="snackbar"
@@ -111,6 +113,7 @@
    
 </template>
 <script>
+
 import {AuthUser} from "@/store/Store.js";
 import userinfo from "@/service/UserInfo/userinfo";
 import admin from "@/service/admin/gererAdmin";
@@ -124,6 +127,7 @@ export default {
         const store=AuthUser();
         return{store}
       },
+    
 data(){
     return{
         p1:' This platform is designed to facilitate communication and collaboration among students, thereby creating a sense of community and fostering academic success. In addition, Myeduconnect offers a wide range of resources and tools that are specifically tailored to the needs of college students, such as study guides, course materials, and career advice. ',
@@ -133,6 +137,8 @@ data(){
         classe_current:"",
         spec:"",
         niveau:0,
+        snackbar_add:false,
+        message:'',
         fonctions:[
             {titre:'Document',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/document.png')},
             {titre:'Forums',desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sunt.',avatar:require('../../../../public/etudiant/images/forum2.png')},
@@ -166,6 +172,7 @@ methods:{
             }, 1000);
         }
     },
+
     getStats(){
         admin.getStat().then((res)=>{
             this.stats=res.data.data;
@@ -183,7 +190,8 @@ created(){
     this.greeting();
     this.getStats();
 
-}
+},
+
 }
 </script>
 <style scoped>
