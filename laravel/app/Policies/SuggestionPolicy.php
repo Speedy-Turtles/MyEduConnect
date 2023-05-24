@@ -40,6 +40,7 @@ class SuggestionPolicy
         return $user->roles->contains("Role_name","Admin");
     }
 
+
     /**
      * Determine whether the user can delete the model.
      */
