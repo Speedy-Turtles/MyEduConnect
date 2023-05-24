@@ -19,6 +19,12 @@
                      <span  :class=" small ? 'none_btn_open_close_sidebar' : ''" class="nav-item">vote</span>
                  </a>
               </li>
+              <li>
+                <a @click="changerView('Suggestion')" href="#" :class="store.view=='Suggestion' ? 'active' : ''">
+                   <v-icon  class="icon" >mdi-comment-question</v-icon>
+                   <span  :class=" small ? 'none_btn_open_close_sidebar' : ''" class="nav-item">Suggestion</span>
+               </a>
+            </li>
           <li class="btn_open_close"  :class="etatsidbar==true ? 'close' : '' ">
                 <v-btn :class=" small ? 'none_btn_open_close_sidebar' : ''"    fab  @click="changer()">
                      <v-icon style="color:#5094df" v-if="etatsidbar" class="px-1">mdi-arrow-right-bold</v-icon>
