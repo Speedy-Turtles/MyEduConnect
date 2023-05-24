@@ -20,6 +20,9 @@
                     <div  v-else-if="store.view=='edit'">
                     <modifierProfil></modifierProfil>
                   </div>
+                  <div  v-else-if="store.view=='Suggestion'">
+                    <suggestionVue></suggestionVue>
+                  </div>
                 </div>
             </div>
         </transition>
@@ -35,6 +38,7 @@ import modifierProfil from "@/components/EditProfil/ModifierProfil.vue";
 import Vote from '@/components/Admin/Vote.vue';
 import {CurentView} from "@/store/StoreView.js";
 import {AuthUser} from "@/store/Store.js";
+import suggestionVue from '../../components/Admin/suggestion.vue';
 export default{
   created(){
     this.greeting();
@@ -90,7 +94,7 @@ export default{
       }
     },
     components:{
-       sidebarVue,HeaderDashboard,statistique,Vote,modifierProfil
+       sidebarVue,HeaderDashboard,statistique,Vote,modifierProfil,suggestionVue
     },
  
 };

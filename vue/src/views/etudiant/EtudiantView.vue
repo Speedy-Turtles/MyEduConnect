@@ -7,7 +7,8 @@
                 </nav>
                 <main>
                     <Home :photos="photos"></Home>
-                    <NouveauteCard />
+                    <NouveauteCard  />
+                    <sugg class="mb-5 py-2"></sugg>
                 </main>
                 <footer >
                     <Footer></Footer>
@@ -15,6 +16,7 @@
             </div>
 </template>
 <script>
+import sugg from '@/components/etudiant/suggestion/sugg.vue'
 import Navbar from '@/components/etudiant/layout/Navbar.vue'
 import Home from '@/components/etudiant/home/Home.vue'
 import Footer from '@/components/etudiant/layout/Footer.vue'
@@ -22,7 +24,7 @@ import NouveauteCard from '@/components/etudiant/home/NouveauteCard.vue'
 
 export default {
     components:{
-        Navbar,Home,Footer,NouveauteCard,
+        Navbar,Home,Footer,NouveauteCard,sugg
     },
     data(){
         return{

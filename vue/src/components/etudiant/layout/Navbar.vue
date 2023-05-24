@@ -281,7 +281,6 @@ import gererNotifEtud from "@/service/NotifEtudiant/gererNotifEtud"
                     {titre:'home',link:'home',desc:'Home',icon:'mdi-home',route:'/etudiant'},
                     {titre:'Forum',link:'forum',desc:'Go to Forum',icon:'mdi-comment-text-outline',route:'/etudiant/forum'},
                     {titre:'vote',link:'vote',desc:'chose your chef',icon:' mdi-vote',route:'/etudiant/vote'},
-                    {titre:'Help',link:'help',desc:'How Can We help You !',icon:'mdi-wrench',route:'/etudiant/help'}
                 ],
                 messages:10,
                 test_ischef:false,
