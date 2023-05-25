@@ -10,6 +10,9 @@ export default{
   TestExistcode(code){
     return axios.get("auth/testExistToken/"+code);
   },
+  TestExistCin(cin){
+    return axios.get("auth/testExistCin/"+cin);
+  },
   GetNiveau(){
    return axios.get("/getNiveau");
   },

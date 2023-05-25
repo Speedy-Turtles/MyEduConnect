@@ -322,7 +322,14 @@ export default{
                 required,
                 numeric,
                 minlength:minLength(8),
-                maxLength:maxLength(8)
+                maxLength:maxLength(8),
+                async exist(val){
+                    if(val==""){
+                        return true;
+                    }
+                    const response=await service_info.TestExistCin(val);
+                    return !response.data.success;
+                }
              },
              num_tlf:{
                 required,
@@ -372,7 +379,6 @@ export default{
                         return true;
                     }
                     const response=await service_info.TestExistEmail(val);
-                    console.log(response)
                     return response.data.success;
                 }
              },
@@ -528,6 +534,7 @@ export default{
             !this.$v.form.cin.numeric && error.push("Cin must be integer");
             !this.$v.form.cin.minlength && error.push("Please enter Cin with a minimum of 8 numbers");
             !this.$v.form.cin.maxLength && error.push("Please enter Cin with a maximum of 8 numbers");
+            !this.$v.form.cin.exist && error.push("Cin Already used");
             return error;
         },
         tlf_error(){

@@ -95,7 +95,6 @@ class VoteController extends Controller
     }
 
     public function AddVote(Request $request){
-
         $vote=new Votes();
         $vote->user_id=$request->user()->id;
         $vote->vote_session_id=$request->session_id;

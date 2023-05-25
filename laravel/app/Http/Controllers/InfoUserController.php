@@ -26,6 +26,21 @@ class InfoUserController extends Controller
         }
     }
 
+    public function testExistCin(String $Cin){
+        $user=User::where("Cin",$Cin)->first();
+        if($user){
+            return response()->json([
+                "data"=>"Exist",
+                "success"=>true
+            ],201);
+        }else{
+            return response()->json([
+                "data"=>"not Exist",
+                "success"=>false
+            ]);
+        }
+    }
+
     public function testExistToken(String $token){
         $user=User::where("password_token",$token)->first();
         if($user){

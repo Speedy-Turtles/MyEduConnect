@@ -55,6 +55,7 @@ Route::group(["prefix"=>"/auth"],function(){
     Route::post("/forgotPassword/{email}",[ForgotPasswordController::class,'ForgotPassword']);
     Route::post("/ChangerPassword",[ForgotPasswordController::class,'ChangerPassword']);
     Route::get("/Existmail/{email}",[InfoUserController::class,'testExistEmail']);
+    Route::get("/testExistCin/{Cin}",[InfoUserController::class,'testExistCin']);
     Route::get("/testExistToken/{code}",[InfoUserController::class,'testExistToken']);
 });
 
