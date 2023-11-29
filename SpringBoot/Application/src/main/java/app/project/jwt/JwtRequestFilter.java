@@ -35,7 +35,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		String username=null;
 		String jwtToken=null;
 		
-		 if(requestTokenHeader!=null && requestTokenHeader.startsWith("beare")) {
+		 if(requestTokenHeader!=null && requestTokenHeader.startsWith("Bearer")) {
 			//when i start read token in 7 because  JWT Token is in the form "Bearer token". Remove Bearer word and get only the Token
 			  jwtToken=requestTokenHeader.substring(7);
 			  try {
